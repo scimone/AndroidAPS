@@ -2,6 +2,8 @@ package info.nightscout.androidaps.plugins.general.overview.dialogs;
 
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.DialogFragment;
@@ -24,6 +26,7 @@ import info.nightscout.androidaps.logging.L;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.general.overview.events.EventDismissBolusprogressIfRunning;
 import info.nightscout.androidaps.plugins.general.overview.events.EventOverviewBolusProgress;
+import info.nightscout.androidaps.plugins.general.overview.dialogs.BolusProgressHelperActivity;
 
 public class BolusProgressDialog extends DialogFragment implements View.OnClickListener {
     private static Logger log = LoggerFactory.getLogger(L.UI);
@@ -47,7 +50,7 @@ public class BolusProgressDialog extends DialogFragment implements View.OnClickL
         bolusEnded = false;
     }
 
-    public void setHelperActivity(BolusProgressHelperActivity activity) {
+    public void setHelperActivity(info.nightscout.androidaps.plugins.general.overview.dialogs.BolusProgressHelperActivity activity) {
         this.helperActivity = activity;
     }
 
@@ -60,6 +63,7 @@ public class BolusProgressDialog extends DialogFragment implements View.OnClickL
         statusView = view.findViewById(R.id.overview_bolusprogress_status);
         stopPressedView = view.findViewById(R.id.overview_bolusprogress_stoppressed);
         progressBar = view.findViewById(R.id.overview_bolusprogress_progressbar);
+        progressBar.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#3A7EFF")));
         stopButton.setOnClickListener(this);
         progressBar.setMax(100);
         statusView.setText(MainApp.gs(R.string.waitingforpump));

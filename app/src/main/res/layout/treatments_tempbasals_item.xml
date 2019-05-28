@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    card_view:cardBackgroundColor="?android:colorBackground">
+    card_view:cardBackgroundColor="@null">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/common_background"
         android:orientation="vertical">
 
         <LinearLayout
@@ -80,7 +81,7 @@
             <TextView
                 android:id="@+id/tempbasals_realduration_label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="top"
                 android:paddingLeft="10dp"
                 android:paddingRight="5dp"
@@ -90,7 +91,7 @@
             <TextView
                 android:id="@+id/tempbasals_realduration"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:paddingRight="10dp"
                 android:text="10 min"
@@ -101,16 +102,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top"
-                android:paddingRight="5dp"
+                android:paddingRight="4dp"
                 android:text="@string/tempbasals_netratio_label_string"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
                 android:id="@+id/tempbasals_netratio"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:paddingRight="10dp"
+                android:paddingRight="4dp"
                 android:text="0.05 U/h"
                 android:textStyle="bold" />
 
@@ -126,9 +127,9 @@
             <TextView
                 android:id="@+id/tempbasals_netinsulin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:paddingRight="10dp"
+                android:paddingRight="4dp"
                 android:text="0.05 U"
                 android:textStyle="bold" />
 
@@ -143,7 +144,7 @@
                 android:id="@+id/pump_sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="8dp"
                 android:text="PH"
                 android:textColor="@color/colorSetTempButton" />
 
@@ -151,7 +152,7 @@
                 android:id="@+id/ns_sign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="8dp"
                 android:text="NS"
                 android:textColor="@color/colorSetTempButton" />
 

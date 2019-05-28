@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    card_view:cardBackgroundColor="?android:colorBackground">
+    card_view:cardBackgroundColor="@null">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/common_background"
         android:orientation="vertical">
 
         <LinearLayout
@@ -39,7 +40,8 @@
                 android:id="@+id/extendedboluses_insulin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
+                android:layout_gravity="top"
+                android:paddingStart="5dp"
                 android:text="150%"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -47,7 +49,8 @@
                 android:id="@+id/extendedboluses_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
+                android:layout_gravity="top"
+                android:paddingStart="5dp"
                 android:text="30 min"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 

@@ -30,6 +30,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.graphics.drawable.Drawable;
 
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_navigation, R.string.close_navigation);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
         actionBarDrawerToggle.syncState();
 
         // initialize screen wake lock
@@ -215,6 +217,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupViews(boolean switchToLast) {
         TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(), this);
         NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        navigationView.getBackground().setAlpha(200);
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             return true;
         });

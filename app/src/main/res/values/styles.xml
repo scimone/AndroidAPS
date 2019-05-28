@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -10,6 +10,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="colorBackgroundFloating">
+            @color/dialogbackground</item>
+        <item name="android:colorBackgroundFloating" tools:targetApi="23">
+            @color/dialogbackground</item>
     </style>
 
     <style name="AppTheme.base" parent="Theme.AppCompat.NoActionBar">
@@ -34,5 +39,13 @@
 
     <style name="ButtonSmallFontStyle">
         <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="TextViewStyleDark" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/textcolor_dark</item>
+    </style>
+
+    <style name="TextViewStyleBright" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/textcolor_bright</item>
     </style>
 </resources>

@@ -204,10 +204,10 @@ public class NSDeviceStatus {
             level = Levels.WARN;
 
         string.append("<span style=\"color:");
-        if (level == Levels.INFO) string.append("white\">");
-        if (level == Levels.WARN) string.append("yellow\">");
-        if (level == Levels.URGENT) string.append("red\">");
-
+       // if (level == Levels.INFO) string.append("white\">");
+       // if (level == Levels.WARN) string.append("yellow\">");
+       // if (level == Levels.URGENT) string.append("red\">");
+        string.append("white\">");
         String fields = NSSettingsStatus.getInstance().pumpExtentendedSettingsFields();
 
         if (fields.contains("reservoir")) {

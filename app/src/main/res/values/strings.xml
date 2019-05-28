@@ -716,6 +716,7 @@
     <string name="combopump_shortname" translatable="false">COMBO</string>
     <string name="ns_localbroadcasts">Enable broadcasts to other apps (like xDrip).</string>
     <string name="ns_localbroadcasts_title">Enable local Broadcasts.</string>
+    <string name="careportal_age_label">AGE</string>
     <string name="careportal_activity_label">ACTIVITY &amp; FEEDBACK</string>
     <string name="careportal_carbsandbolus_label">CARBS &amp; BOLUS</string>
     <string name="careportal_cgm_label">CGM &amp; OPENAPS</string>

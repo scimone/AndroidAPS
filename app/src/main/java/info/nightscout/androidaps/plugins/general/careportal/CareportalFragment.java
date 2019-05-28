@@ -229,8 +229,8 @@ public class CareportalFragment extends SubscriberFragment implements View.OnCli
                         double sageWarn = nsSettings.getExtendedWarnValue("sage", "warn", 164);
                         handleAge(sage, CareportalEvent.SENSORCHANGE, sageWarn, sageUrgent);
 
-                        double pbageUrgent = nsSettings.getExtendedWarnValue("bage", "urgent", 360);
-                        double pbageWarn = nsSettings.getExtendedWarnValue("bage", "warn", 240);
+                        double pbageUrgent = nsSettings.getExtendedWarnValue("bage", "urgent", 600); //25 days
+                        double pbageWarn = nsSettings.getExtendedWarnValue("bage", "warn", 480);  //20 days
                         handleAge(pbage, CareportalEvent.PUMPBATTERYCHANGE, pbageWarn, pbageUrgent);
                     }
             );

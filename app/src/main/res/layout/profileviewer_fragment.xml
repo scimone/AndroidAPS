@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@null"
     tools:context=".plugins.profile.ns.NSProfileFragment">
 
     <ScrollView
@@ -45,7 +46,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:paddingRight="5dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="8dp"
                     android:text="@string/careportal_newnstreatment_profile_label"
                     android:textSize="14sp" />
 
@@ -66,6 +68,7 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:paddingLeft="5dp"
+                    android:paddingTop="8dp"
                     android:textColor="@android:color/white"
                     android:textSize="14sp" />
 
@@ -139,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:paddingRight="5dp"
+                    android:paddingRight="8dp"
                     android:text="@string/nsprofileview_units_label"
                     android:textSize="14sp" />
 
@@ -184,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:paddingRight="5dp"
+                    android:paddingRight="8dp"
                     android:text="@string/nsprofileview_dia_label"
                     android:textSize="14sp" />
 
@@ -229,7 +232,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:paddingRight="5dp"
+                    android:paddingRight="8dp"
                     android:text="@string/nsprofileview_ic_label"
                     android:textSize="14sp" />
 
@@ -274,7 +277,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:paddingRight="5dp"
+                    android:paddingRight="8dp"
                     android:text="@string/nsprofileview_isf_label"
                     android:textSize="14sp" />
 
@@ -319,7 +322,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:paddingRight="5dp"
+                    android:paddingRight="8dp"
                     android:text="@string/nsprofileview_basal_label"
                     android:textSize="14sp" />
 
@@ -384,8 +387,8 @@
             <info.nightscout.androidaps.plugins.treatments.fragments.ProfileGraph
                 android:id="@+id/basal_graph"
                 android:layout_width="match_parent"
-                android:layout_height="100dip"
-                android:layout_margin="20dp" />
+                android:layout_height="220dip"
+                android:layout_margin="6dp" />
 
             <View
                 android:layout_width="fill_parent"
@@ -406,7 +409,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:gravity="end"
-                    android:paddingRight="5dp"
+                    android:paddingRight="8dp"
                     android:text="@string/nsprofileview_target_label"
                     android:textSize="14sp" />
 
