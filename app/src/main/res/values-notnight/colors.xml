@@ -11,7 +11,7 @@
     <color name="ratio">#FFFFFF</color>
     <color name="devslopepos">#FFFFFF00</color>
     <color name="devslopeneg">#FFFF00FF</color>
-    <color name="inrange">#BCC6C8</color>
+    <color name="inrange">#000000</color>
     <color name="low">#FF0000</color>
     <color name="high">#FFFF00</color>
     <color name="actionsConfirm">#FFFF00</color>
@@ -19,7 +19,7 @@
     <color name="tabBgColor">#f0003f59</color>
     <color name="tabBgColorSelected">#5F7BA6</color>
     <color name="deviations">#FF0000</color>
-    <color name="inrangebackground">#10FFFFFF</color>
+    <color name="inrangebackground">#59FFFFFF</color>
     <color name="basebasal">#3D15FF</color>
     <color name="tempbasal">#C803A9F4</color>
     <color name="graphgrid">#757575</color>

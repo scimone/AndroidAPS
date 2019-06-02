@@ -11,7 +11,7 @@
     <color name="ratio">#FFFFFF</color>
     <color name="devslopepos">#FFFFFF00</color>
     <color name="devslopeneg">#FFFF00FF</color>
-    <color name="inrange">#BCC6C8</color>
+    <color name="inrange">#FFFFFF</color>
     <color name="low">#FF0000</color>
     <color name="high">#FFFF00</color>
     <color name="actionsConfirm">#FFFF00</color>
@@ -72,7 +72,7 @@
     <color name="ribbonTextWarning">#303030</color>
     <color name="ribbonTextCritical">#FFFFFF</color>
 
-    <color name="inrange_bg">#A4ECEA</color>
+    <color name="inrange_bg">#B3FFFD</color>
     <color name="textcolor_bright">#FFFFFF</color>
     <color name="textcolor_dark">#000000</color>
 
