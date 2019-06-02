@@ -4,7 +4,6 @@
     android:gravity="center_horizontal"
     android:orientation="horizontal"
     android:paddingTop="5dp"
-    android:background="@drawable/background"
     android:textAppearance="?android:attr/textAppearanceSmall">
 
     <Spinner

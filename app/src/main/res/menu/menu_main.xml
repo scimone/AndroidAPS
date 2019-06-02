@@ -1,7 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary"
     tools:context=".MainActivity">
     <item
         android:id="@+id/nav_preferences"
@@ -15,6 +14,10 @@
         android:id="@+id/nav_historybrowser"
         app:showAsAction="never"
         android:title="@string/nav_historybrowser" />
+    <item
+        android:id="@+id/nav_themeselector"
+        app:showAsAction="never"
+        android:title="@string/nav_themeselector" />
     <item
         android:id="@+id/nav_setupwizard"
         app:showAsAction="never"

@@ -63,7 +63,7 @@ public class BolusProgressDialog extends DialogFragment implements View.OnClickL
         statusView = view.findViewById(R.id.overview_bolusprogress_status);
         stopPressedView = view.findViewById(R.id.overview_bolusprogress_stoppressed);
         progressBar = view.findViewById(R.id.overview_bolusprogress_progressbar);
-        progressBar.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#3A7EFF")));
+        //progressBar.setProgressTintList(ColorStateList.valueOf(Color.parseColor("#3A7EFF")));
         stopButton.setOnClickListener(this);
         progressBar.setMax(100);
         statusView.setText(MainApp.gs(R.string.waitingforpump));

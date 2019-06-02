@@ -33,7 +33,6 @@
                 android:gravity="start"
                 android:paddingStart="1dp"
                 android:paddingEnd="2dp"
-                android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -70,7 +69,6 @@
                 android:gravity="start"
                 android:paddingStart="1dp"
                 android:paddingEnd="8dp"
-                android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -107,7 +105,6 @@
                 android:gravity="start"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
-                android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -144,7 +141,6 @@
                 android:gravity="start"
                 android:paddingStart="1dp"
                 android:paddingEnd="8dp"
-                android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>

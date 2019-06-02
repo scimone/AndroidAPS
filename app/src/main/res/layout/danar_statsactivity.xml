@@ -5,7 +5,6 @@
     android:layout_height="fill_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/background"
     tools:context=".plugins.pump.danaR.activities.DanaRHistoryActivity">
 
     <LinearLayout
@@ -34,7 +33,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:textColor="@color/mdtp_white"
                 android:background="@drawable/pillborder"
                 android:text="@string/danar_stats_tdd" />
 
@@ -64,7 +62,6 @@
                     <TextView
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/mdtp_white"
                         android:background="@drawable/pillborder"
                         android:gravity="center_horizontal"
                         android:text="@string/danar_stats_cumulative_tdd" />
@@ -94,7 +91,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:textColor="@color/mdtp_white"
                         android:background="@drawable/pillborder"
                         android:text="@string/danar_stats_expweight" />
 
@@ -131,7 +127,6 @@
                             android:layout_marginRight="10dp"
                             android:gravity="center_vertical|center_horizontal"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="@color/mdtp_white"
                             android:background="@drawable/pillborder"
                             android:id="@+id/danar_stats_editTotalBaseBasal" />
                     </LinearLayout>
@@ -156,7 +151,6 @@
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:gravity="center_vertical|center_horizontal"
                             android:layout_marginRight="10dp"
-                            android:textColor="@color/mdtp_white"
                             android:id="@+id/danar_stats_editTotalBaseBasal2" />
 
                     </LinearLayout>
@@ -204,9 +198,9 @@
 
             <Button
                 android:id="@+id/danar_statsreload"
+                style="@style/Buton.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/action_button"
                 android:text="@string/danar_historyreload" />
 
         </LinearLayout>

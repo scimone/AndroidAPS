@@ -241,8 +241,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             shorttextmode = true;
         } else if (smallHeight || landscape) {
             view = inflater.inflate(R.layout.overview_fragment_smallheight, container, false);
+            shorttextmode = true;
         } else {
             view = inflater.inflate(R.layout.overview_fragment, container, false);
+            shorttextmode = true;
         }
 
         timeView = (TextView) view.findViewById(R.id.overview_time);
@@ -256,7 +258,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         timeAgoShortView = (TextView) view.findViewById(R.id.overview_timeagoshort);
         deltaView = (TextView) view.findViewById(R.id.overview_delta);
         deltaShortView = (TextView) view.findViewById(R.id.overview_deltashort);
-        // avgdeltaView = (TextView) view.findViewById(R.id.overview_avgdelta);
         baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
         extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
         activeProfileView = (TextView) view.findViewById(R.id.overview_activeprofile);
@@ -269,7 +270,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         pumpStatusLayout = (LinearLayout) view.findViewById(R.id.overview_pumpstatuslayout);
 
         pumpStatusView.setBackgroundColor(MainApp.gc(R.color.colorInitializingBorder));
-        pumpStatusView.setTextColor(R.color.colorInitializingBorderText);
+        pumpStatusView.setTextColor(getResources().getColor(R.color.colorInitializingBorderText) );
         iobView = (TextView) view.findViewById(R.id.overview_iob);
         cobView = (TextView) view.findViewById(R.id.overview_cob);
         apsModeView = (TextView) view.findViewById(R.id.overview_apsmode);
@@ -280,11 +281,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         sage = (TextView) view.findViewById(R.id.careportal_sensorage);
         pbage = (TextView) view.findViewById(R.id.careportal_pbage);
 
-        //iageView = (TextView) view.findViewById(R.id.overview_insulinage);
-        //cageView = (TextView) view.findViewById(R.id.overview_canulaage);
-        //reservoirView = (TextView) view.findViewById(R.id.overview_reservoirlevel);
-        //sageView = (TextView) view.findViewById(R.id.overview_sensorage);
-        //batteryView = (TextView) view.findViewById(R.id.overview_batterylevel);
         statuslightsLayout = (LinearLayout) view.findViewById(R.id.overview_statuslights);
 
         bgGraph = (GraphView) view.findViewById(R.id.overview_bggraph);
@@ -346,16 +342,12 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         else
             axisWidth = 80;
 
-        bgGraph.getGridLabelRenderer().setHorizontalLabelsColor(MainApp.gc(R.color.mdtp_red));
         bgGraph.getGridLabelRenderer().reloadStyles();
-        bgGraph.getGridLabelRenderer().setVerticalLabelsColor(MainApp.gc(R.color.mdtp_red));
         bgGraph.getGridLabelRenderer().reloadStyles();
         bgGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
         bgGraph.getGridLabelRenderer().reloadStyles();
 
-        iobGraph.getGridLabelRenderer().setHorizontalLabelsColor(MainApp.gc(R.color.mdtp_red));
         iobGraph.getGridLabelRenderer().reloadStyles();
-        iobGraph.getGridLabelRenderer().setVerticalLabelsColor(MainApp.gc(R.color.mdtp_red));
         iobGraph.getGridLabelRenderer().reloadStyles();
         iobGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
         iobGraph.getGridLabelRenderer().reloadStyles();
@@ -1262,10 +1254,11 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         String basalText = "";
         if (shorttextmode) {
             if (activeTemp != null) {
-                basalText = "T: " + activeTemp.toStringVeryShort();
+                basalText = activeTemp.percentRate + "% " + activeTemp.toDuration() + " " + DecimalFormatter.to2Decimal(profile.getBasal()) + "U/h";
             } else {
                 basalText = DecimalFormatter.to2Decimal(profile.getBasal()) + "U/h";
             }
+
             baseBasalView.setOnClickListener(v -> {
                 String fullText = MainApp.gs(R.string.pump_basebasalrate_label) + ": " + DecimalFormatter.to2Decimal(profile.getBasal()) + "U/h\n";
                 if (activeTemp != null) {
@@ -1284,12 +1277,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 basalText += "(" + DecimalFormatter.to2Decimal(pump.getBaseBasalRate()) + "U/h)";
             }
         }
-        //if (activeTemp != null) {
-        //    baseBasalView.setTextColor(MainApp.gc(R.color.basal));
-        //} else {
-            baseBasalView.setTextColor(Color.WHITE);
-
-        //}
 
         baseBasalView.setText(basalText);
 

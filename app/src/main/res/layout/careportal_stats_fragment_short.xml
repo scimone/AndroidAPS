@@ -28,11 +28,10 @@
                 android:text=":"
                 android:textSize="14sp" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/careportal_sensorage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -63,11 +62,10 @@
                 android:text=":"
                 android:textSize="14sp" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/careportal_insulinage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -98,11 +96,10 @@
                 android:text=":"
                 android:textSize="14sp" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/careportal_canulaage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -133,11 +130,10 @@
                 android:text=":"
                 android:textSize="14sp" />
 
-            <TextView
+            <ImageView
                 android:id="@+id/careportal_pbage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
         </LinearLayout>

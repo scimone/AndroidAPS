@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@drawable/background"
     tools:context=".plugins.pump.danaR.activities.DanaRUserOptionsActivity">
 
 
@@ -393,7 +392,7 @@
 
                 <Button
                     android:id="@+id/save_user_options"
-                    android:background="@drawable/action_button"
+                    style="@style/Buton.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"

@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context=".plugins.general.actions.ActionsFragment">
 
     <ScrollView
@@ -20,8 +19,7 @@
 
             <info.nightscout.androidaps.utils.SingleClickButton
                 android:id="@+id/actions_profileswitch"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -35,8 +33,7 @@
 
             <info.nightscout.androidaps.utils.SingleClickButton
                 android:id="@+id/actions_temptarget"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -49,8 +46,7 @@
 
             <info.nightscout.androidaps.utils.SingleClickButton
                 android:id="@+id/actions_settempbasal"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -63,8 +59,7 @@
 
             <info.nightscout.androidaps.utils.SingleClickButton
                 android:id="@+id/actions_canceltempbasal"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -77,8 +72,7 @@
 
             <info.nightscout.androidaps.utils.SingleClickButton
                 android:id="@+id/actions_extendedbolus"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -91,8 +85,7 @@
 
             <info.nightscout.androidaps.utils.SingleClickButton
                 android:id="@+id/actions_extendedbolus_cancel"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -105,8 +98,7 @@
 
             <info.nightscout.androidaps.utils.SingleClickButton
                 android:id="@+id/actions_fill"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -119,8 +111,7 @@
 
             <info.nightscout.androidaps.utils.SingleClickButton
                 android:id="@+id/actions_historybrowser"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -133,8 +124,7 @@
 
             <info.nightscout.androidaps.utils.SingleClickButton
                 android:id="@+id/actions_tddstats"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"

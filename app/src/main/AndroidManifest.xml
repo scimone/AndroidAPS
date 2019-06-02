@@ -34,7 +34,7 @@
         android:label="@string/app_name"
         android:roundIcon="${appIconRound}"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.gms.car.application"
             android:resource="@xml/automotive_app_desc" />
@@ -53,6 +53,7 @@
             android:name=".plugins.general.overview.dialogs.ErrorHelperActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".activities.AgreementActivity" />
+        <activity android:name=".plugins.general.themeselector.ScrollingActivity" />
         <activity android:name=".plugins.pump.danaR.activities.DanaRHistoryActivity" />
         <activity android:name=".plugins.pump.danaR.activities.DanaRUserOptionsActivity" />
         <activity android:name=".activities.TDDStatsActivity" />

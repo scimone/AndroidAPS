@@ -327,6 +327,10 @@ public class TemporaryBasal implements Interval {
                 '}';
     }
 
+    public String toDuration() {
+        return "(" + getRealDuration() + "/" + durationInMinutes + "')";
+    }
+
     public String toStringFull() {
         if (isFakeExtended) {
 

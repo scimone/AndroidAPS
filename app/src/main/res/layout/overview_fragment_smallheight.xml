@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context=".plugins.general.overview.OverviewFragment">
 
     <RelativeLayout
@@ -213,7 +212,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="14dp"
                                 android:text=""
-                                android:textColor="@android:color/white"
                                 android:textSize="14sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
@@ -243,7 +241,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:text=""
-                                android:textColor="@android:color/white"
                                 android:textSize="14sp"
                                 android:textStyle="bold"/>
 
@@ -275,7 +272,6 @@
                                 android:layout_marginStart="22dp"
                                 android:text=""
                                 android:textSize="14sp"
-                                android:textColor="@android:color/white"
                                 android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
@@ -357,7 +353,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="12dp"
                                     android:text="0.50U/h @17:35 1/30min - 0.40U/h"
-                                    android:textColor="@android:color/white"
                                     android:textSize="12sp" />
 
                             </LinearLayout>
@@ -383,7 +378,6 @@
                                     android:paddingStart="20dp"
                                     android:paddingEnd="2dp"
                                     android:text=""
-                                    android:textColor="@android:color/white"
                                     android:textSize="14sp" />
 
                             </LinearLayout>
@@ -409,7 +403,6 @@
                                     android:paddingStart="20dp"
                                     android:paddingEnd="2dp"
                                     android:text=""
-                                    android:textColor="@android:color/white"
                                     android:textSize="14sp" />
 
                             </LinearLayout>

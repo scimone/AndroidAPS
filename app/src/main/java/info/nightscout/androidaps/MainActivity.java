@@ -1,5 +1,6 @@
 package info.nightscout.androidaps;
 
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
@@ -54,6 +56,8 @@ import info.nightscout.androidaps.logging.L;
 import info.nightscout.androidaps.plugins.aps.loop.LoopPlugin;
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
+import info.nightscout.androidaps.plugins.general.themeselector.ScrollingActivity;
+import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 import info.nightscout.androidaps.plugins.general.versionChecker.VersionCheckerUtilsKt;
 import info.nightscout.androidaps.setupwizard.SetupWizardActivity;
 import info.nightscout.androidaps.tabs.TabPageAdapter;
@@ -64,6 +68,8 @@ import info.nightscout.androidaps.utils.OKDialog;
 import info.nightscout.androidaps.utils.PasswordProtection;
 import info.nightscout.androidaps.utils.SP;
 
+import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_BLUEGRAY;
+
 public class MainActivity extends AppCompatActivity {
     private static Logger log = LoggerFactory.getLogger(L.CORE);
 
@@ -73,9 +79,40 @@ public class MainActivity extends AppCompatActivity {
 
     private MenuItem pluginPreferencesMenuItem;
 
+    public static int mTheme = THEME_BLUEGRAY;
+    public static boolean mIsNightMode = true;
+
+    public void changeTheme(int newTheme){
+        mTheme = newTheme;
+        SP.putInt("theme", mTheme);
+        if(mIsNightMode){
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        setTheme(mTheme);
+        recreate();
+        TaskStackBuilder.create(this)
+                .addNextIntent(new Intent(this, MainActivity.class))
+                .addNextIntent(this.getIntent())
+                .startActivities();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        int newtheme = SP.getInt("theme", THEME_BLUEGRAY);
+        mTheme = newtheme;
+        boolean newMode = SP.getBoolean("daynight", mIsNightMode);
+        mIsNightMode = newMode;
+
+        if(newMode){
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        setTheme(ThemeUtil.getThemeId(newtheme));
 
         if (L.isEnabled(L.CORE))
             log.debug("onCreate");
@@ -217,8 +254,6 @@ public class MainActivity extends AppCompatActivity {
     private void setupViews(boolean switchToLast) {
         TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(), this);
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        navigationView.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        navigationView.getBackground().setAlpha(200);
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             return true;
         });
@@ -383,6 +418,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.nav_historybrowser:
                 startActivity(new Intent(this, HistoryBrowseActivity.class));
+                return true;
+            case R.id.nav_themeselector:
+                startActivity(new Intent(this, ScrollingActivity.class));
                 return true;
             case R.id.nav_setupwizard:
                 startActivity(new Intent(this, SetupWizardActivity.class));

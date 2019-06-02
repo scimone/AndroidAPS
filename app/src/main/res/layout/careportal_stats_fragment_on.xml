@@ -11,7 +11,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:background="?android:attr/colorControlHighlight"
             android:layout_height="22dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:orientation="horizontal">
 
             <TextView
@@ -20,8 +25,8 @@
                 android:layout_weight="0"
                 android:drawableStart="@drawable/icon_cp_age_sensor"
                 android:gravity="center_vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="1dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="0dp"
                 android:textSize="14sp"
                 android:text=""/>
 
@@ -31,9 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:paddingStart="1dp"
+                android:paddingStart="0dp"
                 android:paddingEnd="2dp"
-                android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
             <TextView
@@ -42,8 +46,8 @@
                 android:layout_weight="0"
                 android:drawableStart="@drawable/icon_cp_age_insulin"
                 android:gravity="center_vertical"
-                android:paddingStart="0dp"
-                android:paddingEnd="3dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="0dp"
                 android:textSize="14sp" />
 
             <TextView
@@ -52,26 +56,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:paddingStart="2dp"
+                android:paddingStart="0dp"
                 android:paddingEnd="8dp"
-                android:textColor="@android:color/white"
                 android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/listdelimiter" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="22dp"
-            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="65dp"
@@ -79,8 +66,8 @@
                 android:layout_weight="0"
                 android:drawableStart="@drawable/icon_cp_age_canula"
                 android:gravity="center_vertical"
-                android:paddingStart="14dp"
-                android:paddingEnd="1dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="0dp"
                 android:textSize="14sp" />
 
             <TextView
@@ -89,9 +76,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:paddingStart="1dp"
+                android:paddingStart="0dp"
                 android:paddingEnd="1dp"
-                android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
             <TextView
@@ -100,8 +86,8 @@
                 android:layout_weight="0"
                 android:drawableStart="@drawable/icon_cp_age_battery"
                 android:gravity="center_vertical"
-                android:paddingStart="1dp"
-                android:paddingEnd="1dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="0dp"
                 android:textSize="14sp" />
 
             <TextView
@@ -110,9 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start"
-                android:paddingStart="1dp"
-                android:paddingEnd="8dp"
-                android:textColor="@android:color/white"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
                 android:textSize="14sp" />
 
         </LinearLayout>
@@ -121,11 +106,10 @@
             android:layout_width="fill_parent"
             android:layout_height="2dip"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
             android:layout_marginTop="5dp"
             android:background="@color/listdelimiter" />
 
     </LinearLayout>
-
 </FrameLayout>

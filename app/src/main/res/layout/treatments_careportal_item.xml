@@ -4,13 +4,11 @@
     android:id="@+id/careportal_cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    card_view:cardBackgroundColor="@null">
+    android:layout_gravity="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/common_background"
         android:orientation="vertical">
 
         <LinearLayout

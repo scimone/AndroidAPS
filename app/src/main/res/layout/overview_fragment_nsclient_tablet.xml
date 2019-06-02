@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context=".plugins.general.overview.OverviewFragment">
 
     <RelativeLayout
@@ -42,13 +41,13 @@
                         android:id="@+id/overview_apsmode"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal"
-                        android:paddingBottom="3dp"
-                        android:paddingTop="3dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:text="Open Loop"
-
+                        android:background="@drawable/rounded_corner"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
@@ -56,27 +55,29 @@
                         android:id="@+id/overview_activeprofile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginRight="5dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal"
-                        android:paddingBottom="3dp"
-                        android:paddingTop="3dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:text="Profile"
+                        android:shape="rectangle"
+                        android:background="@drawable/rounded_corner"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                     <TextView
                         android:id="@+id/overview_temptarget"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
+                        android:layout_gravity="end"
                         android:layout_weight="1"
                         android:gravity="center_vertical|center_horizontal"
-                        android:paddingBottom="3dp"
-                        android:paddingTop="3dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:text="TempTarget"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/mdtp_white" />
+                        android:background="@drawable/rounded_corner"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </LinearLayout>
 
@@ -218,7 +219,6 @@
                                     android:orientation="horizontal"
                                     android:paddingLeft="5dp"
                                     android:text="0.50U/h @17:35 1/30min - 0.40U/h"
-                                    android:textColor="@android:color/white"
                                     android:textSize="14sp" />
 
                             </LinearLayout>
@@ -266,7 +266,6 @@
                                     android:orientation="horizontal"
                                     android:paddingLeft="5dp"
                                     android:text="0.50U/h @17:35 1/30min"
-                                    android:textColor="@android:color/white"
                                     android:textSize="14sp" />
 
                             </LinearLayout>
@@ -314,7 +313,6 @@
                                     android:orientation="horizontal"
                                     android:paddingLeft="5dp"
                                     android:text=""
-                                    android:textColor="@android:color/white"
                                     android:textSize="14sp" />
 
                             </LinearLayout>
@@ -361,7 +359,6 @@
                                     android:orientation="horizontal"
                                     android:paddingLeft="5dp"
                                     android:text=""
-                                    android:textColor="@android:color/white"
                                     android:textSize="14sp" />
 
                             </LinearLayout>
@@ -413,7 +410,6 @@
                                 android:orientation="horizontal"
                                 android:paddingLeft="20dp"
                                 android:text=""
-                                android:textColor="@android:color/white"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -442,7 +438,6 @@
                                 android:orientation="horizontal"
                                 android:paddingLeft="20dp"
                                 android:text=""
-                                android:textColor="@android:color/white"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -470,7 +465,6 @@
                                 android:orientation="horizontal"
                                 android:paddingLeft="20dp"
                                 android:text=""
-                                android:textColor="@android:color/white"
                                 android:textSize="14sp" />
 
                         </LinearLayout>
@@ -562,7 +556,7 @@
                     android:layout_marginEnd="4dp"
                     app:fabCustomSize="64dp"
                     android:src="@drawable/button_insulincarbs"
-                    app:rippleColor="@color/colorPrimaryDark"
+                    app:rippleColor="?attr/rippleColor"
                     android:visibility="gone"/>
 
                 <Space
@@ -581,7 +575,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     app:fabCustomSize="64dp"
-                    app:rippleColor="@color/colorPrimaryDark"
+                    app:rippleColor="?attr/rippleColor"
                     android:src="@drawable/button_insulin"
                     android:visibility="gone"/>
 
@@ -601,7 +595,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     app:fabCustomSize="64dp"
-                    app:rippleColor="@color/colorPrimaryDark"
+                    app:rippleColor="?attr/rippleColor"
                     android:src="@drawable/button_carbs"
                     android:visibility="gone"/>
 
@@ -622,7 +616,7 @@
                     android:layout_marginEnd="4dp"
                     app:fabCustomSize="64dp"
                     android:src="@drawable/button_wizzard"
-                    app:rippleColor="@color/colorPrimaryDark"
+                    app:rippleColor="?attr/rippleColor"
                     android:visibility="gone"/>
 
                 <Space

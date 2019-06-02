@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     tools:context=".plugins.general.overview.OverviewFragment">
 
     <RelativeLayout
@@ -149,7 +148,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_marginTop="0dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="10dp"
                             android:orientation="vertical">
 
                             <TextView
@@ -171,16 +171,14 @@
                                 android:paddingStart="2dp"
                                 android:layout_weight="0.5"
                                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
                         </LinearLayout>
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="6dp"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -235,11 +233,40 @@
                                 android:id="@+id/overview_cob"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
+                                android:layout_marginStart="8dp"
                                 android:text=""
                                 android:textSize="18sp"
                                 android:textStyle="bold"/>
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="1dp"
+                                android:text="@string/basal_short"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="5dp"
+                                android:layout_height="wrap_content"
+                                android:text=":"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/overview_basebasal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="0.50U/h @17:35 1/30min - 0.40U/h"
+                                android:textSize="18sp"
+                                android:textStyle="bold"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -265,10 +292,10 @@
                                 android:id="@+id/overview_sensitivity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
+                                android:layout_marginStart="20dp"
                                 android:text=""
                                 android:textSize="18sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -296,6 +323,12 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
                     <include layout="@layout/careportal_stats_fragment_on" />
 
                 </LinearLayout>
@@ -316,53 +349,6 @@
                         android:baselineAligned="false"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="34dp"
-                                android:layout_weight="1"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="20dp"
-                                    android:layout_marginEnd="1dp"
-                                    android:text="@string/basal_short"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:layout_width="5dp"
-                                    android:layout_height="wrap_content"
-                                    android:text=":"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:id="@+id/overview_basebasal"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="12dp"
-                                    android:text="0.50U/h @17:35 1/30min - 0.40U/h"
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dip"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginEnd="0dp"
-                                android:layout_marginBottom="2dp"
-                                android:background="@color/listdelimiter" />
-
-                        </LinearLayout>
-
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -378,8 +364,8 @@
                                 <TextView
                                     android:id="@+id/overview_pump"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="34dp"
-                                    android:paddingStart="4dp"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="14dp"
                                     android:paddingEnd="2dp"
                                     android:text=""
                                     android:textSize="14sp" />
@@ -389,9 +375,9 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="2dip"
-                                android:layout_marginStart="0dp"
+                                android:layout_marginStart="12dp"
                                 android:layout_marginTop="2dp"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginEnd="12dp"
                                 android:layout_marginBottom="2dp"
                                 android:background="@color/listdelimiter" />
 
@@ -405,7 +391,7 @@
                                     android:id="@+id/overview_openaps"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:paddingStart="4dp"
+                                    android:paddingStart="14dp"
                                     android:paddingEnd="2dp"
                                     android:text=""
                                     android:textSize="14sp" />
@@ -415,34 +401,9 @@
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="2dip"
-                                android:layout_marginStart="0dp"
+                                android:layout_marginStart="12dp"
                                 android:layout_marginTop="2dp"
-                                android:layout_marginEnd="20dp"
-                                android:layout_marginBottom="2dp"
-                                android:background="@color/listdelimiter" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:id="@+id/overview_uploader"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingStart="4dp"
-                                    android:paddingEnd="2dp"
-                                    android:text=""
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="2dip"
-                                android:layout_marginStart="2dp"
-                                android:layout_marginTop="2dp"
-                                android:layout_marginEnd="20dp"
+                                android:layout_marginEnd="12dp"
                                 android:layout_marginBottom="2dp"
                                 android:background="@color/listdelimiter" />
 
@@ -453,6 +414,8 @@
 
                 </com.google.android.flexbox.FlexboxLayout>
 
+            </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
@@ -460,6 +423,8 @@
 
                     <com.jjoe64.graphview.GraphView
                         android:id="@+id/overview_bggraph"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorCarbsButton"
@@ -488,6 +453,8 @@
                 <com.jjoe64.graphview.GraphView
                     android:id="@+id/overview_iobgraph"
                     android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_height="100dp"
                     android:background="@color/chart_background"
                     android:visibility="gone" />
@@ -498,8 +465,6 @@
 
         <LinearLayout
             android:id="@+id/overview_buttons"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -553,7 +518,7 @@
                     android:layout_marginEnd="4dp"
                     app:fabCustomSize="64dp"
                     android:src="@drawable/button_insulincarbs"
-                    app:rippleColor="@color/colorPrimaryDark"
+                    app:rippleColor="?android:attr/colorPrimaryDark"
                     android:visibility="gone"/>
 
                 <Space
@@ -572,7 +537,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     app:fabCustomSize="64dp"
-                    app:rippleColor="@color/colorPrimaryDark"
+                    app:rippleColor="?android:attr/colorPrimaryDark"
                     android:src="@drawable/button_insulin"
                     android:visibility="gone"/>
 
@@ -592,7 +557,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
                     app:fabCustomSize="64dp"
-                    app:rippleColor="@color/colorPrimaryDark"
+                    app:rippleColor="?android:attr/colorPrimaryDark"
                     android:src="@drawable/button_carbs"
                     android:visibility="gone"/>
 
@@ -613,7 +578,7 @@
                     android:layout_marginEnd="4dp"
                     app:fabCustomSize="64dp"
                     android:src="@drawable/button_wizzard"
-                    app:rippleColor="@color/colorPrimaryDark"
+                    app:rippleColor="?android:attr/colorPrimaryDark"
                     android:visibility="gone"/>
 
                 <Space
@@ -633,7 +598,7 @@
                     android:layout_marginEnd="4dp"
                     app:fabCustomSize="64dp"
                     android:src="@drawable/button_calibration"
-                        app:rippleColor="@color/colorPrimaryDark"
+                        app:rippleColor="?android:attr/colorPrimaryDark"
                     android:visibility="gone"/>
 
                 <Space

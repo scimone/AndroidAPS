@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#00000000"
     tools:context=".plugins.general.careportal.CareportalFragment">
 
 
@@ -58,7 +57,6 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:paddingLeft="5dp"
-                android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -105,7 +103,6 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:paddingLeft="5dp"
-                android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -152,7 +149,6 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:paddingLeft="5dp"
-                android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -199,7 +195,6 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:paddingLeft="5dp"
-                android:textColor="@android:color/white"
                 android:textSize="12sp" />
 
         </LinearLayout>

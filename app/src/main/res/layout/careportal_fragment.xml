@@ -4,7 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:paddingTop="5dp"
-    android:background="@drawable/background"
     tools:context=".plugins.general.careportal.CareportalFragment">
 
 
@@ -56,8 +55,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_pumpsitechange"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_pump_canula"
@@ -73,8 +71,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_insulincartridgechange"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_pump_cartridge"
@@ -90,8 +87,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_profileswitch"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_cgm_profile"
@@ -108,8 +104,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_pumpbatterychange"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_pump_battery"
@@ -140,8 +135,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_cgmsensorstart"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_cgm_start"
@@ -158,8 +152,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_cgmsensorinsert"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_cgm_insert"
@@ -176,8 +169,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_openapsoffline"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_aaps_offline"
@@ -194,8 +186,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_announcement"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_announcement"
@@ -211,8 +202,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_question"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_question"
@@ -228,8 +218,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_note"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_note"
@@ -259,8 +248,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_bgcheck"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0px"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_bgcheck"
@@ -276,8 +264,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_exercise"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_exercise"
@@ -293,8 +280,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_temporarytarget"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_cgm_target"
@@ -327,8 +313,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_snackbolus"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_bolus_snack"
@@ -344,8 +329,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_mealbolus"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_bolus_meal"
@@ -361,8 +345,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_correctionbolus"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_bolus_correction"
@@ -378,8 +361,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_carbscorrection"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_bolus_carbs"
@@ -395,8 +377,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_combobolus"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_bolus_correction"
@@ -412,8 +393,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_tempbasalstart"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_basal_start"
@@ -429,8 +409,7 @@
 
                     <info.nightscout.androidaps.utils.SingleClickButton
                         android:id="@+id/careportal_tempbasalend"
-                        style="@style/ButtonSmallFontStyle"
-                        android:background="@drawable/action_button"
+                        style="@style/Buton.Colored"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:drawableStart="@drawable/icon_cp_basal_end"

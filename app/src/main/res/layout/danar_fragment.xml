@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
     android:paddingTop="8dp"
     tools:context="info.nightscout.androidaps.plugins.PumpDanaR.DanaRFragment">
 
@@ -73,7 +72,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
 
@@ -114,13 +112,13 @@
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/danar_btconnection"
+                        android:background="@color/primaryColorGray"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
                         android:text="{fa-bluetooth-b}"
-                        android:textColor="@android:color/white"
                         android:textSize="20dp" />
 
 
@@ -168,6 +166,7 @@
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/danar_battery"
+                        android:background="@color/primaryColorGray"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -175,7 +174,6 @@
                         android:paddingLeft="5dp"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
-                        android:textColor="@android:color/white"
                         android:textSize="21sp" />
 
 
@@ -221,7 +219,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -266,7 +263,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -311,7 +307,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -356,7 +351,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -401,7 +395,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -446,7 +439,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -491,7 +483,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -536,7 +527,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -581,7 +571,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -626,7 +615,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -671,7 +659,6 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:paddingLeft="5dp"
-                        android:textColor="@android:color/white"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -703,8 +690,7 @@
 
                 <Button
                     android:id="@+id/danar_viewprofile"
-                    style="@style/ButtonSmallFontStyle"
-                    android:background="@drawable/action_button"
+                    style="@style/Buton.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -718,8 +704,7 @@
 
                 <Button
                     android:id="@+id/danar_history"
-                    style="@style/ButtonSmallFontStyle"
-                    android:background="@drawable/action_button"
+                    style="@style/Buton.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -732,8 +717,7 @@
 
                 <Button
                     android:id="@+id/danar_stats"
-                    style="@style/ButtonSmallFontStyle"
-                    android:background="@drawable/action_button"
+                    style="@style/Buton.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -746,8 +730,7 @@
 
                 <Button
                     android:id="@+id/danar_user_options"
-                    style="@style/ButtonSmallFontStyle"
-                    android:background="@drawable/action_button"
+                    style="@style/Buton.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

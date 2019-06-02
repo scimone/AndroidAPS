@@ -12,8 +12,7 @@
 
         <Button
             android:id="@+id/wear_resend"
-            style="?android:attr/buttonStyle"
-            android:background="@drawable/action_button"
+            style="@style/Buton.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
@@ -25,8 +24,7 @@
 
         <Button
             android:id="@+id/wear_opensettings"
-            style="?android:attr/buttonStyle"
-            android:background="@drawable/action_button"
+            style="@style/Buton.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
