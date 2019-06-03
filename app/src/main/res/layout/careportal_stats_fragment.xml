@@ -103,7 +103,7 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:paddingLeft="5dp"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -149,7 +149,7 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:paddingLeft="5dp"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -195,7 +195,7 @@
                 android:layout_weight="1"
                 android:gravity="start"
                 android:paddingLeft="5dp"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 

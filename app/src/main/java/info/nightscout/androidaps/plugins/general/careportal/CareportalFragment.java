@@ -2,6 +2,7 @@ package info.nightscout.androidaps.plugins.general.careportal;
 
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -237,13 +238,16 @@ public class CareportalFragment extends SubscriberFragment implements View.OnCli
         }
     }
 
-    public static int determineTextColor(CareportalEvent careportalEvent, double warnThreshold, double urgentThreshold) {
+    public static int determineTextColor( TextView view,CareportalEvent careportalEvent, double warnThreshold, double urgentThreshold) {
+        ColorStateList colorStateList = view.getTextColors();
+        final int normalColor = colorStateList.getDefaultColor();
+
         if (careportalEvent.isOlderThan(urgentThreshold)) {
             return MainApp.gc(R.color.low);
         } else if (careportalEvent.isOlderThan(warnThreshold)) {
             return MainApp.gc(R.color.high);
         } else {
-            return Color.WHITE;
+            return normalColor;
         }
 
     }
@@ -254,7 +258,7 @@ public class CareportalFragment extends SubscriberFragment implements View.OnCli
         if (age != null) {
             CareportalEvent careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(eventType);
             if (careportalEvent != null) {
-                age.setTextColor(CareportalFragment.determineTextColor(careportalEvent, warnThreshold, urgentThreshold));
+                age.setTextColor(CareportalFragment.determineTextColor(age, careportalEvent, warnThreshold, urgentThreshold));
                 age.setText(careportalEvent.age());
             } else {
                 age.setText(notavailable);
