@@ -136,34 +136,29 @@ public class TDDStatsActivity extends Activity {
         // stats table
         tl = (TableLayout) findViewById(R.id.main_table);
         TableRow tr_head = new TableRow(this);
-        tr_head.setBackgroundColor(Color.DKGRAY);
+        tr_head.setBackgroundColor(Color.GRAY);
         tr_head.setLayoutParams(new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.WRAP_CONTENT));
 
         TextView label_date = new TextView(this);
         label_date.setText(MainApp.gs(R.string.danar_stats_date));
-        label_date.setTextColor(Color.WHITE);
         tr_head.addView(label_date);
 
         TextView label_basalrate = new TextView(this);
         label_basalrate.setText(MainApp.gs(R.string.danar_stats_basalrate));
-        label_basalrate.setTextColor(Color.WHITE);
         tr_head.addView(label_basalrate);
 
         TextView label_bolus = new TextView(this);
         label_bolus.setText(MainApp.gs(R.string.danar_stats_bolus));
-        label_bolus.setTextColor(Color.WHITE);
         tr_head.addView(label_bolus);
 
         TextView label_tdd = new TextView(this);
         label_tdd.setText(MainApp.gs(R.string.danar_stats_tdd));
-        label_tdd.setTextColor(Color.WHITE);
         tr_head.addView(label_tdd);
 
         TextView label_ratio = new TextView(this);
         label_ratio.setText(MainApp.gs(R.string.danar_stats_ratio));
-        label_ratio.setTextColor(Color.WHITE);
         tr_head.addView(label_ratio);
 
         // add stats headers to tables
@@ -174,24 +169,21 @@ public class TDDStatsActivity extends Activity {
         // cumulative table
         ctl = (TableLayout) findViewById(R.id.cumulative_table);
         TableRow ctr_head = new TableRow(this);
-        ctr_head.setBackgroundColor(Color.DKGRAY);
+        ctr_head.setBackgroundColor(Color.GRAY);
         ctr_head.setLayoutParams(new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.WRAP_CONTENT));
 
         TextView label_cum_amount_days = new TextView(this);
         label_cum_amount_days.setText(MainApp.gs(R.string.danar_stats_amount_days));
-        label_cum_amount_days.setTextColor(Color.WHITE);
         ctr_head.addView(label_cum_amount_days);
 
         TextView label_cum_tdd = new TextView(this);
         label_cum_tdd.setText(MainApp.gs(R.string.danar_stats_tdd));
-        label_cum_tdd.setTextColor(Color.WHITE);
         ctr_head.addView(label_cum_tdd);
 
         TextView label_cum_ratio = new TextView(this);
         label_cum_ratio.setText(MainApp.gs(R.string.danar_stats_ratio));
-        label_cum_ratio.setTextColor(Color.WHITE);
         ctr_head.addView(label_cum_ratio);
 
         // add cummulative headers to tables
@@ -202,24 +194,21 @@ public class TDDStatsActivity extends Activity {
         // expontial table
         etl = (TableLayout) findViewById(R.id.expweight_table);
         TableRow etr_head = new TableRow(this);
-        etr_head.setBackgroundColor(Color.DKGRAY);
+        etr_head.setBackgroundColor(Color.GRAY);
         etr_head.setLayoutParams(new TableLayout.LayoutParams(
                 TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.WRAP_CONTENT));
 
         TextView label_exp_weight = new TextView(this);
         label_exp_weight.setText(MainApp.gs(R.string.danar_stats_weight));
-        label_exp_weight.setTextColor(Color.WHITE);
         etr_head.addView(label_exp_weight);
 
         TextView label_exp_tdd = new TextView(this);
         label_exp_tdd.setText(MainApp.gs(R.string.danar_stats_tdd));
-        label_exp_tdd.setTextColor(Color.WHITE);
         etr_head.addView(label_exp_tdd);
 
         TextView label_exp_ratio = new TextView(this);
         label_exp_ratio.setText(MainApp.gs(R.string.danar_stats_ratio));
-        label_exp_ratio.setTextColor(Color.WHITE);
         etr_head.addView(label_exp_ratio);
 
         // add expontial headers to tables
@@ -347,7 +336,7 @@ public class TDDStatsActivity extends Activity {
 
                     // Create the table row
                     TableRow tr = new TableRow(TDDStatsActivity.this);
-                    if (i % 2 != 0) tr.setBackgroundColor(Color.DKGRAY);
+                    if (i % 2 != 0) tr.setBackgroundColor(Color.GRAY);
                     if (dummies.contains(record)) {
                         tr.setBackgroundColor(Color.argb(125, 255, 0, 0));
                     }
@@ -360,31 +349,26 @@ public class TDDStatsActivity extends Activity {
                     TextView labelDATE = new TextView(TDDStatsActivity.this);
                     labelDATE.setId(200 + i);
                     labelDATE.setText(df.format(new Date(record.date)));
-                    labelDATE.setTextColor(Color.WHITE);
                     tr.addView(labelDATE);
 
                     TextView labelBASAL = new TextView(TDDStatsActivity.this);
                     labelBASAL.setId(300 + i);
                     labelBASAL.setText(DecimalFormatter.to2Decimal(record.basal) + " U");
-                    labelBASAL.setTextColor(Color.WHITE);
                     tr.addView(labelBASAL);
 
                     TextView labelBOLUS = new TextView(TDDStatsActivity.this);
                     labelBOLUS.setId(400 + i);
                     labelBOLUS.setText(DecimalFormatter.to2Decimal(record.bolus) + " U");
-                    labelBOLUS.setTextColor(Color.WHITE);
                     tr.addView(labelBOLUS);
 
                     TextView labelTDD = new TextView(TDDStatsActivity.this);
                     labelTDD.setId(500 + i);
                     labelTDD.setText(DecimalFormatter.to2Decimal(tdd) + " U");
-                    labelTDD.setTextColor(Color.WHITE);
                     tr.addView(labelTDD);
 
                     TextView labelRATIO = new TextView(TDDStatsActivity.this);
                     labelRATIO.setId(600 + i);
                     labelRATIO.setText(Math.round(100 * tdd / magicNumber) + " %");
-                    labelRATIO.setTextColor(Color.WHITE);
                     tr.addView(labelRATIO);
 
                     // add stats rows to tables
@@ -409,7 +393,7 @@ public class TDDStatsActivity extends Activity {
 
                     // Create the cumtable row
                     TableRow ctr = new TableRow(TDDStatsActivity.this);
-                    if (i % 2 == 0) ctr.setBackgroundColor(Color.DKGRAY);
+                    if (i % 2 == 0) ctr.setBackgroundColor(Color.GRAY);
                     ctr.setId(700 + i);
                     ctr.setLayoutParams(new TableLayout.LayoutParams(
                             TableLayout.LayoutParams.MATCH_PARENT,
@@ -419,19 +403,16 @@ public class TDDStatsActivity extends Activity {
                     TextView labelDAYS = new TextView(TDDStatsActivity.this);
                     labelDAYS.setId(800 + i);
                     labelDAYS.setText("" + i);
-                    labelDAYS.setTextColor(Color.WHITE);
                     ctr.addView(labelDAYS);
 
                     TextView labelCUMTDD = new TextView(TDDStatsActivity.this);
                     labelCUMTDD.setId(900 + i);
                     labelCUMTDD.setText(DecimalFormatter.to2Decimal(sum / i) + " U");
-                    labelCUMTDD.setTextColor(Color.WHITE);
                     ctr.addView(labelCUMTDD);
 
                     TextView labelCUMRATIO = new TextView(TDDStatsActivity.this);
                     labelCUMRATIO.setId(1000 + i);
                     labelCUMRATIO.setText(Math.round(100 * sum / i / magicNumber) + " %");
-                    labelCUMRATIO.setTextColor(Color.WHITE);
                     ctr.addView(labelCUMRATIO);
 
                     // add cummulative rows to tables
@@ -474,7 +455,7 @@ public class TDDStatsActivity extends Activity {
 
                 // Create the exptable row
                 TableRow etr = new TableRow(TDDStatsActivity.this);
-                if (i % 2 != 0) etr.setBackgroundColor(Color.DKGRAY);
+                if (i % 2 != 0) etr.setBackgroundColor(Color.GRAY);
                 etr.setId(1100 + i);
                 etr.setLayoutParams(new TableLayout.LayoutParams(
                         TableLayout.LayoutParams.MATCH_PARENT,
@@ -484,7 +465,6 @@ public class TDDStatsActivity extends Activity {
                 TextView labelWEIGHT = new TextView(TDDStatsActivity.this);
                 labelWEIGHT.setId(1200 + i);
                 labelWEIGHT.setText("0.3\n" + "0.5\n" + "0.7");
-                labelWEIGHT.setTextColor(Color.WHITE);
                 etr.addView(labelWEIGHT);
 
                 TextView labelEXPTDD = new TextView(TDDStatsActivity.this);
@@ -492,7 +472,6 @@ public class TDDStatsActivity extends Activity {
                 labelEXPTDD.setText(DecimalFormatter.to2Decimal(weighted03)
                         + " U\n" + DecimalFormatter.to2Decimal(weighted05)
                         + " U\n" + DecimalFormatter.to2Decimal(weighted07) + " U");
-                labelEXPTDD.setTextColor(Color.WHITE);
                 etr.addView(labelEXPTDD);
 
                 TextView labelEXPRATIO = new TextView(TDDStatsActivity.this);
@@ -500,7 +479,6 @@ public class TDDStatsActivity extends Activity {
                 labelEXPRATIO.setText(Math.round(100 * weighted03 / magicNumber) + " %\n"
                         + Math.round(100 * weighted05 / magicNumber) + " %\n"
                         + Math.round(100 * weighted07 / magicNumber) + " %");
-                labelEXPRATIO.setTextColor(Color.WHITE);
                 etr.addView(labelEXPRATIO);
 
                 // add exponentail rows to tables
