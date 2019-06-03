@@ -30,8 +30,7 @@
 
             <Button
                 android:id="@+id/careportal_removeandroidapsstartedevents"
-                style="?android:attr/buttonStyle"
-                android:background="@drawable/action_button"
+                style="@style/Buton.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
