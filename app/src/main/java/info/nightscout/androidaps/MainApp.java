@@ -96,7 +96,7 @@ import static info.nightscout.androidaps.plugins.general.versionChecker.VersionC
 public class MainApp extends Application {
 
     static {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     private static Logger log = LoggerFactory.getLogger(L.CORE);
@@ -130,7 +130,6 @@ public class MainApp extends Application {
         sResources = getResources();
         sConstraintsChecker = new ConstraintChecker();
         sDatabaseHelper = OpenHelperManager.getHelper(sInstance, DatabaseHelper.class);
-
         try {
             if (FabricPrivacy.fabricEnabled()) {
                 Fabric.with(this, new Crashlytics());
