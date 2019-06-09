@@ -278,7 +278,7 @@ public class CareportalFragment extends SubscriberFragment implements View.OnCli
         return age;
     }
 
-    private static void updatePumpSpecifics(TextView reservoirLevel, TextView batteryLevel) {
+    public static void updatePumpSpecifics(TextView reservoirLevel, TextView batteryLevel) {
         double batUrgent = SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
         double batWarn = SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
         double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 10.0);
@@ -291,7 +291,7 @@ public class CareportalFragment extends SubscriberFragment implements View.OnCli
                 String.valueOf(pump.getBatteryLevel()), batWarn, batUrgent);
     }
 
-    private static TextView updatePumpEntry(final TextView pumpEntry, final Number value,
+    public static TextView updatePumpEntry(final TextView pumpEntry, final Number value,
                                                     final String valueString, double warnThreshold, double urgentThreshold) {
         String notavailable = OverviewFragment.shorttextmode ? "-" : MainApp.gs(R.string.notavailable);
 
@@ -307,8 +307,6 @@ public class CareportalFragment extends SubscriberFragment implements View.OnCli
             }
 
             pumpEntry.setText(valueString);
-        } else {
-            pumpEntry.setText(notavailable);
         }
 
         return pumpEntry;

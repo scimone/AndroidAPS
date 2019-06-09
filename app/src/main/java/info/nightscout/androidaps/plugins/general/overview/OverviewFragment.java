@@ -8,6 +8,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -169,6 +170,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     TextView sage;
     TextView pbage;
 
+    TextView pbLevel;
+    TextView prLevel;
+
     TextView iageView;
     TextView cageView;
     TextView reservoirView;
@@ -280,6 +284,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         cage = (TextView) view.findViewById(R.id.careportal_canulaage);
         sage = (TextView) view.findViewById(R.id.careportal_sensorage);
         pbage = (TextView) view.findViewById(R.id.careportal_pbage);
+
+        pbLevel = view.findViewById(R.id.careportal_pbLevel);
+        prLevel = view.findViewById(R.id.careportal_prLevel);
 
         statuslightsLayout = (LinearLayout) view.findViewById(R.id.overview_statuslights);
 
@@ -1102,6 +1109,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         loopStatusLayout.setVisibility(View.VISIBLE);
 
         CareportalFragment.updateAge(getActivity(), sage, iage, cage, pbage);
+        CareportalFragment.updatePumpSpecifics(prLevel, pbLevel);
+
         BgReading actualBG = DatabaseHelper.actualBg();
         BgReading lastBG = DatabaseHelper.lastBg();
 
