@@ -69,6 +69,7 @@ import info.nightscout.androidaps.utils.PasswordProtection;
 import info.nightscout.androidaps.utils.SP;
 
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_BLUEGRAY;
+import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_DEEPORANGE;
 
 public class MainActivity extends AppCompatActivity {
     private static Logger log = LoggerFactory.getLogger(L.CORE);
@@ -79,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
     private MenuItem pluginPreferencesMenuItem;
 
-    public static int mTheme = THEME_BLUEGRAY;
-    public static boolean mIsNightMode = true;
+    public static int mTheme = THEME_DEEPORANGE;
+    public boolean mIsNightMode = true;
 
     public void changeTheme(int newTheme){
         mTheme = newTheme;
@@ -91,18 +92,17 @@ public class MainActivity extends AppCompatActivity {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         setTheme(mTheme);
-        recreate();
+
         TaskStackBuilder.create(this)
                 .addNextIntent(new Intent(this, MainActivity.class))
                 .addNextIntent(this.getIntent())
                 .startActivities();
+        recreate();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        int newtheme = SP.getInt("theme", THEME_BLUEGRAY);
+        int newtheme = SP.getInt("theme", THEME_DEEPORANGE);
         mTheme = newtheme;
         boolean newMode = SP.getBoolean("daynight", mIsNightMode);
         mIsNightMode = newMode;
@@ -113,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         setTheme(ThemeUtil.getThemeId(newtheme));
+
+        super.onCreate(savedInstanceState);
 
         if (L.isEnabled(L.CORE))
             log.debug("onCreate");
@@ -265,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
                 MenuItem menuItem = menu.add(p.getName());
                 menuItem.setCheckable(true);
                 menuItem.setOnMenuItemClickListener(item -> {
-                    Intent intent = new Intent(this, SingleFragmentActivity.class);
+                    Intent intent = new Intent(getBaseContext(), SingleFragmentActivity.class);
                     intent.putExtra("plugin", MainApp.getPluginsList().indexOf(p));
                     startActivity(intent);
                     ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawers();
