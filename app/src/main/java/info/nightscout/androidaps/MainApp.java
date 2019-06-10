@@ -96,7 +96,7 @@ import static info.nightscout.androidaps.plugins.general.versionChecker.VersionC
 public class MainApp extends Application {
 
     static {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
     private static Logger log = LoggerFactory.getLogger(L.CORE);

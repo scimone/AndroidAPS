@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.nightscout.androidaps.Constants;
+import info.nightscout.androidaps.MainActivity;
 import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.data.Profile;
@@ -43,7 +44,7 @@ import info.nightscout.androidaps.utils.DateUtil;
 import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.ToastUtils;
 
-public class DanaRHistoryActivity extends Activity {
+public class DanaRHistoryActivity extends MainActivity {
     private static Logger log = LoggerFactory.getLogger(L.PUMP);
 
     private Handler mHandler;
