@@ -44,7 +44,7 @@ import info.nightscout.androidaps.utils.DateUtil;
 import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.ToastUtils;
 
-public class DanaRHistoryActivity extends MainActivity {
+public class DanaRHistoryActivity extends Activity {
     private static Logger log = LoggerFactory.getLogger(L.PUMP);
 
     private Handler mHandler;

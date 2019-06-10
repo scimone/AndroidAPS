@@ -1,12 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <attr name="overviewPillColor" format="reference|color" />
+    <attr name="iconColor" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/primaryColorGray</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorGray</item>
         <item name="colorAccent">@color/secondaryColorGray</item>
         <item name="overviewPillColor">@color/overviewPillColorGray</item>
+        <item name="iconColor">@color/iconColor</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -14,9 +14,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:background="?android:attr/colorControlHighlight"
-            android:layout_height="22dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
+            android:layout_height="26dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
             android:orientation="horizontal">
@@ -27,7 +27,8 @@
                 android:src="@drawable/icon_cp_age_sensor"
                 android:gravity="center_vertical"
                 android:paddingStart="2dp"
-                android:paddingEnd="2dp"
+                android:paddingEnd="1dp"
+                android:tint="?attr/iconColor"
                 android:scaleType="centerInside"/>
 
             <TextView
@@ -35,8 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:paddingStart="2dp"
+                android:gravity="center_vertical"
+                android:paddingStart="1dp"
                 android:paddingEnd="2dp"
                 android:textSize="14sp" />
 
@@ -47,7 +48,8 @@
                 android:src="@drawable/icon_cp_age_insulin"
                 android:gravity="center_vertical"
                 android:paddingStart="2dp"
-                android:paddingEnd="2dp"
+                android:paddingEnd="1dp"
+                android:tint="?attr/iconColor"
                 android:scaleType="centerInside"/>
 
             <TextView
@@ -55,8 +57,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:paddingStart="2dp"
+                android:gravity="center_vertical"
+                android:paddingStart="1dp"
                 android:paddingEnd="2dp"
                 android:textSize="14sp" />
 
@@ -67,7 +69,8 @@
                 android:src="@drawable/icon_cp_age_canula"
                 android:gravity="center_vertical"
                 android:paddingStart="2dp"
-                android:paddingEnd="2dp"
+                android:paddingEnd="1dp"
+                android:tint="?attr/iconColor"
                 android:scaleType="centerInside"/>
 
             <TextView
@@ -75,8 +78,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:paddingStart="2dp"
+                android:gravity="center_vertical"
+                android:paddingStart="1dp"
                 android:paddingEnd="2dp"
                 android:textSize="14sp" />
 
@@ -87,7 +90,8 @@
                 android:src="@drawable/icon_cp_age_battery"
                 android:gravity="center_vertical"
                 android:paddingStart="2dp"
-                android:paddingEnd="2dp"
+                android:paddingEnd="1dp"
+                android:tint="?attr/iconColor"
                 android:scaleType="centerInside"/>
 
             <TextView
@@ -95,9 +99,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:paddingStart="2dp"
-                android:paddingEnd="2dp"
+                android:gravity="center_vertical"
+                android:paddingStart="1dp"
+                android:paddingEnd="1dp"
                 android:textSize="14sp" />
 
         </LinearLayout>
