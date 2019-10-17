@@ -16,13 +16,25 @@ import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.interfaces.PluginBase;
 import info.nightscout.androidaps.utils.PasswordProtection;
 
-public class SingleFragmentActivity extends MainActivity {
+import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
+
+public class SingleFragmentActivity extends AppCompatActivity {
 
     private PluginBase plugin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(MainActivity.mIsNightMode){
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        setTheme(MainActivity.mTheme);
+        super.setTheme(MainActivity.mTheme);
+
+
         setContentView(R.layout.activity_single_fragment);
 
         this.plugin = MainApp.getPluginsList().get(getIntent().getIntExtra("plugin", -1));

@@ -14,7 +14,7 @@
             android:layout_height="22dp"
             android:orientation="horizontal">
 
-            <TextView
+            <ImageView
                 android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0"
@@ -23,6 +23,7 @@
                 android:paddingStart="14dp"
                 android:paddingEnd="1dp"
                 android:textSize="12sp"
+                android:tint="?attr/iconColor"
                 android:text=""/>
 
             <TextView
@@ -51,7 +52,7 @@
             android:layout_height="22dp"
             android:orientation="horizontal">
 
-            <TextView
+            <ImageView
                 android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0"
@@ -59,7 +60,8 @@
                 android:gravity="center_vertical"
                 android:paddingStart="14dp"
                 android:paddingEnd="3dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:tint="?attr/iconColor"/>
 
             <TextView
                 android:id="@+id/careportal_prLevel"
@@ -87,7 +89,7 @@
             android:layout_height="22dp"
             android:orientation="horizontal">
 
-            <TextView
+            <ImageView
                 android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0"
@@ -95,7 +97,8 @@
                 android:gravity="center_vertical"
                 android:paddingStart="14dp"
                 android:paddingEnd="1dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:tint="?attr/iconColor"/>
 
             <TextView
                 android:id="@+id/careportal_canulaage"
@@ -123,7 +126,7 @@
                 android:layout_height="22dp"
                 android:orientation="horizontal">
 
-            <TextView
+            <ImageView
                 android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0"
@@ -131,7 +134,8 @@
                 android:gravity="center_vertical"
                 android:paddingStart="14dp"
                 android:paddingEnd="1dp"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:tint="?attr/iconColor"/>
 
             <TextView
                 android:id="@+id/careportal_pbLevel"

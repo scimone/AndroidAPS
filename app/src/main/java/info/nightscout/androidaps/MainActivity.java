@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.os.PowerManager;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -28,6 +30,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -35,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.graphics.drawable.Drawable;
 
+import com.crashlytics.android.Crashlytics;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.squareup.otto.Subscribe;
@@ -69,8 +73,6 @@ import info.nightscout.androidaps.utils.OKDialog;
 import info.nightscout.androidaps.utils.PasswordProtection;
 import info.nightscout.androidaps.utils.SP;
 
-import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_BLUEGRAY;
-import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_DEEPORANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
 public class MainActivity extends AppCompatActivity {
@@ -155,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                checkPluginPreferences(viewPager);
+                //checkPluginPreferences(viewPager);
             }
 
             @Override
@@ -285,23 +287,40 @@ public class MainActivity extends AppCompatActivity {
         mPager.setAdapter(pageAdapter);
         if (switchToLast)
             mPager.setCurrentItem(pageAdapter.getCount() - 1, false);
-        checkPluginPreferences(mPager);
+        //checkPluginPreferences(mPager);
+    }
+
+
+
+    /**
+     * We start the transaction with delay to avoid junk while closing the drawer
+     */
+    private void replaceFragmentWithDelay(@NonNull final Intent intent) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                       // .replace(R.id.main_activity_content_frame, intent.)
+                        .commit();
+            }
+        }, 250);
     }
 
     private void setupTabs() {
-        ViewPager viewPager = findViewById(R.id.pager);
-        TabLayout normalTabs = findViewById(R.id.tabs_normal);
-        normalTabs.setupWithViewPager(viewPager, true);
-        TabLayout compactTabs = findViewById(R.id.tabs_compact);
-        compactTabs.setupWithViewPager(viewPager, true);
+        //ViewPager viewPager = findViewById(R.id.pager);
+        //TabLayout normalTabs = findViewById(R.id.tabs_normal);
+        //normalTabs.setupWithViewPager(viewPager, true);
+        //TabLayout compactTabs = findViewById(R.id.tabs_compact);
+        //compactTabs.setupWithViewPager(viewPager, true);
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (SP.getBoolean("short_tabtitles", false)) {
-            normalTabs.setVisibility(View.GONE);
-            compactTabs.setVisibility(View.VISIBLE);
+            //normalTabs.setVisibility(View.GONE);
+            //compactTabs.setVisibility(View.VISIBLE);
             toolbar.setLayoutParams(new LinearLayout.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.compact_height)));
         } else {
-            normalTabs.setVisibility(View.VISIBLE);
-            compactTabs.setVisibility(View.GONE);
+            //normalTabs.setVisibility(View.VISIBLE);
+            //compactTabs.setVisibility(View.GONE);
             TypedValue typedValue = new TypedValue();
             if (getTheme().resolveAttribute(R.attr.actionBarSize, typedValue, true)) {
                 toolbar.setLayoutParams(new LinearLayout.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT,
@@ -409,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         pluginPreferencesMenuItem = menu.findItem(R.id.nav_plugin_preferences);
-        checkPluginPreferences(findViewById(R.id.pager));
+       // checkPluginPreferences(findViewById(R.id.pager));
         return true;
     }
 

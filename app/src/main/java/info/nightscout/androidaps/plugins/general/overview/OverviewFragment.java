@@ -154,21 +154,22 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     TextView avgdeltaView;
     TextView baseBasalView;
     TextView extendedBolusView;
-    TextView activeProfileView;
     TextView iobView;
     TextView cobView;
-    TextView apsModeView;
-    TextView tempTargetView;
     TextView pumpStatusView;
     TextView pumpDeviceStatusView;
     TextView openapsDeviceStatusView;
     TextView uploaderDeviceStatusView;
     TextView iobCalculationProgressView;
-    LinearLayout loopStatusLayout;
     LinearLayout pumpStatusLayout;
     GraphView bgGraph;
     GraphView iobGraph;
     ImageButton chartButton;
+
+    LinearLayout loopStatusLayout;
+    TextView activeProfileView;
+    TextView apsModeView;
+    TextView tempTargetView;
 
     TextView iage;
     TextView cage;
@@ -269,20 +270,20 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         deltaShortView = (TextView) view.findViewById(R.id.overview_deltashort);
         baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
         extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
-        activeProfileView = (TextView) view.findViewById(R.id.overview_activeprofile);
         pumpStatusView = (TextView) view.findViewById(R.id.overview_pumpstatus);
         pumpDeviceStatusView = (TextView) view.findViewById(R.id.overview_pump);
         openapsDeviceStatusView = (TextView) view.findViewById(R.id.overview_openaps);
         uploaderDeviceStatusView = (TextView) view.findViewById(R.id.overview_uploader);
         iobCalculationProgressView = (TextView) view.findViewById(R.id.overview_iobcalculationprogess);
-        loopStatusLayout = (LinearLayout) view.findViewById(R.id.overview_looplayout);
         pumpStatusLayout = (LinearLayout) view.findViewById(R.id.overview_pumpstatuslayout);
-
         pumpStatusView.setBackgroundColor(MainApp.gc(R.color.colorInitializingBorder));
         pumpStatusView.setTextColor(getResources().getColor(R.color.colorInitializingBorderText) );
         iobView = (TextView) view.findViewById(R.id.overview_iob);
         cobView = (TextView) view.findViewById(R.id.overview_cob);
+
+        loopStatusLayout = (LinearLayout) view.findViewById(R.id.overview_looplayout);
         apsModeView = (TextView) view.findViewById(R.id.overview_apsmode);
+        activeProfileView = (TextView) view.findViewById(R.id.overview_activeprofile);
         tempTargetView = (TextView) view.findViewById(R.id.overview_temptarget);
 
         iage = (TextView) view.findViewById(R.id.careportal_insulinage);

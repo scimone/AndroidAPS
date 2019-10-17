@@ -36,7 +36,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="5dp"
         android:maxHeight="5dp"
-        android:minHeight="3dp" />
+        android:minHeight="3dp"
+        android:progressTint="?android:attr/colorPrimary"/>
 
     <Button
         android:id="@+id/overview_bolusprogress_stop"

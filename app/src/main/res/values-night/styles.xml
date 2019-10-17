@@ -9,10 +9,11 @@
         <item name="colorAccent">@color/secondaryColorGray</item>
         <item name="overviewPillColor">@color/overviewPillColorGray</item>
         <item name="iconColor">@color/iconColor</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
+        <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
     </style>
 
@@ -205,6 +206,9 @@
     </style>
 
     <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/primaryColorGray</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorGray</item>
+        <item name="colorAccent">@color/secondaryColorGray</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
