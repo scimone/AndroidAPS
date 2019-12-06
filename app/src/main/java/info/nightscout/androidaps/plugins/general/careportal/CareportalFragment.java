@@ -5,14 +5,14 @@ import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.squareup.otto.Subscribe;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,15 +26,20 @@ import info.nightscout.androidaps.events.EventCareportalEventChange;
 import info.nightscout.androidaps.interfaces.PumpInterface;
 import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
 import info.nightscout.androidaps.plugins.common.SubscriberFragment;
+import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
+import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
 import info.nightscout.androidaps.plugins.general.overview.OverviewFragment;
 import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.FabricPrivacy;
 import info.nightscout.androidaps.utils.SP;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 
-public class CareportalFragment extends SubscriberFragment implements View.OnClickListener {
+public class CareportalFragment extends Fragment implements View.OnClickListener {
     private static Logger log = LoggerFactory.getLogger(CareportalFragment.class);
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     TextView iage;
     TextView cage;
@@ -117,17 +122,35 @@ public class CareportalFragment extends SubscriberFragment implements View.OnCli
                 noProfileView.setVisibility(View.GONE);
                 butonsLayout.setVisibility(View.VISIBLE);
             }
+       
 
-            if (Config.NSCLIENT)
-                statsLayout.setVisibility(View.GONE); // visible on overview
+   
 
-            updateGUI();
-            return view;
-        } catch (Exception e) {
-            FabricPrivacy.logException(e);
-        }
 
-        return null;
+
+
+
+        if (Config.NSCLIENT)
+            statsLayout.setVisibility(View.GONE); // visible on overview
+
+        return view;
+    }
+
+    @Override
+    public synchronized void onResume() {
+        super.onResume();
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventCareportalEventChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> updateGUI(), FabricPrivacy::logException)
+        );
+        updateGUI();
+    }
+
+    @Override
+    public synchronized void onPause() {
+        super.onPause();
+        disposable.clear();
     }
 
     @Override
@@ -207,12 +230,6 @@ public class CareportalFragment extends SubscriberFragment implements View.OnCli
             newDialog.show(manager, "NewNSTreatmentDialog");
     }
 
-    @Subscribe
-    public void onStatusEvent(final EventCareportalEventChange c) {
-        updateGUI();
-    }
-
-    @Override
     protected void updateGUI() {
         Activity activity = getActivity();
         updateAge(activity, sage, iage, cage, pbage);
@@ -263,13 +280,19 @@ public class CareportalFragment extends SubscriberFragment implements View.OnCli
     }
 
     private static TextView handleAge(final TextView age, String eventType, double warnThreshold, double urgentThreshold) {
-        String notavailable = OverviewFragment.shorttextmode ? "-" : MainApp.gs(R.string.notavailable);
+        return handleAge(age, "", eventType, warnThreshold, urgentThreshold, OverviewFragment.shorttextmode);
+    }
+
+    public static TextView handleAge(final TextView age, String prefix, String eventType, double warnThreshold, double urgentThreshold, boolean useShortText) {
+        String notavailable = useShortText ? "-" : MainApp.gs(R.string.notavailable);
 
         if (age != null) {
             CareportalEvent careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(eventType);
             if (careportalEvent != null) {
                 age.setTextColor(CareportalFragment.determineTextColor(age, careportalEvent, warnThreshold, urgentThreshold));
                 age.setText(careportalEvent.age());
+                //age.setTextColor(CareportalFragment.determineTextColor(careportalEvent, warnThreshold, urgentThreshold));
+                //age.setText(prefix + careportalEvent.age(useShortText));
             } else {
                 age.setText(notavailable);
             }

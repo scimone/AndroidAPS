@@ -68,7 +68,6 @@ public class NewNSTreatmentDialogTest {
         AAPSMocker.mockStrings();
         PowerMockito.mockStatic(NSUpload.class);
         AAPSMocker.mockTreatmentService();
-        AAPSMocker.mockBus();
         AAPSMocker.mockDatabaseHelper();
 
         NSProfilePlugin profilePlugin = NSProfilePlugin.getPlugin();
@@ -76,5 +75,8 @@ public class NewNSTreatmentDialogTest {
                 .thenReturn(profilePlugin);
 
         dialog = new NewNSTreatmentDialog();
+
+        PowerMockito.spy(System.class);
+        when(System.currentTimeMillis()).thenReturn(1000L);
     }
 }

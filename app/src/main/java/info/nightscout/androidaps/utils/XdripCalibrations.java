@@ -5,7 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public class XdripCalibrations {
         Context context = MainApp.instance().getApplicationContext();
         Bundle bundle = new Bundle();
         bundle.putDouble("glucose_number", bg);
-        bundle.putString("units", ProfileFunctions.getInstance().getProfileUnits().equals(Constants.MGDL) ? "mgdl" : "mmol");
+        bundle.putString("units", ProfileFunctions.getSystemUnits().equals(Constants.MGDL) ? "mgdl" : "mmol");
         bundle.putLong("timestamp", System.currentTimeMillis());
         Intent intent = new Intent(Intents.ACTION_REMOTE_CALIBRATION);
         intent.putExtras(bundle);

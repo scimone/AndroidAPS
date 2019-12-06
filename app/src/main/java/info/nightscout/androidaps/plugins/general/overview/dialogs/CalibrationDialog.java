@@ -3,7 +3,7 @@ package info.nightscout.androidaps.plugins.general.overview.dialogs;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,15 +60,15 @@ public class CalibrationDialog extends DialogFragment implements View.OnClickLis
         view.findViewById(R.id.ok).setOnClickListener(this);
         view.findViewById(R.id.cancel).setOnClickListener(this);
 
-        String units = ProfileFunctions.getInstance().getProfileUnits();
+        String units = ProfileFunctions.getSystemUnits();
         Double bg = Profile.fromMgdlToUnits(GlucoseStatus.getGlucoseStatusData() != null ? GlucoseStatus.getGlucoseStatusData().glucose : 0d, units);
 
         bgNumber = (NumberPicker) view.findViewById(R.id.overview_calibration_bg);
 
         if (units.equals(Constants.MMOL))
-            bgNumber.setParams(bg, 0d, 30d, 0.1d, new DecimalFormat("0.0"), false);
+            bgNumber.setParams(bg, 0d, 30d, 0.1d, new DecimalFormat("0.0"), false, view.findViewById(R.id.ok));
         else
-            bgNumber.setParams(bg, 0d, 500d, 1d, new DecimalFormat("0"), false);
+            bgNumber.setParams(bg, 0d, 500d, 1d, new DecimalFormat("0"), false, view.findViewById(R.id.ok));
 
         unitsView = (TextView) view.findViewById(R.id.overview_calibration_units);
         unitsView.setText(units);

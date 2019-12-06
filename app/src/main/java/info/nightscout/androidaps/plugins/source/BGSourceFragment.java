@@ -1,42 +1,41 @@
 package info.nightscout.androidaps.plugins.source;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.squareup.otto.Subscribe;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import info.nightscout.androidaps.Constants;
 import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.db.BgReading;
-import info.nightscout.androidaps.plugins.common.SubscriberFragment;
-import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
+import info.nightscout.androidaps.plugins.bus.RxBus;
+import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
 import info.nightscout.androidaps.plugins.general.nsclient.NSUpload;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.events.EventAutosensCalculationFinished;
 import info.nightscout.androidaps.utils.DateUtil;
 import info.nightscout.androidaps.utils.FabricPrivacy;
 import info.nightscout.androidaps.utils.T;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by mike on 16.10.2017.
  */
 
-public class BGSourceFragment extends SubscriberFragment {
+public class BGSourceFragment extends Fragment {
+    private CompositeDisposable disposable = new CompositeDisposable();
     RecyclerView recyclerView;
-
-    String units = Constants.MGDL;
 
     final long MILLS_TO_THE_PAST = T.hours(12).msecs();
 
@@ -55,9 +54,6 @@ public class BGSourceFragment extends SubscriberFragment {
             RecyclerViewAdapter adapter = new RecyclerViewAdapter(MainApp.getDbHelper().getAllBgreadingsDataFromTime(now - MILLS_TO_THE_PAST, false));
             recyclerView.setAdapter(adapter);
 
-            if (ConfigBuilderPlugin.getPlugin().getActiveProfileInterface() != null && ConfigBuilderPlugin.getPlugin().getActiveProfileInterface().getProfile() != null && ConfigBuilderPlugin.getPlugin().getActiveProfileInterface().getProfile().getDefaultProfile() != null)
-                units = ConfigBuilderPlugin.getPlugin().getActiveProfileInterface().getProfile().getDefaultProfile().getUnits();
-
             return view;
         } catch (Exception e) {
             FabricPrivacy.logException(e);
@@ -66,19 +62,25 @@ public class BGSourceFragment extends SubscriberFragment {
         return null;
     }
 
-    @Subscribe
-    public void onStatusEvent(final EventAutosensCalculationFinished unused) {
-        updateGUI();
+    @Override
+    public synchronized void onResume() {
+        super.onResume();
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventAutosensCalculationFinished.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> updateGUI(), FabricPrivacy::logException)
+        );
     }
 
     @Override
+    public synchronized void onPause() {
+        disposable.clear();
+        super.onPause();
+    }
+
     protected void updateGUI() {
-        Activity activity = getActivity();
-        if (activity != null)
-            activity.runOnUiThread(() -> {
-                long now = System.currentTimeMillis();
-                recyclerView.swapAdapter(new RecyclerViewAdapter(MainApp.getDbHelper().getAllBgreadingsDataFromTime(now - MILLS_TO_THE_PAST, false)), true);
-            });
+        long now = System.currentTimeMillis();
+        recyclerView.swapAdapter(new RecyclerViewAdapter(MainApp.getDbHelper().getAllBgreadingsDataFromTime(now - MILLS_TO_THE_PAST, false)), true);
     }
 
     public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.BgReadingsViewHolder> {
@@ -101,7 +103,7 @@ public class BGSourceFragment extends SubscriberFragment {
             holder.ns.setVisibility(NSUpload.isIdValid(bgReading._id) ? View.VISIBLE : View.GONE);
             holder.invalid.setVisibility(!bgReading.isValid ? View.VISIBLE : View.GONE);
             holder.date.setText(DateUtil.dateAndTimeString(bgReading.date));
-            holder.value.setText(bgReading.valueToUnitsToString(units));
+            holder.value.setText(bgReading.valueToUnitsToString(ProfileFunctions.getSystemUnits()));
             holder.direction.setText(bgReading.directionToSymbol());
             holder.remove.setTag(bgReading);
         }
@@ -139,7 +141,7 @@ public class BGSourceFragment extends SubscriberFragment {
                     case R.id.bgsource_remove:
                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                         builder.setTitle(MainApp.gs(R.string.confirmation));
-                        builder.setMessage(MainApp.gs(R.string.removerecord) + "\n" + DateUtil.dateAndTimeString(bgReading.date) + "\n" + bgReading.valueToUnitsToString(units));
+                        builder.setMessage(MainApp.gs(R.string.removerecord) + "\n" + DateUtil.dateAndTimeString(bgReading.date) + "\n" + bgReading.valueToUnitsToString(ProfileFunctions.getSystemUnits()));
                         builder.setPositiveButton(MainApp.gs(R.string.ok), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 /*                                final String _id = bgReading._id;

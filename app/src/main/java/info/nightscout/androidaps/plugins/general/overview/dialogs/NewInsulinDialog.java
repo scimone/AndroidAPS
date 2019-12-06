@@ -3,9 +3,8 @@ package info.nightscout.androidaps.plugins.general.overview.dialogs;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.HandlerThread;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -56,9 +55,9 @@ import static info.nightscout.androidaps.utils.DateUtil.now;
 public class NewInsulinDialog extends DialogFragment implements OnClickListener {
     private static Logger log = LoggerFactory.getLogger(NewInsulinDialog.class);
 
-    public static final double PLUS1_DEFAULT = 0.5d;
-    public static final double PLUS2_DEFAULT = 1d;
-    public static final double PLUS3_DEFAULT = 2d;
+    private static final double PLUS1_DEFAULT = 0.5d;
+    private static final double PLUS2_DEFAULT = 1d;
+    private static final double PLUS3_DEFAULT = 2d;
 
     private CheckBox startEatingSoonTTCheckbox;
     private CheckBox recordOnlyCheckbox;
@@ -75,8 +74,6 @@ public class NewInsulinDialog extends DialogFragment implements OnClickListener 
     private boolean okClicked;
 
     public NewInsulinDialog() {
-        HandlerThread mHandlerThread = new HandlerThread(NewInsulinDialog.class.getSimpleName());
-        mHandlerThread.start();
     }
 
     final private TextWatcher textWatcher = new TextWatcher() {
@@ -126,12 +123,12 @@ public class NewInsulinDialog extends DialogFragment implements OnClickListener 
         editLayout = view.findViewById(R.id.newinsulin_time_layout);
         editLayout.setVisibility(View.GONE);
         editTime = view.findViewById(R.id.newinsulin_time);
-        editTime.setParams(0d, -12 * 60d, 12 * 60d, 5d, new DecimalFormat("0"), false, textWatcher);
+        editTime.setParams(0d, -12 * 60d, 12 * 60d, 5d, new DecimalFormat("0"), false, view.findViewById(R.id.ok), textWatcher);
 
         maxInsulin = MainApp.getConstraintChecker().getMaxBolusAllowed().value();
 
         editInsulin = view.findViewById(R.id.newinsulin_amount);
-        editInsulin.setParams(0d, 0d, maxInsulin, ConfigBuilderPlugin.getPlugin().getActivePump().getPumpDescription().bolusStep, DecimalFormatter.pumpSupportedBolusFormat(), false, textWatcher);
+        editInsulin.setParams(0d, 0d, maxInsulin, ConfigBuilderPlugin.getPlugin().getActivePump().getPumpDescription().bolusStep, DecimalFormatter.pumpSupportedBolusFormat(), false, view.findViewById(R.id.ok), textWatcher);
 
         Button plus1Button = view.findViewById(R.id.newinsulin_plus05);
         plus1Button.setOnClickListener(this);
@@ -209,9 +206,8 @@ public class NewInsulinDialog extends DialogFragment implements OnClickListener 
         okClicked = true;
 
         try {
-            Profile currentProfile = ProfileFunctions.getInstance().getProfile();
             final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
-            if (currentProfile == null || pump == null)
+            if (pump == null)
                 return;
 
             Double insulin = SafeParse.stringToDouble(editInsulin.getText());
@@ -225,16 +221,16 @@ public class NewInsulinDialog extends DialogFragment implements OnClickListener 
                 }
             }
 
-            if (Math.abs(insulinAfterConstraints - insulin) > pump.getPumpDescription().pumpType.determineCorrectBolusSize(insulinAfterConstraints))
-                actions.add("<font color='" + MainApp.gc(R.color.warning) + "'>" + MainApp.gs(R.string.bolusconstraintapplied) + "</font>");
+            if (Math.abs(insulinAfterConstraints - insulin) > pump.getPumpDescription().pumpType.determineCorrectBolusStepSize(insulinAfterConstraints))
+                actions.add(MainApp.gs(R.string.bolusconstraintappliedwarning, MainApp.gc(R.color.warning), insulin, insulinAfterConstraints));
 
             int eatingSoonTTDuration = SP.getInt(R.string.key_eatingsoon_duration, Constants.defaultEatingSoonTTDuration);
             eatingSoonTTDuration = eatingSoonTTDuration > 0 ? eatingSoonTTDuration : Constants.defaultEatingSoonTTDuration;
-            double eatingSoonTT = SP.getDouble(R.string.key_eatingsoon_target, currentProfile.getUnits().equals(Constants.MMOL) ? Constants.defaultEatingSoonTTmmol : Constants.defaultEatingSoonTTmgdl);
-            eatingSoonTT = eatingSoonTT > 0 ? eatingSoonTT : currentProfile.getUnits().equals(Constants.MMOL) ? Constants.defaultEatingSoonTTmmol : Constants.defaultEatingSoonTTmgdl;
+            double eatingSoonTT = SP.getDouble(R.string.key_eatingsoon_target, ProfileFunctions.getSystemUnits().equals(Constants.MMOL) ? Constants.defaultEatingSoonTTmmol : Constants.defaultEatingSoonTTmgdl);
+            eatingSoonTT = eatingSoonTT > 0 ? eatingSoonTT : ProfileFunctions.getSystemUnits().equals(Constants.MMOL) ? Constants.defaultEatingSoonTTmmol : Constants.defaultEatingSoonTTmgdl;
 
             if (startEatingSoonTTCheckbox.isChecked()) {
-                if (currentProfile.getUnits().equals(Constants.MMOL)) {
+                if (ProfileFunctions.getSystemUnits().equals(Constants.MMOL)) {
                     actions.add(MainApp.gs(R.string.temptargetshort) + ": " + "<font color='" + MainApp.gc(R.color.tempTargetConfirmation) + "'>" + DecimalFormatter.to1Decimal(eatingSoonTT) + " mmol/l (" + eatingSoonTTDuration + " min)</font>");
                 } else
                     actions.add(MainApp.gs(R.string.temptargetshort) + ": " + "<font color='" + MainApp.gc(R.color.tempTargetConfirmation) + "'>" + DecimalFormatter.to0Decimal(eatingSoonTT) + " mg/dl (" + eatingSoonTTDuration + " min)</font>");
@@ -274,8 +270,8 @@ public class NewInsulinDialog extends DialogFragment implements OnClickListener 
                                     .duration(finalEatingSoonTTDuration)
                                     .reason(MainApp.gs(R.string.eatingsoon))
                                     .source(Source.USER)
-                                    .low(Profile.toMgdl(finalEatigSoonTT, currentProfile.getUnits()))
-                                    .high(Profile.toMgdl(finalEatigSoonTT, currentProfile.getUnits()));
+                                    .low(Profile.toMgdl(finalEatigSoonTT, ProfileFunctions.getSystemUnits()))
+                                    .high(Profile.toMgdl(finalEatigSoonTT, ProfileFunctions.getSystemUnits()));
                             TreatmentsPlugin.getPlugin().addToHistoryTempTarget(tempTarget);
                         }
 

@@ -38,47 +38,53 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.graphics.drawable.Drawable;
 
-import com.crashlytics.android.Crashlytics;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
-import com.squareup.otto.Subscribe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import info.nightscout.androidaps.activities.AgreementActivity;
 import info.nightscout.androidaps.activities.HistoryBrowseActivity;
+import info.nightscout.androidaps.activities.NoSplashAppCompatActivity;
 import info.nightscout.androidaps.activities.PreferencesActivity;
 import info.nightscout.androidaps.activities.SingleFragmentActivity;
-import info.nightscout.androidaps.data.Profile;
 import info.nightscout.androidaps.events.EventAppExit;
-import info.nightscout.androidaps.events.EventFeatureRunning;
 import info.nightscout.androidaps.events.EventPreferenceChange;
-import info.nightscout.androidaps.events.EventRefreshGui;
+import info.nightscout.androidaps.events.EventRebuildTabs;
 import info.nightscout.androidaps.interfaces.PluginBase;
 import info.nightscout.androidaps.interfaces.PluginType;
 import info.nightscout.androidaps.logging.L;
 import info.nightscout.androidaps.plugins.aps.loop.LoopPlugin;
-import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
+import info.nightscout.androidaps.plugins.bus.RxBus;
+import info.nightscout.androidaps.plugins.constraints.versionChecker.VersionCheckerUtilsKt;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
-import info.nightscout.androidaps.plugins.general.themeselector.ScrollingActivity;
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 import info.nightscout.androidaps.plugins.general.versionChecker.VersionCheckerUtilsKt;
 import info.nightscout.androidaps.setupwizard.SetupWizardActivity;
-import info.nightscout.androidaps.tabs.TabPageAdapter;
-import info.nightscout.androidaps.utils.AndroidPermission;
 import info.nightscout.androidaps.utils.FabricPrivacy;
 import info.nightscout.androidaps.utils.LocaleHelper;
-import info.nightscout.androidaps.utils.OKDialog;
 import info.nightscout.androidaps.utils.PasswordProtection;
 import info.nightscout.androidaps.utils.SP;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
-public class MainActivity extends AppCompatActivity {
+// public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NoSplashAppCompatActivity {
     private static Logger log = LoggerFactory.getLogger(L.CORE);
-
-    protected PowerManager.WakeLock mWakeLock;
+    private CompositeDisposable disposable = new CompositeDisposable();
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
@@ -122,11 +128,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        if (L.isEnabled(L.CORE))
-            log.debug("onCreate");
-
         Iconify.with(new FontAwesomeModule());
-        LocaleHelper.onCreate(this, "en");
+        LocaleHelper.INSTANCE.update(getApplicationContext());
 
         setContentView(R.layout.activity_main);
         setSupportActionBar(findViewById(R.id.toolbar));
@@ -141,13 +144,9 @@ public class MainActivity extends AppCompatActivity {
         actionBarDrawerToggle.syncState();
 
         // initialize screen wake lock
-        onEventPreferenceChange(new EventPreferenceChange(R.string.key_keep_screen_on));
+        processPreferenceChange(new EventPreferenceChange(R.string.key_keep_screen_on));
 
         doMigrations();
-
-        registerBus();
-        setupTabs();
-        setupViews(false);
 
         final ViewPager viewPager = findViewById(R.id.pager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -170,6 +169,41 @@ public class MainActivity extends AppCompatActivity {
             VersionCheckerUtilsKt.triggerCheckVersion();
 
         FabricPrivacy.setUserStats();
+
+        setupTabs();
+        setupViews();
+
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventRebuildTabs.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> {
+                    LocaleHelper.INSTANCE.update(getApplicationContext());
+                    if (event.getRecreate()) {
+                        recreate();
+                    } else {
+                        setupTabs();
+                        setupViews();
+                    }
+                    setWakeLock();
+                }, FabricPrivacy::logException)
+        );
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventPreferenceChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::processPreferenceChange, FabricPrivacy::logException)
+        );
+
+        if (!SP.getBoolean(R.string.key_setupwizard_processed, false) || !SP.contains(R.string.key_units)) {
+            Intent intent = new Intent(this, SetupWizardActivity.class);
+            startActivity(intent);
+        }
+
+        AndroidPermission.notifyForStoragePermission(this);
+        AndroidPermission.notifyForBatteryOptimizationPermission(this);
+        if (Config.PUMPDRIVERS) {
+            AndroidPermission.notifyForLocationPermissions(this);
+            AndroidPermission.notifyForSMSPermissions(this);
+        }
     }
 
     private void checkPluginPreferences(ViewPager viewPager) {
@@ -186,86 +220,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (L.isEnabled(L.CORE))
-            log.debug("onResume");
-
-        if (!SP.getBoolean(R.string.key_setupwizard_processed, false)) {
-            Intent intent = new Intent(this, SetupWizardActivity.class);
-            startActivity(intent);
-        } else {
-            checkEula();
-        }
-
-        AndroidPermission.notifyForStoragePermission(this);
-        AndroidPermission.notifyForBatteryOptimizationPermission(this);
-        if (Config.PUMPDRIVERS) {
-            AndroidPermission.notifyForLocationPermissions(this);
-            AndroidPermission.notifyForSMSPermissions(this);
-        }
-
-        MainApp.bus().post(new EventFeatureRunning(EventFeatureRunning.Feature.MAIN));
-    }
-
-    @Override
     public void onDestroy() {
-        if (L.isEnabled(L.CORE))
-            log.debug("onDestroy");
-        if (mWakeLock != null)
-            if (mWakeLock.isHeld())
-                mWakeLock.release();
         super.onDestroy();
+        disposable.clear();
     }
 
-    @Subscribe
-    public void onEventPreferenceChange(final EventPreferenceChange ev) {
-        if (ev.isChanged(R.string.key_keep_screen_on)) {
-            boolean keepScreenOn = SP.getBoolean(R.string.key_keep_screen_on, false);
-            final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-            if (keepScreenOn) {
-                mWakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "AndroidAPS:MainActivity_onEventPreferenceChange");
-                if (!mWakeLock.isHeld())
-                    mWakeLock.acquire();
-            } else {
-                if (mWakeLock != null && mWakeLock.isHeld())
-                    mWakeLock.release();
-            }
-        }
+    private void setWakeLock() {
+        boolean keepScreenOn = SP.getBoolean(R.string.key_keep_screen_on, false);
+        if (keepScreenOn)
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        else
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
-    @Subscribe
-    public void onStatusEvent(final EventRefreshGui ev) {
-        String lang = SP.getString(R.string.key_language, "en");
-        LocaleHelper.setLocale(getApplicationContext(), lang);
-        runOnUiThread(() -> {
-            if (ev.recreate) {
-                recreate();
-            } else {
-                try { // activity may be destroyed
-                    setupTabs();
-                    setupViews(true);
-                } catch (IllegalStateException e) {
-                    log.error("Unhandled exception", e);
-                }
-            }
-
-            boolean keepScreenOn = Config.NSCLIENT && SP.getBoolean(R.string.key_keep_screen_on, false);
-            if (keepScreenOn)
-                getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            else
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        });
+    public void processPreferenceChange(final EventPreferenceChange ev) {
+        if (ev.isChanged(R.string.key_keep_screen_on))
+            setWakeLock();
     }
 
-    private void setupViews(boolean switchToLast) {
+    private void setupViews() {
         TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(), this);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.getHeaderView(0);
-        navigationView.setNavigationItemSelectedListener(menuItem -> {
-            return true;
-        });
+        navigationView.setNavigationItemSelectedListener(menuItem -> true);
         Menu menu = navigationView.getMenu();
         menu.clear();
         for (PluginBase p : MainApp.getPluginsList()) {
@@ -329,63 +306,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void registerBus() {
-        try {
-            MainApp.bus().unregister(this);
-        } catch (RuntimeException x) {
-            // Ignore
-        }
-        MainApp.bus().register(this);
-    }
-
-    private void checkEula() {
-        //SP.removeBoolean(R.string.key_i_understand);
-        boolean IUnderstand = SP.getBoolean(R.string.key_i_understand, false);
-        if (!IUnderstand) {
-            Intent intent = new Intent(getApplicationContext(), AgreementActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
     private void doMigrations() {
-
-        checkUpgradeToProfileTarget();
 
         // guarantee that the unreachable threshold is at least 30 and of type String
         // Added in 1.57 at 21.01.2018
-        Integer unreachable_threshold = SP.getInt(R.string.key_pump_unreachable_threshold, 30);
+        int unreachable_threshold = SP.getInt(R.string.key_pump_unreachable_threshold, 30);
         SP.remove(R.string.key_pump_unreachable_threshold);
         if (unreachable_threshold < 30) unreachable_threshold = 30;
-        SP.putString(R.string.key_pump_unreachable_threshold, unreachable_threshold.toString());
+        SP.putString(R.string.key_pump_unreachable_threshold, Integer.toString(unreachable_threshold));
     }
 
-
-    private void checkUpgradeToProfileTarget() { // TODO: can be removed in the future
-        boolean oldKeyExists = SP.contains("openapsma_min_bg");
-        if (oldKeyExists) {
-            Profile profile = ProfileFunctions.getInstance().getProfile();
-            String oldRange = SP.getDouble("openapsma_min_bg", 0d) + " - " + SP.getDouble("openapsma_max_bg", 0d);
-            String newRange = "";
-            if (profile != null) {
-                newRange = profile.getTargetLow() + " - " + profile.getTargetHigh();
-            }
-            String message = "Target range is changed in current version.\n\nIt's not taken from preferences but from profile.\n\n!!! REVIEW YOUR SETTINGS !!!";
-            message += "\n\nOld settings: " + oldRange;
-            message += "\nProfile settings: " + newRange;
-            OKDialog.show(this, "Target range change", message, new Runnable() {
-                @Override
-                public void run() {
-                    SP.remove("openapsma_min_bg");
-                    SP.remove("openapsma_max_bg");
-                    SP.remove("openapsma_target_bg");
-                }
-            });
-        }
-    }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (permissions.length != 0) {
             if (ActivityCompat.checkSelfPermission(this, permissions[0]) == PackageManager.PERMISSION_GRANTED) {
@@ -400,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
                     case AndroidPermission.CASE_LOCATION:
                     case AndroidPermission.CASE_SMS:
                     case AndroidPermission.CASE_BATTERY:
-                    case AndroidPermission.CASE_PHONESTATE:
+                    case AndroidPermission.CASE_PHONE_STATE:
                         break;
                 }
             }
@@ -473,7 +406,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_exit:
                 log.debug("Exiting");
                 MainApp.instance().stopKeepAliveService();
-                MainApp.bus().post(new EventAppExit());
+                RxBus.INSTANCE.send(new EventAppExit());
                 MainApp.closeDbHelper();
                 finish();
                 System.runFinalization();

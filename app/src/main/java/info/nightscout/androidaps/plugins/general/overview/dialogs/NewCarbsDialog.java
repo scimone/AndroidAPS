@@ -1,9 +1,8 @@
 package info.nightscout.androidaps.plugins.general.overview.dialogs;
 
 import android.os.Bundle;
-import android.os.HandlerThread;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AlertDialog;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
@@ -75,8 +74,6 @@ public class NewCarbsDialog extends DialogFragment implements OnClickListener, C
     private boolean okClicked;
 
     public NewCarbsDialog() {
-        HandlerThread mHandlerThread = new HandlerThread(NewCarbsDialog.class.getSimpleName());
-        mHandlerThread.start();
     }
 
     final private TextWatcher textWatcher = new TextWatcher() {
@@ -130,15 +127,15 @@ public class NewCarbsDialog extends DialogFragment implements OnClickListener, C
         startHypoTTCheckbox = view.findViewById(R.id.newcarbs_hypo_tt);
 
         editTime = view.findViewById(R.id.newcarbs_time);
-        editTime.setParams(0d, -12 * 60d, 12 * 60d, 5d, new DecimalFormat("0"), false, textWatcher);
+        editTime.setParams(0d, -12 * 60d, 12 * 60d, 5d, new DecimalFormat("0"), false, view.findViewById(R.id.ok), textWatcher);
 
         editDuration = view.findViewById(R.id.new_carbs_duration);
-        editDuration.setParams(0d, 0d, 10d, 1d, new DecimalFormat("0"), false, textWatcher);
+        editDuration.setParams(0d, 0d, 10d, 1d, new DecimalFormat("0"), false, view.findViewById(R.id.ok), textWatcher);
 
         maxCarbs = MainApp.getConstraintChecker().getMaxCarbsAllowed().value();
 
         editCarbs = view.findViewById(R.id.newcarb_carbsamount);
-        editCarbs.setParams(0d, 0d, (double) maxCarbs, 1d, new DecimalFormat("0"), false, textWatcher);
+        editCarbs.setParams(0d, 0d, (double) maxCarbs, 1d, new DecimalFormat("0"), false, view.findViewById(R.id.ok), textWatcher);
 
         Button fav1Button = view.findViewById(R.id.newcarbs_plus1);
         fav1Button.setOnClickListener(this);
@@ -318,36 +315,36 @@ public class NewCarbsDialog extends DialogFragment implements OnClickListener, C
             int carbs = editCarbs.getValue().intValue();
             Integer carbsAfterConstraints = MainApp.getConstraintChecker().applyCarbsConstraints(new Constraint<>(carbs)).value();
 
-            final String units = currentProfile.getUnits();
+            final String units = ProfileFunctions.getSystemUnits();
             DefaultValueHelper helper = new DefaultValueHelper();
 
             int activityTTDuration = helper.determineActivityTTDuration();
-            double activityTT = helper.determineActivityTT(units);
+            double activityTT = helper.determineActivityTT();
 
             int eatingSoonTTDuration = helper.determineEatingSoonTTDuration();
-            double eatingSoonTT = helper.determineEatingSoonTT(units);
+            double eatingSoonTT = helper.determineEatingSoonTT();
 
             int hypoTTDuration = helper.determineHypoTTDuration();
-            double hypoTT = helper.determineHypoTT(units);
+            double hypoTT = helper.determineHypoTT();
 
             List<String> actions = new LinkedList<>();
 
             if (startActivityTTCheckbox.isChecked()) {
                 String unitLabel = "mg/dl";
-                if (currentProfile.getUnits().equals(Constants.MMOL)) {
+                if (units.equals(Constants.MMOL)) {
                     unitLabel = "mmol/l";
                 }
                 actions.add(MainApp.gs(R.string.temptargetshort) + ": " + "<font color='" + MainApp.gc(R.color.tempTargetConfirmation) + "'>" + DecimalFormatter.to1Decimal(activityTT) + " " + unitLabel + " (" + activityTTDuration + " min)</font>");
             }
             if (startEatingSoonTTCheckbox.isChecked()) {
-                if (currentProfile.getUnits().equals(Constants.MMOL)) {
+                if (units.equals(Constants.MMOL)) {
                     actions.add(MainApp.gs(R.string.temptargetshort) + ": " + "<font color='" + MainApp.gc(R.color.tempTargetConfirmation) + "'>" + DecimalFormatter.to1Decimal(eatingSoonTT) + " mmol/l (" + eatingSoonTTDuration + " min)</font>");
                 } else {
                     actions.add(MainApp.gs(R.string.temptargetshort) + ": " + "<font color='" + MainApp.gc(R.color.tempTargetConfirmation) + "'>" + DecimalFormatter.to0Decimal(eatingSoonTT) + " mg/dl (" + eatingSoonTTDuration + " min)</font>");
                 }
             }
             if (startHypoTTCheckbox.isChecked()) {
-                if (currentProfile.getUnits().equals(Constants.MMOL)) {
+                if (units.equals(Constants.MMOL)) {
                     actions.add(MainApp.gs(R.string.temptargetshort) + ": " + "<font color='" + MainApp.gc(R.color.tempTargetConfirmation) + "'>" + DecimalFormatter.to1Decimal(hypoTT) + " mmol/l (" + hypoTTDuration + " min)</font>");
                 } else {
                     actions.add(MainApp.gs(R.string.temptargetshort) + ": " + "<font color='" + MainApp.gc(R.color.tempTargetConfirmation) + "'>" + DecimalFormatter.to0Decimal(hypoTT) + " mg/dl (" + hypoTTDuration + " min)</font>");
@@ -400,8 +397,8 @@ public class NewCarbsDialog extends DialogFragment implements OnClickListener, C
                                     .duration(finalActivityTTDuration)
                                     .reason(MainApp.gs(R.string.activity))
                                     .source(Source.USER)
-                                    .low(Profile.toMgdl(finalActivityTT, currentProfile.getUnits()))
-                                    .high(Profile.toMgdl(finalActivityTT, currentProfile.getUnits()));
+                                    .low(Profile.toMgdl(finalActivityTT, ProfileFunctions.getSystemUnits()))
+                                    .high(Profile.toMgdl(finalActivityTT, ProfileFunctions.getSystemUnits()));
                             TreatmentsPlugin.getPlugin().addToHistoryTempTarget(tempTarget);
                         } else if (startEatingSoonTTCheckbox.isChecked()) {
                             TempTarget tempTarget = new TempTarget()
@@ -409,8 +406,8 @@ public class NewCarbsDialog extends DialogFragment implements OnClickListener, C
                                     .duration(finalEatingSoonTTDuration)
                                     .reason(MainApp.gs(R.string.eatingsoon))
                                     .source(Source.USER)
-                                    .low(Profile.toMgdl(finalEatigSoonTT, currentProfile.getUnits()))
-                                    .high(Profile.toMgdl(finalEatigSoonTT, currentProfile.getUnits()));
+                                    .low(Profile.toMgdl(finalEatigSoonTT, ProfileFunctions.getSystemUnits()))
+                                    .high(Profile.toMgdl(finalEatigSoonTT, ProfileFunctions.getSystemUnits()));
                             TreatmentsPlugin.getPlugin().addToHistoryTempTarget(tempTarget);
                         } else if (startHypoTTCheckbox.isChecked()) {
                             TempTarget tempTarget = new TempTarget()
@@ -418,8 +415,8 @@ public class NewCarbsDialog extends DialogFragment implements OnClickListener, C
                                     .duration(finalHypoTTDuration)
                                     .reason(MainApp.gs(R.string.hypo))
                                     .source(Source.USER)
-                                    .low(Profile.toMgdl(finalHypoTT, currentProfile.getUnits()))
-                                    .high(Profile.toMgdl(finalHypoTT, currentProfile.getUnits()));
+                                    .low(Profile.toMgdl(finalHypoTT, ProfileFunctions.getSystemUnits()))
+                                    .high(Profile.toMgdl(finalHypoTT, ProfileFunctions.getSystemUnits()));
                             TreatmentsPlugin.getPlugin().addToHistoryTempTarget(tempTarget);
                         }
 

@@ -7,13 +7,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.core.app.NotificationCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,17 +67,23 @@ public class NotificationStore {
 
         if (SP.getBoolean(MainApp.gs(R.string.key_raise_notifications_as_android_notifications), false) && !(n instanceof NotificationWithAction)) {
             raiseSystemNotification(n);
-            if (usesChannels && n.soundId != null) {
+            if (usesChannels && n.soundId != null && n.soundId != 0) {
                 Intent alarm = new Intent(MainApp.instance().getApplicationContext(), AlarmSoundService.class);
                 alarm.putExtra("soundid", n.soundId);
-                MainApp.instance().startService(alarm);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    MainApp.instance().startForegroundService(alarm);
+                else
+                    MainApp.instance().startService(alarm);
             }
 
         } else {
-            if (n.soundId != null) {
+            if (n.soundId != null && n.soundId != 0) {
                 Intent alarm = new Intent(MainApp.instance().getApplicationContext(), AlarmSoundService.class);
                 alarm.putExtra("soundid", n.soundId);
-                MainApp.instance().startService(alarm);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    MainApp.instance().startForegroundService(alarm);
+                else
+                    MainApp.instance().startService(alarm);
             }
         }
 
@@ -140,7 +147,7 @@ public class NotificationStore {
         if (n.level == Notification.URGENT) {
             notificationBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000})
                     .setContentTitle(MainApp.gs(R.string.urgent_alarm))
-                    .setSound(sound, AudioAttributes.USAGE_ALARM);
+                    .setSound(sound, AudioManager.STREAM_ALARM);
         } else {
             notificationBuilder.setVibrate(new long[]{0, 100, 50, 100, 50})
                     .setContentTitle(MainApp.gs(R.string.info))
@@ -165,7 +172,7 @@ public class NotificationStore {
         removeExpired();
         unSnooze();
         if (store.size() > 0) {
-            NotificationRecyclerViewAdapter adapter = new NotificationRecyclerViewAdapter(store);
+            NotificationRecyclerViewAdapter adapter = new NotificationRecyclerViewAdapter(cloneStore());
             notificationsView.setAdapter(adapter);
             notificationsView.setVisibility(View.VISIBLE);
         } else {
@@ -173,4 +180,9 @@ public class NotificationStore {
         }
     }
 
+    private synchronized List<Notification> cloneStore() {
+        List<Notification> clone = new ArrayList<>(store.size());
+        clone.addAll(store);
+        return clone;
+    }
 }

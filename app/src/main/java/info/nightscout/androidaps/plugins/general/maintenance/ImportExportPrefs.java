@@ -8,9 +8,9 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.core.content.ContextCompat;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,9 @@ import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.events.EventAppExit;
 import info.nightscout.androidaps.logging.L;
+import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.utils.OKDialog;
+import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.ToastUtils;
 
 /**
@@ -112,31 +114,28 @@ public class ImportExportPrefs {
                 .setMessage(MainApp.gs(R.string.import_from) + " " + file + " ?")
                 .setPositiveButton(android.R.string.yes, (dialog, which) -> {
 
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                    SharedPreferences.Editor editor = prefs.edit();
                     String line;
                     String[] lineParts;
                     try {
-                        editor.clear();
-                        editor.commit();
+                        SP.clear();
 
                         BufferedReader reader = new BufferedReader(new FileReader(file));
                         while ((line = reader.readLine()) != null) {
                             lineParts = line.split("::");
                             if (lineParts.length == 2) {
                                 if (lineParts[1].equals("true") || lineParts[1].equals("false")) {
-                                    editor.putBoolean(lineParts[0], Boolean.parseBoolean(lineParts[1]));
+                                    SP.putBoolean(lineParts[0], Boolean.parseBoolean(lineParts[1]));
                                 } else {
-                                    editor.putString(lineParts[0], lineParts[1]);
+                                    SP.putString(lineParts[0], lineParts[1]);
                                 }
                             }
                         }
                         reader.close();
-                        editor.commit();
+                        SP.putBoolean(R.string.key_setupwizard_processed, true);
                         OKDialog.show(context, MainApp.gs(R.string.setting_imported), MainApp.gs(R.string.restartingapp), () -> {
                             log.debug("Exiting");
                             MainApp.instance().stopKeepAliveService();
-                            MainApp.bus().post(new EventAppExit());
+                            RxBus.INSTANCE.send(new EventAppExit());
                             MainApp.closeDbHelper();
                             if (context instanceof Activity) {
                                 ((Activity)context).finish();

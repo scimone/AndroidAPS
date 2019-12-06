@@ -12,12 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.squareup.otto.Subscribe;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.events.EventExtendedBolusChange;
-import info.nightscout.androidaps.plugins.common.SubscriberFragment;
+import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.treatments.fragments.TreatmentsBolusFragment;
 import info.nightscout.androidaps.plugins.treatments.fragments.TreatmentsCareportalFragment;
@@ -26,9 +27,19 @@ import info.nightscout.androidaps.plugins.treatments.fragments.TreatmentsProfile
 import info.nightscout.androidaps.plugins.treatments.fragments.TreatmentsTempTargetFragment;
 import info.nightscout.androidaps.plugins.treatments.fragments.TreatmentsTemporaryBasalsFragment;
 import info.nightscout.androidaps.utils.FabricPrivacy;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 
+//public class TreatmentsFragment extends Fragment implements View.OnClickListener {
 public class TreatmentsFragment extends SubscriberFragment  {
+    private CompositeDisposable disposable = new CompositeDisposable();
 
+   // TextView treatmentsTab;
+   // TextView extendedBolusesTab;
+   // TextView tempBasalsTab;
+   // TextView tempTargetTab;
+   // TextView profileSwitchTab;
+   // TextView careportalTab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,9 +83,43 @@ public class TreatmentsFragment extends SubscriberFragment  {
         } catch (Exception e) {
             FabricPrivacy.logException(e);
         }
+        
+      /* View view = inflater.inflate(R.layout.treatments_fragment, container, false);
 
-        return null;
+        treatmentsTab = (TextView) view.findViewById(R.id.treatments_treatments);
+        extendedBolusesTab = (TextView) view.findViewById(R.id.treatments_extendedboluses);
+        tempBasalsTab = (TextView) view.findViewById(R.id.treatments_tempbasals);
+        tempTargetTab = (TextView) view.findViewById(R.id.treatments_temptargets);
+        profileSwitchTab = (TextView) view.findViewById(R.id.treatments_profileswitches);
+        careportalTab = (TextView) view.findViewById(R.id.treatments_careportal);
+        treatmentsTab.setOnClickListener(this);
+        extendedBolusesTab.setOnClickListener(this);
+        tempBasalsTab.setOnClickListener(this);
+        tempTargetTab.setOnClickListener(this);
+        profileSwitchTab.setOnClickListener(this);
+        careportalTab.setOnClickListener(this);
 
+        setFragment(new TreatmentsBolusFragment());
+        setBackgroundColorOnSelected(treatmentsTab);
+
+        return view;
+    }*/
+
+    @Override
+    public synchronized void onResume() {
+        super.onResume();
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventExtendedBolusChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> updateGui(), FabricPrivacy::logException)
+        );
+        updateGui();
+    }
+
+    @Override
+    public synchronized void onPause() {
+        super.onPause();
+        disposable.clear();
     }
 
     private class CustomAdapter extends FragmentStatePagerAdapter {
@@ -127,7 +172,7 @@ public class TreatmentsFragment extends SubscriberFragment  {
     }
 
     @Override
-    protected void updateGUI() {
+    private void updateGui() {
         if (ConfigBuilderPlugin.getPlugin().getActivePump().getPumpDescription().isExtendedBolusCapable
                 || info.nightscout.androidaps.plugins.treatments.TreatmentsPlugin.getPlugin().getExtendedBolusesFromHistory().size() > 0) {
             //extendedBolusesTab.setVisibility(View.VISIBLE);

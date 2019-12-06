@@ -16,6 +16,46 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
         </android.support.design.widget.TabLayout>
+        
+        <com.google.android.flexbox.FlexboxLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/defaultbackground"
+            app:alignContent="stretch"
+            app:alignItems="stretch"
+            app:flexDirection="row"
+            app:flexWrap="wrap"
+            app:justifyContent="center">
+
+            <TextView
+                android:id="@+id/treatments_treatments"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/bolus" />
+
+            <TextView
+                android:id="@+id/treatments_extendedboluses"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/extendedbolus" />
+
+            <TextView
+                android:id="@+id/treatments_tempbasals"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="@string/tempbasal" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager"
