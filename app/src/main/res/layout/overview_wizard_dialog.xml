@@ -22,24 +22,6 @@
             android:layout_marginBottom="5dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:width="100dp"
-                android:paddingLeft="2dp"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:text="@string/treatments_wizard_bg_label"
-                android:textAppearance="@android:style/TextAppearance.Material.Small"
-                android:textStyle="bold" />
-
-            <info.nightscout.androidaps.utils.NumberPicker
-                android:id="@+id/treatments_wizard_bginput"
-                android:layout_width="130dp"
-                android:layout_height="match_parent"
-                android:paddingTop="4dp"
-                android:paddingBottom="0dp" />
             <ImageView
                 android:layout_width="33dp"
                 android:layout_height="match_parent"

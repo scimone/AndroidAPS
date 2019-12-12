@@ -5,23 +5,11 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
-import android.os.PowerManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -30,48 +18,59 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.graphics.drawable.Drawable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.arch.core.util.Function;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
+
 import info.nightscout.androidaps.activities.HistoryBrowseActivity;
 import info.nightscout.androidaps.activities.NoSplashAppCompatActivity;
 import info.nightscout.androidaps.activities.PreferencesActivity;
 import info.nightscout.androidaps.activities.SingleFragmentActivity;
+import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.events.EventAppExit;
+import info.nightscout.androidaps.events.EventCareportalEventChange;
 import info.nightscout.androidaps.events.EventPreferenceChange;
 import info.nightscout.androidaps.events.EventRebuildTabs;
 import info.nightscout.androidaps.interfaces.PluginBase;
 import info.nightscout.androidaps.interfaces.PluginType;
+import info.nightscout.androidaps.interfaces.PumpInterface;
 import info.nightscout.androidaps.logging.L;
 import info.nightscout.androidaps.plugins.aps.loop.LoopPlugin;
 import info.nightscout.androidaps.plugins.bus.RxBus;
+import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.constraints.versionChecker.VersionCheckerUtilsKt;
+import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
+import info.nightscout.androidaps.plugins.general.themeselector.ScrollingActivity;
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
-import info.nightscout.androidaps.plugins.general.versionChecker.VersionCheckerUtilsKt;
 import info.nightscout.androidaps.setupwizard.SetupWizardActivity;
+import info.nightscout.androidaps.tabs.TabPageAdapter;
+import info.nightscout.androidaps.utils.AndroidPermission;
 import info.nightscout.androidaps.utils.FabricPrivacy;
 import info.nightscout.androidaps.utils.LocaleHelper;
 import info.nightscout.androidaps.utils.PasswordProtection;
@@ -83,6 +82,20 @@ import static info.nightscout.androidaps.plugins.general.themeselector.util.Them
 
 // public class MainActivity extends AppCompatActivity {
 public class MainActivity extends NoSplashAppCompatActivity {
+
+    private static final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+    private static ScheduledFuture<?> scheduledUpdate = null;
+
+    TextView iage;
+    TextView cage;
+    TextView sage;
+    TextView iageView;
+    TextView cageView;
+    TextView reservoirView;
+    TextView sageView;
+    TextView batteryView;
+    LinearLayout statuslightsLayout;
+
     private static Logger log = LoggerFactory.getLogger(L.CORE);
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -110,10 +123,102 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 .addNextIntent(this.getIntent())
                 .startActivities();
         recreate();
+
+    }
+
+
+    public static void applyStatuslight(TextView view, String text, double value, double warnThreshold, double urgentThreshold, double invalid, boolean checkAscending) {
+        ColorStateList colorStateList = view.getTextColors();
+        final int normalColor = colorStateList.getDefaultColor();
+
+            Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value >= threshold : (Double threshold) -> value <= threshold;
+        if (value != invalid) {
+            view.setText(text);
+            if (check.apply(urgentThreshold)) {
+                view.setTextColor(MainApp.gc(R.color.low));
+            } else if (check.apply(warnThreshold)) {
+                view.setTextColor(MainApp.gc(R.color.high));
+            } else {
+                view.setTextColor(normalColor);
+            }
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+
+    }
+
+    public void getCareportalInfo() {
+        boolean shorttextmode = true;
+
+        shorttextmode = true;
+
+        final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
+
+        statuslightsLayout = (LinearLayout) findViewById(R.id.overview_statuslights);
+        sageView =  findViewById(R.id.careportal_sensorage);
+        iageView =  findViewById(R.id.careportal_insulinage);
+        cageView =  findViewById(R.id.careportal_canulaage);
+        reservoirView = findViewById(R.id.careportal_prLevel);
+        batteryView = findViewById(R.id.careportal_pbLevel);
+
+        batteryView = findViewById(R.id.careportal_pbLevel);
+        reservoirView = findViewById(R.id.careportal_prLevel);
+
+
+        if (statuslightsLayout != null) {
+            if (SP.getBoolean(R.string.key_show_statuslights, false)) {
+                CareportalEvent careportalEvent;
+                NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
+                double iageUrgent = nsSettings.getExtendedWarnValue("iage", "urgent", 96);
+                double iageWarn = nsSettings.getExtendedWarnValue("iage", "warn", 72);
+                double cageUrgent = nsSettings.getExtendedWarnValue("cage", "urgent", 72);
+                double cageWarn = nsSettings.getExtendedWarnValue("cage", "warn", 48);
+                double sageUrgent = nsSettings.getExtendedWarnValue("sage", "urgent", 166);
+                double sageWarn = nsSettings.getExtendedWarnValue("sage", "warn", 164);
+                double batUrgent = SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
+                double batWarn = SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
+                double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 10.0);
+                double resWarn = SP.getDouble(R.string.key_statuslights_res_warning, 80.0);
+                if (sageView != null) {
+                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE);
+                double sensorAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
+                applyStatuslight(sageView, "", sensorAge, sageWarn, sageUrgent, Double.MAX_VALUE, true);
+                }
+
+                if (iageView != null) {
+                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.INSULINCHANGE);
+                double insulinAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
+                applyStatuslight(iageView, "IAGE", insulinAge, iageWarn, iageUrgent, Double.MAX_VALUE, true);
+                }
+                if (cageView != null) {
+                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE);
+                double canAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
+                applyStatuslight(cageView, "CAGE", canAge, cageWarn, cageUrgent, Double.MAX_VALUE, true);
+                }
+
+                if (reservoirView != null) {
+                double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
+                applyStatuslight(reservoirView, "RES", reservoirLevel, resWarn, resUrgent, -1, false);
+                }
+
+                if (batteryView != null) {
+                double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
+                applyStatuslight(batteryView, "BAT", batteryLevel, batWarn, batUrgent, -1, false);
+                }
+
+                CareportalFragment.updateAge( MainActivity.this, sageView, iageView, cageView, batteryView);
+                CareportalFragment.updatePumpSpecifics(reservoirView, batteryView);
+                statuslightsLayout.setVisibility(View.VISIBLE);
+        } else {
+            statuslightsLayout.setVisibility(View.GONE);
+        }
+    }
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+
         int newtheme = SP.getInt("theme", THEME_PINK);
         mTheme = newtheme;
         boolean newMode = SP.getBoolean("daynight", mIsNightMode);
@@ -225,6 +330,18 @@ public class MainActivity extends NoSplashAppCompatActivity {
         disposable.clear();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventCareportalEventChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventCareportalEventChange"),
+                        FabricPrivacy::logException
+                ));
+        this.getCareportalInfo();
+    }
+
     private void setWakeLock() {
         boolean keepScreenOn = SP.getBoolean(R.string.key_keep_screen_on, false);
         if (keepScreenOn)
@@ -262,12 +379,10 @@ public class MainActivity extends NoSplashAppCompatActivity {
         }
         ViewPager mPager = findViewById(R.id.pager);
         mPager.setAdapter(pageAdapter);
-        if (switchToLast)
-            mPager.setCurrentItem(pageAdapter.getCount() - 1, false);
-        //checkPluginPreferences(mPager);
+        //if (switchToLast)
+        //    mPager.setCurrentItem(pageAdapter.getCount() - 1, false);
+        checkPluginPreferences(mPager);
     }
-
-
 
     /**
      * We start the transaction with delay to avoid junk while closing the drawer
@@ -307,7 +422,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
     }
 
     private void doMigrations() {
-
         // guarantee that the unreachable threshold is at least 30 and of type String
         // Added in 1.57 at 21.01.2018
         int unreachable_threshold = SP.getInt(R.string.key_pump_unreachable_threshold, 30);
@@ -423,5 +537,26 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 return true;
         }
         return actionBarDrawerToggle.onOptionsItemSelected(item);
+    }
+
+
+    public void scheduleUpdate(final String from) {
+        class UpdateRunnable implements Runnable {
+            public void run() {
+                Activity activity = MainActivity.this;
+                if (activity != null)
+                    activity.runOnUiThread(() -> {
+                        getCareportalInfo();
+                        scheduledUpdate = null;
+                    });
+            }
+        }
+        // prepare task for execution in 500 msec
+        // cancel waiting task to prevent multiple updates
+        if (scheduledUpdate != null)
+            scheduledUpdate.cancel(false);
+        Runnable task = new UpdateRunnable();
+        final int msec = 1000;
+        scheduledUpdate = worker.schedule(task, msec, TimeUnit.MILLISECONDS);
     }
 }

@@ -1,20 +1,22 @@
 package info.nightscout.androidaps.plugins.general.themeselector;
 
-import android.app.TaskStackBuilder;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import info.nightscout.androidaps.MainActivity;
-import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.plugins.general.themeselector.adapter.RecyclerViewClickListener;
 import info.nightscout.androidaps.plugins.general.themeselector.adapter.ThemeAdapter;
@@ -22,9 +24,6 @@ import info.nightscout.androidaps.plugins.general.themeselector.model.Theme;
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 import info.nightscout.androidaps.plugins.general.themeselector.view.ThemeView;
 import info.nightscout.androidaps.utils.SP;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ScrollingActivity extends MainActivity implements View.OnClickListener{
     public static List<Theme> mThemeList = new ArrayList<>();
@@ -34,7 +33,7 @@ public class ScrollingActivity extends MainActivity implements View.OnClickListe
     private BottomSheetBehavior mBottomSheetBehavior;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.themeselector_scrolling_fragment);

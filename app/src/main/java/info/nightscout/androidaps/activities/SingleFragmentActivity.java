@@ -1,11 +1,7 @@
 package info.nightscout.androidaps.activities;
 
-import android.app.TaskStackBuilder;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
-
-import info.nightscout.androidaps.MainActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,8 +14,6 @@ import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.interfaces.PluginBase;
 import info.nightscout.androidaps.utils.PasswordProtection;
 
-import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
-
 public class SingleFragmentActivity extends AppCompatActivity {
 
     private PluginBase plugin;
@@ -27,16 +21,6 @@ public class SingleFragmentActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if(MainActivity.mIsNightMode){
-            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else{
-            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-        setTheme(MainActivity.mTheme);
-        super.setTheme(MainActivity.mTheme);
-
-
         setContentView(R.layout.activity_single_fragment);
 
         this.plugin = MainApp.getPluginsList().get(getIntent().getIntExtra("plugin", -1));

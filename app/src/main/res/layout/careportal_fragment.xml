@@ -1,4 +1,4 @@
- <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="fill_parent"
@@ -292,7 +292,7 @@
                         app:layout_row="1" />
 
 
-                </android.support.v7.widget.GridLayout>
+                </androidx.gridlayout.widget.GridLayout>
 
 
                 <TextView
@@ -301,7 +301,7 @@
                     android:paddingStart="15dp"
                     android:text="@string/careportal_carbsandbolus_label" />
 
-                <android.support.v7.widget.GridLayout
+                <androidx.gridlayout.widget.GridLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dip"
@@ -439,4 +439,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-    </android.support.design.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>

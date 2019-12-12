@@ -545,7 +545,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_treatmentbutton"
                     app:backgroundTint="@color/colorTreatmentButton"
                     android:layout_width="64dp"
@@ -565,7 +565,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_insulinbutton"
                     app:backgroundTint="@color/colorInsulinButton"
                     android:layout_width="64dp"
@@ -585,7 +585,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_carbsbutton"
                     app:backgroundTint="@color/colorCarbsButton"
                     android:layout_width="64dp"
@@ -605,7 +605,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_wizardbutton"
                     app:backgroundTint="@color/colorCalculatorButton"
                     android:layout_width="64dp"
@@ -625,7 +625,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_quickwizardbutton"
                     app:backgroundTint="@color/colorQuickWizardButton"
                     android:layout_width="64dp"

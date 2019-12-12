@@ -87,6 +87,8 @@
                 <LinearLayout
                     android:id="@+id/overview_pumpstatuslayout"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
             </LinearLayout>
 
             <LinearLayout
@@ -99,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="2dp">
+                    android:paddingTop="2dp" />
 
                     <TextView
                         android:id="@+id/overview_pumpstatus"
@@ -467,7 +469,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_treatmentbutton"
                     app:backgroundTint="@color/colorTreatmentButton"
                     android:layout_width="64dp"
@@ -486,7 +488,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_insulinbutton"
                     app:backgroundTint="@color/colorInsulinButton"
                     android:layout_width="64dp"
@@ -505,7 +507,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_carbsbutton"
                     app:backgroundTint="@color/colorCarbsButton"
                     android:layout_width="64dp"
@@ -524,7 +526,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_wizardbutton"
                     app:backgroundTint="@color/colorCalculatorButton"
                     android:layout_width="64dp"
@@ -543,7 +545,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_calibrationbutton"
                     app:backgroundTint="@color/colorCalibrationButton"
                     android:layout_width="64dp"
@@ -562,7 +564,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_cgmbutton"
                     app:backgroundTint="@color/colorCalibrationButton"
                     android:layout_width="64dp"
@@ -582,7 +584,7 @@
                     android:layout_weight="1"
                     android:visibility="gone"/>
 
-                <android.support.design.widget.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/overview_quickwizardbutton"
                     app:backgroundTint="@color/colorQuickWizardButton"
                     android:layout_width="64dp"

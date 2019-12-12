@@ -3,7 +3,6 @@ package info.nightscout.androidaps.plugins.general.careportal;
 
 import android.app.Activity;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +23,6 @@ import info.nightscout.androidaps.data.ProfileStore;
 import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.events.EventCareportalEventChange;
 import info.nightscout.androidaps.interfaces.PumpInterface;
-import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
-import info.nightscout.androidaps.plugins.common.SubscriberFragment;
 import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
@@ -122,18 +119,16 @@ public class CareportalFragment extends Fragment implements View.OnClickListener
                 noProfileView.setVisibility(View.GONE);
                 butonsLayout.setVisibility(View.VISIBLE);
             }
-       
-
-   
-
-
-
-
 
         if (Config.NSCLIENT)
             statsLayout.setVisibility(View.GONE); // visible on overview
+            updateGUI();
+            return view;
+        } catch (Exception e) {
+            FabricPrivacy.logException(e);
+        }
 
-        return view;
+        return null;
     }
 
     @Override

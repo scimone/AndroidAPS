@@ -4,30 +4,18 @@
     <attr name="iconColor" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/primaryColorGray</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorGray</item>
-        <item name="colorAccent">@color/secondaryColorGray</item>
-        <item name="overviewPillColor">@color/overviewPillColorGray</item>
         <item name="iconColor">@color/iconColor</item>
-        <item name="android:windowTranslucentStatus">true</item>
+    </style>
     <!-- The launcher theme. It sets the main window background to the launch_screen drawable -->
-    <style name="AppTheme.Launcher"  parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.Launcher"  parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:windowBackground">@drawable/launch_screen</item>
         <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
-        <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
+        <item name="colorPrimaryDark">@android:color/background_dark</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="AppTheme.base" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColorSecondary">@color/mdtp_white</item>
     </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
 
     <style name="AppTheme.RED" parent="AppTheme.NoActionBar">
         <!-- Customize your theme here. -->
@@ -210,11 +198,6 @@
     <style name="Buton.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored"></style>
 
 
-
-    <style name="AppTheme.base" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:textColorSecondary">@color/mdtp_white</item>
-    </style>
-
     <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primaryColorGray</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorGray</item>
@@ -253,7 +236,6 @@
     <style name="TextViewStyleBright" parent="android:Widget.TextView">
         <item name="android:textColor">@color/textcolor_bright</item>
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
 </resources>
 

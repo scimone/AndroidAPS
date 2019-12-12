@@ -7,9 +7,9 @@
     android:orientation="vertical"
     app:behavior_hideable="false"
     app:behavior_peekHeight="58dp"
-    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginTop="2dp"
@@ -23,7 +23,7 @@
         android:orientation="horizontal"
         android:clickable="true"
         android:elevation="4dp">
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch_dark_mode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -51,9 +51,9 @@
             android:layout_alignParentRight="true"
             android:onClick="onClick"/>
 
-    </LinearLayout></android.support.v7.widget.CardView>
+    </LinearLayout></androidx.cardview.widget.CardView>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

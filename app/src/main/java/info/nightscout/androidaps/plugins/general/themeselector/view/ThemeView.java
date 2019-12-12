@@ -1,22 +1,18 @@
 package info.nightscout.androidaps.plugins.general.themeselector.view;
 
-import android.app.TaskStackBuilder;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
-import info.nightscout.androidaps.MainActivity;
-import info.nightscout.androidaps.MainApp;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.plugins.general.themeselector.model.Theme;
-import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 
 /**
  * Created by Pankaj on 27-10-2017.

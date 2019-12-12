@@ -11,6 +11,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import java.util.Arrays;
 
 import info.nightscout.androidaps.Config;
@@ -53,12 +55,20 @@ import info.nightscout.androidaps.utils.OKDialog;
 import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.SafeParse;
 
+import static info.nightscout.androidaps.MainActivity.mIsNightMode;
+import static info.nightscout.androidaps.MainActivity.mTheme;
+
 public class PreferencesActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     MyPreferenceFragment myPreferenceFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme_NoActionBar);
+        if(mIsNightMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        setTheme(mTheme);
         super.onCreate(savedInstanceState);
         myPreferenceFragment = new MyPreferenceFragment();
         Bundle args = new Bundle();

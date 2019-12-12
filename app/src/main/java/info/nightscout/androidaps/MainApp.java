@@ -5,10 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatDelegate;
 
 import androidx.annotation.PluralsRes;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.crashlytics.android.Crashlytics;

@@ -1,20 +1,18 @@
 package info.nightscout.androidaps.plugins.general.themeselector.adapter;
 
-import android.app.TaskStackBuilder;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 import info.nightscout.androidaps.MainActivity;
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.plugins.general.themeselector.ScrollingActivity;
 import info.nightscout.androidaps.plugins.general.themeselector.model.Theme;
-import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 import info.nightscout.androidaps.plugins.general.themeselector.view.ThemeView;
-
-import java.util.List;
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.MyViewHolder> {
  

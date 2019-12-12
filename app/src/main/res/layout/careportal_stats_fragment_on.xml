@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="4sp"
-    android:paddingRight="4sp"
+    android:paddingLeft="0sp"
+    android:paddingRight="0sp"
     tools:context=".plugins.general.careportal.CareportalFragment">
 
     <LinearLayout
@@ -39,7 +39,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="1dp"
                 android:paddingEnd="2dp"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <ImageView
                 android:layout_width="40dp"
@@ -60,7 +60,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="1dp"
                 android:paddingEnd="2dp"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <ImageView
                 android:layout_width="40dp"
@@ -81,7 +81,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="1dp"
                 android:paddingEnd="2dp"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
             <ImageView
                 android:layout_width="40dp"
@@ -102,7 +102,7 @@
                 android:gravity="center_vertical"
                 android:paddingStart="1dp"
                 android:paddingEnd="1dp"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
