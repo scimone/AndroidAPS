@@ -51,7 +51,12 @@ import info.nightscout.androidaps.activities.HistoryBrowseActivity;
 import info.nightscout.androidaps.activities.NoSplashAppCompatActivity;
 import info.nightscout.androidaps.activities.PreferencesActivity;
 import info.nightscout.androidaps.activities.SingleFragmentActivity;
+<<<<<<< HEAD
 import info.nightscout.androidaps.db.CareportalEvent;
+=======
+import info.nightscout.androidaps.activities.StatsActivity;
+import info.nightscout.androidaps.activities.SurveyActivity;
+>>>>>>> ca2259e0939902809cffc531d42a13598acbfcca
 import info.nightscout.androidaps.events.EventAppExit;
 import info.nightscout.androidaps.events.EventCareportalEventChange;
 import info.nightscout.androidaps.events.EventPreferenceChange;
@@ -534,6 +539,14 @@ public class MainActivity extends NoSplashAppCompatActivity {
                     i.putExtra("id", plugin.getPreferencesId());
                     startActivity(i);
                 }, null);
+                return true;
+/*
+            case R.id.nav_survey:
+                startActivity(new Intent(this, SurveyActivity.class));
+                return true;
+*/
+            case R.id.nav_stats:
+                startActivity(new Intent(this, StatsActivity.class));
                 return true;
         }
         return actionBarDrawerToggle.onOptionsItemSelected(item);
