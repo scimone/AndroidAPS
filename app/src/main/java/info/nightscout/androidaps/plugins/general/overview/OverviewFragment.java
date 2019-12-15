@@ -1495,9 +1495,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                     double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
                     applyStatuslight(batteryView, "BAT", batteryLevel, batWarn, batUrgent, -1, false);
                 }
-                statuslightsLayout.setVisibility(View.GONE);
+                //statuslightsLayout.setVisibility(View.GONE);
             } else {
-                statuslightsLayout.setVisibility(View.GONE);
+                //statuslightsLayout.setVisibility(View.GONE);
             }
         }
 

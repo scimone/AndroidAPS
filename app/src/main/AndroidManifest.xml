@@ -62,10 +62,11 @@
         <activity android:name=".activities.AgreementActivity" />
         <activity android:name=".plugins.general.themeselector.ScrollingActivity" />
         <activity android:name=".plugins.pump.danaR.activities.DanaRHistoryActivity"
-            android:theme="@style/AppTheme"/>
-        <activity android:name=".plugins.pump.danaR.activities.DanaRUserOptionsActivity" />
+            android:theme="@style/AppTheme.base"/>
+        <activity android:name=".plugins.pump.danaR.activities.DanaRUserOptionsActivity"
+            android:theme="@style/AppTheme.base" />
         <activity android:name=".activities.TDDStatsActivity"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.base" />
         <activity android:name=".plugins.general.overview.activities.QuickWizardListActivity">
             <intent-filter>
                 <action android:name="info.nightscout.androidaps.plugins.general.overview.activities.QuickWizardListActivity" />

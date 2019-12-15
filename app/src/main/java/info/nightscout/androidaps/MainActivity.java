@@ -206,9 +206,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 }
 
                 if (batteryView != null) {
-               // careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE);
-               // double batteryLevel = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-
                 double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
                 applyStatuslight(batteryView, "BAT", batteryLevel, batWarn, batUrgent, -1, false);
                 }
