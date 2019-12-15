@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import info.nightscout.androidaps.MainApp;
+import com.google.android.material.tabs.TabLayout;
+
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.events.EventExtendedBolusChange;
 import info.nightscout.androidaps.plugins.bus.RxBus;
@@ -24,38 +26,89 @@ import info.nightscout.androidaps.utils.FabricPrivacy;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
-public class TreatmentsFragment extends Fragment implements View.OnClickListener {
+public class TreatmentsFragment extends Fragment {
     private CompositeDisposable disposable = new CompositeDisposable();
-
-    TextView treatmentsTab;
-    TextView extendedBolusesTab;
-    TextView tempBasalsTab;
-    TextView tempTargetTab;
-    TextView profileSwitchTab;
-    TextView careportalTab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.treatments_fragment, container, false);
 
-        treatmentsTab = (TextView) view.findViewById(R.id.treatments_treatments);
-        extendedBolusesTab = (TextView) view.findViewById(R.id.treatments_extendedboluses);
-        tempBasalsTab = (TextView) view.findViewById(R.id.treatments_tempbasals);
-        tempTargetTab = (TextView) view.findViewById(R.id.treatments_temptargets);
-        profileSwitchTab = (TextView) view.findViewById(R.id.treatments_profileswitches);
-        careportalTab = (TextView) view.findViewById(R.id.treatments_careportal);
-        treatmentsTab.setOnClickListener(this);
-        extendedBolusesTab.setOnClickListener(this);
-        tempBasalsTab.setOnClickListener(this);
-        tempTargetTab.setOnClickListener(this);
-        profileSwitchTab.setOnClickListener(this);
-        careportalTab.setOnClickListener(this);
+            View view = inflater.inflate(R.layout.treatments_fragment, container, false);
 
-        setFragment(new TreatmentsBolusFragment());
-        setBackgroundColorOnSelected(treatmentsTab);
+            TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.bolus));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.extendedbolus));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.tempbasal));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.temptarget));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.profileswitch));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.careportal));
+
+            final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
+            viewPager.setAdapter(new CustomAdapter(getFragmentManager(), tabLayout.getTabCount()));
+
+            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
+
+            viewPager.setCurrentItem(0);
 
         return view;
+    }
+
+    private class CustomAdapter extends FragmentStatePagerAdapter {
+        int numberOfTabs;
+
+        public CustomAdapter(FragmentManager fragmentManager, int numberOfTabs) {
+            super( fragmentManager);
+            this.numberOfTabs = numberOfTabs;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            switch (position)
+            {
+                case 0:
+                    Fragment tab0 = new TreatmentsBolusFragment();
+                    return tab0;
+                case 1:
+                    Fragment tab1 = new TreatmentsExtendedBolusesFragment();
+                    return tab1;
+                case 2:
+                    Fragment tab2 = new TreatmentsTemporaryBasalsFragment();
+                    return tab2;
+                case 3:
+                    Fragment tab3 = new TreatmentsTempTargetFragment();
+                    return tab3;
+                case 4:
+                    Fragment tab4 = new TreatmentsProfileSwitchFragment();
+                    return tab4;
+                case 5:
+                    Fragment tab5 = new TreatmentsCareportalFragment();
+                    return tab5;
+                default:
+                    Fragment tab_default = new TreatmentsBolusFragment();
+                    return tab_default;
+            }
+        }
+        @Override
+        public int getCount() {
+            return numberOfTabs;
+        }
     }
 
     @Override
@@ -75,61 +128,12 @@ public class TreatmentsFragment extends Fragment implements View.OnClickListener
         disposable.clear();
     }
 
-    @Override
-    public void onClick(View v) {
-
-        switch (v.getId()) {
-            case R.id.treatments_treatments:
-                setFragment(new TreatmentsBolusFragment());
-                setBackgroundColorOnSelected(treatmentsTab);
-                break;
-            case R.id.treatments_extendedboluses:
-                setFragment(new TreatmentsExtendedBolusesFragment());
-                setBackgroundColorOnSelected(extendedBolusesTab);
-                break;
-            case R.id.treatments_tempbasals:
-                setFragment(new TreatmentsTemporaryBasalsFragment());
-                setBackgroundColorOnSelected(tempBasalsTab);
-                break;
-            case R.id.treatments_temptargets:
-                setFragment(new TreatmentsTempTargetFragment());
-                setBackgroundColorOnSelected(tempTargetTab);
-                break;
-            case R.id.treatments_profileswitches:
-                setFragment(new TreatmentsProfileSwitchFragment());
-                setBackgroundColorOnSelected(profileSwitchTab);
-                break;
-            case R.id.treatments_careportal:
-                setFragment(new TreatmentsCareportalFragment());
-                setBackgroundColorOnSelected(careportalTab);
-                break;
-        }
-    }
-
-    private void setFragment(Fragment selectedFragment) {
-        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        ft.replace(R.id.treatments_fragment_container, selectedFragment); // f2_container is your FrameLayout container
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-    private void setBackgroundColorOnSelected(TextView selected) {
-        treatmentsTab.setBackgroundColor(MainApp.gc(R.color.defaultbackground));
-        extendedBolusesTab.setBackgroundColor(MainApp.gc(R.color.defaultbackground));
-        tempBasalsTab.setBackgroundColor(MainApp.gc(R.color.defaultbackground));
-        tempTargetTab.setBackgroundColor(MainApp.gc(R.color.defaultbackground));
-        profileSwitchTab.setBackgroundColor(MainApp.gc(R.color.defaultbackground));
-        careportalTab.setBackgroundColor(MainApp.gc(R.color.defaultbackground));
-        selected.setBackgroundColor(MainApp.gc(R.color.tabBgColorSelected));
-    }
-
     private void updateGui() {
         if (ConfigBuilderPlugin.getPlugin().getActivePump().getPumpDescription().isExtendedBolusCapable
                 || TreatmentsPlugin.getPlugin().getExtendedBolusesFromHistory().size() > 0) {
-            extendedBolusesTab.setVisibility(View.VISIBLE);
+           // extendedBolusesTab.setVisibility(View.VISIBLE);
         } else {
-            extendedBolusesTab.setVisibility(View.GONE);
+           // extendedBolusesTab.setVisibility(View.GONE);
         }
     }
 }

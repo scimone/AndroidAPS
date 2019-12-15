@@ -8,12 +8,10 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PersistableBundle;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -29,10 +27,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
 import androidx.arch.core.util.Function;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.navigation.NavigationView;
@@ -51,15 +49,13 @@ import info.nightscout.androidaps.activities.HistoryBrowseActivity;
 import info.nightscout.androidaps.activities.NoSplashAppCompatActivity;
 import info.nightscout.androidaps.activities.PreferencesActivity;
 import info.nightscout.androidaps.activities.SingleFragmentActivity;
-<<<<<<< HEAD
-import info.nightscout.androidaps.db.CareportalEvent;
-=======
 import info.nightscout.androidaps.activities.StatsActivity;
-import info.nightscout.androidaps.activities.SurveyActivity;
->>>>>>> ca2259e0939902809cffc531d42a13598acbfcca
+import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.events.EventAppExit;
 import info.nightscout.androidaps.events.EventCareportalEventChange;
+import info.nightscout.androidaps.events.EventInitializationChanged;
 import info.nightscout.androidaps.events.EventPreferenceChange;
+import info.nightscout.androidaps.events.EventPumpStatusChanged;
 import info.nightscout.androidaps.events.EventRebuildTabs;
 import info.nightscout.androidaps.interfaces.PluginBase;
 import info.nightscout.androidaps.interfaces.PluginType;
@@ -70,6 +66,7 @@ import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.constraints.versionChecker.VersionCheckerUtilsKt;
 import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
+import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
 import info.nightscout.androidaps.plugins.general.themeselector.ScrollingActivity;
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
@@ -83,6 +80,11 @@ import info.nightscout.androidaps.utils.SP;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
+import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.INSULINCHANGE;
+import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.PUMPBATTERYCHANGE;
+import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
+import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORSTART;
+import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SITECHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
 // public class MainActivity extends AppCompatActivity {
@@ -136,7 +138,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         ColorStateList colorStateList = view.getTextColors();
         final int normalColor = colorStateList.getDefaultColor();
 
-            Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value >= threshold : (Double threshold) -> value <= threshold;
+            Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value > threshold : (Double threshold) -> value <= threshold;
         if (value != invalid) {
             view.setText(text);
             if (check.apply(urgentThreshold)) {
@@ -167,16 +169,12 @@ public class MainActivity extends NoSplashAppCompatActivity {
         reservoirView = findViewById(R.id.careportal_prLevel);
         batteryView = findViewById(R.id.careportal_pbLevel);
 
-        batteryView = findViewById(R.id.careportal_pbLevel);
-        reservoirView = findViewById(R.id.careportal_prLevel);
-
-
         if (statuslightsLayout != null) {
             if (SP.getBoolean(R.string.key_show_statuslights, false)) {
                 CareportalEvent careportalEvent;
                 NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
-                double iageUrgent = nsSettings.getExtendedWarnValue("iage", "urgent", 96);
-                double iageWarn = nsSettings.getExtendedWarnValue("iage", "warn", 72);
+                double iageUrgent = nsSettings.getExtendedWarnValue("iage", "urgent", 40);
+                double iageWarn = nsSettings.getExtendedWarnValue("iage", "warn", 70);
                 double cageUrgent = nsSettings.getExtendedWarnValue("cage", "urgent", 72);
                 double cageWarn = nsSettings.getExtendedWarnValue("cage", "warn", 48);
                 double sageUrgent = nsSettings.getExtendedWarnValue("sage", "urgent", 166);
@@ -208,6 +206,9 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 }
 
                 if (batteryView != null) {
+               // careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE);
+               // double batteryLevel = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
+
                 double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
                 applyStatuslight(batteryView, "BAT", batteryLevel, batWarn, batUrgent, -1, false);
                 }
@@ -219,6 +220,35 @@ public class MainActivity extends NoSplashAppCompatActivity {
             statuslightsLayout.setVisibility(View.GONE);
         }
     }
+    }
+
+    public void onClick(View view) {
+        action(view.getId(), getSupportFragmentManager());
+    }
+
+    public static void action(int id, FragmentManager manager) {
+        NewNSTreatmentDialog newDialog = new NewNSTreatmentDialog();
+        switch (id) {
+            case R.id.sensorage:
+                newDialog.setOptions(SENSORCHANGE, R.string.careportal_cgmsensorinsert);
+                break;
+            case R.id.careportal_cgmsensorstart:
+                newDialog.setOptions(SENSORSTART, R.string.careportal_cgmsensorstart);
+                break;
+            case R.id.insulinage:
+                newDialog.setOptions(INSULINCHANGE, R.string.careportal_insulincartridgechange);
+                break;
+            case R.id.canulaage:
+                newDialog.setOptions(SITECHANGE, R.string.careportal_pumpsitechange);
+                break;
+            case R.id.batteryage:
+                newDialog.setOptions(PUMPBATTERYCHANGE, R.string.careportal_pumpbatterychange);
+                break;
+            default:
+                newDialog = null;
+        }
+        if (newDialog != null)
+            newDialog.show(manager, "NewNSTreatmentDialog");
     }
 
     @Override
@@ -246,7 +276,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
+        getSupportActionBar().setShowHideAnimationEnabled(true);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_navigation, R.string.close_navigation);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -280,7 +310,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
         FabricPrivacy.setUserStats();
 
-        setupTabs();
+        //setupTabs();
         setupViews();
 
         disposable.add(RxBus.INSTANCE
@@ -291,7 +321,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
                     if (event.getRecreate()) {
                         recreate();
                     } else {
-                        setupTabs();
+                        //setupTabs();
                         setupViews();
                     }
                     setWakeLock();
@@ -344,6 +374,18 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 .subscribe(event -> scheduleUpdate("EventCareportalEventChange"),
                         FabricPrivacy::logException
                 ));
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventInitializationChanged.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventInitializationChanged"),
+                        FabricPrivacy::logException
+                ));
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventPumpStatusChanged.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate(event.getStatus()),
+                        FabricPrivacy::logException
+                ));
         this.getCareportalInfo();
     }
 
@@ -387,43 +429,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
         //if (switchToLast)
         //    mPager.setCurrentItem(pageAdapter.getCount() - 1, false);
         checkPluginPreferences(mPager);
-    }
-
-    /**
-     * We start the transaction with delay to avoid junk while closing the drawer
-     */
-    private void replaceFragmentWithDelay(@NonNull final Intent intent) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                       // .replace(R.id.main_activity_content_frame, intent.)
-                        .commit();
-            }
-        }, 250);
-    }
-
-    private void setupTabs() {
-        //ViewPager viewPager = findViewById(R.id.pager);
-        //TabLayout normalTabs = findViewById(R.id.tabs_normal);
-        //normalTabs.setupWithViewPager(viewPager, true);
-        //TabLayout compactTabs = findViewById(R.id.tabs_compact);
-        //compactTabs.setupWithViewPager(viewPager, true);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        if (SP.getBoolean("short_tabtitles", false)) {
-            //normalTabs.setVisibility(View.GONE);
-            //compactTabs.setVisibility(View.VISIBLE);
-            toolbar.setLayoutParams(new LinearLayout.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.compact_height)));
-        } else {
-            //normalTabs.setVisibility(View.VISIBLE);
-            //compactTabs.setVisibility(View.GONE);
-            TypedValue typedValue = new TypedValue();
-            if (getTheme().resolveAttribute(R.attr.actionBarSize, typedValue, true)) {
-                toolbar.setLayoutParams(new LinearLayout.LayoutParams(Toolbar.LayoutParams.MATCH_PARENT,
-                        TypedValue.complexToDimensionPixelSize(typedValue.data, getResources().getDisplayMetrics())));
-            }
-        }
     }
 
     private void doMigrations() {
@@ -569,7 +574,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         if (scheduledUpdate != null)
             scheduledUpdate.cancel(false);
         Runnable task = new UpdateRunnable();
-        final int msec = 1000;
+        final int msec = 500;
         scheduledUpdate = worker.schedule(task, msec, TimeUnit.MILLISECONDS);
     }
 }

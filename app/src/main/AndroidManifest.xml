@@ -50,7 +50,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.PreferencesActivity"
-                  android:theme="@style/AppTheme.base" />
+            android:theme="@style/AppTheme.preference" />
+        <activity android:name=".plugins.treatments.TreatmentsFragment"
+            android:theme="@style/AppTheme.preference" />
         <activity
             android:name=".plugins.general.overview.dialogs.BolusProgressHelperActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
@@ -59,9 +61,11 @@
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".activities.AgreementActivity" />
         <activity android:name=".plugins.general.themeselector.ScrollingActivity" />
-        <activity android:name=".plugins.pump.danaR.activities.DanaRHistoryActivity" />
+        <activity android:name=".plugins.pump.danaR.activities.DanaRHistoryActivity"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".plugins.pump.danaR.activities.DanaRUserOptionsActivity" />
-        <activity android:name=".activities.TDDStatsActivity" />
+        <activity android:name=".activities.TDDStatsActivity"
+            android:theme="@style/AppTheme" />
         <activity android:name=".plugins.general.overview.activities.QuickWizardListActivity">
             <intent-filter>
                 <action android:name="info.nightscout.androidaps.plugins.general.overview.activities.QuickWizardListActivity" />
@@ -77,9 +81,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".plugins.pump.danaRS.activities.PairingHelperActivity" />
-        <activity android:name=".activities.HistoryBrowseActivity" />
-        <activity android:name=".activities.SurveyActivity" />
-        <activity android:name=".activities.StatsActivity" />
+        <activity android:name=".activities.HistoryBrowseActivity"
+                  android:theme="@style/AppTheme"  />
+        <activity android:name=".activities.SurveyActivity"
+                  android:theme="@style/AppTheme"/>
+        <activity android:name=".activities.StatsActivity"
+                  android:theme="@style/AppTheme"/>
 
         <!-- Receive new BG readings from other local apps -->
         <receiver

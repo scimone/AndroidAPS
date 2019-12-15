@@ -1662,10 +1662,7 @@
     <string name="low_mark_comment">Lower value of in range area (display only)</string>
     <string name="high_mark_comment">Higher value of in range area (display only)</string>
     <string name="reorder_label">Reorder</string>
-
-<<<<<<< HEAD
     <string name="nav_themeselector">Set Colors</string>
-=======
     <string name="age">Age:</string>
     <string name="weight">Weight:</string>
     <string name="id">ID:</string>
@@ -1683,6 +1680,4 @@
     <string name="activitymonitor">Activity monitor</string>
     <string name="doyouwantresetstats">Do you want to reset activity stats?</string>
     <string name="statistics">Statistics</string>
-
->>>>>>> ca2259e0939902809cffc531d42a13598acbfcca
 </resources>

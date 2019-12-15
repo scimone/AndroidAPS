@@ -11,8 +11,6 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
 
-import androidx.appcompat.app.AppCompatDelegate;
-
 import java.util.Arrays;
 
 import info.nightscout.androidaps.Config;
@@ -33,6 +31,7 @@ import info.nightscout.androidaps.plugins.general.automation.AutomationPlugin;
 import info.nightscout.androidaps.plugins.general.careportal.CareportalPlugin;
 import info.nightscout.androidaps.plugins.general.nsclient.NSClientPlugin;
 import info.nightscout.androidaps.plugins.general.smsCommunicator.SmsCommunicatorPlugin;
+import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 import info.nightscout.androidaps.plugins.general.tidepool.TidepoolPlugin;
 import info.nightscout.androidaps.plugins.general.wear.WearPlugin;
 import info.nightscout.androidaps.plugins.general.xdripStatusline.StatuslinePlugin;
@@ -55,20 +54,15 @@ import info.nightscout.androidaps.utils.OKDialog;
 import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.SafeParse;
 
-import static info.nightscout.androidaps.MainActivity.mIsNightMode;
-import static info.nightscout.androidaps.MainActivity.mTheme;
+import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
 public class PreferencesActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     MyPreferenceFragment myPreferenceFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(mIsNightMode){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }else{
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-        setTheme(mTheme);
+        int newtheme = SP.getInt("theme", THEME_PINK);
+        setTheme(ThemeUtil.getThemeId(newtheme));
         super.onCreate(savedInstanceState);
         myPreferenceFragment = new MyPreferenceFragment();
         Bundle args = new Bundle();

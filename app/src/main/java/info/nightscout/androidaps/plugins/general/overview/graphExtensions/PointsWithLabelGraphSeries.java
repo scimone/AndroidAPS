@@ -40,6 +40,7 @@ import com.jjoe64.graphview.series.BaseSeries;
 import java.util.Iterator;
 
 import info.nightscout.androidaps.MainApp;
+import info.nightscout.androidaps.R;
 
 // Added by Rumen for scalable text
 
@@ -224,6 +225,7 @@ public class PointsWithLabelGraphSeries<E extends DataPointWithLabelInterface> e
                     canvas.drawRect(endX - scaledPxSize, endY - scaledPxSize, endX + scaledPxSize, endY + scaledPxSize, mPaint);
                 } else if (value.getShape() == Shape.TRIANGLE) {
                     mPaint.setStrokeWidth(0);
+                    mPaint.setColor(MainApp.gc(R.color.basal));
                     Point[] points = new Point[3];
                     points[0] = new Point((int) endX, (int) (endY - scaledPxSize));
                     points[1] = new Point((int) (endX + scaledPxSize), (int) (endY + scaledPxSize * 0.67));
@@ -242,6 +244,7 @@ public class PointsWithLabelGraphSeries<E extends DataPointWithLabelInterface> e
                     }
                 } else if (value.getShape() == Shape.SMB) {
                     mPaint.setStrokeWidth(2);
+                    mPaint.setColor(MainApp.gc(R.color.basal));
                     Point[] points = new Point[3];
                     float size = value.getSize() * scaledPxSize;
                     points[0] = new Point((int) endX, (int) (endY - size));

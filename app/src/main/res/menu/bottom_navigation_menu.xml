@@ -1,121 +1,35 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="0sp"
-    android:paddingRight="0sp"
-    android:orientation="horizontal"
-    tools:context=".plugins.general.careportal.CareportalFragment">
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/overview_treatmentbutton"
+        android:icon="@drawable/icon_cp_cgm_profile"
+        android:tint="?attr/iconColor"
+        android:title="@string/overview_treatment_label"/>
+
+    <item
+        android:id="@+id/overview_insulinbutton"
+        android:icon="@drawable/icon_bolus"
+        android:tint="?attr/iconColor"
+        android:title="@string/overview_insulin_label" />
+
+    <item
+        android:id="@+id/overview_carbsbutton"
+        android:icon="@drawable/icon_cp_bolus_carbs"
+        android:tint="?attr/iconColor"
+        android:title="@string/overview_carbs_label"/>
+
+    <item
+        android:id="@+id/overview_wizardbutton"
+        android:icon="@drawable/icon_calculator"
+        android:tint="?attr/iconColor"
+        android:title="@string/overview_calculator_label"/>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:orientation="horizontal">
+    <item
+        android:id="@+id/overview_cgmbutton"
+        android:icon="@drawable/icon_xdrip"
+        android:tint="?attr/iconColor"
+        android:title="@string/overview_cgm"/>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/sensorage"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/icon_cp_age_sensor"
-                android:tint="?attr/iconColor"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onClick"
-                android:gravity="top"
-                />
-
-            <TextView
-                android:id="@+id/careportal_sensorage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-
-            <ImageView
-                android:id="@+id/insulinage"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/icon_cp_age_insulin"
-                android:tint="?attr/iconColor"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onClick"
-                android:gravity="top"/>
-
-            <TextView
-                android:id="@+id/careportal_prLevel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/canulaage"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/icon_cp_age_canula"
-                android:tint="?attr/iconColor"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onClick"
-                android:gravity="top"/>
-
-            <TextView
-                android:id="@+id/careportal_canulaage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:layout_gravity="center_horizontal"
-                android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/batteryage"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/icon_cp_age_battery"
-                android:tint="?attr/iconColor"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onClick"
-                android:gravity="top"/>
-
-            <TextView
-                android:id="@+id/careportal_pbLevel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:textSize="14sp" />
-    </LinearLayout>
-        </LinearLayout>
-</FrameLayout>
+</menu>

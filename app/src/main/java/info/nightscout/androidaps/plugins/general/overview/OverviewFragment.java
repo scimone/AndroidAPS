@@ -26,9 +26,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Space;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.arch.core.util.Function;
@@ -39,7 +39,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jjoe64.graphview.GraphView;
 
 import org.slf4j.Logger;
@@ -158,6 +158,13 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     GraphView bgGraph;
     GraphView iobGraph;
     ImageButton chartButton;
+    // BottomNavigation and menu items
+    BottomNavigationView bottomNavigationView;
+    MenuItem itemTreatment ;
+    MenuItem itemBolus ;
+    MenuItem itemCarbs ;
+    MenuItem itemWizzard ;
+    MenuItem itemCgm ;
 
     LinearLayout loopStatusLayout;
     TextView activeProfileView;
@@ -185,22 +192,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     LinearLayout acceptTempLayout;
     SingleClickButton acceptTempButton;
 
-    FloatingActionButton treatmentButton;
-    FloatingActionButton wizardButton;
-    FloatingActionButton calibrationButton;
-    FloatingActionButton insulinButton;
-    FloatingActionButton carbsButton;
-    FloatingActionButton cgmButton;
-    FloatingActionButton quickWizardButton;
-
-    Space treatmentbutton_space;
-    Space insulinbutton_space;
-    Space carbsButton_space;
-    Space wizardButton_space;
-    Space calibrationbutton_space;
-    Space cgmbutton_space;
-    Space quickwizardbutton_space;
-
     boolean smallWidth;
     boolean smallHeight;
 
@@ -226,7 +217,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //check screen width
+        //check screen width and choose main dialog
         final DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screen_width = dm.widthPixels;
@@ -234,7 +225,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         smallWidth = screen_width <= Constants.SMALL_WIDTH;
         smallHeight = screen_height <= Constants.SMALL_HEIGHT;
         boolean landscape = screen_height < screen_width;
-
         View view;
 
         if (MainApp.sResources.getBoolean(R.bool.isTablet) && (Config.NSCLIENT)) {
@@ -250,6 +240,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             shorttextmode = true;
         }
 
+        // set elements to fragment elements
         timeView = (TextView) view.findViewById(R.id.overview_time);
         bgView = (TextView) view.findViewById(R.id.overview_bg);
         arrowView = (TextView) view.findViewById(R.id.overview_arrow);
@@ -287,7 +278,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         pbLevel = view.findViewById(R.id.careportal_pbLevel);
         prLevel = view.findViewById(R.id.careportal_prLevel);
 
-        statuslightsLayout = (LinearLayout) view.findViewById(R.id.overview_statuslights);
+      //  statuslightsLayout = (LinearLayout) view.findViewById(R.id.overview_statuslights);
        /* iageView = view.findViewById(R.id.overview_insulinage);
         cageView = view.findViewById(R.id.overview_canulaage);
         reservoirView = view.findViewById(R.id.overview_reservoirlevel);
@@ -297,42 +288,21 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
         bgGraph = (GraphView) view.findViewById(R.id.overview_bggraph);
         iobGraph = (GraphView) view.findViewById(R.id.overview_iobgraph);
+        //cobGraph = (GraphView) view.findViewById(R.id.overview_iobgraph);
 
-        treatmentButton = (FloatingActionButton) view.findViewById(R.id.overview_treatmentbutton);
-        treatmentButton.setOnClickListener(this);
-        treatmentbutton_space = (Space) view.findViewById(R.id.overview_treatmentbutton_space);
-
-        wizardButton = (FloatingActionButton) view.findViewById(R.id.overview_wizardbutton);
-        wizardButton.setOnClickListener(this);
-        wizardButton_space = (Space) view.findViewById(R.id.overview_wizardbutton_space);
-
-        insulinButton = (FloatingActionButton) view.findViewById(R.id.overview_insulinbutton);
-        insulinbutton_space = (Space) view.findViewById(R.id.overview_insulinbutton_space);
-        if (insulinButton != null)
-            insulinButton.setOnClickListener(this);
-        carbsButton = (FloatingActionButton) view.findViewById(R.id.overview_carbsbutton);
-        carbsButton_space = (Space) view.findViewById(R.id.overview_carbsbutton_space);
-        if (carbsButton != null)
-            carbsButton.setOnClickListener(this);
         acceptTempButton = (SingleClickButton) view.findViewById(R.id.overview_accepttempbutton);
         if (acceptTempButton != null)
             acceptTempButton.setOnClickListener(this);
-        quickWizardButton = (FloatingActionButton) view.findViewById(R.id.overview_quickwizardbutton);
-        quickWizardButton.setOnClickListener(this);
-        quickWizardButton.setOnLongClickListener(this);
-        quickwizardbutton_space = (Space) view.findViewById(R.id.overview_quickwizardbutton_space);
-        calibrationButton = (FloatingActionButton) view.findViewById(R.id.overview_calibrationbutton);
-        if (calibrationButton != null)
-            calibrationButton.setOnClickListener(this);
-        calibrationbutton_space = (Space) view.findViewById(R.id.overview_calibrationbutton_space);
-
-        cgmButton = (FloatingActionButton) view.findViewById(R.id.overview_cgmbutton);
-        if (cgmButton != null)
-            cgmButton.setOnClickListener(this);
-        cgmbutton_space = (Space) view.findViewById(R.id.overview_cgmbutton_space);
 
 
         acceptTempLayout = (LinearLayout) view.findViewById(R.id.overview_accepttemplayout);
+
+        bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
+        itemTreatment = bottomNavigationView.getMenu().findItem(R.id.overview_treatmentbutton) ;
+        itemBolus = bottomNavigationView.getMenu().findItem(R.id.overview_insulinbutton);
+        itemCarbs = bottomNavigationView.getMenu().findItem(R.id.overview_carbsbutton);
+        itemWizzard = bottomNavigationView.getMenu().findItem(R.id.overview_wizardbutton);
+        itemCgm = bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton); ;
 
         notificationsView = (RecyclerView) view.findViewById(R.id.overview_notifications);
         notificationsView.setHasFixedSize(false);
@@ -369,6 +339,14 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         iobGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         iobGraph.getGridLabelRenderer().setNumVerticalLabels(3);
 
+     /*   cobGraph.getGridLabelRenderer().reloadStyles();
+        cobGraph.getGridLabelRenderer().reloadStyles();
+        cobGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
+        cobGraph.getGridLabelRenderer().reloadStyles();
+        cobGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        cobGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
+        cobGraph.getGridLabelRenderer().setNumVerticalLabels(3);*/
+
         rangeToDisplay = SP.getInt(R.string.key_rangetodisplay, 6);
 
         bgGraph.setOnLongClickListener(v -> {
@@ -381,6 +359,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         });
 
         setupChartMenu(view);
+        setupBottomNavigationView(view);
 
         return view;
     }
@@ -496,6 +475,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         updateGUI("onResume");
     }
 
+
+    /*
+    sets all elements in chart
+     */
     private void setupChartMenu(View view) {
         chartButton = (ImageButton) view.findViewById(R.id.overview_chartMenuButton);
         chartButton.setOnClickListener(v -> {
@@ -852,6 +835,56 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         return super.onContextItemSelected(item);
     }
 
+    /*
+      sets clicklistener on BottomNavigationView
+ */
+    private void setupBottomNavigationView(View view) {
+        boolean xdrip = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
+        boolean dexcom = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
+
+        FragmentManager manager = getFragmentManager();
+        // try to fix  https://fabric.io/nightscout3/android/apps/info.nightscout.androidaps/issues/5aca7a1536c7b23527eb4be7?time=last-seven-days
+        // https://stackoverflow.com/questions/14860239/checking-if-state-is-saved-before-committing-a-fragmenttransaction
+        if (manager.isStateSaved())
+            return;
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.overview_treatmentbutton:
+                                NewTreatmentDialog treatmentDialogFragment = new NewTreatmentDialog();
+                                treatmentDialogFragment.show(manager, "TreatmentDialog");
+                                break;
+                            case R.id.overview_insulinbutton:
+                                new NewInsulinDialog().show(manager, "InsulinDialog");
+                                break;
+                            case R.id.overview_carbsbutton:
+                                new NewCarbsDialog().show(manager, "CarbsDialog");
+                                break;
+                            case R.id.overview_wizardbutton:
+                                WizardDialog wizardDialog = new WizardDialog();
+                                wizardDialog.show(manager, "WizardDialog");
+                                break;
+                            case R.id.overview_cgmbutton:
+                                if (xdrip)
+                                    openCgmApp("com.eveningoutpost.dexdrip");
+                                else if (dexcom) {
+                                    String packageName = SourceDexcomPlugin.INSTANCE.findDexcomPackageName();
+                                    if (packageName != null) {
+                                        openCgmApp(packageName);
+                                    } else {
+                                        ToastUtils.showToastInUiThread(getActivity(), MainApp.gs(R.string.dexcom_app_not_installed));
+                                    }
+                                }
+                                break;
+                        }
+                        return true;
+                    }
+                });
+    }
+
     @Override
     public void onClick(View v) {
         boolean xdrip = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
@@ -984,7 +1017,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
         final QuickWizardEntry quickWizardEntry = QuickWizard.INSTANCE.getActive();
         if (quickWizardEntry != null && actualBg != null && profile != null && pump != null) {
-            quickWizardButton.show();
+            //quickWizardButton.show();
             final BolusWizard wizard = quickWizardEntry.doCalc(profile, profileName, actualBg, true);
 
             if (wizard.getCalculatedTotalInsulin() > 0d && quickWizardEntry.carbs() > 0d) {
@@ -1048,6 +1081,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         scheduledUpdate = worker.schedule(task, msec, TimeUnit.MILLISECONDS);
     }
 
+    // update elements and data in dialog
     @SuppressLint("SetTextI18n")
     public void updateGUI(final String from) {
         if (L.isEnabled(L.OVERVIEW))
@@ -1213,7 +1247,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         boolean xDripIsBgSource = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
         boolean dexcomIsSource = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
         boolean bgAvailable = DatabaseHelper.actualBg() != null;
-        if (calibrationButton != null) {
+      /*  if (calibrationButton != null) {
             if ((xDripIsBgSource || dexcomIsSource) && bgAvailable && SP.getBoolean(R.string.key_show_calibration_button, true)) {
                 calibrationButton.show();
                 calibrationbutton_space.setVisibility(View.VISIBLE);
@@ -1221,18 +1255,17 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 calibrationButton.hide();
                 calibrationbutton_space.setVisibility(View.GONE);
             }
-        }
-        if (cgmButton != null) {
+        } */
+
+       if (itemCgm != null) {
             if (xDripIsBgSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
-                cgmButton.show();
+                bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(true);
             } else if (dexcomIsSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
-                cgmButton.show();
-                cgmbutton_space.setVisibility(View.VISIBLE);
+                bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(true);
             } else {
-                cgmButton.hide();
-                cgmbutton_space.setVisibility(View.GONE);
+                bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(false);
             }
-        }
+       }
 
         final TemporaryBasal activeTemp = TreatmentsPlugin.getPlugin().getTempBasalFromHistory(System.currentTimeMillis());
         String basalText = "";
@@ -1286,6 +1319,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 extendedBolusView.setVisibility(View.VISIBLE);
         }
 
+        // **** activeProfileView pill button ****
         activeProfileView.setText(ProfileFunctions.getInstance().getProfileNameWithDuration());
         if (profile.getPercentage() != 100 || profile.getTimeshift() != 0) {
             Drawable drawable = activeProfileView.getBackground();
@@ -1296,66 +1330,68 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             Drawable drawable = activeProfileView.getBackground();
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = getContext().getTheme();
-            theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
-            drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
-            activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
+            if(theme != null){
+                theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
+                drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+                activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
+            }
         }
 
         // QuickWizard button
         QuickWizardEntry quickWizardEntry = QuickWizard.INSTANCE.getActive();
         if (quickWizardEntry != null && lastBG != null && pump.isInitialized() && !pump.isSuspended()) {
-            quickWizardButton.show();
-            quickwizardbutton_space.setVisibility(View.VISIBLE);
+          //  quickWizardButton.show();
+          //  quickwizardbutton_space.setVisibility(View.VISIBLE);
             String text = quickWizardEntry.buttonText() + "\n" + DecimalFormatter.to0Decimal(quickWizardEntry.carbs()) + "g";
             BolusWizard wizard = quickWizardEntry.doCalc(profile, profileName, lastBG, false);
             text += " " + DecimalFormatter.toPumpSupportedBolus(wizard.getCalculatedTotalInsulin()) + "U";
         // todo    quickWizardButton.setText(text);
-            if (wizard.getCalculatedTotalInsulin() <= 0)
-                quickWizardButton.hide();
-            quickwizardbutton_space.setVisibility(View.GONE);
-        } else
-            quickWizardButton.hide();
-        quickwizardbutton_space.setVisibility(View.GONE);
+           // if (wizard.getCalculatedTotalInsulin() <= 0)
+            //    quickWizardButton.hide();
+            // quickwizardbutton_space.setVisibility(View.GONE);
+        //} else
+           // quickWizardButton.hide();
+          // quickwizardbutton_space.setVisibility(View.GONE);
+          }
 
-        // **** Various treatment buttons ****
-        if (carbsButton != null) {
+        // **** carbsButton buttons ****
+        if (itemCarbs != null) {
             if (SP.getBoolean(R.string.key_show_carbs_button, true)
                     && (!ConfigBuilderPlugin.getPlugin().getActivePump().getPumpDescription().storesCarbInfo ||
                     (pump.isInitialized() && !pump.isSuspended()))) {
-                carbsButton.show();
-                carbsButton_space.setVisibility(View.VISIBLE);
+               itemCarbs.setVisible(true);
             } else {
-                carbsButton.hide();
-                carbsButton_space.setVisibility(View.GONE);
+                itemCarbs.setVisible(false);
             }
         }
 
         if (pump.isInitialized() && !pump.isSuspended()) {
-            if (treatmentButton != null) {
+            if (itemTreatment != null) {
                 if (SP.getBoolean(R.string.key_show_treatment_button, false)) {
-                    treatmentButton.show();
-                    treatmentbutton_space.setVisibility(View.VISIBLE);
+                    itemTreatment.setVisible(true);
                 } else {
-                    treatmentButton.hide();
-                    treatmentbutton_space.setVisibility(View.GONE);
+                    itemTreatment.setVisible(false);
                 }
             }
-            if (pump.isInitialized() && !pump.isSuspended() && wizardButton != null) {
-                if (SP.getBoolean(R.string.key_show_wizard_button, true)) {
-                    wizardButton.show();
-                    wizardButton_space.setVisibility(View.VISIBLE);
-                } else {
-                    wizardButton.hide();
-                    wizardButton_space.setVisibility(View.GONE);
-                }
-            }
-            if (pump.isInitialized() && !pump.isSuspended() && insulinButton != null) {
+            if (pump.isInitialized() && !pump.isSuspended() && itemBolus != null) {
                 if (SP.getBoolean(R.string.key_show_insulin_button, true)) {
-                    insulinButton.show();
-                    insulinbutton_space.setVisibility(View.VISIBLE);
+                    itemBolus.setVisible(true);
                 } else {
-                    insulinButton.hide();
-                    insulinbutton_space.setVisibility(View.GONE);
+                    itemBolus.setVisible(false);
+                }
+            }
+            if (pump.isInitialized() && !pump.isSuspended() && itemWizzard != null) {
+                if (SP.getBoolean(R.string.key_show_wizard_button, true)) {
+                    itemWizzard.setVisible(true);
+                } else {
+                    itemWizzard.setVisible(false);
+                }
+            }
+            if (pump.isInitialized() && !pump.isSuspended() && itemBolus != null) {
+                if (SP.getBoolean(R.string.key_show_insulin_button, true)) {
+                    itemBolus.setVisible(true);
+                } else {
+                    itemBolus.setVisible(false);
                 }
             }
         }
@@ -1654,6 +1690,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value >= threshold : (Double threshold) -> value <= threshold;
         if (value != invalid) {
             view.setText(text);
+            view.setTextColor(MainApp.gc(R.color.overviewPillColor));
             if (check.apply(urgentThreshold)) {
                 view.setTextColor(MainApp.gc(R.color.ribbonCritical));
             } else if (check.apply(warnThreshold)) {
