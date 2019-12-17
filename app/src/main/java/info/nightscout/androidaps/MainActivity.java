@@ -27,6 +27,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 import androidx.arch.core.util.Function;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -106,6 +107,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
     private static Logger log = LoggerFactory.getLogger(L.CORE);
     private CompositeDisposable disposable = new CompositeDisposable();
 
+    private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     private MenuItem pluginPreferencesMenuItem;
@@ -269,6 +271,13 @@ public class MainActivity extends NoSplashAppCompatActivity {
         LocaleHelper.INSTANCE.update(getApplicationContext());
 
         setContentView(R.layout.activity_main);
+
+        // Set a Toolbar to replace the ActionBar.
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // This will display an Up icon (<-), we will replace it with hamburger later
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

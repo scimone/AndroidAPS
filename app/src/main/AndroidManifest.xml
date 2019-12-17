@@ -83,17 +83,17 @@
         </activity>
         <activity android:name=".plugins.pump.danaRS.activities.PairingHelperActivity" />
         <activity android:name=".activities.HistoryBrowseActivity"
-                  android:theme="@style/AppTheme"  />
+            android:theme="@style/AppTheme"  />
         <activity android:name=".activities.SurveyActivity"
-                  android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme"/>
         <activity android:name=".activities.StatsActivity"
-                  android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme"/>
 
         <!-- Receive new BG readings from other local apps -->
         <receiver
-                android:name=".receivers.DataReceiver"
-                android:enabled="true"
-                android:exported="true">
+            android:name=".receivers.DataReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <!-- Receiver from xDrip -->
                 <action android:name="com.eveningoutpost.dexdrip.BgEstimate"/>
@@ -112,10 +112,10 @@
 
         <!-- Receive new SMS messages -->
         <receiver
-                android:name=".receivers.SmsReceiver"
-                android:enabled="true"
-                android:exported="true"
-                android:permission="android.permission.BROADCAST_SMS">
+            android:name=".receivers.SmsReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
@@ -135,7 +135,7 @@
         </receiver>
 
         <!-- NSClient -->
-         <receiver
+        <receiver
             android:name=".plugins.general.nsclient.receivers.DBAccessReceiver"
             android:enabled="true"
             android:exported="true">
