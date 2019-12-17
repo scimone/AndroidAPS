@@ -3,32 +3,32 @@
 
     <item
         android:id="@+id/overview_treatmentbutton"
-        android:icon="@drawable/icon_cp_cgm_profile"
+        android:icon="@drawable/ic_zahnrad_48"
         android:tint="?attr/iconColor"
         android:title="@string/overview_treatment_label"/>
 
     <item
         android:id="@+id/overview_insulinbutton"
-        android:icon="@drawable/icon_bolus"
+        android:icon="@drawable/ic_iob_48"
         android:tint="?attr/iconColor"
         android:title="@string/overview_insulin_label" />
 
     <item
         android:id="@+id/overview_carbsbutton"
-        android:icon="@drawable/icon_cp_bolus_carbs"
+        android:icon="@drawable/ic_carb_48"
         android:tint="?attr/iconColor"
         android:title="@string/overview_carbs_label"/>
 
     <item
         android:id="@+id/overview_wizardbutton"
-        android:icon="@drawable/icon_calculator"
+        android:icon="@drawable/ic_calculator_48"
         android:tint="?attr/iconColor"
         android:title="@string/overview_calculator_label"/>
 
 
     <item
         android:id="@+id/overview_cgmbutton"
-        android:icon="@drawable/icon_xdrip"
+        android:icon="@drawable/ic_blooddrop_48"
         android:tint="?attr/iconColor"
         android:title="@string/overview_cgm"/>
 

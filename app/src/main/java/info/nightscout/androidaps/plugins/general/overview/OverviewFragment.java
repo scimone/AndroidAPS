@@ -155,8 +155,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     TextView uploaderDeviceStatusView;
     TextView iobCalculationProgressView;
     LinearLayout pumpStatusLayout;
+    // chart graph
     GraphView bgGraph;
     GraphView iobGraph;
+    GraphView cobGraph;
     ImageButton chartButton;
     // BottomNavigation and menu items
     BottomNavigationView bottomNavigationView;
@@ -288,7 +290,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
         bgGraph = (GraphView) view.findViewById(R.id.overview_bggraph);
         iobGraph = (GraphView) view.findViewById(R.id.overview_iobgraph);
-        //cobGraph = (GraphView) view.findViewById(R.id.overview_iobgraph);
+        //cobGraph = (GraphView) view.findViewById(R.id.overview_cobgraph);
 
         acceptTempButton = (SingleClickButton) view.findViewById(R.id.overview_accepttempbutton);
         if (acceptTempButton != null)
@@ -344,6 +346,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         cobGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
         cobGraph.getGridLabelRenderer().reloadStyles();
         cobGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        bgGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         cobGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         cobGraph.getGridLabelRenderer().setNumVerticalLabels(3);*/
 
@@ -1619,6 +1622,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 Profiler.log(log, from + " - 2nd graph - START", updateGUIStart);
 
             final GraphData secondGraphData = new GraphData(iobGraph, IobCobCalculatorPlugin.getPlugin());
+            //final GraphData thirdGraphData = new GraphData(cobGraph, IobCobCalculatorPlugin.getPlugin());
 
             boolean useIobForScale = false;
             boolean useCobForScale = false;
@@ -1645,6 +1649,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 secondGraphData.addIob(fromTime, now, useIobForScale, 1d, SP.getBoolean("showprediction", false));
             if (SP.getBoolean("showcob", true))
                 secondGraphData.addCob(fromTime, now, useCobForScale, useCobForScale ? 1d : 0.5d);
+                //thirdGraphData.addCob(fromTime, now, useCobForScale, useCobForScale ? 1d : 0.5d);
             if (SP.getBoolean("showdeviations", false))
                 secondGraphData.addDeviations(fromTime, now, useDevForScale, 1d);
             if (SP.getBoolean("showratios", false))
@@ -1659,6 +1664,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             secondGraphData.formatAxis(fromTime, endTime);
             secondGraphData.addNowLine(now);
 
+          //  thirdGraphData.formatAxis(fromTime, endTime);
+          //  thirdGraphData.addNowLine(now);
+
             // do GUI update
             FragmentActivity activity = getActivity();
             if (activity != null) {
@@ -1670,12 +1678,15 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                             || SP.getBoolean("showactivitysecondary", false)
                             || SP.getBoolean("showdevslope", false)) {
                         iobGraph.setVisibility(View.VISIBLE);
+                       // cobGraph.setVisibility(View.VISIBLE);
                     } else {
                         iobGraph.setVisibility(View.GONE);
+                        //cobGraph.setVisibility(View.GONE);
                     }
                     // finally enforce drawing of graphs
                     graphData.performUpdate();
                     secondGraphData.performUpdate();
+                    //thirdGraphData.performUpdate();
                     if (L.isEnabled(L.OVERVIEW))
                         Profiler.log(log, from + " - onDataChanged", updateGUIStart);
                 });
