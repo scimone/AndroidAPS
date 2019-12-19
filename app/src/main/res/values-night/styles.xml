@@ -4,6 +4,11 @@
     <attr name="iconColor" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:actionBarTheme">@android:style/Theme.Material</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="iconColor">@color/iconColor</item>
     </style>
 
@@ -19,7 +24,12 @@
     <style name="AppTheme.Launcher"  parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:windowBackground">@drawable/launch_screen</item>
         <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
-        <item name="colorPrimaryDark">@android:color/background_dark</item>
+
+        <item name="android:actionBarTheme">@android:style/Theme.Material</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="AppTheme.base" parent="Theme.AppCompat.NoActionBar">

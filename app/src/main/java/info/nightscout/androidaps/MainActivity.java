@@ -142,7 +142,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
             Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value > threshold : (Double threshold) -> value <= threshold;
         if (value != invalid) {
-            view.setText(text);
+            //view.setText(text);
             if (check.apply(urgentThreshold)) {
                 view.setTextColor(MainApp.gc(R.color.low));
             } else if (check.apply(warnThreshold)) {
@@ -292,8 +292,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
         // initialize screen wake lock
         processPreferenceChange(new EventPreferenceChange(R.string.key_keep_screen_on));
 
-        doMigrations();
-
         final ViewPager viewPager = findViewById(R.id.pager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -339,7 +337,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 .subscribe(this::processPreferenceChange, FabricPrivacy::logException)
         );
 
-        if (!SP.getBoolean(R.string.key_setupwizard_processed, false) || !SP.contains(R.string.key_units)) {
+        if (!SP.getBoolean(R.string.key_setupwizard_processed, false)) {
             Intent intent = new Intent(this, SetupWizardActivity.class);
             startActivity(intent);
         }
@@ -445,7 +443,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
         if (unreachable_threshold < 30) unreachable_threshold = 30;
         SP.putString(R.string.key_pump_unreachable_threshold, Integer.toString(unreachable_threshold));
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

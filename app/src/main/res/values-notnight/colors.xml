@@ -12,7 +12,7 @@
     <color name="devslopepos">#FFFFFF00</color>
     <color name="devslopeneg">#FFFF00FF</color>
     <color name="inrange">#000000</color>
-    <color name="low">#FF0000</color>
+    <color name="low">#FFE011</color>
     <color name="high">#FFFF00</color>
     <color name="actionsConfirm">#FFFF00</color>
     <color name="listdelimiter">#505050</color>
@@ -66,13 +66,13 @@
     <color name="deviationblack">#72000000</color>
 
     <color name="ribbonDefault">#3A7EFF</color>
-    <color name="ribbonWarning">#FFFF00</color>
+    <color name="ribbonWarning">#FFE011</color>
     <color name="ribbonCritical">#ff0400</color>
     <color name="ribbonTextDefault">#FFFFFF</color>
     <color name="ribbonTextWarning">#303030</color>
     <color name="ribbonTextCritical">#FFFFFF</color>
 
-    <color name="inrange_bg">#A4ECEA</color>
+    <color name="inrange_bg">#9FE2E0</color>
     <color name="textcolor_bright">#FFFFFF</color>
     <color name="textcolor_dark">#000000</color>
 
