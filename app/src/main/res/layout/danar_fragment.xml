@@ -1,10 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="8dp"
-    tools:context="info.nightscout.androidaps.plugins.PumpDanaR.DanaRFragment">
-
+ <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="5dp"
+        tools:context="info.nightscout.androidaps.plugins.PumpDanaR.DanaRFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -680,6 +680,7 @@
             android:id="@+id/danar_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
@@ -747,4 +748,4 @@
 
     </RelativeLayout>
 
-</FrameLayout>
+ </androidx.coordinatorlayout.widget.CoordinatorLayout>

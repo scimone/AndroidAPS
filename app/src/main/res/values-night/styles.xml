@@ -5,10 +5,6 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="android:actionBarTheme">@android:style/Theme.Material</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="iconColor">@color/iconColor</item>
     </style>
 
@@ -26,10 +22,6 @@
         <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
 
         <item name="android:actionBarTheme">@android:style/Theme.Material</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
     <style name="AppTheme.base" parent="Theme.AppCompat.NoActionBar">

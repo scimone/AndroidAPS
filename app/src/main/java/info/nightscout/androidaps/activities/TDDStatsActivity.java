@@ -16,6 +16,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ import info.nightscout.androidaps.interfaces.PumpInterface;
 import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
+import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 import info.nightscout.androidaps.plugins.pump.danaR.DanaRPlugin;
 import info.nightscout.androidaps.plugins.pump.danaR.events.EventDanaRSyncStatus;
 import info.nightscout.androidaps.plugins.pump.danaRKorean.DanaRKoreanPlugin;
@@ -53,6 +55,8 @@ import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.SafeParse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+
+import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
 public class TDDStatsActivity extends NoSplashAppCompatActivity {
     private static Logger log = LoggerFactory.getLogger(TDDStatsActivity.class);
@@ -115,6 +119,17 @@ public class TDDStatsActivity extends NoSplashAppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        int newtheme = SP.getInt("theme", THEME_PINK);
+        boolean mIsNightMode = SP.getBoolean("daynight", true);
+
+        if(mIsNightMode){
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        setTheme(ThemeUtil.getThemeId(newtheme));
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.danar_statsactivity);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);

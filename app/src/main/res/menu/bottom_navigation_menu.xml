@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:id="@+id/overview_treatmentbutton"
-        android:icon="@drawable/ic_zahnrad_48"
-        android:tint="?attr/iconColor"
-        android:title="@string/overview_treatment_label"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item
         android:id="@+id/overview_insulinbutton"

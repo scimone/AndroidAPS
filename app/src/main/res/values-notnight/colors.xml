@@ -19,7 +19,7 @@
     <color name="tabBgColor">#f0003f59</color>
     <color name="tabBgColorSelected">#5F7BA6</color>
     <color name="deviations">#FF0000</color>
-    <color name="inrangebackground">#59FFFFFF</color>
+    <color name="inrangebackground">#10FFFFFF</color>
     <color name="basebasal">#3D15FF</color>
     <color name="tempbasal">#C803A9F4</color>
     <color name="graphgrid">#757575</color>

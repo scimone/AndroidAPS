@@ -1,217 +1,98 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    tools:context=".plugins.general.careportal.CareportalFragment">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
         android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="15dp"
-            android:paddingBottom="10dp"
-            android:text="@string/careportal_age_label" />
-    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/icon_cp_age_sensor"
-                android:tint="?attr/iconColor"
-                android:gravity="center_vertical"
-                android:paddingStart="14dp"
-                android:paddingRight="3dp"
-                android:text="@string/careportal_sensorage_label"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="5dp"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/overview_treatmentbutton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_zahnrad_48"
+                app:fabSize="auto" />
+
+            <TextView
+                android:id="@+id/overview_treatmentbutton_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:paddingStart="2dp"
                 android:paddingEnd="2dp"
-                android:text=":"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/careportal_sensorage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:paddingLeft="5dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/overview_treatment_label"
                 android:textSize="12sp" />
 
         </LinearLayout>
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2dip"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/listdelimiter" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:orientation="vertical">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/overview_calibrationbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:src="@drawable/icon_calibration"
+                app:fabSize="auto" />
+
+            <TextView
+                android:id="@+id/overview_calibrationbutton_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/overview_calibration"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/icon_cp_age_insulin"
-                android:tint="?attr/iconColor"
-                android:gravity="center_vertical"
-                android:paddingStart="14dp"
-                android:paddingRight="3dp"
-                android:text="@string/careportal_insulinage_label"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="5dp"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/overview_quickwizardbutton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center_horizontal"
-                android:paddingEnd="2dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/icon_quickwizard"
+                app:fabSize="auto" />
+
+            <TextView
+                android:id="@+id/overview_quickwizardbutton_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:paddingStart="2dp"
-                android:text=":"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/careportal_insulinage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:paddingLeft="5dp"
-                android:textSize="14sp" />
+                android:paddingEnd="2dp"
+                android:text="@string/quickwizard"
+                android:textSize="12sp" />
 
         </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/listdelimiter" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/icon_cp_age_canula"
-                android:tint="?attr/iconColor"
-                android:gravity="center_vertical"
-                android:paddingStart="14dp"
-                android:paddingRight="3dp"
-                android:text="@string/careportal_canulaage_label"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="5dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center_horizontal"
-                android:paddingEnd="2dp"
-                android:paddingStart="2dp"
-                android:text=":"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/careportal_canulaage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:paddingLeft="5dp"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/listdelimiter" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:drawableLeft="@drawable/icon_cp_age_battery"
-                android:tint="?attr/iconColor"
-                android:gravity="center_vertical"
-                android:paddingStart="14dp"
-                android:paddingRight="3dp"
-                android:text="@string/careportal_pbage_label"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="5dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:gravity="center_horizontal"
-                android:paddingEnd="2dp"
-                android:paddingStart="2dp"
-                android:text=":"
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/careportal_pbage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:paddingLeft="5dp"
-                android:textSize="14sp" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="2dip"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/listdelimiter" />
-
     </LinearLayout>
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

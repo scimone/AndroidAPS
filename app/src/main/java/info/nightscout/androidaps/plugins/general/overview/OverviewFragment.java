@@ -28,7 +28,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.arch.core.util.Function;
@@ -39,7 +38,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jjoe64.graphview.GraphView;
 
 import org.slf4j.Logger;
@@ -96,12 +94,8 @@ import info.nightscout.androidaps.plugins.general.careportal.OptionsToShow;
 import info.nightscout.androidaps.plugins.general.nsclient.NSUpload;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSDeviceStatus;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
-import info.nightscout.androidaps.plugins.general.overview.activities.QuickWizardListActivity;
-import info.nightscout.androidaps.plugins.general.overview.dialogs.CalibrationDialog;
 import info.nightscout.androidaps.plugins.general.overview.dialogs.NewCarbsDialog;
 import info.nightscout.androidaps.plugins.general.overview.dialogs.NewInsulinDialog;
-import info.nightscout.androidaps.plugins.general.overview.dialogs.NewTreatmentDialog;
-import info.nightscout.androidaps.plugins.general.overview.dialogs.WizardDialog;
 import info.nightscout.androidaps.plugins.general.overview.graphData.GraphData;
 import info.nightscout.androidaps.plugins.general.wear.ActionStringHandler;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.AutosensData;
@@ -161,7 +155,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     GraphView cobGraph;
     ImageButton chartButton;
     // BottomNavigation and menu items
-    BottomNavigationView bottomNavigationView;
+    //BottomNavigationView bottomNavigationView;
     MenuItem itemTreatment ;
     MenuItem itemBolus ;
     MenuItem itemCarbs ;
@@ -280,14 +274,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         pbLevel = view.findViewById(R.id.careportal_pbLevel);
         prLevel = view.findViewById(R.id.careportal_prLevel);
 
-      //  statuslightsLayout = (LinearLayout) view.findViewById(R.id.overview_statuslights);
-       /* iageView = view.findViewById(R.id.overview_insulinage);
-        cageView = view.findViewById(R.id.overview_canulaage);
-        reservoirView = view.findViewById(R.id.overview_reservoirlevel);
-        sageView = view.findViewById(R.id.overview_sensorage);
-        batteryView = view.findViewById(R.id.overview_batterylevel);*/
-        //statuslightsLayout = view.findViewById(R.id.overview_statuslights);
-
         bgGraph = (GraphView) view.findViewById(R.id.overview_bggraph);
         iobGraph = (GraphView) view.findViewById(R.id.overview_iobgraph);
         //cobGraph = (GraphView) view.findViewById(R.id.overview_cobgraph);
@@ -298,13 +284,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
 
         acceptTempLayout = (LinearLayout) view.findViewById(R.id.overview_accepttemplayout);
-
-        bottomNavigationView = (BottomNavigationView) view.findViewById(R.id.bottom_navigation);
-        itemTreatment = bottomNavigationView.getMenu().findItem(R.id.overview_treatmentbutton) ;
-        itemBolus = bottomNavigationView.getMenu().findItem(R.id.overview_insulinbutton);
-        itemCarbs = bottomNavigationView.getMenu().findItem(R.id.overview_carbsbutton);
-        itemWizzard = bottomNavigationView.getMenu().findItem(R.id.overview_wizardbutton);
-        itemCgm = bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton); ;
 
         notificationsView = (RecyclerView) view.findViewById(R.id.overview_notifications);
         notificationsView.setHasFixedSize(false);
@@ -362,7 +341,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         });
 
         setupChartMenu(view);
-        setupBottomNavigationView(view);
+        //setupBottomNavigationView(view);
 
         return view;
     }
@@ -838,56 +817,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         return super.onContextItemSelected(item);
     }
 
-    /*
-      sets clicklistener on BottomNavigationView
- */
-    private void setupBottomNavigationView(View view) {
-        boolean xdrip = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
-        boolean dexcom = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
-
-        FragmentManager manager = getFragmentManager();
-        // try to fix  https://fabric.io/nightscout3/android/apps/info.nightscout.androidaps/issues/5aca7a1536c7b23527eb4be7?time=last-seven-days
-        // https://stackoverflow.com/questions/14860239/checking-if-state-is-saved-before-committing-a-fragmenttransaction
-        if (manager.isStateSaved())
-            return;
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.overview_treatmentbutton:
-                                NewTreatmentDialog treatmentDialogFragment = new NewTreatmentDialog();
-                                treatmentDialogFragment.show(manager, "TreatmentDialog");
-                                break;
-                            case R.id.overview_insulinbutton:
-                                new NewInsulinDialog().show(manager, "InsulinDialog");
-                                break;
-                            case R.id.overview_carbsbutton:
-                                new NewCarbsDialog().show(manager, "CarbsDialog");
-                                break;
-                            case R.id.overview_wizardbutton:
-                                WizardDialog wizardDialog = new WizardDialog();
-                                wizardDialog.show(manager, "WizardDialog");
-                                break;
-                            case R.id.overview_cgmbutton:
-                                if (xdrip)
-                                    openCgmApp("com.eveningoutpost.dexdrip");
-                                else if (dexcom) {
-                                    String packageName = SourceDexcomPlugin.INSTANCE.findDexcomPackageName();
-                                    if (packageName != null) {
-                                        openCgmApp(packageName);
-                                    } else {
-                                        ToastUtils.showToastInUiThread(getActivity(), MainApp.gs(R.string.dexcom_app_not_installed));
-                                    }
-                                }
-                                break;
-                        }
-                        return true;
-                    }
-                });
-    }
-
     @Override
     public void onClick(View v) {
         boolean xdrip = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
@@ -902,10 +831,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             case R.id.overview_accepttempbutton:
                 onClickAcceptTemp();
                 break;
-            case R.id.overview_quickwizardbutton:
+           /* case R.id.overview_quickwizardbutton:
                 onClickQuickwizard();
-                break;
-            case R.id.overview_wizardbutton:
+                break;*/
+           /* case R.id.overview_wizardbutton:
                 WizardDialog wizardDialog = new WizardDialog();
                 wizardDialog.show(manager, "WizardDialog");
                 break;
@@ -927,7 +856,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                         ToastUtils.showToastInUiThread(getActivity(), MainApp.gs(R.string.g5appnotdetected));
                     }
                 }
-                break;
+                break;*/
             case R.id.overview_cgmbutton:
                 if (xdrip)
                     openCgmApp("com.eveningoutpost.dexdrip");
@@ -940,10 +869,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                     }
                 }
                 break;
-            case R.id.overview_treatmentbutton:
+           /* case R.id.overview_treatmentbutton:
                 NewTreatmentDialog treatmentDialogFragment = new NewTreatmentDialog();
                 treatmentDialogFragment.show(manager, "TreatmentDialog");
-                break;
+                break;*/
             case R.id.overview_insulinbutton:
                 new NewInsulinDialog().show(manager, "InsulinDialog");
                 break;
@@ -980,10 +909,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     @Override
     public boolean onLongClick(View v) {
         switch (v.getId()) {
-            case R.id.overview_quickwizardbutton:
-                Intent i = new Intent(v.getContext(), QuickWizardListActivity.class);
-                startActivity(i);
-                return true;
+            //case R.id.overview_quickwizardbutton:
+              //  Intent i = new Intent(v.getContext(), QuickWizardListActivity.class);
+               // startActivity(i);
+               // return true;
         }
         return false;
     }
@@ -1262,11 +1191,11 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
        if (itemCgm != null) {
             if (xDripIsBgSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
-                bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(true);
+                //bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(true);
             } else if (dexcomIsSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
-                bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(true);
+                //bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(true);
             } else {
-                bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(false);
+                //bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(false);
             }
        }
 
