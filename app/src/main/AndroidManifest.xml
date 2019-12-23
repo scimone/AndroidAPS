@@ -50,7 +50,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.PreferencesActivity"
-            />
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity android:name=".plugins.treatments.TreatmentsFragment"
             android:theme="@style/AppTheme.preference" />
         <activity

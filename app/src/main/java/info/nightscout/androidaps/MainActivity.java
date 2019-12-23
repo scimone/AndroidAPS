@@ -362,11 +362,11 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 Integer carbsAfterConstraints = MainApp.getConstraintChecker().applyCarbsConstraints(new Constraint<>(quickWizardEntry.carbs())).value();
 
                 if (Math.abs(wizard.getInsulinAfterConstraints() - wizard.getCalculatedTotalInsulin()) >= pump.getPumpDescription().pumpType.determineCorrectBolusStepSize(wizard.getInsulinAfterConstraints()) || !carbsAfterConstraints.equals(quickWizardEntry.carbs())) {
-                    OKDialog.show(getApplicationContext(), MainApp.gs(R.string.treatmentdeliveryerror), MainApp.gs(R.string.constraints_violation) + "\n" + MainApp.gs(R.string.changeyourinput), null);
+                    OKDialog.show(MainActivity.this, MainApp.gs(R.string.treatmentdeliveryerror), MainApp.gs(R.string.constraints_violation) + "\n" + MainApp.gs(R.string.changeyourinput), null);
                     return;
                 }
 
-                wizard.confirmAndExecute(getApplicationContext());
+                wizard.confirmAndExecute(MainActivity.this);
             }
         }
     }
@@ -531,8 +531,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
             VersionCheckerUtilsKt.triggerCheckVersion();
 
         FabricPrivacy.setUserStats();
-
-        //setupTabs();
         setupViews();
 
         disposable.add(RxBus.INSTANCE
@@ -543,7 +541,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
                     if (event.getRecreate()) {
                         recreate();
                     } else {
-                        //setupTabs();
                         setupViews();
                     }
                     setWakeLock();
@@ -648,8 +645,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
         }
         ViewPager mPager = findViewById(R.id.pager);
         mPager.setAdapter(pageAdapter);
-        //if (switchToLast)
-        //    mPager.setCurrentItem(pageAdapter.getCount() - 1, false);
         checkPluginPreferences(mPager);
     }
 

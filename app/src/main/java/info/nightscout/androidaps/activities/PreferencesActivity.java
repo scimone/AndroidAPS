@@ -62,15 +62,16 @@ public class PreferencesActivity extends PreferenceActivity implements SharedPre
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         int newtheme = SP.getInt("theme", THEME_PINK);
-        boolean mIsNightMode = SP.getBoolean("daynight", true);
         setTheme(ThemeUtil.getThemeId(newtheme));
-        super.onCreate(savedInstanceState);
+
         myPreferenceFragment = new MyPreferenceFragment();
         Bundle args = new Bundle();
         args.putInt("id", getIntent().getIntExtra("id", -1));
         myPreferenceFragment.setArguments(args);
         getFragmentManager().beginTransaction().replace(android.R.id.content, myPreferenceFragment).commit();
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
+
+        super.onCreate(savedInstanceState);
     }
 
     @Override
