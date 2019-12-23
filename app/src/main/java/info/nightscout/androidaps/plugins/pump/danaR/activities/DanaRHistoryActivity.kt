@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import info.nightscout.androidaps.Constants
+import info.nightscout.androidaps.MainActivity
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.activities.NoSplashAppCompatActivity
@@ -29,6 +31,7 @@ import info.nightscout.androidaps.queue.Callback
 import info.nightscout.androidaps.utils.DateUtil
 import info.nightscout.androidaps.utils.DecimalFormatter
 import info.nightscout.androidaps.utils.FabricPrivacy
+import info.nightscout.androidaps.utils.SP
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.danar_historyactivity.*
@@ -68,6 +71,15 @@ class DanaRHistoryActivity : NoSplashAppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        SP.putInt("theme", MainActivity.mTheme)
+        SP.putBoolean("daynight", MainActivity.mIsNightMode)
+
+        if (MainActivity.mIsNightMode) {
+            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+        }
+        setTheme(MainActivity.mTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.danar_historyactivity)
 

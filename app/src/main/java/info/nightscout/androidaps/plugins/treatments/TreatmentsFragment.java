@@ -37,11 +37,14 @@ public class TreatmentsFragment extends Fragment {
 
             TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
             tabLayout.addTab(tabLayout.newTab().setText(R.string.bolus));
-            tabLayout.addTab(tabLayout.newTab().setText(R.string.extendedbolus));
-            tabLayout.addTab(tabLayout.newTab().setText(R.string.tempbasal));
-            tabLayout.addTab(tabLayout.newTab().setText(R.string.temptarget));
-            tabLayout.addTab(tabLayout.newTab().setText(R.string.profileswitch));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.extended_bolus));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.pump_tempbasal_label));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.careportal_temporarytarget));
+            tabLayout.addTab(tabLayout.newTab().setText(R.string.careportal_profileswitch));
             tabLayout.addTab(tabLayout.newTab().setText(R.string.careportal));
+
+
+
 
             final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
             viewPager.setAdapter(new CustomAdapter(getFragmentManager(), tabLayout.getTabCount()));

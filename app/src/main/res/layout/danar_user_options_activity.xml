@@ -317,7 +317,7 @@
 
         <Button
             android:id="@+id/save_user_options"
-            style="@style/Widget.AppCompat.Button"
+            style="@style/Buton.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/icon_local_save"

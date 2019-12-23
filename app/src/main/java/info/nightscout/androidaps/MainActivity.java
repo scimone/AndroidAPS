@@ -64,6 +64,11 @@ import info.nightscout.androidaps.data.QuickWizardEntry;
 import info.nightscout.androidaps.db.BgReading;
 import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.db.DatabaseHelper;
+import info.nightscout.androidaps.dialogs.CalibrationDialog;
+import info.nightscout.androidaps.dialogs.CarbsDialog;
+import info.nightscout.androidaps.dialogs.InsulinDialog;
+import info.nightscout.androidaps.dialogs.TreatmentDialog;
+import info.nightscout.androidaps.dialogs.WizardDialog;
 import info.nightscout.androidaps.events.EventAppExit;
 import info.nightscout.androidaps.events.EventCareportalEventChange;
 import info.nightscout.androidaps.events.EventInitializationChanged;
@@ -83,11 +88,6 @@ import info.nightscout.androidaps.plugins.constraints.versionChecker.VersionChec
 import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
-import info.nightscout.androidaps.plugins.general.overview.dialogs.CalibrationDialog;
-import info.nightscout.androidaps.plugins.general.overview.dialogs.NewCarbsDialog;
-import info.nightscout.androidaps.plugins.general.overview.dialogs.NewInsulinDialog;
-import info.nightscout.androidaps.plugins.general.overview.dialogs.NewTreatmentDialog;
-import info.nightscout.androidaps.plugins.general.overview.dialogs.WizardDialog;
 import info.nightscout.androidaps.plugins.general.themeselector.ScrollingActivity;
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 import info.nightscout.androidaps.plugins.source.SourceDexcomPlugin;
@@ -329,8 +329,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 onClickQuickwizard();
                 return;
             case R.id.overview_treatmentbutton:
-                NewTreatmentDialog treatmentDialogFragment = new NewTreatmentDialog();
-                treatmentDialogFragment.show(manager, "TreatmentDialog");
+                new TreatmentDialog().show(manager, "Overview");
                 return;
             default:
                 newDialog = null;
@@ -402,11 +401,12 @@ public class MainActivity extends NoSplashAppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.overview_insulinbutton:
-                                new NewInsulinDialog().show(manager, "InsulinDialog");
+                                new InsulinDialog().show(manager, "Overview");
                                 break;
                             case R.id.overview_carbsbutton:
-                                new NewCarbsDialog().show(manager, "CarbsDialog");
+                                new CarbsDialog().show(manager, "Overview");
                                 break;
+
                             case R.id.overview_wizardbutton:
                                 WizardDialog wizardDialog = new WizardDialog();
                                 wizardDialog.show(manager, "WizardDialog");

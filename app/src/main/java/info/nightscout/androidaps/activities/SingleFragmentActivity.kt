@@ -6,11 +6,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.interfaces.PluginBase
+import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil
+import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK
 import info.nightscout.androidaps.utils.LocaleHelper
 import info.nightscout.androidaps.utils.PasswordProtection
+import info.nightscout.androidaps.utils.SP
 
 class SingleFragmentActivity : AppCompatActivity() {
     private var plugin: PluginBase? = null
@@ -21,6 +25,16 @@ class SingleFragmentActivity : AppCompatActivity() {
         title = plugin?.name
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        val newtheme = SP.getInt("theme", THEME_PINK)
+        val mIsNightMode = SP.getBoolean("daynight", true)
+
+        if (mIsNightMode) {
+            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+        }
+        setTheme(ThemeUtil.getThemeId(newtheme))
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.frame_layout,
                 supportFragmentManager.fragmentFactory.instantiate(ClassLoader.getSystemClassLoader(), plugin?.pluginDescription?.fragmentClass!!)).commit()
