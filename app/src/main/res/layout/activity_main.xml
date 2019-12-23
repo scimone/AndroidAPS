@@ -56,6 +56,24 @@
 
         </LinearLayout>
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/design_bottom_navigation_height"
+            app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:labelVisibilityMode = "labeled"
+            android:layout_margin="0dp"
+            style="@style/Widget.Design.BottomNavigationView"
+            app:itemIconSize="@dimen/bottom_navigation_icon_size"
+            app:itemIconTint="?attr/iconColor"
+            app:itemTextColor="?attr/iconColor"
+            app:menu="@menu/bottom_navigation_menu" />
+
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
@@ -69,24 +87,6 @@
             app:fabCradleMargin="6dp"
             app:contentInsetLeft="4dp"
             app:fabCradleVerticalOffset="8dp" />
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navigation"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/design_bottom_navigation_height"
-                app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:labelVisibilityMode = "labeled"
-                android:layout_margin="0dp"
-                style="@style/Widget.Design.BottomNavigationView"
-                app:itemIconSize="@dimen/bottom_navigation_icon_size"
-                app:itemIconTint="?attr/iconColor"
-                app:itemTextColor="?attr/iconColor"
-                app:menu="@menu/bottom_navigation_menu" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

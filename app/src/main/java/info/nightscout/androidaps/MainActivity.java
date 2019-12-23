@@ -18,8 +18,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -147,12 +145,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
     private FloatingActionButton overviewCalibrationbutton;
     private FloatingActionButton overviewQuickwizardbutton;
     private FloatingActionButton overview_Treatmentbutton;
-
-    private Animation rotate_forward,rotate_backward;
-
-    private TextView overviewCalibrationbuttonLabel;
-    private TextView overviewQuickWizzardLabel;
-    private TextView overview_TreatmentbuttonLabel;
 
     private CoordinatorLayout mainBottomFabMenu;
 
@@ -460,6 +452,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
         setContentView(R.layout.activity_main);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
         itemBolus = bottomNavigationView.getMenu().findItem(R.id.overview_insulinbutton);
         itemCarbs = bottomNavigationView.getMenu().findItem(R.id.overview_carbsbutton);
         itemWizzard = bottomNavigationView.getMenu().findItem(R.id.overview_wizardbutton);
@@ -470,8 +463,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
         overviewCalibrationbutton = (FloatingActionButton)findViewById(R.id.overview_calibrationbutton);
         overviewQuickwizardbutton = (FloatingActionButton)findViewById(R.id.overview_quickwizardbutton);
         overview_Treatmentbutton = (FloatingActionButton)findViewById(R.id.overview_treatmentbutton);
-        rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
-        rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_backward);
         fab.setOnClickListener(this::onClick);
         overviewCalibrationbutton.setOnClickListener(this::onClick);
         overviewQuickwizardbutton.setOnClickListener(this::onClick);
@@ -597,6 +588,12 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 .toObservable(EventInitializationChanged.class)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(event -> scheduleUpdate("EventInitializationChanged"),
+                        FabricPrivacy::logException
+                ));
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventPreferenceChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventPreferenceChange"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
