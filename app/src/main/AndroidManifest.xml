@@ -54,10 +54,10 @@
         <activity android:name=".plugins.treatments.TreatmentsFragment"
             android:theme="@style/AppTheme.preference" />
         <activity
-            android:name=".plugins.general.overview.dialogs.BolusProgressHelperActivity"
+            android:name=".activities.BolusProgressHelperActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity
-            android:name=".plugins.general.overview.dialogs.ErrorHelperActivity"
+            android:name=".activities.ErrorHelperActivity"
             android:theme="@style/Theme.AppCompat.Translucent" />
         <activity android:name=".activities.AgreementActivity" />
         <activity android:name=".plugins.general.themeselector.ScrollingActivity" />

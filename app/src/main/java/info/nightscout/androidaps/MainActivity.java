@@ -662,10 +662,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 switch (requestCode) {
                     case AndroidPermission.CASE_STORAGE:
                         //show dialog after permission is granted
-                        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                        alert.setMessage(R.string.alert_dialog_storage_permission_text);
-                        alert.setPositiveButton(R.string.ok, null);
-                        alert.show();
+                        OKDialog.show(this, "", MainApp.gs(R.string.alert_dialog_storage_permission_text));
                         break;
                     case AndroidPermission.CASE_LOCATION:
                     case AndroidPermission.CASE_SMS:
