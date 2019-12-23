@@ -46,20 +46,16 @@ public class ScrollAwareFABBehavior extends CoordinatorLayout.Behavior<FloatingA
     @Override
     public void onNestedScroll(CoordinatorLayout coordinatorLayout, FloatingActionButton fabButton,
                                View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed , int type) {
+
+            if (dyConsumed > 0 && ( !mIsAnimatingOut && fabButton.isShown())) {
+                animateOut(fabButton);
+            } else if ((dyConsumed < 0 || ( dyUnconsumed < 0) && fabButton.isOrWillBeHidden())) {
+                animateIn(fabButton);
+        }
+
         super.onNestedScroll(coordinatorLayout, fabButton, target, dxConsumed, dyConsumed, dxUnconsumed,
                 dyUnconsumed, type);
 
-            if (dyConsumed > 0 && !mIsAnimatingOut && fabButton.isShown()) {
-                animateOut(fabButton);
-                //fabButton.setEnabled(false);
-                //fabButton.setClickable(false);
-                //fabButton.setAlpha(0.3f);
-            } else if ((dyConsumed <= 0 || ( dyUnconsumed < 0) && fabButton.isOrWillBeHidden())) {
-                animateIn(fabButton);
-                //fabButton.setEnabled(true);
-                //fabButton.setClickable(true);
-                //fabButton.setAlpha(1.0f);
-        }
     }
 
     public static void animateOut(final FloatingActionButton fabButton) {
@@ -75,7 +71,7 @@ public class ScrollAwareFABBehavior extends CoordinatorLayout.Behavior<FloatingA
                     mIsAnimatingOut = false;
                     fabButton.setEnabled(false);
                     fabButton.setClickable(false);
-                    fabButton.setAlpha(0.3f);
+                    fabButton.setAlpha(0.0f);
                 }
 
                 @Override
@@ -89,10 +85,10 @@ public class ScrollAwareFABBehavior extends CoordinatorLayout.Behavior<FloatingA
         fabButton.setEnabled(true);
         fabButton.setClickable(true);
         fabButton.setAlpha(1.0f);
-        ViewCompat.animate(fabButton).translationY(0).scaleX(1.0F).scaleY(1.0F).alpha(1.0F)
+       /* ViewCompat.animate(fabButton).translationY(0).scaleX(1.0F).scaleY(1.0F).alpha(1.0F)
                 .setInterpolator(INTERPOLATOR).withLayer().setListener(null)
-                .setDuration(100L)
-                .start();
+                .setDuration(400L)
+                .start();*/
 
         }
     }

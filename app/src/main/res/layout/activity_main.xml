@@ -77,11 +77,14 @@
                 app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
-                app:itemIconTint="?attr/iconColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:labelVisibilityMode = "labeled"
                 android:layout_margin="0dp"
                 style="@style/Widget.Design.BottomNavigationView"
                 app:itemIconSize="@dimen/bottom_navigation_icon_size"
+                app:itemIconTint="?attr/iconColor"
                 app:itemTextColor="?attr/iconColor"
                 app:menu="@menu/bottom_navigation_menu" />
 
@@ -95,6 +98,7 @@
             app:backgroundTint="?attr/colorPrimaryDark"
             android:backgroundTint="?attr/colorPrimaryDark"
             android:background="?attr/colorPrimaryDark"
+            android:tint="?attr/iconColor"
             android:src="@drawable/ic_add_black_24dp"
             android:clickable="true"
             app:pressedTranslationZ="12dp"
