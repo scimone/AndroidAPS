@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceManager;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 import java.util.Arrays;
 
@@ -54,14 +55,27 @@ import info.nightscout.androidaps.utils.OKDialog;
 import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.SafeParse;
 
+import static info.nightscout.androidaps.MainActivity.mIsNightMode;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
-public class PreferencesActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class PreferencesActivity extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     MyPreferenceFragment myPreferenceFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // sets the main theme and color
         int newtheme = SP.getInt("theme", THEME_PINK);
+        boolean newMode = SP.getBoolean("daynight", mIsNightMode);
+        mIsNightMode = newMode;
+
+        if(mIsNightMode){
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        getDelegate().applyDayNight();
         setTheme(ThemeUtil.getThemeId(newtheme));
 
         myPreferenceFragment = new MyPreferenceFragment();

@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import info.nightscout.androidaps.Constants
-import info.nightscout.androidaps.MainActivity
+import info.nightscout.androidaps.MainActivity.mIsNightMode
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.activities.NoSplashAppCompatActivity
@@ -23,6 +23,7 @@ import info.nightscout.androidaps.logging.L
 import info.nightscout.androidaps.plugins.bus.RxBus.toObservable
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions
+import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK
 import info.nightscout.androidaps.plugins.pump.danaR.comm.RecordTypes
 import info.nightscout.androidaps.plugins.pump.danaR.events.EventDanaRSyncStatus
 import info.nightscout.androidaps.plugins.pump.danaRKorean.DanaRKoreanPlugin
@@ -71,15 +72,13 @@ class DanaRHistoryActivity : NoSplashAppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        SP.putInt("theme", MainActivity.mTheme)
-        SP.putBoolean("daynight", MainActivity.mIsNightMode)
-
-        if (MainActivity.mIsNightMode) {
+        val newtheme = SP.getInt("theme", THEME_PINK)
+        if (mIsNightMode) {
             delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         } else {
             delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
         }
-        setTheme(MainActivity.mTheme)
+        setTheme(newtheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.danar_historyactivity)
 

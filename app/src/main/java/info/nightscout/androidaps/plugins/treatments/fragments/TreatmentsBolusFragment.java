@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.List;
 
@@ -51,6 +52,10 @@ public class TreatmentsBolusFragment extends Fragment {
     private TextView iobTotal;
     private TextView activityTotal;
     private Button deleteFutureTreatments;
+
+    SwipeRefreshLayout swipeRefresh;
+
+    int i = 0;
 
     public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.TreatmentsViewHolder> {
 
@@ -184,7 +189,21 @@ public class TreatmentsBolusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.treatments_bolus_fragment, container, false);
+
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
+        this.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                i++;
+                //do the refresh of data here
+                TreatmentsPlugin.getPlugin().getService().resetTreatments();
+                RxBus.INSTANCE.send(new EventNSClientRestart());
+                swipeRefresh.setRefreshing(false);
+            }
+        });
 
         recyclerView = view.findViewById(R.id.treatments_recyclerview);
         recyclerView.setHasFixedSize(true);

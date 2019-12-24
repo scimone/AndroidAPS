@@ -81,6 +81,16 @@
 
     <color name="chart_background">#00000000</color>
 
+    <!-- Black and White -->
+    <color name="white">#FFF</color>
+    <color name="black_alpha_40">#66000000</color>
+    <color name="black_alpha_60">#99000000</color>
+
+    <!---Swipe on refresh colors-->
+    <color name="orange">#FF9900</color>
+    <color name="green">#009900</color>
+    <color name="blue">#000099</color>
+
     <!---Theme based colors-->
     <color name="colorPrimary">#707991</color>
     <color name="colorPrimaryDark">#5a6275</color>

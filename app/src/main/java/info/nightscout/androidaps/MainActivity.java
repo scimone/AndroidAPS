@@ -66,6 +66,7 @@ import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.db.DatabaseHelper;
 import info.nightscout.androidaps.dialogs.CalibrationDialog;
 import info.nightscout.androidaps.dialogs.CarbsDialog;
+import info.nightscout.androidaps.dialogs.CareDialog;
 import info.nightscout.androidaps.dialogs.InsulinDialog;
 import info.nightscout.androidaps.dialogs.TreatmentDialog;
 import info.nightscout.androidaps.dialogs.WizardDialog;
@@ -106,9 +107,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.INSULINCHANGE;
-import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.PUMPBATTERYCHANGE;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
-import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORSTART;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SITECHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
@@ -162,17 +161,29 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
     // change to selected theme in theme manager
     public void changeTheme(int newTheme){
+        setNewTheme(newTheme);
+        refreshActivities();
+    }
+
+    // change to a new theme selected in theme manager
+    public void setNewTheme(int newTheme){
         mTheme = newTheme;
         SP.putInt("theme", mTheme);
         SP.putBoolean("daynight", mIsNightMode);
 
         if(mIsNightMode){
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }else{
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+        getDelegate().applyDayNight();
         setTheme(mTheme);
+    }
 
+    // restart activities if something like theme change happens
+    public void refreshActivities(){
         TaskStackBuilder.create(this)
                 .addNextIntent(new Intent(this, MainActivity.class))
                 .addNextIntent(this.getIntent())
@@ -273,6 +284,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
     public  void action(View view , int id, FragmentManager manager) {
         NewNSTreatmentDialog newDialog = new NewNSTreatmentDialog();
+        CareDialog newCareDialog = new CareDialog();
         boolean xdrip = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
         boolean dexcom = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
         switch (id) {
@@ -280,8 +292,8 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 newDialog.setOptions(SENSORCHANGE, R.string.careportal_cgmsensorinsert);
                 break;
             case R.id.careportal_cgmsensorstart:
-                newDialog.setOptions(SENSORSTART, R.string.careportal_cgmsensorstart);
-                break;
+                newCareDialog.setOptions(CareDialog.EventType.SENSOR_INSERT , R.string.careportal_cgmsensorinsert).show( manager, "Actions");
+                return;
             case R.id.insulinage:
                 newDialog.setOptions(INSULINCHANGE, R.string.careportal_insulincartridgechange);
                 break;
@@ -289,8 +301,8 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 newDialog.setOptions(SITECHANGE, R.string.careportal_pumpsitechange);
                 break;
             case R.id.batteryage:
-                newDialog.setOptions(PUMPBATTERYCHANGE, R.string.careportal_pumpbatterychange);
-                break;
+                newCareDialog.setOptions(CareDialog.EventType.BATTERY_CHANGE, R.string.careportal_pumpbatterychange).show( manager, "Actions");
+                return;
             case R.id.fab:
                 isRotate = ViewAnimation.rotateFab(view, !isRotate);
                 mainBottomFabMenu = findViewById(R.id.main_bottom_fab_menu);
@@ -438,11 +450,14 @@ public class MainActivity extends NoSplashAppCompatActivity {
         boolean newMode = SP.getBoolean("daynight", mIsNightMode);
         mIsNightMode = newMode;
 
-        if(newMode){
+        if(mIsNightMode){
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }else{
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+        getDelegate().applyDayNight();
         setTheme(ThemeUtil.getThemeId(newtheme));
 
         super.onCreate(savedInstanceState);
@@ -509,7 +524,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                //checkPluginPreferences(viewPager);
+                // set toolbar visible if it was unvisible in page before
             }
 
             @Override

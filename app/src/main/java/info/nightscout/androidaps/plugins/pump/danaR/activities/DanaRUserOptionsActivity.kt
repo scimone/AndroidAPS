@@ -4,8 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import info.nightscout.androidaps.Constants
-import info.nightscout.androidaps.MainActivity.mIsNightMode
-import info.nightscout.androidaps.MainActivity.mTheme
+import info.nightscout.androidaps.MainActivity
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.activities.ErrorHelperActivity
@@ -58,15 +57,15 @@ class DanaRUserOptionsActivity : NoSplashAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        SP.putInt("theme", mTheme)
-        SP.putBoolean("daynight", mIsNightMode)
+        SP.putInt("theme", MainActivity.mTheme)
+        SP.putBoolean("daynight", MainActivity.mIsNightMode)
 
-        if (mIsNightMode) {
+        if (MainActivity.mIsNightMode) {
             delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         } else {
             delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
         }
-        setTheme(mTheme)
+        setTheme(MainActivity.mTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.danar_user_options_activity)
 
