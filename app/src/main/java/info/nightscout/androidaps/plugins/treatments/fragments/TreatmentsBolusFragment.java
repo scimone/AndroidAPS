@@ -199,8 +199,10 @@ public class TreatmentsBolusFragment extends Fragment {
             public void onRefresh() {
                 i++;
                 //do the refresh of data here
-                TreatmentsPlugin.getPlugin().getService().resetTreatments();
-                RxBus.INSTANCE.send(new EventNSClientRestart());
+                OKDialog.showConfirmation(getContext(), MainApp.gs(R.string.refresheventsfromnightscout) + "?", () -> {
+                    TreatmentsPlugin.getPlugin().getService().resetTreatments();
+                    RxBus.INSTANCE.send(new EventNSClientRestart());
+                });
                 swipeRefresh.setRefreshing(false);
             }
         });
