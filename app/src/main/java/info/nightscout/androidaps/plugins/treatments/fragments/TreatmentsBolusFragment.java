@@ -194,19 +194,25 @@ public class TreatmentsBolusFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         swipeRefresh.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
-        this.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                i++;
-                //do the refresh of data here
-                OKDialog.showConfirmation(getContext(), MainApp.gs(R.string.refresheventsfromnightscout) + "?", () -> {
-                    TreatmentsPlugin.getPlugin().getService().resetTreatments();
-                    RxBus.INSTANCE.send(new EventNSClientRestart());
-                });
-                swipeRefresh.setRefreshing(false);
-            }
-        });
 
+        boolean nsUploadOnly = SP.getBoolean(R.string.key_ns_upload_only, false);
+        if (nsUploadOnly) {
+            swipeRefresh.setEnabled(false);
+        } else {
+            this.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    i++;
+                    //do the refresh of data here
+                    OKDialog.showConfirmation(getContext(), MainApp.gs(R.string.refresheventsfromnightscout) + "?", () -> {
+                        TreatmentsPlugin.getPlugin().getService().resetTreatments();
+                        RxBus.INSTANCE.send(new EventNSClientRestart());
+                    });
+                    swipeRefresh.setRefreshing(false);
+                }
+            });
+        }
+        
         recyclerView = view.findViewById(R.id.treatments_recyclerview);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
@@ -217,12 +223,6 @@ public class TreatmentsBolusFragment extends Fragment {
 
         iobTotal = view.findViewById(R.id.treatments_iobtotal);
         activityTotal = view.findViewById(R.id.treatments_iobactivitytotal);
-
-        Button refreshFromNS = view.findViewById(R.id.treatments_reshreshfromnightscout);
-        refreshFromNS.setOnClickListener(v -> OKDialog.showConfirmation(getContext(), MainApp.gs(R.string.refresheventsfromnightscout) + "?", () -> {
-            TreatmentsPlugin.getPlugin().getService().resetTreatments();
-            RxBus.INSTANCE.send(new EventNSClientRestart());
-        }));
 
         deleteFutureTreatments = view.findViewById(R.id.treatments_delete_future_treatments);
         deleteFutureTreatments.setOnClickListener(v -> {
@@ -241,10 +241,6 @@ public class TreatmentsBolusFragment extends Fragment {
                 updateGui();
             });
         });
-
-        boolean nsUploadOnly = SP.getBoolean(R.string.key_ns_upload_only, false);
-        if (nsUploadOnly)
-            refreshFromNS.setVisibility(View.GONE);
 
         return view;
     }
