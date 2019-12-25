@@ -212,7 +212,7 @@ public class TreatmentsBolusFragment extends Fragment {
                 }
             });
         }
-        
+
         recyclerView = view.findViewById(R.id.treatments_recyclerview);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(view.getContext());
