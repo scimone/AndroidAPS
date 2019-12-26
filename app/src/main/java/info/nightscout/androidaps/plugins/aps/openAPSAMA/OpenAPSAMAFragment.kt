@@ -1,6 +1,7 @@
 package info.nightscout.androidaps.plugins.aps.openAPSAMA
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -19,11 +20,14 @@ import info.nightscout.androidaps.utils.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.openapsama_fragment.*
+import kotlinx.android.synthetic.main.openapsama_fragment.view.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.slf4j.LoggerFactory
 
 class OpenAPSAMAFragment : Fragment() {
+    private lateinit var mRunnable:Runnable
+    private lateinit var mHandler: Handler
     private val log = LoggerFactory.getLogger(L.APS)
     private var disposable: CompositeDisposable = CompositeDisposable()
 
@@ -32,12 +36,31 @@ class OpenAPSAMAFragment : Fragment() {
         return inflater.inflate(R.layout.openapsama_fragment, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        openapsma_run.setOnClickListener {
-            OpenAPSAMAPlugin.getPlugin().invoke("OpenAPSAMA button", false)
+        view.swipeRefresh_openaps_ama.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue)
+
+
+        // Initialize the handler instance
+        mHandler = Handler()
+
+        view.swipeRefresh_openaps_ama.setOnRefreshListener {
+
+            mRunnable = Runnable {
+                // Hide swipe to refresh icon animation
+                view.swipeRefresh_openaps_ama.isRefreshing = false
+                OpenAPSAMAPlugin.getPlugin().invoke("OpenAPSAMA button", false)
+            }
+
+            // Execute the task after specified time
+            mHandler.postDelayed(
+                mRunnable,
+                (3000).toLong() // Delay 1 to 5 seconds
+            )
         }
+
     }
 
     @Synchronized

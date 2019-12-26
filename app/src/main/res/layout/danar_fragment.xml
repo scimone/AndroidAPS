@@ -10,11 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/main_activity_content_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/danar_buttons"
-            android:fillViewport="true">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,6 +41,20 @@
                         android:gravity="center_vertical|center_horizontal"
                         android:text="@string/initializing"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <!-- Dana pump -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:drawableTop="@drawable/ic_dana_rs" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -674,13 +690,13 @@
 
             </LinearLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
             android:id="@+id/danar_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="70dp"
+            android:layout_marginBottom="75dp"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
@@ -698,8 +714,8 @@
                     android:drawableTop="@drawable/icon_danarprofile"
                     android:paddingLeft="0dp"
                     android:paddingRight="0dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
                     android:textSize="0sp" />
 
 
@@ -712,8 +728,8 @@
                     android:drawableTop="@drawable/icon_danarhistory"
                     android:paddingLeft="0dp"
                     android:paddingRight="0dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
                     android:textSize="0sp" />
 
                 <Button
@@ -725,8 +741,8 @@
                     android:drawableTop="@drawable/icon_danarstats"
                     android:paddingLeft="0dp"
                     android:paddingRight="0dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
                     android:textSize="0sp" />
 
                 <Button
@@ -738,8 +754,8 @@
                     android:drawableTop="@drawable/icon_danar_useropt"
                     android:paddingLeft="0dp"
                     android:paddingRight="0dp"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
                     android:textSize="0sp" />
 
             </LinearLayout>

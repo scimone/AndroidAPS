@@ -1,12 +1,12 @@
 package info.nightscout.androidaps.plugins.aps.openAPSMA
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import info.nightscout.androidaps.R
-import info.nightscout.androidaps.logging.L
 import info.nightscout.androidaps.plugins.aps.openAPSMA.events.EventOpenAPSUpdateGui
 import info.nightscout.androidaps.plugins.aps.openAPSMA.events.EventOpenAPSUpdateResultGui
 import info.nightscout.androidaps.plugins.bus.RxBus
@@ -16,12 +16,21 @@ import info.nightscout.androidaps.utils.JSONFormatter
 import info.nightscout.androidaps.utils.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.openapsama_fragment.*
-import org.slf4j.LoggerFactory
+import kotlinx.android.synthetic.main.openapsama_fragment.openapsma_currenttemp
+import kotlinx.android.synthetic.main.openapsama_fragment.openapsma_glucosestatus
+import kotlinx.android.synthetic.main.openapsama_fragment.openapsma_iobdata
+import kotlinx.android.synthetic.main.openapsama_fragment.openapsma_lastrun
+import kotlinx.android.synthetic.main.openapsama_fragment.openapsma_mealdata
+import kotlinx.android.synthetic.main.openapsama_fragment.openapsma_profile
+import kotlinx.android.synthetic.main.openapsama_fragment.openapsma_request
+import kotlinx.android.synthetic.main.openapsama_fragment.openapsma_result
+import kotlinx.android.synthetic.main.openapsma_fragment.*
 
 class OpenAPSMAFragment : Fragment() {
-    private val log = LoggerFactory.getLogger(L.APS)
+    private lateinit var mHandler: Handler
+    private lateinit var mRunnable:Runnable
     private var disposable: CompositeDisposable = CompositeDisposable()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -31,8 +40,24 @@ class OpenAPSMAFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        openapsma_run.setOnClickListener {
-            OpenAPSMAPlugin.getPlugin().invoke("OpenAPSMA button", false)
+        swipeRefresh_openaps_ma.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue)
+
+        // Initialize the handler instance
+        mHandler = Handler()
+
+        swipeRefresh_openaps_ma.setOnRefreshListener {
+
+            mRunnable = Runnable {
+                // Hide swipe to refresh icon animation
+                swipeRefresh_openaps_ma.isRefreshing = false
+                OpenAPSMAPlugin.getPlugin().invoke("OpenAPSMA button", false)
+            }
+
+            // Execute the task after specified time
+            mHandler.postDelayed(
+                mRunnable,
+                (3000).toLong() // Delay 1 to 5 seconds
+            )
         }
 
     }

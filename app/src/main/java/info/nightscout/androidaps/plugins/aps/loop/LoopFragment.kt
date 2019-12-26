@@ -2,6 +2,7 @@ package info.nightscout.androidaps.plugins.aps.loop
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +13,20 @@ import info.nightscout.androidaps.interfaces.Constraint
 import info.nightscout.androidaps.plugins.aps.loop.events.EventLoopSetLastRunGui
 import info.nightscout.androidaps.plugins.aps.loop.events.EventLoopUpdateGui
 import info.nightscout.androidaps.plugins.bus.RxBus
-import info.nightscout.androidaps.utils.*
+import info.nightscout.androidaps.utils.DateUtil
+import info.nightscout.androidaps.utils.FabricPrivacy
+import info.nightscout.androidaps.utils.HtmlHelper
+import info.nightscout.androidaps.utils.SP
+import info.nightscout.androidaps.utils.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.loop_fragment.*
+import java.util.*
 
 class LoopFragment : Fragment() {
-
+    private lateinit var mRandom: Random
+    private lateinit var mHandler: Handler
+    private lateinit var mRunnable:Runnable
     private var disposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -29,10 +37,29 @@ class LoopFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        loop_run.setOnClickListener {
-            loop_lastrun.text = MainApp.gs(R.string.executing)
-            Thread { LoopPlugin.getPlugin().invoke("Loop button", true) }.start()
+        swipeRefresh_loop.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue)
+
+        // Initialize a new Random instance
+        mRandom = Random()
+
+        // Initialize the handler instance
+        mHandler = Handler()
+
+            swipeRefresh_loop.setOnRefreshListener {
+            mRunnable = Runnable {
+                loop_lastrun.text = MainApp.gs(R.string.executing)
+                Thread { LoopPlugin.getPlugin().invoke("Loop button", true) }.start()
+                // Hide swipe to refresh icon animation
+                swipeRefresh_loop.isRefreshing = false
+            }
+
+            // Execute the task after specified time
+            mHandler.postDelayed(
+                mRunnable,
+                (3000).toLong() // Delay 1 to 5 seconds
+            )
         }
+
     }
 
     @Synchronized
