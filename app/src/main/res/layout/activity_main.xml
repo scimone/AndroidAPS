@@ -86,7 +86,8 @@
             app:fabAlignmentMode="center"
             app:fabCradleMargin="6dp"
             app:contentInsetLeft="4dp"
-            app:fabCradleVerticalOffset="8dp" />
+            app:fabCradleVerticalOffset="8dp"
+            app:layout_scrollFlags = "scroll|enterAlways"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

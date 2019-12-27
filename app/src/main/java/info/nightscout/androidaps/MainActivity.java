@@ -525,6 +525,11 @@ public class MainActivity extends NoSplashAppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 // set toolbar visible if it was unvisible in page before
+               /* bottom_app_bar.setHideOnScroll(false);
+                bottom_app_bar.setVisibility(View.VISIBLE);
+                bottomNavigationView.setVisibility(View.VISIBLE);
+                fab.show();
+                bottom_app_bar.setHideOnScroll(true);*/
             }
 
             @Override

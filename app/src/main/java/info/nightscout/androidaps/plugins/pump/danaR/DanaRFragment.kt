@@ -3,10 +3,12 @@ package info.nightscout.androidaps.plugins.pump.danaR
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.utility.ViewAnimation
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.activities.TDDStatsActivity
@@ -35,7 +37,7 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.danar_fragment.*
 import org.slf4j.LoggerFactory
 
-class DanaRFragment : Fragment() {
+class DanaRFragment : Fragment()  {
     private val log = LoggerFactory.getLogger(L.PUMP)
     private var disposable: CompositeDisposable = CompositeDisposable()
 
@@ -62,35 +64,74 @@ class DanaRFragment : Fragment() {
 
         dana_pumpstatus.setBackgroundColor(MainApp.gc(R.color.colorInitializingBorder))
 
-        danar_history.setOnClickListener { startActivity(Intent(context, DanaRHistoryActivity::class.java)) }
-        danar_viewprofile.setOnClickListener {
-            fragmentManager?.let { fragmentManager ->
-                val profile = DanaRPump.getInstance().createConvertedProfile()?.getDefaultProfile()
-                    ?: return@let
-                val profileName = DanaRPump.getInstance().createConvertedProfile()?.getDefaultProfileName()
-                    ?: return@let
-                val args = Bundle()
-                args.putLong("time", DateUtil.now())
-                args.putInt("mode", ProfileViewerDialog.Mode.CUSTOM_PROFILE.ordinal)
-                args.putString("customProfile", profile.data.toString())
-                args.putString("customProfileUnits", profile.units)
-                args.putString("customProfileName", profileName)
-                val pvd = ProfileViewerDialog()
-                pvd.arguments = args
-                pvd.show(fragmentManager, "ProfileViewDialog")
-            }
-        }
-        danar_stats.setOnClickListener { startActivity(Intent(context, TDDStatsActivity::class.java)) }
-        danar_user_options.setOnClickListener { startActivity(Intent(context, DanaRUserOptionsActivity::class.java)) }
+        fabDanaMenuUserOptions.setOnClickListener(clickListener)
+        fabDanaMenu.setOnClickListener(clickListener)
+        danar_history.setOnClickListener(clickListener)
+        danar_stats.setOnClickListener(clickListener)
+        danar_viewprofile.setOnClickListener(clickListener)
+
+        ViewAnimation.showOut(fabDanaMenuUserOptions)
+        ViewAnimation.showOut(danar_history)
+        ViewAnimation.showOut(danar_stats)
+        ViewAnimation.showOut(danar_viewprofile)
+
         danar_btconnection.setOnClickListener {
             if (L.isEnabled(L.PUMP))
                 log.debug("Clicked connect to pump")
             DanaRPump.getInstance().lastConnection = 0
             ConfigBuilderPlugin.getPlugin().commandQueue.readStatus("Clicked connect to pump", null)
         }
+
+        return
     }
 
-    @Synchronized
+    private val clickListener: View.OnClickListener = View.OnClickListener { view ->
+        when ( view.id ){
+            R.id.fabDanaMenu -> {
+                Log.d("TAG", "dana menu clicked !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                if ( fabDanaMenuUserOptions.visibility == View.GONE) {
+                    ViewAnimation.showIn(fabDanaMenuUserOptions)
+                    ViewAnimation.showIn(danar_history)
+                    ViewAnimation.showIn(danar_stats)
+                    ViewAnimation.showIn(danar_viewprofile)
+                } else if ( fabDanaMenuUserOptions.visibility == View.VISIBLE) {
+                    ViewAnimation.showOut(fabDanaMenuUserOptions)
+                    ViewAnimation.showOut(danar_history)
+                    ViewAnimation.showOut(danar_stats)
+                    ViewAnimation.showOut(danar_viewprofile)
+                }
+            }
+            R.id.fabDanaMenuUserOptions -> {
+                startActivity(Intent(context, DanaRUserOptionsActivity::class.java))
+            }
+            R.id.danar_history -> {
+                startActivity(Intent(context, DanaRHistoryActivity::class.java))
+            }
+            R.id.danar_stats -> {
+                startActivity(Intent(context, TDDStatsActivity::class.java))
+            }
+            R.id.danar_viewprofile -> {
+                fragmentManager?.let { fragmentManager ->
+                    val profile = DanaRPump.getInstance().createConvertedProfile()?.getDefaultProfile()
+                        ?: return@let
+                    val profileName = DanaRPump.getInstance().createConvertedProfile()?.getDefaultProfileName()
+                        ?: return@let
+                    val args = Bundle()
+                    args.putLong("time", DateUtil.now())
+                    args.putInt("mode", ProfileViewerDialog.Mode.CUSTOM_PROFILE.ordinal)
+                    args.putString("customProfile", profile.data.toString())
+                    args.putString("customProfileUnits", profile.units)
+                    args.putString("customProfileName", profileName)
+                    val pvd = ProfileViewerDialog()
+                    pvd.arguments = args
+                    pvd.show(fragmentManager, "ProfileViewDialog")
+                }
+            }
+        }
+
+    }
+
+        @Synchronized
     override fun onResume() {
         super.onResume()
         loopHandler.postDelayed(refreshLoop, T.mins(1).msecs())
@@ -196,7 +237,7 @@ class DanaRFragment : Fragment() {
         // also excludes pump with model 03 because of untested error
         val isKorean = DanaRKoreanPlugin.getPlugin().isEnabled(PluginType.PUMP)
         if (isKorean || danar_firmware.text === "OLD" || pump.model == 3) {
-            danar_user_options.visibility = View.GONE
+            //danar_user_options.visibility = View.GONE
         }
     }
 }
