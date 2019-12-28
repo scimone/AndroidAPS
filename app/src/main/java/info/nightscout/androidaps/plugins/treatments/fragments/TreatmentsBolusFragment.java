@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -54,8 +55,6 @@ public class TreatmentsBolusFragment extends Fragment {
     private Button deleteFutureTreatments;
 
     SwipeRefreshLayout swipeRefresh;
-
-    int i = 0;
 
     public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.TreatmentsViewHolder> {
 
@@ -194,6 +193,7 @@ public class TreatmentsBolusFragment extends Fragment {
 
         swipeRefresh = view.findViewById(R.id.swipeRefresh);
         swipeRefresh.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
+        swipeRefresh.setProgressBackgroundColorSchemeColor(ResourcesCompat.getColor(getResources(), R.color.swipe_background, null));
 
         boolean nsUploadOnly = SP.getBoolean(R.string.key_ns_upload_only, false);
         if (nsUploadOnly) {
@@ -202,7 +202,6 @@ public class TreatmentsBolusFragment extends Fragment {
             this.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    i++;
                     //do the refresh of data here
                     OKDialog.showConfirmation(getContext(), MainApp.gs(R.string.refresheventsfromnightscout) + "?", () -> {
                         TreatmentsPlugin.getPlugin().getService().resetTreatments();

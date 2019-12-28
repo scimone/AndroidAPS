@@ -90,6 +90,7 @@
     <color name="orange">#FF9900</color>
     <color name="green">#009900</color>
     <color name="blue">#000099</color>
+    <color name="swipe_background">#121212</color>
 
     <!---Theme based colors-->
     <color name="colorPrimary">#707991</color>

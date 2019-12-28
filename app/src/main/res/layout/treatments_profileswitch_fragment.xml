@@ -3,27 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="4dp"
     tools:context="info.nightscout.androidaps.plugins.treatments.fragments.TreatmentsProfileSwitchFragment">
 
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id = "@+id/swipeRefresh"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="4dp"
         android:orientation="vertical">
-
-        <Button
-            android:id="@+id/profileswitch_refreshfromnightscout"
-            style="@style/Buton.Colored"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
-            android:text="@string/refresheventsfromnightscout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profileswitch_recyclerview"
@@ -32,5 +22,5 @@
 
         </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
-
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,16 +44,24 @@ class TreatmentsProfileSwitchFragment : Fragment() {
         profileswitch_recyclerview.layoutManager = LinearLayoutManager(view.context)
         profileswitch_recyclerview.adapter = RecyclerProfileViewAdapter(MainApp.getDbHelper().getProfileSwitchData(DateUtil.now() - T.days(30).msecs(), false))
 
-        profileswitch_refreshfromnightscout.setOnClickListener {
-            activity?.let { activity ->
-                OKDialog.showConfirmation(activity, MainApp.gs(R.string.refresheventsfromnightscout) + "?", Runnable {
-                    MainApp.getDbHelper().resetProfileSwitch()
-                    RxBus.send(EventNSClientRestart())
-                })
+        swipeRefresh.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue)
+        swipeRefresh.setProgressBackgroundColorSchemeColor(ResourcesCompat.getColor(resources, R.color.swipe_background, null))
+
+        val nsUploadOnly = SP.getBoolean(R.string.key_ns_upload_only, false)
+        if (nsUploadOnly) {
+            swipeRefresh.isEnabled = false
+        } else {
+            this.swipeRefresh.setOnRefreshListener {
+                //do the refresh of data here
+                context?.let {
+                    OKDialog.showConfirmation(it, MainApp.gs(R.string.refresheventsfromnightscout) + "?", Runnable {
+                        MainApp.getDbHelper().resetProfileSwitch()
+                        RxBus.send(EventNSClientRestart())
+                    })
+                }
+                swipeRefresh.isRefreshing = false
             }
         }
-        if (SP.getBoolean(R.string.key_ns_upload_only, false)) profileswitch_refreshfromnightscout.visibility = View.GONE
-
     }
 
     @Synchronized

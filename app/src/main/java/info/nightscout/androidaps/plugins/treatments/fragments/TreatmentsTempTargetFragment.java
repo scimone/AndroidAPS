@@ -5,15 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.R;
@@ -43,6 +44,8 @@ public class TreatmentsTempTargetFragment extends Fragment {
     private CompositeDisposable disposable = new CompositeDisposable();
 
     private RecyclerView recyclerView;
+
+    SwipeRefreshLayout swipeRefresh;
 
     public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.TempTargetsViewHolder> {
 
@@ -161,16 +164,26 @@ public class TreatmentsTempTargetFragment extends Fragment {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(TreatmentsPlugin.getPlugin().getTempTargetsFromHistory());
         recyclerView.setAdapter(adapter);
 
-        Button refreshFromNS = view.findViewById(R.id.temptargetrange_refreshfromnightscout);
-        refreshFromNS.setOnClickListener(v ->
-                OKDialog.showConfirmation(getContext(), MainApp.gs(R.string.refresheventsfromnightscout) + " ?", () -> {
-                    MainApp.getDbHelper().resetTempTargets();
-                    RxBus.INSTANCE.send(new EventNSClientRestart());
-                }));
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
+        swipeRefresh.setProgressBackgroundColorSchemeColor(ResourcesCompat.getColor(getResources(), R.color.swipe_background, null));
 
         boolean nsUploadOnly = SP.getBoolean(R.string.key_ns_upload_only, false);
-        if (nsUploadOnly)
-            refreshFromNS.setVisibility(View.GONE);
+        if (nsUploadOnly) {
+            swipeRefresh.setEnabled(false);
+        } else {
+            this.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    //do the refresh of data here
+                    OKDialog.showConfirmation(getContext(), MainApp.gs(R.string.refresheventsfromnightscout) + "?", () -> {
+                        MainApp.getDbHelper().resetTempTargets();
+                        RxBus.INSTANCE.send(new EventNSClientRestart());
+                    });
+                    swipeRefresh.setRefreshing(false);
+                }
+            });
+        }
 
         return view;
     }
