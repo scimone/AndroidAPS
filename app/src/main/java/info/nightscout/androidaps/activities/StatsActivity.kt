@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import info.nightscout.androidaps.MainActivity
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
+import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil
 import info.nightscout.androidaps.utils.ActivityMonitor
 import info.nightscout.androidaps.utils.OKDialog
 import info.nightscout.androidaps.utils.SP
@@ -15,15 +16,13 @@ import kotlinx.android.synthetic.main.stats_activity.*
 class StatsActivity : NoSplashAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        SP.putInt("theme", MainActivity.mTheme)
-        SP.putBoolean("daynight", MainActivity.mIsNightMode)
-
+        val newtheme = SP.getInt("theme", ThemeUtil.THEME_PINK)
         if (MainActivity.mIsNightMode) {
             delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
         } else {
             delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
         }
-        setTheme(MainActivity.mTheme)
+        setTheme(newtheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.stats_activity)
 
