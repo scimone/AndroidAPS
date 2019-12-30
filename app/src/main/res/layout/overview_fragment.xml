@@ -377,5 +377,4 @@
                     android:textColor="@color/colorAcceptTempButton" />
             </LinearLayout>
         </LinearLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
