@@ -24,9 +24,7 @@
                 android:id="@+id/toolbar"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:fitsSystemWindows="true"
-                app:hideOnScroll= "true"
-                app:layout_scrollFlags="scroll|enterAlways"
+                android:fitsSystemWindows="false"
                 android:minHeight="?attr/actionBarSize">
 
                 <LinearLayout
@@ -47,12 +45,11 @@
                 android:layout_height="match_parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/main_activity_content_frame"
+                android:id="@+id/main_activity_content_recycler_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="50dp"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+               />
 
         </LinearLayout>
 
@@ -82,12 +79,10 @@
             app:theme="@style/ThemeOverlay.AppCompat.DayNight.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
             app:backgroundTint="?attr/colorPrimaryDark"
-            app:hideOnScroll= "true"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="6dp"
             app:contentInsetLeft="4dp"
-            app:fabCradleVerticalOffset="8dp"
-            app:layout_scrollFlags = "scroll|enterAlways"/>
+            app:fabCradleVerticalOffset="8dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

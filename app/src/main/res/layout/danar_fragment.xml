@@ -71,7 +71,6 @@
         <androidx.core.widget.NestedScrollView
             android:id="@+id/main_activity_content_frame"
             android:layout_width="match_parent"
-            android:overScrollMode="always"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 

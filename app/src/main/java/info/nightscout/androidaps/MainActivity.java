@@ -13,6 +13,7 @@ import android.os.PersistableBundle;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -35,6 +36,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -153,6 +155,9 @@ public class MainActivity extends NoSplashAppCompatActivity {
     private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private BottomAppBar bottom_app_bar;
+
+    private RecyclerView mRecyclerView;
+    static int y;
 
     private MenuItem pluginPreferencesMenuItem;
 
@@ -493,7 +498,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         // Sets a Bottom App bar
         bottom_app_bar = (BottomAppBar) findViewById(R.id.bottom_app_bar);
         //setSupportActionBar(bottom_app_bar);
-        bottom_app_bar.setHideOnScroll(true);
+        //bottom_app_bar.setHideOnScroll(true);
         setupBottomNavigationView(findViewById(R.id.drawer_layout));
 
         // Sets a Toolbar to replace the ActionBar.
@@ -516,26 +521,73 @@ public class MainActivity extends NoSplashAppCompatActivity {
         // initialize screen wake lock
         processPreferenceChange(new EventPreferenceChange(R.string.key_keep_screen_on));
 
+        mRecyclerView = findViewById(R.id.main_activity_content_recycler_frame);
+        //if( mRecyclerView != null ) {
+            mRecyclerView.addOnScrollListener( new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                     super.onScrolled(recyclerView, dx, dy);
+                    Log.d("TAG", "Scrolling");
+                    y=dy;
+                }
+
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if(mRecyclerView.SCROLL_STATE_DRAGGING==newState){
+                        //fragProductLl.setVisibility(View.GONE);
+                        Log.d("TAG", "SCROLL_STATE_DRAGGING");
+                    }
+                    if(mRecyclerView.SCROLL_STATE_IDLE==newState){
+                        // fragProductLl.setVisibility(View.VISIBLE);
+                        Log.d("TAG", "SCROLL_STATE_IDLE");
+                        if(y<=0){
+                            Log.d("TAG", "Scrolling up");
+                            bottom_app_bar.setVisibility(View.VISIBLE);
+                            bottomNavigationView.setVisibility(View.VISIBLE);
+                            fab.show();
+                        }
+                        else{
+                            y=0;
+                            Log.d("TAG", "Scrolling down");
+                            bottom_app_bar.setVisibility(View.GONE);
+                            bottomNavigationView.setVisibility(View.GONE);
+                            fab.hide();
+                        }
+                    }
+                }
+            });
+
+        //}
+
         final ViewPager viewPager = findViewById(R.id.pager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.d("TAG", "page scrolled");
+                bottom_app_bar.setVisibility(View.VISIBLE);
+                bottomNavigationView.setVisibility(View.VISIBLE);
+                fab.show();
             }
 
             @Override
             public void onPageSelected(int position) {
                 // set toolbar visible if it was unvisible in page before
-               /* bottom_app_bar.setHideOnScroll(false);
                 bottom_app_bar.setVisibility(View.VISIBLE);
                 bottomNavigationView.setVisibility(View.VISIBLE);
                 fab.show();
-                bottom_app_bar.setHideOnScroll(true);*/
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+                Log.d("TAG", "onPageScrollStateChanged changed: " + state);
+                bottom_app_bar.setVisibility(View.VISIBLE);
+                bottomNavigationView.setVisibility(View.VISIBLE);
+                fab.show();
             }
         });
+
+
 
         //Check here if loop plugin is disabled. Else check via constraints
         if (!LoopPlugin.getPlugin().isEnabled(PluginType.LOOP))
@@ -716,6 +768,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         pluginPreferencesMenuItem = menu.findItem(R.id.nav_plugin_preferences);
        // checkPluginPreferences(findViewById(R.id.pager));
+        bottom_app_bar.replaceMenu(R.menu.menu_main);
         return true;
     }
 
