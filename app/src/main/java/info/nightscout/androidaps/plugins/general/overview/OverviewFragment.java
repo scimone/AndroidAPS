@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -186,6 +187,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
     private boolean accepted;
 
+    ColorStateList baseBasalColors;
+
     private int rangeToDisplay = 6; // for graph
 
     Handler sLoopHandler = new Handler();
@@ -239,6 +242,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         deltaShortView = (TextView) view.findViewById(R.id.overview_deltashort);
         avgdeltaView = (TextView) view.findViewById(R.id.overview_avgdelta);
         baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
+        baseBasalColors =  baseBasalView.getTextColors(); //save original colors
         extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
         activeProfileView = (TextView) view.findViewById(R.id.overview_activeprofile);
         pumpStatusView = (TextView) view.findViewById(R.id.overview_pumpstatus);
@@ -1176,7 +1180,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         if (activeTemp != null) {
             baseBasalView.setTextColor(MainApp.gc(R.color.basal));
         } else {
-            baseBasalView.setTextColor(android.R.attr.textColor);
+            baseBasalView.setTextColor(baseBasalColors);
 
         }
 
