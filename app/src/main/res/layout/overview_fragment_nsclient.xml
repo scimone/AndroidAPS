@@ -101,6 +101,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:baselineAligned="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -281,7 +282,15 @@
 
                 <include layout="@layout/careportal_stats_fragment_on" />
 
-            </LinearLayout>
+                        <TextView
+                            android:id="@+id/overview_timeago"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="-2dp"
+                            android:paddingStart="2dp"
+                            android:layout_weight="0.5"
+                            android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -293,16 +302,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginTop="6dp"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
@@ -325,7 +334,11 @@
                                 android:text="0.50U/h @17:35 1/30min - 0.40U/h"
                                 android:textSize="14sp" />
 
-                        </LinearLayout>
+                        <TextView
+                            android:layout_width="5dp"
+                            android:layout_height="wrap_content"
+                            android:text=":"
+                            android:textSize="16sp" />
 
                         <View
                             android:layout_width="match_parent"
@@ -360,7 +373,11 @@
                                 android:text="0.50U/h @17:35 1/30min"
                                 android:textSize="14sp" />
 
-                        </LinearLayout>
+                        <TextView
+                            android:layout_width="5dp"
+                            android:layout_height="wrap_content"
+                            android:text=":"
+                            android:textSize="16sp" />
 
                         <View
                             android:layout_width="match_parent"
@@ -374,6 +391,27 @@
 
                 </LinearLayout>
             </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <include
+                    layout="@layout/careportal_stats_fragment_short"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -391,6 +429,7 @@
                             android:id="@+id/overview_pump"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:paddingStart="4sp"
                             android:text=""
                             android:textSize="14sp" />
 
@@ -410,12 +449,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
 
                         <TextView
                             android:id="@+id/overview_openaps"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingLeft="2dp"
+                            android:paddingStart="4sp"
                             android:text=""
                             android:textSize="14sp" />
 
@@ -430,17 +475,24 @@
                         android:layout_marginBottom="2dp"
                         android:background="@color/listdelimiter" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="right"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1">
 
                         <TextView
                             android:id="@+id/overview_uploader"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingEnd="4sp"
                             android:text=""
                             android:textSize="14sp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 

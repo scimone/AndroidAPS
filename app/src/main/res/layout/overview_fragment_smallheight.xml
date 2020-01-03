@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".plugins.general.overview.OverviewFragment">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="2dp"
@@ -14,20 +14,13 @@
         android:layout_above="@+id/overview_buttons"
         android:fillViewport="false">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/overview_notifications"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:layout_above="@+id/overview_buttons"
+            android:fillViewport="true">
 
             <LinearLayout
-                android:id="@+id/overview_looplayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -86,8 +79,8 @@
                 android:orientation="horizontal"
                 android:paddingTop="2dp">
 
-                <TextView
-                    android:id="@+id/overview_pumpstatus"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/overview_notifications"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"

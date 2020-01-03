@@ -191,7 +191,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     boolean smallWidth;
     boolean smallHeight;
 
-    public static boolean shorttextmode = false;
+    public static boolean shorttextmode = true;
 
     private boolean accepted;
 
