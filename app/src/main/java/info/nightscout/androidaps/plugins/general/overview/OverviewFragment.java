@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -131,10 +130,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     private CompositeDisposable disposable = new CompositeDisposable();
 
     TextView timeView;
-    TextView bgView;
-    TextView arrowView;
     TextView sensitivityView;
-    TextView timeAgoView;
     TextView timeAgoShortView;
     TextView deltaView;
     TextView deltaShortView;
@@ -237,17 +233,14 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         }
 
         // set elements to fragment elements
-        timeView = (TextView) view.findViewById(R.id.overview_time);
-        bgView = (TextView) view.findViewById(R.id.overview_bg);
-        arrowView = (TextView) view.findViewById(R.id.overview_arrow);
-        if (smallWidth) {
-            arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35);
-        }
+       // timeView = (TextView) view.findViewById(R.id.overview_time);
+       // if (smallWidth) {
+           // arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35);
+       // }
         sensitivityView = (TextView) view.findViewById(R.id.overview_sensitivity);
-        timeAgoView = (TextView) view.findViewById(R.id.overview_timeago);
-        timeAgoShortView = (TextView) view.findViewById(R.id.overview_timeagoshort);
+        //timeAgoShortView = (TextView) view.findViewById(R.id.overview_timeagoshort);
         deltaView = (TextView) view.findViewById(R.id.overview_delta);
-        deltaShortView = (TextView) view.findViewById(R.id.overview_deltashort);
+       // deltaShortView = (TextView) view.findViewById(R.id.overview_deltashort);
         baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
         extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
         pumpStatusView = (TextView) view.findViewById(R.id.overview_pumpstatus);
@@ -1027,9 +1020,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         CareportalFragment.updateAge(getActivity(), sage, iage, cage, pbage);
         CareportalFragment.updatePumpSpecifics(prLevel, pbLevel);
 
-        BgReading actualBG = DatabaseHelper.actualBg();
-        BgReading lastBG = DatabaseHelper.lastBg();
-
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
         final Profile profile = ProfileFunctions.getInstance().getProfile();
@@ -1041,16 +1031,14 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
         //Start with updating the BG as it is unaffected by loop.
         // **** BG value ****
+        BgReading actualBG = DatabaseHelper.actualBg();
+        BgReading lastBG = DatabaseHelper.lastBg();
         if (lastBG != null) {
             int color = MainApp.gc(R.color.inrange_bg);
             if (lastBG.valueToUnits(units) < lowLine)
                 color = MainApp.gc(R.color.low);
             else if (lastBG.valueToUnits(units) > highLine)
                 color = MainApp.gc(R.color.high);
-            bgView.setText(lastBG.valueToUnitsToString(units));
-            arrowView.setText(lastBG.directionToSymbol());
-            bgView.setTextColor(color);
-            arrowView.setTextColor(color);
             GlucoseStatus glucoseStatus = GlucoseStatus.getGlucoseStatusData();
             if (glucoseStatus != null) {
                 if (deltaView != null)
@@ -1313,21 +1301,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             }
         }
 
-        // **** BG value ****
-        if (lastBG == null) { //left this here as it seems you want to exit at this point if it is null...
-            return;
-        }
-        Integer flag = bgView.getPaintFlags();
-        if (actualBG == null) {
-            flag |= Paint.STRIKE_THRU_TEXT_FLAG;
-        } else
-            flag &= ~Paint.STRIKE_THRU_TEXT_FLAG;
-        bgView.setPaintFlags(flag);
-
-        if (timeAgoView != null)
-            timeAgoView.setText(DateUtil.minAgo(lastBG.date));
-        if (timeAgoShortView != null)
-            timeAgoShortView.setText("(" + DateUtil.minAgoShort(lastBG.date) + ")");
 
         // iob
         TreatmentsPlugin.getPlugin().updateTotalIOBTreatments();

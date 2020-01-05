@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/nsprofile_profileswitch"
         style="@style/Buton.Colored"
         android:layout_width="match_parent"

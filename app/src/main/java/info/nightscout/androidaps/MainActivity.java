@@ -7,13 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
-import android.util.Log;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -34,6 +37,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.arch.core.util.Function;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,18 +77,22 @@ import info.nightscout.androidaps.dialogs.CareDialog;
 import info.nightscout.androidaps.dialogs.InsulinDialog;
 import info.nightscout.androidaps.dialogs.TreatmentDialog;
 import info.nightscout.androidaps.dialogs.WizardDialog;
+import info.nightscout.androidaps.events.EventAcceptOpenLoopChange;
 import info.nightscout.androidaps.events.EventAppExit;
 import info.nightscout.androidaps.events.EventCareportalEventChange;
 import info.nightscout.androidaps.events.EventInitializationChanged;
 import info.nightscout.androidaps.events.EventPreferenceChange;
 import info.nightscout.androidaps.events.EventPumpStatusChanged;
 import info.nightscout.androidaps.events.EventRebuildTabs;
+import info.nightscout.androidaps.events.EventRefreshOverview;
+import info.nightscout.androidaps.events.EventTreatmentChange;
 import info.nightscout.androidaps.interfaces.Constraint;
 import info.nightscout.androidaps.interfaces.PluginBase;
 import info.nightscout.androidaps.interfaces.PluginType;
 import info.nightscout.androidaps.interfaces.PumpInterface;
 import info.nightscout.androidaps.logging.L;
 import info.nightscout.androidaps.plugins.aps.loop.LoopPlugin;
+import info.nightscout.androidaps.plugins.aps.loop.events.EventNewOpenLoopNotification;
 import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
@@ -91,14 +100,17 @@ import info.nightscout.androidaps.plugins.constraints.versionChecker.VersionChec
 import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
+import info.nightscout.androidaps.plugins.general.overview.OverviewPlugin;
 import info.nightscout.androidaps.plugins.general.themeselector.ScrollingActivity;
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
+import info.nightscout.androidaps.plugins.iob.iobCobCalculator.GlucoseStatus;
 import info.nightscout.androidaps.plugins.source.SourceDexcomPlugin;
 import info.nightscout.androidaps.plugins.source.SourceXdripPlugin;
 import info.nightscout.androidaps.setupwizard.SetupWizardActivity;
 import info.nightscout.androidaps.tabs.TabPageAdapter;
 import info.nightscout.androidaps.utils.AndroidPermission;
 import info.nightscout.androidaps.utils.BolusWizard;
+import info.nightscout.androidaps.utils.DateUtil;
 import info.nightscout.androidaps.utils.FabricPrivacy;
 import info.nightscout.androidaps.utils.LocaleHelper;
 import info.nightscout.androidaps.utils.OKDialog;
@@ -119,20 +131,27 @@ public class MainActivity extends NoSplashAppCompatActivity {
     private static final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> scheduledUpdate = null;
 
-    TextView iage;
-    TextView cage;
-    TextView sage;
+    TextView bgView;
+    TextView arrowView;
+    TextView sensitivityView;
+    TextView timeAgoView;
+    TextView timeAgoShortView;
+    TextView deltaView;
+    TextView deltaShortView;
+    TextView avgdeltaView;
+
+
     TextView iageView;
     TextView cageView;
     TextView reservoirView;
     TextView sageView;
     TextView batteryView;
     LinearLayout statuslightsLayout;
+    LinearLayout timedelta;
     FrameLayout main_activity_content_frame;
 
     // BottomNavigation and menu items
     BottomNavigationView bottomNavigationView;
-    MenuItem itemTreatment ;
     MenuItem itemBolus ;
     MenuItem itemCarbs ;
     MenuItem itemWizzard ;
@@ -159,7 +178,13 @@ public class MainActivity extends NoSplashAppCompatActivity {
     private RecyclerView mRecyclerView;
     static int y;
 
+    private boolean smallWidth;
+    private boolean smallHeight;
+
     private MenuItem pluginPreferencesMenuItem;
+
+    Handler sLoopHandler = new Handler();
+    Runnable sRefreshLoop = null;
 
     public static int mTheme = THEME_PINK;
     public static boolean mIsNightMode = true;
@@ -471,6 +496,35 @@ public class MainActivity extends NoSplashAppCompatActivity {
         LocaleHelper.INSTANCE.update(getApplicationContext());
 
         setContentView(R.layout.activity_main);
+
+        // set elements to fragment elements
+        bgView = (TextView) findViewById(R.id.overview_bg);
+        arrowView = (TextView) findViewById(R.id.overview_arrow);
+        timeAgoView = (TextView) findViewById(R.id.overview_timeago);
+        //timeAgoShortView = (TextView) findViewById(R.id.overview_timeagoshort);
+        deltaView = (TextView) findViewById(R.id.overview_delta);
+        //deltaShortView = (TextView) findViewById(R.id.overview_deltashort);
+
+
+        timedelta = (LinearLayout) findViewById(R.id.time_delta);
+        //check screen width and choose main dialog
+        final DisplayMetrics dm = new DisplayMetrics();
+        MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screen_width = dm.widthPixels;
+        int screen_height = dm.heightPixels;
+        smallWidth = screen_width <= Constants.SMALL_WIDTH;
+        smallHeight = screen_height <= Constants.SMALL_HEIGHT;
+
+        if( smallHeight ) {
+            bgView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
+            arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
+            timeAgoView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            deltaView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            timedelta.setOrientation(LinearLayout.VERTICAL);
+        }
+
+
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         itemBolus = bottomNavigationView.getMenu().findItem(R.id.overview_insulinbutton);
@@ -497,21 +551,22 @@ public class MainActivity extends NoSplashAppCompatActivity {
         }
         // Sets a Bottom App bar
         bottom_app_bar = (BottomAppBar) findViewById(R.id.bottom_app_bar);
-        //setSupportActionBar(bottom_app_bar);
+        setSupportActionBar(bottom_app_bar);
         //bottom_app_bar.setHideOnScroll(true);
         setupBottomNavigationView(findViewById(R.id.drawer_layout));
 
         // Sets a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(bottom_app_bar);
 
         // This will display an Up icon (<-), we will replace it with hamburger later
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setSupportActionBar(findViewById(R.id.toolbar));
+        //setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setShowHideAnimationEnabled(true);
+
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_navigation, R.string.close_navigation);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -521,50 +576,19 @@ public class MainActivity extends NoSplashAppCompatActivity {
         // initialize screen wake lock
         processPreferenceChange(new EventPreferenceChange(R.string.key_keep_screen_on));
 
-        mRecyclerView = findViewById(R.id.main_activity_content_recycler_frame);
-        //if( mRecyclerView != null ) {
-            mRecyclerView.addOnScrollListener( new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                     super.onScrolled(recyclerView, dx, dy);
-                    Log.d("TAG", "Scrolling");
-                    y=dy;
-                }
-
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
-                    if(mRecyclerView.SCROLL_STATE_DRAGGING==newState){
-                        //fragProductLl.setVisibility(View.GONE);
-                        Log.d("TAG", "SCROLL_STATE_DRAGGING");
-                    }
-                    if(mRecyclerView.SCROLL_STATE_IDLE==newState){
-                        // fragProductLl.setVisibility(View.VISIBLE);
-                        Log.d("TAG", "SCROLL_STATE_IDLE");
-                        if(y<=0){
-                            Log.d("TAG", "Scrolling up");
-                            bottom_app_bar.setVisibility(View.VISIBLE);
-                            bottomNavigationView.setVisibility(View.VISIBLE);
-                            fab.show();
-                        }
-                        else{
-                            y=0;
-                            Log.d("TAG", "Scrolling down");
-                            bottom_app_bar.setVisibility(View.GONE);
-                            bottomNavigationView.setVisibility(View.GONE);
-                            fab.hide();
-                        }
-                    }
-                }
-            });
-
-        //}
-
         final ViewPager viewPager = findViewById(R.id.pager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.d("TAG", "page scrolled");
+                //Log.d("TAG", "page scrolled");
+
+                NestedScrollView cLayout = findViewById(R.id.main_activity_content_frame);
+                if( cLayout != null ) {
+                    cLayout.startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL);
+                    cLayout.dispatchNestedPreScroll(0, -Integer.MAX_VALUE, null, null);
+                    cLayout.stopNestedScroll();
+                }
+
                 bottom_app_bar.setVisibility(View.VISIBLE);
                 bottomNavigationView.setVisibility(View.VISIBLE);
                 fab.show();
@@ -572,22 +596,23 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                // set toolbar visible if it was unvisible in page before
-                bottom_app_bar.setVisibility(View.VISIBLE);
-                bottomNavigationView.setVisibility(View.VISIBLE);
-                fab.show();
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                Log.d("TAG", "onPageScrollStateChanged changed: " + state);
-                bottom_app_bar.setVisibility(View.VISIBLE);
+               // Log.d("TAG", "onPageScrollStateChanged changed: " + state);
+
+                NestedScrollView cLayout = findViewById(R.id.main_activity_content_frame);
+                if( cLayout != null ) {
+                    cLayout.startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL);
+                    cLayout.dispatchNestedPreScroll(0, -Integer.MAX_VALUE, null, null);
+                    cLayout.stopNestedScroll();
+                }
                 bottomNavigationView.setVisibility(View.VISIBLE);
+                bottom_app_bar.setVisibility(View.VISIBLE);
                 fab.show();
             }
         });
-
-
 
         //Check here if loop plugin is disabled. Else check via constraints
         if (!LoopPlugin.getPlugin().isEnabled(PluginType.LOOP))
@@ -628,6 +653,59 @@ public class MainActivity extends NoSplashAppCompatActivity {
         }
     }
 
+    private void upDateGlucose() {
+        //Start with updating the BG as it is unaffected by loop.
+        // **** BG value ****
+        final String units = ProfileFunctions.getSystemUnits();
+        final double lowLine = OverviewPlugin.INSTANCE.determineLowLine();
+        final double highLine = OverviewPlugin.INSTANCE.determineHighLine();
+        BgReading actualBG = DatabaseHelper.actualBg();
+        BgReading lastBG = DatabaseHelper.lastBg();
+        if (lastBG != null) {
+            int color = MainApp.gc(R.color.inrange_bg);
+            if (lastBG.valueToUnits(units) < lowLine)
+                color = MainApp.gc(R.color.low);
+            else if (lastBG.valueToUnits(units) > highLine)
+                color = MainApp.gc(R.color.high);
+            bgView.setText(lastBG.valueToUnitsToString(units));
+            arrowView.setText(lastBG.directionToSymbol());
+            bgView.setTextColor(color);
+            arrowView.setTextColor(color);
+            GlucoseStatus glucoseStatus = GlucoseStatus.getGlucoseStatusData();
+            if (glucoseStatus != null) {
+                if (deltaView != null)
+                    deltaView.setText("Δ " + Profile.toUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units) + " " + units);
+                if (deltaShortView != null)
+                    deltaShortView.setText(Profile.toSignedUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units));
+                if (avgdeltaView != null)
+                    avgdeltaView.setText("øΔ15m: " + Profile.toUnitsString(glucoseStatus.short_avgdelta, glucoseStatus.short_avgdelta * Constants.MGDL_TO_MMOLL, units) +
+                            "  øΔ40m: " + Profile.toUnitsString(glucoseStatus.long_avgdelta, glucoseStatus.long_avgdelta * Constants.MGDL_TO_MMOLL, units));
+            } else {
+                if (deltaView != null)
+                    deltaView.setText("Δ " + MainApp.gs(R.string.notavailable));
+                if (deltaShortView != null)
+                    deltaShortView.setText("---");
+                if (avgdeltaView != null)
+                    avgdeltaView.setText("");
+            }
+        }
+
+        // **** BG value ****
+        if (lastBG == null) { //left this here as it seems you want to exit at this point if it is null...
+            return;
+        }
+        Integer flag = bgView.getPaintFlags();
+        if (actualBG == null) {
+            flag |= Paint.STRIKE_THRU_TEXT_FLAG;
+        } else
+            flag &= ~Paint.STRIKE_THRU_TEXT_FLAG;
+        bgView.setPaintFlags(flag);
+
+        if (timeAgoView != null)
+            timeAgoView.setText(" " + DateUtil.minAgoShort(lastBG.date) + "min");
+
+    }
+
     private void checkPluginPreferences(ViewPager viewPager) {
         if (pluginPreferencesMenuItem == null) return;
         if (((TabPageAdapter) viewPager.getAdapter()).getPluginAt(viewPager.getCurrentItem()).getPreferencesId() != -1)
@@ -651,6 +729,25 @@ public class MainActivity extends NoSplashAppCompatActivity {
     protected void onResume() {
         super.onResume();
         disposable.add(RxBus.INSTANCE
+                .toObservable(EventRefreshOverview.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(eventOpenAPSUpdateGui -> scheduleUpdate(eventOpenAPSUpdateGui.getFrom()),
+                        FabricPrivacy::logException
+                ));
+
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventTreatmentChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventTreatmentChange"),
+                        FabricPrivacy::logException
+                ));
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventAcceptOpenLoopChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventAcceptOpenLoopChange"),
+                        FabricPrivacy::logException
+                ));
+        disposable.add(RxBus.INSTANCE
                 .toObservable(EventCareportalEventChange.class)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(event -> scheduleUpdate("EventCareportalEventChange"),
@@ -669,12 +766,24 @@ public class MainActivity extends NoSplashAppCompatActivity {
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
+                .toObservable(EventNewOpenLoopNotification.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventNewOpenLoopNotification"),
+                        FabricPrivacy::logException
+                ));
+        disposable.add(RxBus.INSTANCE
                 .toObservable(EventPumpStatusChanged.class)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(event -> scheduleUpdate(event.getStatus()),
                         FabricPrivacy::logException
                 ));
+        sRefreshLoop = () -> {
+            scheduleUpdate("refreshLoop");
+            sLoopHandler.postDelayed(sRefreshLoop, 60 * 1000L);
+        };
+        sLoopHandler.postDelayed(sRefreshLoop, 60 * 1000L);
         this.getCareportalInfo();
+        this.upDateGlucose();
     }
 
     private void setWakeLock() {
@@ -768,7 +877,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         pluginPreferencesMenuItem = menu.findItem(R.id.nav_plugin_preferences);
        // checkPluginPreferences(findViewById(R.id.pager));
-        bottom_app_bar.replaceMenu(R.menu.menu_main);
+       // bottom_app_bar.replaceMenu(R.menu.menu_main);
         return true;
     }
 
@@ -846,6 +955,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 if (activity != null)
                     activity.runOnUiThread(() -> {
                         getCareportalInfo();
+                        upDateGlucose();
                         scheduledUpdate = null;
                     });
             }

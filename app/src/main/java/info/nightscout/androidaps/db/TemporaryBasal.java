@@ -405,9 +405,6 @@ public class TemporaryBasal implements Interval, DbObjectBase {
                 '}';
     }
 
-    public String toDuration() {
-        return "(" + getRealDuration() + "/" + durationInMinutes + "')";
-    }
 
     public String toStringFull() {
         if (isFakeExtended) {

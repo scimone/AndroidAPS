@@ -1,22 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
 
     <item
         android:id="@+id/overview_insulinbutton"
         android:icon="@drawable/ic_iob_48"
+        app:showAsAction="always"
         android:tint="?attr/iconColor"
         android:title="@string/overview_insulin_label" />
 
     <item
         android:id="@+id/overview_carbsbutton"
         android:icon="@drawable/ic_carb_48"
+        app:showAsAction="always"
         android:tint="?attr/iconColor"
         android:title="@string/overview_carbs_label"/>
 
     <item
+        android:id="@+id/placeholder"
+        android:icon="@drawable/ic_more"
+        app:showAsAction="always"
+        android:visibility="invisible"
+        android:tint="?attr/iconColor"
+        android:title="          "
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="@+id/overview_insulinbutton"
+        app:layout_constraintEnd_toStartOf="@+id/overview_wizardbutton"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/overview_carbsbutton"
+        app:layout_constraintTop_toTopOf="@+id/overview_insulinbutton" />
+
+    <item
         android:id="@+id/overview_wizardbutton"
         android:icon="@drawable/ic_calculator_48"
+        app:showAsAction="always"
         android:tint="?attr/iconColor"
         android:title="@string/overview_calculator_label"/>
 
@@ -24,6 +43,7 @@
     <item
         android:id="@+id/overview_cgmbutton"
         android:icon="@drawable/ic_blooddrop_48"
+        app:showAsAction="always"
         android:tint="?attr/iconColor"
         android:title="@string/overview_cgm"/>
 

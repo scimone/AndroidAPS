@@ -50,7 +50,6 @@ import info.nightscout.androidaps.plugins.treatments.Treatment;
 import info.nightscout.androidaps.plugins.treatments.TreatmentsPlugin;
 import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.Round;
-import info.nightscout.androidaps.utils.SP;
 
 /**
  * Created by mike on 18.10.2017.
@@ -109,7 +108,6 @@ public class GraphData {
         DataPointWithLabelInterface[] bg = new DataPointWithLabelInterface[bgListArray.size()];
         bg = bgListArray.toArray(bg);
 
-
         maxY = maxBgValue;
         minY = 0;
         // set manual y bounds to have nice steps
@@ -126,7 +124,7 @@ public class GraphData {
                 new DoubleDataPoint(toTime, lowLine, highLine)
         };
         inRangeAreaSeries = new AreaGraphSeries<>(inRangeAreaDataPoints);
-        inRangeAreaSeries.setColor(0);
+        inRangeAreaSeries.setColor(R.color.inrangebackgroundBorder);
         inRangeAreaSeries.setDrawBackground(true);
         inRangeAreaSeries.setBackgroundColor(MainApp.gc(R.color.inrangebackground));
 
@@ -282,7 +280,7 @@ public class GraphData {
         targetsSeries = new LineGraphSeries<>(targets);
         targetsSeries.setDrawBackground(false);
         targetsSeries.setColor(MainApp.gc(R.color.tempTargetBackground));
-        targetsSeries.setThickness(2);
+        targetsSeries.setThickness(3);
 
         addSeries(targetsSeries);
     }
@@ -425,13 +423,14 @@ public class GraphData {
             }
         }
 
+        // color for iob
         ScaledDataPoint[] iobData = new ScaledDataPoint[iobArray.size()];
         iobData = iobArray.toArray(iobData);
         iobSeries = new FixedLineGraphSeries<>(iobData);
         iobSeries.setDrawBackground(true);
-        iobSeries.setBackgroundColor(0x80FFFFFF & MainApp.gc(R.color.iob)); //50%
-        iobSeries.setColor(MainApp.gc(R.color.iob));
-        iobSeries.setThickness(3);
+        iobSeries.setBackgroundColor(0xCCFFFFFF & MainApp.gc(R.color.iobSurface)); //50%
+        iobSeries.setColor(MainApp.gc(R.color.iobBorder));
+        iobSeries.setThickness(4);
 
         if (showPrediction) {
             AutosensResult lastAutosensResult;
@@ -507,14 +506,14 @@ public class GraphData {
             }
         }
 
-        // COB
+        // color for COB
         ScaledDataPoint[] cobData = new ScaledDataPoint[cobArray.size()];
         cobData = cobArray.toArray(cobData);
         cobSeries = new FixedLineGraphSeries<>(cobData);
         cobSeries.setDrawBackground(true);
-        cobSeries.setBackgroundColor(0x80FFFFFF & MainApp.gc(R.color.cob)); //50%
-        cobSeries.setColor(MainApp.gc(R.color.cob));
-        cobSeries.setThickness(3);
+        cobSeries.setBackgroundColor(0xCCFFFFFF & MainApp.gc(R.color.cobSurface)); //50%
+        cobSeries.setColor(MainApp.gc(R.color.cobBorder));
+        cobSeries.setThickness(4);
 
         if (useForScale) {
             maxY = maxCobValueFound;

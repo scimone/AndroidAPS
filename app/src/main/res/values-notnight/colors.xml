@@ -2,24 +2,40 @@
 <resources>
     <color name="prediction">#ff00ff</color>
     <color name="basal">#6B85FF</color>
+    <!-- IOB  -->
     <color name="iob">#3C46FF</color>
+    <color name="iobBorder">#EDFCFF</color>
+    <color name="iobSurface">#3C46FF</color>
+    <!-- COB  -->
+    <color name="cob">#FB8C00</color>
+    <color name="cobBorder">#FB8C00</color>
+    <color name="cobSurface">#FF9000</color>
+
     <color name="bolus">#1ea3e5</color>
-    <color name="cob">#FFFB8C00</color>
+    <color name="iobPredAS">#1ea3e5</color>
     <color name="carbs">#F2A370</color>
     <color name="uam">#c9bd60</color>
     <color name="zt">#00d2d2</color>
     <color name="ratio">#FFFFFF</color>
     <color name="devslopepos">#FFFFFF00</color>
     <color name="devslopeneg">#FFFF00FF</color>
-    <color name="inrange">#000000</color>
-    <color name="low">#FFE011</color>
+
+    <!-- BG colors  -->
+    <color name="inrange">#FAFFD3</color>
+    <color name="low">#FF0000</color>
     <color name="high">#FFFF00</color>
+
+
     <color name="actionsConfirm">#FFFF00</color>
     <color name="listdelimiter">#505050</color>
     <color name="tabBgColor">#f0003f59</color>
     <color name="tabBgColorSelected">#5F7BA6</color>
     <color name="deviations">#FF0000</color>
+
+    <!-- in range Area  -->
     <color name="inrangebackground">#10FFFFFF</color>
+    <color name="inrangebackgroundBorder">#10FFFFFF</color>
+
     <color name="basebasal">#3D15FF</color>
     <color name="tempbasal">#C803A9F4</color>
     <color name="graphgrid">#757575</color>
@@ -29,7 +45,9 @@
     <color name="defaultbackground">#BBBBBB</color>
     <color name="defaulttext">#BBBBBB</color>
 
-    <color name="tempTargetBackground">#77dd77</color>
+    <!-- Target line  -->
+    <color name="tempTargetBackground">#FAFAE1</color>
+
     <color name="tempTargetConfirmation">#77dd77</color>
     <color name="tempTargetDisabledBackground">#303F9F</color>
 

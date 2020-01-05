@@ -7,19 +7,19 @@
         tools:context="info.nightscout.androidaps.plugins.PumpDanaR.DanaRFragment">
 
      <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabDanaMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="10dp"
-        app:backgroundTint="?attr/colorPrimaryDark"
-        android:backgroundTint="?attr/colorPrimaryDark"
-        android:background="?attr/colorPrimaryDark"
-        android:tint="?attr/iconColor"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_more" />
+         android:id="@+id/fabDanaMenu"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="top|right"
+         android:layout_marginEnd="8dp"
+         android:layout_marginTop="10dp"
+         app:backgroundTint="?attr/colorPrimaryDark"
+         android:backgroundTint="?attr/colorPrimaryDark"
+         android:background="?attr/colorPrimaryDark"
+         android:tint="?attr/iconColor"
+         android:clickable="true"
+         android:focusable="true"
+         android:src="@drawable/ic_more" />
 
      <com.google.android.material.floatingactionbutton.FloatingActionButton
          android:id="@+id/fabDanaMenuUserOptions"
@@ -32,29 +32,29 @@
          android:focusable="true"
          android:src="@drawable/icon_danar_useropt" />
 
-         <com.google.android.material.floatingactionbutton.FloatingActionButton
-             android:id="@+id/danar_stats"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="right"
-             android:layout_marginEnd="8dp"
-             android:layout_marginTop="150dp"
-             android:clickable="true"
-             android:focusable="true"
-             android:src="@drawable/icon_danarstats"
-             app:fabSize="auto" />
+     <com.google.android.material.floatingactionbutton.FloatingActionButton
+         android:id="@+id/danar_stats"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="right"
+         android:layout_marginEnd="8dp"
+         android:layout_marginTop="150dp"
+         android:clickable="true"
+         android:focusable="true"
+         android:src="@drawable/icon_danarstats"
+         app:fabSize="auto" />
 
-         <com.google.android.material.floatingactionbutton.FloatingActionButton
-             android:id="@+id/danar_history"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_gravity="right"
-             android:clickable="true"
-             android:focusable="true"
-             android:layout_marginEnd="8dp"
-             android:layout_marginTop="220dp"
-             android:src="@drawable/icon_danarhistory"
-             app:fabSize="auto" />
+     <com.google.android.material.floatingactionbutton.FloatingActionButton
+         android:id="@+id/danar_history"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="right"
+         android:clickable="true"
+         android:focusable="true"
+         android:layout_marginEnd="8dp"
+         android:layout_marginTop="220dp"
+         android:src="@drawable/icon_danarhistory"
+         app:fabSize="auto" />
 
      <com.google.android.material.floatingactionbutton.FloatingActionButton
          android:id="@+id/danar_viewprofile"
@@ -67,6 +67,11 @@
          android:focusable="true"
          android:src="@drawable/icon_danarprofile"
          app:fabSize="auto" />
+
+     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+         android:id = "@+id/swipeRefresh_dana_rs"
+         android:layout_width = "match_parent"
+         android:layout_height = "match_parent">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/main_activity_content_frame"
@@ -754,5 +759,5 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
-
+     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
  </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -190,7 +190,7 @@
     <!-- Button Styles-->
     <style name="Buton" parent="Widget.AppCompat.Button"></style>
     <style name="Buton.Small" parent="Widget.AppCompat.Button.Small"></style>
-    <style name="Buton.Colored" parent="Widget.AppCompat.Button.Colored"></style>
+    <style name="Buton.Colored" parent="Widget.MaterialComponents.Button"></style>
     <style name="Buton.Borderless" parent="Widget.AppCompat.Button.Borderless"></style>
     <style name="Buton.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored"></style>
 

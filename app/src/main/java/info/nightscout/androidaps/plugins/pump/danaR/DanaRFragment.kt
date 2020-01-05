@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.utility.ViewAnimation
 import info.nightscout.androidaps.MainApp
@@ -39,6 +40,8 @@ import org.slf4j.LoggerFactory
 
 class DanaRFragment : Fragment()  {
     private val log = LoggerFactory.getLogger(L.PUMP)
+    private lateinit var mHandler: Handler
+    private lateinit var mRunnable:Runnable
     private var disposable: CompositeDisposable = CompositeDisposable()
 
     private val loopHandler = Handler()
@@ -62,6 +65,26 @@ class DanaRFragment : Fragment()  {
 
         super.onViewCreated(view, savedInstanceState)
 
+        swipeRefresh_dana_rs.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue)
+        swipeRefresh_dana_rs.setProgressBackgroundColorSchemeColor(ResourcesCompat.getColor(resources, R.color.swipe_background, null))
+        // Initialize the handler instance
+        mHandler = Handler()
+
+        swipeRefresh_dana_rs.setOnRefreshListener {
+
+            mRunnable = Runnable {
+                // Hide swipe to refresh icon animation
+                swipeRefresh_dana_rs.isRefreshing = false
+                readPumpStatus()
+            }
+
+            // Execute the task after specified time
+            mHandler.postDelayed(
+                mRunnable,
+                (3000).toLong() // Delay 1 to 5 seconds
+            )
+        }
+
         dana_pumpstatus.setBackgroundColor(MainApp.gc(R.color.colorInitializingBorder))
 
         fabDanaMenuUserOptions.setOnClickListener(clickListener)
@@ -76,13 +99,16 @@ class DanaRFragment : Fragment()  {
         ViewAnimation.showOut(danar_viewprofile)
 
         danar_btconnection.setOnClickListener {
-            if (L.isEnabled(L.PUMP))
-                log.debug("Clicked connect to pump")
-            DanaRPump.getInstance().lastConnection = 0
-            ConfigBuilderPlugin.getPlugin().commandQueue.readStatus("Clicked connect to pump", null)
+            readPumpStatus()
         }
-
         return
+    }
+
+    private fun readPumpStatus() {
+        if (L.isEnabled(L.PUMP))
+            log.debug("Clicked connect to pump")
+        DanaRPump.getInstance().lastConnection = 0
+        ConfigBuilderPlugin.getPlugin().commandQueue.readStatus("Clicked connect to pump", null)
     }
 
     private val clickListener: View.OnClickListener = View.OnClickListener { view ->
