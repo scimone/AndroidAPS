@@ -269,7 +269,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
         bgGraph = (GraphView) view.findViewById(R.id.overview_bggraph);
         iobGraph = (GraphView) view.findViewById(R.id.overview_iobgraph);
-        //cobGraph = (GraphView) view.findViewById(R.id.overview_cobgraph);
+        cobGraph = (GraphView) view.findViewById(R.id.overview_cobgraph);
 
         acceptTempButton = (SingleClickButton) view.findViewById(R.id.overview_accepttempbutton);
         if (acceptTempButton != null)
@@ -314,14 +314,13 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         iobGraph.getGridLabelRenderer().setNumVerticalLabels(3);
 
 
-     /*  cobGraph.getGridLabelRenderer().reloadStyles();
+        cobGraph.getGridLabelRenderer().reloadStyles();
         cobGraph.getGridLabelRenderer().reloadStyles();
         cobGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
         cobGraph.getGridLabelRenderer().reloadStyles();
         cobGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-        bgGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         cobGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
-        cobGraph.getGridLabelRenderer().setNumVerticalLabels(3);*/
+        cobGraph.getGridLabelRenderer().setNumVerticalLabels(3);
 
         rangeToDisplay = SP.getInt(R.string.key_rangetodisplay, 6);
 
@@ -504,7 +503,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             dividerItem = popup.getMenu().add("");
             dividerItem.setEnabled(false);
 
-            item = popup.getMenu().add(Menu.NONE, CHARTTYPE.IOB.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_iob));
+           /* item = popup.getMenu().add(Menu.NONE, CHARTTYPE.IOB.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_iob));
             title = item.getTitle();
             if (titleMaxChars < title.length()) titleMaxChars = title.length();
             s = new SpannableString(title);
@@ -520,7 +519,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             s.setSpan(new ForegroundColorSpan(ResourcesCompat.getColor(getResources(), R.color.cob, null)), 0, s.length(), 0);
             item.setTitle(s);
             item.setCheckable(true);
-            item.setChecked(SP.getBoolean("showcob", true));
+            item.setChecked(SP.getBoolean("showcob", true));*/
 
             item = popup.getMenu().add(Menu.NONE, CHARTTYPE.DEV.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_deviations));
             title = item.getTitle();
@@ -571,10 +570,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                         SP.putBoolean("showprediction", !item.isChecked());
                     } else if (item.getItemId() == CHARTTYPE.BAS.ordinal()) {
                         SP.putBoolean("showbasals", !item.isChecked());
-                    } else if (item.getItemId() == CHARTTYPE.IOB.ordinal()) {
-                        SP.putBoolean("showiob", !item.isChecked());
-                    } else if (item.getItemId() == CHARTTYPE.COB.ordinal()) {
-                        SP.putBoolean("showcob", !item.isChecked());
                     } else if (item.getItemId() == CHARTTYPE.DEV.ordinal()) {
                         SP.putBoolean("showdeviations", !item.isChecked());
                     } else if (item.getItemId() == CHARTTYPE.SEN.ordinal()) {
@@ -1509,20 +1504,17 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 Profiler.log(log, from + " - 2nd graph - START", updateGUIStart);
 
             final GraphData secondGraphData = new GraphData(iobGraph, IobCobCalculatorPlugin.getPlugin());
-            //final GraphData thirdGraphData = new GraphData(cobGraph, IobCobCalculatorPlugin.getPlugin());
+            final GraphData thirdGraphData = new GraphData(cobGraph, IobCobCalculatorPlugin.getPlugin());
 
-            boolean useIobForScale = false;
-            boolean useCobForScale = false;
+            boolean useIobForScale = true;
+            boolean useCobForScale = true;
+
             boolean useDevForScale = false;
             boolean useRatioForScale = false;
             boolean useDSForScale = false;
             boolean useIAForScale = false;
 
-            if (SP.getBoolean("showiob", true)) {
-                useIobForScale = true;
-            } else if (SP.getBoolean("showcob", true)) {
-                useCobForScale = true;
-            } else if (SP.getBoolean("showdeviations", false)) {
+            if (SP.getBoolean("showdeviations", false)) {
                 useDevForScale = true;
             } else if (SP.getBoolean("showratios", false)) {
                 useRatioForScale = true;
@@ -1532,13 +1524,13 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 useDSForScale = true;
             }
 
-            if (SP.getBoolean("showiob", true))
-                secondGraphData.addIob(fromTime, now, useIobForScale, 1d, SP.getBoolean("showprediction", false));
-            if (SP.getBoolean("showcob", true))
-                secondGraphData.addCob(fromTime, now, useCobForScale, useCobForScale ? 1d : 0.5d);
-                //thirdGraphData.addCob(fromTime, now, useCobForScale, useCobForScale ? 1d : 0.5d);
-            if (SP.getBoolean("showdeviations", false))
+            secondGraphData.addIob(fromTime, now, useIobForScale, 1d, SP.getBoolean("showprediction", false));
+            thirdGraphData.addCob(fromTime, now, useCobForScale, useCobForScale ? 1d : 0.5d);
+
+            if (SP.getBoolean("showdeviations", false)){
                 secondGraphData.addDeviations(fromTime, now, useDevForScale, 1d);
+            }
+
             if (SP.getBoolean("showratios", false))
                 secondGraphData.addRatio(fromTime, now, useRatioForScale, 1d);
             if (SP.getBoolean("showactivitysecondary", true))
@@ -1551,29 +1543,19 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             secondGraphData.formatAxis(fromTime, endTime);
             secondGraphData.addNowLine(now);
 
-          //  thirdGraphData.formatAxis(fromTime, endTime);
-          //  thirdGraphData.addNowLine(now);
+            thirdGraphData.formatAxis(fromTime, endTime);
+            thirdGraphData.addNowLine(now);
 
             // do GUI update
             FragmentActivity activity = getActivity();
             if (activity != null) {
                 activity.runOnUiThread(() -> {
-                    if (SP.getBoolean("showiob", true)
-                            || SP.getBoolean("showcob", true)
-                            || SP.getBoolean("showdeviations", false)
-                            || SP.getBoolean("showratios", false)
-                            || SP.getBoolean("showactivitysecondary", false)
-                            || SP.getBoolean("showdevslope", false)) {
-                        iobGraph.setVisibility(View.VISIBLE);
-                       // cobGraph.setVisibility(View.VISIBLE);
-                    } else {
-                        iobGraph.setVisibility(View.GONE);
-                        //cobGraph.setVisibility(View.GONE);
-                    }
+                    iobGraph.setVisibility(View.VISIBLE);
+                    cobGraph.setVisibility(View.VISIBLE);
                     // finally enforce drawing of graphs
                     graphData.performUpdate();
                     secondGraphData.performUpdate();
-                    //thirdGraphData.performUpdate();
+                    thirdGraphData.performUpdate();
                     if (L.isEnabled(L.OVERVIEW))
                         Profiler.log(log, from + " - onDataChanged", updateGUIStart);
                 });

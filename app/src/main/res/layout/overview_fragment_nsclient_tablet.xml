@@ -211,99 +211,6 @@
                                 android:layout_marginTop="5dp"
                                 android:background="@color/listdelimiter" />
 
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="end"
-                                    android:paddingRight="5dp"
-                                    android:text="@string/iob"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:layout_width="5dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="0"
-                                    android:gravity="center_horizontal"
-                                    android:paddingEnd="2dp"
-                                    android:paddingStart="2dp"
-                                    android:text=":"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:id="@+id/overview_iob"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="0.5"
-                                    android:gravity="start"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="5dp"
-                                    android:text=""
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="fill_parent"
-                                android:layout_height="2dip"
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
-                                android:layout_marginTop="5dp"
-                                android:background="@color/listdelimiter" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="end"
-                                    android:paddingRight="5dp"
-                                    android:text="@string/cob"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:layout_width="5dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="0"
-                                    android:gravity="center_horizontal"
-                                    android:paddingEnd="2dp"
-                                    android:paddingStart="2dp"
-                                    android:text=":"
-                                    android:textSize="14sp" />
-
-                                <TextView
-                                    android:id="@+id/overview_cob"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="0.5"
-                                    android:gravity="start"
-                                    android:orientation="horizontal"
-                                    android:paddingLeft="5dp"
-                                    android:text=""
-                                    android:textSize="14sp" />
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="fill_parent"
-                                android:layout_height="2dip"
-                                android:layout_marginBottom="5dp"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginRight="20dp"
-                                android:layout_marginTop="5dp"
-                                android:background="@color/listdelimiter" />
-
                         </LinearLayout>
 
                     </LinearLayout>
@@ -448,10 +355,82 @@
 
                     </RelativeLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="1dp"
+                            android:text="@string/iob"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="5dp"
+                            android:layout_height="wrap_content"
+                            android:text=":"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/overview_iob"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:text=""
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
                     <com.jjoe64.graphview.GraphView
                         android:id="@+id/overview_iobgraph"
                         android:layout_width="wrap_content"
-                        android:layout_height="100dp" />
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_height="90dp"
+                        android:background="@color/chart_background"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="1dp"
+                            android:text="@string/cob"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="5dp"
+                            android:layout_height="wrap_content"
+                            android:text=":"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/overview_cob"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text=""
+                            android:textSize="16sp"
+                            android:textStyle="bold"/>
+
+                    </LinearLayout>
+                    <com.jjoe64.graphview.GraphView
+                        android:id="@+id/overview_cobgraph"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_height="90dp"
+                        android:background="@color/chart_background"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 

@@ -506,6 +506,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         //deltaShortView = (TextView) findViewById(R.id.overview_deltashort);
 
 
+        // set BG in header are for small display like Unihertz Atom
         timedelta = (LinearLayout) findViewById(R.id.time_delta);
         //check screen width and choose main dialog
         final DisplayMetrics dm = new DisplayMetrics();
