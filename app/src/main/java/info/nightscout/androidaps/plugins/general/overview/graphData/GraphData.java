@@ -433,7 +433,7 @@ public class GraphData {
         iobData = iobArray.toArray(iobData);
         iobSeries = new FixedLineGraphSeries<>(iobData);
         iobSeries.setDrawBackground(true);
-        iobSeries.setBackgroundColor(0xCCFFFFFF & MainApp.gc(R.color.iobSurface)); //50%
+        iobSeries.setBackgroundColor( MainApp.gc(R.color.iobSurface));
         iobSeries.setColor(MainApp.gc(R.color.iobBorder));
         iobSeries.setThickness(4);
 
@@ -516,7 +516,7 @@ public class GraphData {
         cobData = cobArray.toArray(cobData);
         cobSeries = new FixedLineGraphSeries<>(cobData);
         cobSeries.setDrawBackground(true);
-        cobSeries.setBackgroundColor(0xCCFFFFFF & MainApp.gc(R.color.cobSurface)); //50%
+        cobSeries.setBackgroundColor( MainApp.gc(R.color.cobSurface));
         cobSeries.setColor(MainApp.gc(R.color.cobBorder));
         cobSeries.setThickness(4);
 

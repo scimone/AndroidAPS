@@ -24,7 +24,7 @@
     <color name="inrange">#1ba1e2</color>
     <color name="inrange_bg">#1ba1e2</color>
     <color name="low">#FFE011</color>
-    <color name="high">#FFFF00</color>
+    <color name="high">#FFEC0B</color>
 
     <color name="actionsConfirm">#FFFF00</color>
     <color name="listdelimiter">#505050</color>
@@ -33,8 +33,8 @@
     <color name="deviations">#FF0000</color>
 
     <!-- in range Area  -->
-    <color name="inrangebackground">#10FFFFFF</color>
-    <color name="inrangebackgroundBorder">#10FFFFFF</color>
+    <color name="inrangebackground">#4dB1B1B1</color>
+    <color name="inrangebackgroundBorder">#4dB1B1B1</color>
 
     <!-- Basal   -->
     <color name="basebasal">#3D15FF</color>

@@ -1,6 +1,5 @@
 package info.nightscout.androidaps;
 
-import android.app.Activity;
 import android.app.TaskStackBuilder;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -9,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -33,7 +33,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
 import androidx.arch.core.util.Function;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
@@ -41,7 +40,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
@@ -120,6 +118,7 @@ import info.nightscout.androidaps.utils.ToastUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
+import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.INSULINCHANGE;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SITECHANGE;
@@ -133,9 +132,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
     TextView bgView;
     TextView arrowView;
-    TextView sensitivityView;
     TextView timeAgoView;
-    TextView timeAgoShortView;
     TextView deltaView;
     TextView deltaShortView;
     TextView avgdeltaView;
@@ -171,11 +168,8 @@ public class MainActivity extends NoSplashAppCompatActivity {
     private static Logger log = LoggerFactory.getLogger(L.CORE);
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    private Toolbar toolbar;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private BottomAppBar bottom_app_bar;
-
-    private RecyclerView mRecyclerView;
     static int y;
 
     private boolean smallWidth;
@@ -202,10 +196,10 @@ public class MainActivity extends NoSplashAppCompatActivity {
         SP.putBoolean("daynight", mIsNightMode);
 
         if(mIsNightMode){
-            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }else{
-            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         getDelegate().applyDayNight();
@@ -229,11 +223,12 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
             Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value > threshold : (Double threshold) -> value <= threshold;
         if (value != invalid) {
-            //view.setText(text);
+            view.setTextColor(normalColor);
             if (check.apply(urgentThreshold)) {
                 view.setTextColor(MainApp.gc(R.color.low));
             } else if (check.apply(warnThreshold)) {
                 view.setTextColor(MainApp.gc(R.color.high));
+                view.setTypeface(null, Typeface.BOLD);
             } else {
                 view.setTextColor(normalColor);
             }
@@ -245,10 +240,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
     }
 
     public void getCareportalInfo() {
-        boolean shorttextmode = true;
-
-        shorttextmode = true;
-
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
         statuslightsLayout = (LinearLayout) findViewById(R.id.overview_statuslights);
@@ -481,10 +472,10 @@ public class MainActivity extends NoSplashAppCompatActivity {
         mIsNightMode = newMode;
 
         if(mIsNightMode){
-            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }else{
-            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         getDelegate().applyDayNight();
@@ -557,7 +548,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         setupBottomNavigationView(findViewById(R.id.drawer_layout));
 
         // Sets a Toolbar to replace the ActionBar.
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(bottom_app_bar);
 
         // This will display an Up icon (<-), we will replace it with hamburger later
@@ -952,13 +943,11 @@ public class MainActivity extends NoSplashAppCompatActivity {
     public void scheduleUpdate(final String from) {
         class UpdateRunnable implements Runnable {
             public void run() {
-                Activity activity = MainActivity.this;
-                if (activity != null)
-                    activity.runOnUiThread(() -> {
-                        getCareportalInfo();
-                        upDateGlucose();
-                        scheduledUpdate = null;
-                    });
+                MainActivity.this.runOnUiThread(() -> {
+                    getCareportalInfo();
+                    upDateGlucose();
+                    scheduledUpdate = null;
+                });
             }
         }
         // prepare task for execution in 500 msec
