@@ -294,7 +294,7 @@ public class HistoryBrowseActivity extends NoSplashAppCompatActivity {
 
         // add basal data
         if (pump.getPumpDescription().isTempBasalCapable && showBasal) {
-            graphData.addBasals(fromTime, toTime, lowLine / graphData.maxY / 1.2d);
+            graphData.addBasals(fromTime, toTime, false, lowLine / graphData.maxY / 1.2d);
         }
 
         // **** NOW line ****

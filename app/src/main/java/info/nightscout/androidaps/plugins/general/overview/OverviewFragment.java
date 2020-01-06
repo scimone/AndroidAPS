@@ -42,7 +42,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -58,7 +57,6 @@ import info.nightscout.androidaps.data.Profile;
 import info.nightscout.androidaps.data.QuickWizard;
 import info.nightscout.androidaps.data.QuickWizardEntry;
 import info.nightscout.androidaps.db.BgReading;
-import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.db.DatabaseHelper;
 import info.nightscout.androidaps.db.ExtendedBolus;
 import info.nightscout.androidaps.db.Source;
@@ -95,7 +93,6 @@ import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
 import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.nsclient.NSUpload;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSDeviceStatus;
-import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
 import info.nightscout.androidaps.plugins.general.overview.graphData.GraphData;
 import info.nightscout.androidaps.plugins.general.wear.ActionStringHandler;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.AutosensData;
@@ -129,63 +126,46 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
-    TextView timeView;
-    TextView sensitivityView;
-    TextView timeAgoShortView;
-    TextView deltaView;
-    TextView deltaShortView;
-    TextView avgdeltaView;
-    TextView baseBasalView;
-    TextView extendedBolusView;
-    TextView iobView;
-    TextView cobView;
-    TextView pumpStatusView;
-    TextView pumpDeviceStatusView;
-    TextView openapsDeviceStatusView;
-    TextView uploaderDeviceStatusView;
-    TextView iobCalculationProgressView;
-    LinearLayout pumpStatusLayout;
+    private TextView sensitivityView;
+    private TextView deltaView;
+    private TextView baseBasalView;
+    private TextView extendedBolusView;
+    private TextView iobView;
+    private TextView cobView;
+    private TextView pumpStatusView;
+    private TextView pumpDeviceStatusView;
+    private TextView openapsDeviceStatusView;
+    private TextView uploaderDeviceStatusView;
+    private TextView iobCalculationProgressView;
+    private LinearLayout pumpStatusLayout;
     // chart graph
-    GraphView bgGraph;
-    GraphView iobGraph;
-    GraphView cobGraph;
-    ImageButton chartButton;
-    // BottomNavigation and menu items
-    //BottomNavigationView bottomNavigationView;
-    MenuItem itemTreatment ;
-    MenuItem itemBolus ;
-    MenuItem itemCarbs ;
-    MenuItem itemWizzard ;
-    MenuItem itemCgm ;
+    private GraphView bgGraph;
+    private GraphView basalGraph;
+    private GraphView iobGraph;
+    private GraphView cobGraph;
+    private ImageButton chartButton;
 
-    LinearLayout loopStatusLayout;
-    TextView activeProfileView;
-    TextView apsModeView;
-    TextView tempTargetView;
+    private LinearLayout loopStatusLayout;
+    private TextView activeProfileView;
+    private TextView apsModeView;
+    private TextView tempTargetView;
 
-    TextView iage;
-    TextView cage;
-    TextView sage;
-    TextView pbage;
+    private TextView iage;
+    private TextView cage;
+    private TextView sage;
+    private TextView pbage;
 
-    TextView pbLevel;
-    TextView prLevel;
+    private TextView pbLevel;
+    private TextView prLevel;
 
-    TextView iageView;
-    TextView cageView;
-    TextView reservoirView;
-    TextView sageView;
-    TextView batteryView;
-    LinearLayout statuslightsLayout;
+    private RecyclerView notificationsView;
+    private LinearLayoutManager llm;
 
-    RecyclerView notificationsView;
-    LinearLayoutManager llm;
+    private LinearLayout acceptTempLayout;
+    private SingleClickButton acceptTempButton;
 
-    LinearLayout acceptTempLayout;
-    SingleClickButton acceptTempButton;
-
-    boolean smallWidth;
-    boolean smallHeight;
+    private boolean smallWidth;
+    private boolean smallHeight;
 
     public static boolean shorttextmode = true;
 
@@ -268,6 +248,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         prLevel = view.findViewById(R.id.careportal_prLevel);
 
         bgGraph = (GraphView) view.findViewById(R.id.overview_bggraph);
+        basalGraph = (GraphView) view.findViewById(R.id.overview_basalgraph);
         iobGraph = (GraphView) view.findViewById(R.id.overview_iobgraph);
         cobGraph = (GraphView) view.findViewById(R.id.overview_cobgraph);
 
@@ -302,6 +283,14 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         bgGraph.getGridLabelRenderer().reloadStyles();
         bgGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
         bgGraph.getGridLabelRenderer().reloadStyles();
+
+        basalGraph.getGridLabelRenderer().reloadStyles();
+        basalGraph.getGridLabelRenderer().reloadStyles();
+        basalGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
+        basalGraph.getGridLabelRenderer().reloadStyles();
+        basalGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        basalGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
+        basalGraph.getGridLabelRenderer().setNumVerticalLabels(3);
 
 
         iobGraph.getGridLabelRenderer().reloadStyles();
@@ -482,14 +471,14 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 item.setChecked(SP.getBoolean("showprediction", true));
             }
 
-            item = popup.getMenu().add(Menu.NONE, CHARTTYPE.BAS.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_basals));
+          /*  item = popup.getMenu().add(Menu.NONE, CHARTTYPE.BAS.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_basals));
             title = item.getTitle();
             if (titleMaxChars < title.length()) titleMaxChars = title.length();
             s = new SpannableString(title);
             s.setSpan(new ForegroundColorSpan(ResourcesCompat.getColor(getResources(), R.color.basal, null)), 0, s.length(), 0);
             item.setTitle(s);
             item.setCheckable(true);
-            item.setChecked(SP.getBoolean("showbasals", true));
+            item.setChecked(SP.getBoolean("showbasals", true)); */
 
             item = popup.getMenu().add(Menu.NONE, CHARTTYPE.ACTPRIM.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_activity));
             title = item.getTitle();
@@ -568,8 +557,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId() == CHARTTYPE.PRE.ordinal()) {
                         SP.putBoolean("showprediction", !item.isChecked());
-                    } else if (item.getItemId() == CHARTTYPE.BAS.ordinal()) {
-                        SP.putBoolean("showbasals", !item.isChecked());
                     } else if (item.getItemId() == CHARTTYPE.DEV.ordinal()) {
                         SP.putBoolean("showdeviations", !item.isChecked());
                     } else if (item.getItemId() == CHARTTYPE.SEN.ordinal()) {
@@ -996,10 +983,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         if (getActivity() == null)
             return;
 
-        if (timeView != null) { //must not exists
-            timeView.setText(DateUtil.timeString(new Date()));
-        }
-
         OverviewPlugin.INSTANCE.getNotificationStore().updateNotifications(notificationsView);
 
         pumpStatusLayout.setVisibility(View.GONE);
@@ -1035,7 +1018,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             else if (lastBG.valueToUnits(units) > highLine)
                 color = MainApp.gc(R.color.high);
             GlucoseStatus glucoseStatus = GlucoseStatus.getGlucoseStatusData();
-            if (glucoseStatus != null) {
+          /*  if (glucoseStatus != null) {
                 if (deltaView != null)
                     deltaView.setText("Δ " + Profile.toUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units) + " " + units);
                 if (deltaShortView != null)
@@ -1050,7 +1033,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                     deltaShortView.setText("---");
                 if (avgdeltaView != null)
                     avgdeltaView.setText("");
-            }
+            }*/
         }
 
         Constraint<Boolean> closedLoopEnabled = MainApp.getConstraintChecker().isClosedLoopAllowed();
@@ -1157,7 +1140,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             }
         } */
 
-       if (itemCgm != null) {
+      /* if (itemCgm != null) {
             if (xDripIsBgSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
                 //bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(true);
             } else if (dexcomIsSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
@@ -1165,7 +1148,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             } else {
                 //bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(false);
             }
-       }
+       }*/
 
         final TemporaryBasal activeTemp = TreatmentsPlugin.getPlugin().getTempBasalFromHistory(System.currentTimeMillis());
         String basalText = "";
@@ -1255,7 +1238,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
           }
 
         // **** carbsButton buttons ****
-        if (itemCarbs != null) {
+   /*    if (itemCarbs != null) {
             if (SP.getBoolean(R.string.key_show_carbs_button, true)
                     && (!ConfigBuilderPlugin.getPlugin().getActivePump().getPumpDescription().storesCarbInfo ||
                     (pump.isInitialized() && !pump.isSuspended()))) {
@@ -1263,9 +1246,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             } else {
                 itemCarbs.setVisible(false);
             }
-        }
+        }*/
 
-        if (pump.isInitialized() && !pump.isSuspended()) {
+     /*   if (pump.isInitialized() && !pump.isSuspended()) {
             if (itemTreatment != null) {
                 if (SP.getBoolean(R.string.key_show_treatment_button, false)) {
                     itemTreatment.setVisible(true);
@@ -1294,7 +1277,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                     itemBolus.setVisible(false);
                 }
             }
-        }
+        }*/
 
 
         // iob
@@ -1336,7 +1319,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             cobView.setText(cobText);
         }
 
-        if (statuslightsLayout != null) {
+      /*  if (statuslightsLayout != null) {
             if (SP.getBoolean(R.string.key_show_statuslights, false)) {
                 CareportalEvent careportalEvent;
                 NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
@@ -1384,7 +1367,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             } else {
                 //statuslightsLayout.setVisibility(View.GONE);
             }
-        }
+        }*/
 
         boolean predictionsAvailable;
         if (Config.APS)
@@ -1489,9 +1472,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             }
 
             // add basal data
-            if (pump.getPumpDescription().isTempBasalCapable && SP.getBoolean("showbasals", true)) {
-                graphData.addBasals(fromTime, now, lowLine / graphData.maxY / 1.2d);
-            }
+         /*   if (pump.getPumpDescription().isTempBasalCapable && SP.getBoolean("showbasals", true)) {
+                graphData.addBasals(fromTime, now, false, lowLine / graphData.maxY / 1.2d);
+            }*/
 
             // add target line
             graphData.addTargetLine(fromTime, toTime, profile);
@@ -1503,9 +1486,11 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             if (L.isEnabled(L.OVERVIEW))
                 Profiler.log(log, from + " - 2nd graph - START", updateGUIStart);
 
+            final GraphData basalGraphData = new GraphData(basalGraph, IobCobCalculatorPlugin.getPlugin());
             final GraphData secondGraphData = new GraphData(iobGraph, IobCobCalculatorPlugin.getPlugin());
             final GraphData thirdGraphData = new GraphData(cobGraph, IobCobCalculatorPlugin.getPlugin());
 
+            boolean useBasalForScale = true;
             boolean useIobForScale = true;
             boolean useCobForScale = true;
 
@@ -1524,6 +1509,11 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 useDSForScale = true;
             }
 
+            // add basal data
+            if (pump.getPumpDescription().isTempBasalCapable ) {
+                basalGraphData.addBasals(fromTime, now, useBasalForScale, 1d);
+            }
+
             secondGraphData.addIob(fromTime, now, useIobForScale, 1d, SP.getBoolean("showprediction", false));
             thirdGraphData.addCob(fromTime, now, useCobForScale, useCobForScale ? 1d : 0.5d);
 
@@ -1538,8 +1528,12 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             if (SP.getBoolean("showdevslope", false) && MainApp.devBranch)
                 secondGraphData.addDeviationSlope(fromTime, now, useDSForScale, 1d);
 
+
             // **** NOW line ****
             // set manual x bounds to have nice steps
+            basalGraphData.formatAxis(fromTime, endTime);
+            basalGraphData.addNowLine(now);
+
             secondGraphData.formatAxis(fromTime, endTime);
             secondGraphData.addNowLine(now);
 
@@ -1550,10 +1544,12 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             FragmentActivity activity = getActivity();
             if (activity != null) {
                 activity.runOnUiThread(() -> {
+                    basalGraph.setVisibility(View.VISIBLE);
                     iobGraph.setVisibility(View.VISIBLE);
                     cobGraph.setVisibility(View.VISIBLE);
                     // finally enforce drawing of graphs
                     graphData.performUpdate();
+                    basalGraphData.performUpdate();
                     secondGraphData.performUpdate();
                     thirdGraphData.performUpdate();
                     if (L.isEnabled(L.OVERVIEW))

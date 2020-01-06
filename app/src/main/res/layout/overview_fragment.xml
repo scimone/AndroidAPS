@@ -129,35 +129,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginEnd="1dp"
-                                android:text="@string/basal_short"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="5dp"
-                                android:layout_height="wrap_content"
-                                android:text=":"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/overview_basebasal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:text="0.50U/h @17:35 1/30min - 0.40U/h"
-                                android:textSize="16sp"
-                                android:textStyle="bold"/>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginEnd="1dp"
                                 android:text="AS"
                                 android:textSize="16sp" />
 
@@ -182,7 +153,7 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="200dp"
+                    android:layout_height="150dp"
                     android:layout_weight="1">
 
                     <com.jjoe64.graphview.GraphView
@@ -212,6 +183,45 @@
                         android:textSize="15sp" />
 
                 </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="1dp"
+                        android:text="@string/basal_short"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="5dp"
+                        android:layout_height="wrap_content"
+                        android:text=":"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/overview_basebasal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="0.50U/h @17:35 1/30min - 0.40U/h"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/overview_basalgraph"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_height="60dp"
+                    android:background="@color/chart_background"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

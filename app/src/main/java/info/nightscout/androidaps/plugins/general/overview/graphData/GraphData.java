@@ -132,7 +132,7 @@ public class GraphData {
     }
 
     // scale in % of vertical size (like 0.3)
-    public void addBasals(long fromTime, long toTime, double scale) {
+    public void addBasals(long fromTime, long toTime, boolean useForScale, double scale) {
         LineGraphSeries<ScaledDataPoint> basalsLineSeries;
         LineGraphSeries<ScaledDataPoint> absoluteBasalsLineSeries;
         LineGraphSeries<ScaledDataPoint> baseBasalsSeries;
@@ -232,6 +232,11 @@ public class GraphData {
         absolutePaint.setStrokeWidth(MainApp.instance().getApplicationContext().getResources().getDisplayMetrics().scaledDensity * 2);
         absolutePaint.setColor(MainApp.gc(R.color.basal));
         absoluteBasalsLineSeries.setCustomPaint(absolutePaint);
+
+        if (useForScale) {
+            maxY = maxBasalValueFound;
+            minY = 0;
+        }
 
         basalScale.setMultiplier(maxY * scale / maxBasalValueFound);
 

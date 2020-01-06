@@ -3,14 +3,15 @@
     <color name="prediction">#ff00ff</color>
     <color name="basal">#6B85FF</color>
     <!-- IOB  -->
-    <color name="iob">#3C46FF</color>
+    <color name="iob">#1ba1e2</color>
     <color name="iobBorder">#EDFCFF</color>
-    <color name="iobSurface">#3C46FF</color>
+    <color name="iobSurface">#1ba1e2</color>
     <color name="iobPred">#00d2d2</color>
     <!-- COB  -->
-    <color name="cob">#FB8C00</color>
-    <color name="cobBorder">#FB8C00</color>
-    <color name="cobSurface">#FF9000</color>
+    <color name="cob">#f0a30a</color>
+    <color name="cobBorder">#303030</color>
+    <color name="cobSurface">#f0a30a</color>
+
     <color name="bolus">#1ea3e5</color>
     <color name="iobPredAS">#1ea3e5</color>
     <color name="carbs">#F2A370</color>
@@ -20,8 +21,10 @@
     <color name="activity">#d3f166</color>
     <color name="devslopepos">#FFFFFF00</color>
     <color name="devslopeneg">#FFFF00FF</color>
+
     <!-- BG colors  -->
     <color name="inrange">#000000</color>
+    <color name="inrange_bg">#1ba1e2</color>
     <color name="low">#FF0000</color>
     <color name="high">#FFFF00</color>
 
@@ -34,9 +37,11 @@
     <color name="inrangebackground">#10FFFFFF</color>
     <color name="inrangebackgroundBorder">#10FFFFFF</color>
 
+    <!-- Basal   -->
     <color name="basebasal">#3D15FF</color>
+    <color name="tempbasal">#1ba1e2</color>
+
     <color name="cobAlert">#7484E2</color>
-    <color name="tempbasal">#C803A9F4</color>
     <color name="graphgrid">#757575</color>
     <color name="colorLightGray">#d8d8d8</color>
     <color name="warning">#ff1a1a</color>
@@ -96,7 +101,6 @@
     <color name="ribbonTextWarning">#303030</color>
     <color name="ribbonTextCritical">#FFFFFF</color>
 
-    <color name="inrange_bg">#A4ECEA</color>
     <color name="textcolor_bright">#FFFFFF</color>
     <color name="textcolor_dark">#000000</color>
 
