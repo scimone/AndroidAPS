@@ -5,9 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".plugins.general.overview.OverviewFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/main_activity_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="2dp"
         android:layout_marginTop="6dp"
@@ -287,7 +289,7 @@
                 android:visibility="gone" />
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/overview_buttons"

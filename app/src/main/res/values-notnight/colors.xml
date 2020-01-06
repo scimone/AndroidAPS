@@ -4,11 +4,11 @@
     <color name="basal">#6B85FF</color>
     <!-- IOB  -->
     <color name="iob">#3C46FF</color>
-    <color name="iobBorder">#EDFCFF</color>
+    <color name="iobBorder">#303030</color>
     <color name="iobSurface">#3C46FF</color>
     <!-- COB  -->
     <color name="cob">#FB8C00</color>
-    <color name="cobBorder">#FB8C00</color>
+    <color name="cobBorder">#303030</color>
     <color name="cobSurface">#FF9000</color>
 
     <color name="bolus">#1ea3e5</color>
@@ -21,8 +21,8 @@
     <color name="devslopeneg">#FFFF00FF</color>
 
     <!-- BG colors  -->
-    <color name="inrange">#FAFFD3</color>
-    <color name="low">#FF0000</color>
+    <color name="inrange">#6B85FF</color>
+    <color name="low">#FFE011</color>
     <color name="high">#FFFF00</color>
 
 
@@ -53,6 +53,8 @@
 
     <color name="dialog_title_background">#FFFFFF</color>
     <color name="activity_title_background">#FFFFFF</color>
+
+    <color name="toolbar_background">#EEEEEE</color>
 
     <color name="cardColorBackground">#121212</color>
     <color name="cardObjectiveText">#779ECB</color>

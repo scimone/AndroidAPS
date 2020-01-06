@@ -23,6 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:fitsSystemWindows="false"
+                android:background="@color/toolbar_background"
                 android:minHeight="?attr/actionBarSize"
                 app:contentInsetStart="4dp"
                 app:contentInsetEnd="4dp">
@@ -49,6 +50,7 @@
                 android:id="@+id/main_activity_content_recycler_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:nestedScrollingEnabled="true"
                 android:overScrollMode="always"
                 android:layout_marginTop="50dp"
                />
