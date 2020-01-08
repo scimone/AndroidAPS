@@ -97,7 +97,6 @@ import info.nightscout.androidaps.plugins.general.overview.graphData.GraphData;
 import info.nightscout.androidaps.plugins.general.wear.ActionStringHandler;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.AutosensData;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.CobInfo;
-import info.nightscout.androidaps.plugins.iob.iobCobCalculator.GlucoseStatus;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.IobCobCalculatorPlugin;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.events.EventAutosensCalculationFinished;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.events.EventIobCalculationProgress;
@@ -1017,58 +1016,47 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 color = MainApp.gc(R.color.low);
             else if (lastBG.valueToUnits(units) > highLine)
                 color = MainApp.gc(R.color.high);
-            GlucoseStatus glucoseStatus = GlucoseStatus.getGlucoseStatusData();
-          /*  if (glucoseStatus != null) {
-                if (deltaView != null)
-                    deltaView.setText("Δ " + Profile.toUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units) + " " + units);
-                if (deltaShortView != null)
-                    deltaShortView.setText(Profile.toSignedUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units));
-                if (avgdeltaView != null)
-                    avgdeltaView.setText("øΔ15m: " + Profile.toUnitsString(glucoseStatus.short_avgdelta, glucoseStatus.short_avgdelta * Constants.MGDL_TO_MMOLL, units) +
-                            "  øΔ40m: " + Profile.toUnitsString(glucoseStatus.long_avgdelta, glucoseStatus.long_avgdelta * Constants.MGDL_TO_MMOLL, units));
-            } else {
-                if (deltaView != null)
-                    deltaView.setText("Δ " + MainApp.gs(R.string.notavailable));
-                if (deltaShortView != null)
-                    deltaShortView.setText("---");
-                if (avgdeltaView != null)
-                    avgdeltaView.setText("");
-            }*/
         }
 
         Constraint<Boolean> closedLoopEnabled = MainApp.getConstraintChecker().isClosedLoopAllowed();
 
-        // open loop mode
+        // pill for open loop mode
         final LoopPlugin.LastRun finalLastRun = LoopPlugin.lastRun;
         if (Config.APS && pump.getPumpDescription().isTempBasalCapable) {
             apsModeView.setVisibility(View.VISIBLE);
             Drawable drawable = apsModeView.getBackground();
+            Drawable[] drawableLeft= apsModeView.getCompoundDrawables();
             Resources.Theme theme = getContext().getTheme();
             TypedValue typedValue = new TypedValue();
             theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
             drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+            if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
             apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
             final LoopPlugin loopPlugin = LoopPlugin.getPlugin();
             if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuperBolus()) {
                 drawable = apsModeView.getBackground();
                 drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopsuperbolusfor), loopPlugin.minutesToEndOfSuspend()));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTypeface(null, Typeface.BOLD);
             } else if (loopPlugin.isDisconnected()) {
                 drawable = apsModeView.getBackground();
                 drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null)drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopdisconnectedfor), loopPlugin.minutesToEndOfSuspend()));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
             } else if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuspended()) {
                 drawable = apsModeView.getBackground();
                 drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopsuspendedfor), loopPlugin.minutesToEndOfSuspend()));
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTypeface(null, Typeface.BOLD);
             } else if (pump.isSuspended()) {
                 drawable = apsModeView.getBackground();
                 drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setText(MainApp.gs(R.string.pumpsuspended));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTypeface(null, Typeface.BOLD);
@@ -1081,6 +1069,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             } else {
                 drawable = apsModeView.getBackground();
                 drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
                 apsModeView.setText(MainApp.gs(R.string.disabledloop));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
             }
@@ -1088,22 +1077,26 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             apsModeView.setVisibility(View.GONE);
         }
 
-        // temp target
+        // temp target pill
         TempTarget tempTarget = TreatmentsPlugin.getPlugin().getTempTargetFromHistory();
         if (tempTarget != null) {
             tempTargetView.setTypeface(null, Typeface.BOLD);
             tempTargetView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
             Drawable drawable = tempTargetView.getBackground();
+            Drawable[] drawableLeft= tempTargetView.getCompoundDrawables();
+            if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
             drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
             tempTargetView.setVisibility(View.VISIBLE);
             tempTargetView.setText(Profile.toTargetRangeString(tempTarget.low, tempTarget.high, Constants.MGDL, units) + " " + DateUtil.untilString(tempTarget.end()));
         } else {
             tempTargetView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
             Drawable drawable = tempTargetView.getBackground();
+            Drawable[] drawableLeft= tempTargetView.getCompoundDrawables();
             Resources.Theme theme = getContext().getTheme();
             TypedValue typedValue = new TypedValue();
             theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
             drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+            if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
             // test and delete
           //  tempTargetView.setText(Profile.toTargetRangeString(profile.getTargetLowMgdl(), profile.getTargetHighMgdl(), units, units));
           //  tempTargetView.setBackgroundColor(MainApp.gc(R.color.ribbonDefault));
@@ -1206,16 +1199,20 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         activeProfileView.setText(ProfileFunctions.getInstance().getProfileNameWithDuration());
         if (profile.getPercentage() != 100 || profile.getTimeshift() != 0) {
             Drawable drawable = activeProfileView.getBackground();
+            Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
+            if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
             drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
             activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
             activeProfileView.setTypeface(null, Typeface.BOLD);
         } else {
             Drawable drawable = activeProfileView.getBackground();
+            Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = getContext().getTheme();
             if(theme != null){
                 theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
                 drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
                 activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
             }
         }
@@ -1471,11 +1468,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 graphData.addActivity(fromTime, endTime, false, 0.8d);
             }
 
-            // add basal data
-         /*   if (pump.getPumpDescription().isTempBasalCapable && SP.getBoolean("showbasals", true)) {
-                graphData.addBasals(fromTime, now, false, lowLine / graphData.maxY / 1.2d);
-            }*/
-
             // add target line
             graphData.addTargetLine(fromTime, toTime, profile);
 
@@ -1499,7 +1491,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             boolean useDSForScale = false;
             boolean useIAForScale = false;
 
-            if (SP.getBoolean("showdeviations", false)) {
+          /*  if (SP.getBoolean("showdeviations", false)) {
                 useDevForScale = true;
             } else if (SP.getBoolean("showratios", false)) {
                 useRatioForScale = true;
@@ -1507,7 +1499,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 useIAForScale = true;
             } else if (SP.getBoolean("showdevslope", false)) {
                 useDSForScale = true;
-            }
+            }*/
 
             // add basal data
             if (pump.getPumpDescription().isTempBasalCapable ) {
@@ -1542,7 +1534,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
             // do GUI update
             FragmentActivity activity = getActivity();
-            if (activity != null) {
+            //if (activity != null) {
                 activity.runOnUiThread(() -> {
                     basalGraph.setVisibility(View.VISIBLE);
                     iobGraph.setVisibility(View.VISIBLE);
@@ -1555,7 +1547,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                     if (L.isEnabled(L.OVERVIEW))
                         Profiler.log(log, from + " - onDataChanged", updateGUIStart);
                 });
-            }
+           // }
         }).start();
 
         if (L.isEnabled(L.OVERVIEW))

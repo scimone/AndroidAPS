@@ -49,7 +49,7 @@
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
                         android:text="Open Loop"
-                        android:drawableLeft="@drawable/ic_aaps_logo_white"
+                        android:drawableStart="@drawable/ic_aaps_logo_white"
                         android:background="@drawable/rounded_corner"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -67,7 +67,7 @@
                         android:paddingBottom="4dp"
                         android:text="Profile"
                         android:shape="rectangle"
-                        android:drawableLeft="@drawable/ic_user_white"
+                        android:drawableStart="@drawable/ic_user_white"
                         android:background="@drawable/rounded_corner"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -82,7 +82,7 @@
                         android:paddingTop="4dp"
                         android:paddingBottom="4dp"
                         android:text="TempTarget"
-                        android:drawableLeft="@drawable/ic_zielkreuz_white"
+                        android:drawableStart="@drawable/ic_zielkreuz_white"
                         android:background="@drawable/rounded_corner"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 

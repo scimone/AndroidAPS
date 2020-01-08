@@ -1,6 +1,5 @@
 package info.nightscout.androidaps.plugins.treatments;
 
-import android.graphics.Color;
 import androidx.annotation.Nullable;
 
 import com.j256.ormlite.field.DatabaseField;
@@ -16,13 +15,12 @@ import info.nightscout.androidaps.Constants;
 import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.data.Iob;
-import info.nightscout.androidaps.db.DbObjectBase;
 import info.nightscout.androidaps.data.Profile;
+import info.nightscout.androidaps.db.DbObjectBase;
 import info.nightscout.androidaps.db.Source;
 import info.nightscout.androidaps.interfaces.InsulinInterface;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
-import info.nightscout.androidaps.plugins.general.overview.OverviewPlugin;
 import info.nightscout.androidaps.plugins.general.overview.graphExtensions.DataPointWithLabelInterface;
 import info.nightscout.androidaps.plugins.general.overview.graphExtensions.PointsWithLabelGraphSeries;
 import info.nightscout.androidaps.utils.DateUtil;
@@ -96,7 +94,7 @@ public class Treatment implements DataPointWithLabelInterface, DbObjectBase {
     public String toString() {
         return "Treatment{" +
                 "date= " + date +
-                ", date= " + new Date(date).toLocaleString() +
+                ", date= " + new Date(date).toString() +
                 ", isValid= " + isValid +
                 ", isSMB= " + isSMB +
                 ", _id= " + _id +
@@ -224,7 +222,7 @@ public class Treatment implements DataPointWithLabelInterface, DbObjectBase {
 
     @Override
     public double getY() {
-        return isSMB ? OverviewPlugin.INSTANCE.determineLowLine() : yValue;
+        return isSMB ? 10.0 : yValue;
     }
 
     @Override
@@ -259,7 +257,7 @@ public class Treatment implements DataPointWithLabelInterface, DbObjectBase {
         if (isSMB)
             return MainApp.gc(R.color.tempbasal);
         else if (isValid)
-            return Color.CYAN;
+            return MainApp.gc(R.color.treatment);
         else
             return MainApp.instance().getResources().getColor(android.R.color.holo_red_light);
     }

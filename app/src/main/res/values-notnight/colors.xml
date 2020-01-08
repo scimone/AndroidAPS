@@ -40,6 +40,12 @@
     <color name="basebasal">#3D15FF</color>
     <color name="tempbasal">#1ba1e2</color>
 
+    <!-- Treatment Text   -->
+    <color name="treatment">#B2B2B2</color>
+
+    <!-- Profil switch Text   -->
+    <color name="profilswitch">#B2B2B2</color>
+
     <color name="graphgrid">#757575</color>
     <color name="colorLightGray">#d8d8d8</color>
     <color name="warning">#ff1a1a</color>

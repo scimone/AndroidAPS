@@ -20,7 +20,7 @@
 
     <item
         android:id="@+id/placeholder"
-        android:icon="@drawable/ic_more"
+        android:icon="@drawable/ic_dummy"
         app:showAsAction="always"
         android:visibility="invisible"
         android:tint="@android:color/transparent"
