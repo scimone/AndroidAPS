@@ -3,10 +3,7 @@ package info.nightscout.androidaps.plugins.general.overview;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
@@ -62,12 +59,9 @@ import info.nightscout.androidaps.db.ExtendedBolus;
 import info.nightscout.androidaps.db.Source;
 import info.nightscout.androidaps.db.TempTarget;
 import info.nightscout.androidaps.db.TemporaryBasal;
-import info.nightscout.androidaps.dialogs.CarbsDialog;
-import info.nightscout.androidaps.dialogs.InsulinDialog;
 import info.nightscout.androidaps.dialogs.ProfileSwitchDialog;
 import info.nightscout.androidaps.dialogs.ProfileViewerDialog;
 import info.nightscout.androidaps.dialogs.TempTargetDialog;
-import info.nightscout.androidaps.dialogs.TreatmentDialog;
 import info.nightscout.androidaps.events.EventAcceptOpenLoopChange;
 import info.nightscout.androidaps.events.EventCareportalEventChange;
 import info.nightscout.androidaps.events.EventExtendedBolusChange;
@@ -825,49 +819,12 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                     }
                 }
                 break;*/
-            case R.id.overview_cgmbutton:
-                if (xdrip)
-                    openCgmApp("com.eveningoutpost.dexdrip");
-                else if (dexcom) {
-                    String packageName = SourceDexcomPlugin.INSTANCE.findDexcomPackageName();
-                    if (packageName != null) {
-                        openCgmApp(packageName);
-                    } else {
-                        ToastUtils.showToastInUiThread(getActivity(), MainApp.gs(R.string.dexcom_app_not_installed));
-                    }
-                }
-                break;
-            case R.id.overview_treatmentbutton:
-                new TreatmentDialog().show(manager, "Overview");
-                break;
-            case R.id.overview_insulinbutton:
-                new InsulinDialog().show(manager, "Overview");
-                break;
-            case R.id.overview_carbsbutton:
-                new CarbsDialog().show(manager, "Overview");
-                break;
             case R.id.overview_pumpstatus:
                 if (ConfigBuilderPlugin.getPlugin().getActivePump().isSuspended() || !ConfigBuilderPlugin.getPlugin().getActivePump().isInitialized())
                     ConfigBuilderPlugin.getPlugin().getCommandQueue().readStatus("RefreshClicked", null);
                 break;
         }
 
-    }
-
-    public boolean openCgmApp(String packageName) {
-        PackageManager packageManager = getContext().getPackageManager();
-        try {
-            Intent intent = packageManager.getLaunchIntentForPackage(packageName);
-            if (intent == null) {
-                throw new ActivityNotFoundException();
-            }
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            getContext().startActivity(intent);
-            return true;
-        } catch (ActivityNotFoundException e) {
-            OKDialog.show(getContext(), "", MainApp.gs(R.string.error_starting_cgm));
-            return false;
-        }
     }
 
     @Override
@@ -896,30 +853,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                     clearNotification();
                     LoopPlugin.getPlugin().acceptChangeRequest();
                 });
-            }
-        }
-    }
-
-    void onClickQuickwizard() {
-        final BgReading actualBg = DatabaseHelper.actualBg();
-        final Profile profile = ProfileFunctions.getInstance().getProfile();
-        final String profileName = ProfileFunctions.getInstance().getProfileName();
-        final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
-
-        final QuickWizardEntry quickWizardEntry = QuickWizard.INSTANCE.getActive();
-        if (quickWizardEntry != null && actualBg != null && profile != null && pump != null) {
-            //quickWizardButton.show();
-            final BolusWizard wizard = quickWizardEntry.doCalc(profile, profileName, actualBg, true);
-
-            if (wizard.getCalculatedTotalInsulin() > 0d && quickWizardEntry.carbs() > 0d) {
-                Integer carbsAfterConstraints = MainApp.getConstraintChecker().applyCarbsConstraints(new Constraint<>(quickWizardEntry.carbs())).value();
-
-                if (Math.abs(wizard.getInsulinAfterConstraints() - wizard.getCalculatedTotalInsulin()) >= pump.getPumpDescription().pumpType.determineCorrectBolusStepSize(wizard.getInsulinAfterConstraints()) || !carbsAfterConstraints.equals(quickWizardEntry.carbs())) {
-                    OKDialog.show(getContext(), MainApp.gs(R.string.treatmentdeliveryerror), MainApp.gs(R.string.constraints_violation) + "\n" + MainApp.gs(R.string.changeyourinput));
-                    return;
-                }
-
-                wizard.confirmAndExecute(getContext());
             }
         }
     }
@@ -1119,29 +1052,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             }
         }
 
-        // **** Calibration & CGM buttons ****
-        boolean xDripIsBgSource = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
-        boolean dexcomIsSource = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
-        boolean bgAvailable = DatabaseHelper.actualBg() != null;
-      /*  if (calibrationButton != null) {
-            if ((xDripIsBgSource || dexcomIsSource) && bgAvailable && SP.getBoolean(R.string.key_show_calibration_button, true)) {
-                calibrationButton.show();
-                calibrationbutton_space.setVisibility(View.VISIBLE);
-            } else {
-                calibrationButton.hide();
-                calibrationbutton_space.setVisibility(View.GONE);
-            }
-        } */
-
-      /* if (itemCgm != null) {
-            if (xDripIsBgSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
-                //bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(true);
-            } else if (dexcomIsSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
-                //bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(true);
-            } else {
-                //bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton).setVisible(false);
-            }
-       }*/
 
         final TemporaryBasal activeTemp = TreatmentsPlugin.getPlugin().getTempBasalFromHistory(System.currentTimeMillis());
         String basalText = "";
@@ -1221,11 +1131,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         QuickWizardEntry quickWizardEntry = QuickWizard.INSTANCE.getActive();
         if (quickWizardEntry != null && lastBG != null && pump.isInitialized() && !pump.isSuspended()) {
           //  quickWizardButton.show();
-          //  quickwizardbutton_space.setVisibility(View.VISIBLE);
             String text = quickWizardEntry.buttonText() + "\n" + DecimalFormatter.to0Decimal(quickWizardEntry.carbs()) + "g";
             BolusWizard wizard = quickWizardEntry.doCalc(profile, profileName, lastBG, false);
             text += " " + DecimalFormatter.toPumpSupportedBolus(wizard.getCalculatedTotalInsulin()) + "U";
-        // todo    quickWizardButton.setText(text);
+
            // if (wizard.getCalculatedTotalInsulin() <= 0)
             //    quickWizardButton.hide();
             // quickwizardbutton_space.setVisibility(View.GONE);
@@ -1234,16 +1143,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
           // quickwizardbutton_space.setVisibility(View.GONE);
           }
 
-        // **** carbsButton buttons ****
-   /*    if (itemCarbs != null) {
-            if (SP.getBoolean(R.string.key_show_carbs_button, true)
-                    && (!ConfigBuilderPlugin.getPlugin().getActivePump().getPumpDescription().storesCarbInfo ||
-                    (pump.isInitialized() && !pump.isSuspended()))) {
-               itemCarbs.setVisible(true);
-            } else {
-                itemCarbs.setVisible(false);
-            }
-        }*/
 
      /*   if (pump.isInitialized() && !pump.isSuspended()) {
             if (itemTreatment != null) {

@@ -253,8 +253,9 @@
         </androidx.gridlayout.widget.GridLayout>
 
         <LinearLayout
+            android:id="@+id/dummy"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="70dp"
             android:orientation="horizontal">
         </LinearLayout>
 

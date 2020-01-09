@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -109,6 +108,7 @@ import info.nightscout.androidaps.tabs.TabPageAdapter;
 import info.nightscout.androidaps.utils.AndroidPermission;
 import info.nightscout.androidaps.utils.BolusWizard;
 import info.nightscout.androidaps.utils.DateUtil;
+import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.FabricPrivacy;
 import info.nightscout.androidaps.utils.LocaleHelper;
 import info.nightscout.androidaps.utils.OKDialog;
@@ -145,7 +145,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
     TextView batteryView;
     LinearLayout statuslightsLayout;
     LinearLayout timedelta;
-    FrameLayout main_activity_content_frame;
 
     // BottomNavigation and menu items
     BottomNavigationView bottomNavigationView;
@@ -159,7 +158,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
     //The middle menu fab bottom bottom app menu bar
     private Boolean isFabOpen = false;
     private FloatingActionButton fab;
-    private FloatingActionButton overviewCalibrationbutton;
+    private FloatingActionButton calibrationButton;
     private FloatingActionButton overviewQuickwizardbutton;
     private FloatingActionButton overview_Treatmentbutton;
 
@@ -242,7 +241,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
     public void getCareportalInfo() {
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        statuslightsLayout = (LinearLayout) findViewById(R.id.overview_statuslights);
+        statuslightsLayout = findViewById(R.id.overview_statuslights);
         sageView =  findViewById(R.id.careportal_sensorage);
         iageView =  findViewById(R.id.careportal_insulinage);
         cageView =  findViewById(R.id.careportal_canulaage);
@@ -329,17 +328,17 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 mainBottomFabMenu = findViewById(R.id.main_bottom_fab_menu);
                 if(isRotate){
                     mainBottomFabMenu.setVisibility(View.VISIBLE);
-                    ViewAnimation.showIn(findViewById(R.id.overview_calibrationbutton));
+                    ViewAnimation.showIn(findViewById(R.id.calibrationButton));
                     ViewAnimation.showIn(findViewById(R.id.overview_quickwizardbutton));
                     ViewAnimation.showIn(findViewById(R.id.overview_treatmentbutton));
                 } else{
-                    ViewAnimation.showOut(findViewById(R.id.overview_calibrationbutton));
+                    ViewAnimation.showOut(findViewById(R.id.calibrationButton));
                     ViewAnimation.showOut(findViewById(R.id.overview_quickwizardbutton));
                     ViewAnimation.showOut(findViewById(R.id.overview_treatmentbutton));
                     mainBottomFabMenu.setVisibility(View.GONE);
                 }
                 return;
-            case R.id.overview_calibrationbutton:
+            case R.id.calibrationButton:
                 if (xdrip) {
                     CalibrationDialog calibrationDialog = new CalibrationDialog();
                     calibrationDialog.show(manager, "CalibrationDialog");
@@ -492,10 +491,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         bgView = (TextView) findViewById(R.id.overview_bg);
         arrowView = (TextView) findViewById(R.id.overview_arrow);
         timeAgoView = (TextView) findViewById(R.id.overview_timeago);
-        //timeAgoShortView = (TextView) findViewById(R.id.overview_timeagoshort);
         deltaView = (TextView) findViewById(R.id.overview_delta);
-        //deltaShortView = (TextView) findViewById(R.id.overview_deltashort);
-
 
         // set BG in header are for small display like Unihertz Atom
         timedelta = (LinearLayout) findViewById(R.id.time_delta);
@@ -515,8 +511,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
             timedelta.setOrientation(LinearLayout.VERTICAL);
         }
 
-
-
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
 
         itemBolus = bottomNavigationView.getMenu().findItem(R.id.overview_insulinbutton);
@@ -526,17 +520,17 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
 
         fab = (FloatingActionButton)findViewById(R.id.fab);
-        overviewCalibrationbutton = (FloatingActionButton)findViewById(R.id.overview_calibrationbutton);
+        calibrationButton = (FloatingActionButton)findViewById(R.id.calibrationButton);
         overviewQuickwizardbutton = (FloatingActionButton)findViewById(R.id.overview_quickwizardbutton);
         overview_Treatmentbutton = (FloatingActionButton)findViewById(R.id.overview_treatmentbutton);
         fab.setOnClickListener(this::onClick);
-        overviewCalibrationbutton.setOnClickListener(this::onClick);
+        calibrationButton.setOnClickListener(this::onClick);
         overviewQuickwizardbutton.setOnClickListener(this::onClick);
         overview_Treatmentbutton.setOnClickListener(this::onClick);
         //fab menu
         mainBottomFabMenu = findViewById(R.id.main_bottom_fab_menu);
         //hide the fab menu icons and label
-        ViewAnimation.init(findViewById(R.id.overview_calibrationbutton));
+        ViewAnimation.init(findViewById(R.id.calibrationButton));
         ViewAnimation.init(findViewById(R.id.overview_quickwizardbutton));
         if (mainBottomFabMenu != null ){
             mainBottomFabMenu.setVisibility(View.GONE);
@@ -698,6 +692,94 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
     }
 
+
+    private void upDateBottomMenuButtons() {
+        final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
+
+        // **** Treatment button ****
+        if (pump.isInitialized() && !pump.isSuspended()) {
+            if (overview_Treatmentbutton != null) {
+                if (SP.getBoolean(R.string.key_show_treatment_button, false)) {
+                    overview_Treatmentbutton.show();
+                    findViewById(R.id.overview_treatmentbutton_label).setVisibility(View.VISIBLE);
+                } else {
+                    overview_Treatmentbutton.hide();
+                    findViewById(R.id.overview_treatmentbutton_label).setVisibility(View.GONE);
+                }
+            }
+        }
+        // **** Bolus button ****
+        if (pump.isInitialized() && !pump.isSuspended() && itemBolus != null) {
+            if (SP.getBoolean(R.string.key_show_insulin_button, true)) {
+                itemBolus.setVisible(true);
+            } else {
+                itemBolus.setVisible(false);
+            }
+        }
+        // **** Carbs button ****
+        if (itemCarbs != null) {
+            if (SP.getBoolean(R.string.key_show_carbs_button, true)
+                    && (!ConfigBuilderPlugin.getPlugin().getActivePump().getPumpDescription().storesCarbInfo ||
+                    (pump.isInitialized() && !pump.isSuspended()))) {
+                itemCarbs.setVisible(true);
+            } else {
+                itemCarbs.setVisible(false);
+            }
+        }
+        // **** Wizzard (Bolus calculator) button ****
+        if (pump.isInitialized() && !pump.isSuspended() && itemWizzard != null) {
+            if (SP.getBoolean(R.string.key_show_wizard_button, true)) {
+                itemWizzard.setVisible(true);
+            } else {
+                itemWizzard.setVisible(false);
+            }
+        }
+        // QuickWizard button
+        BgReading lastBG = DatabaseHelper.lastBg();
+        Profile profile = ProfileFunctions.getInstance().getProfile();
+        String profileName = ProfileFunctions.getInstance().getProfileName();
+        QuickWizardEntry quickWizardEntry = QuickWizard.INSTANCE.getActive();
+        if (quickWizardEntry != null && lastBG != null && pump.isInitialized() && !pump.isSuspended()) {
+            overviewQuickwizardbutton.show();
+            findViewById(R.id.quickwizardbutton_label).setVisibility(View.VISIBLE);
+            String text = quickWizardEntry.buttonText() + "\n" + DecimalFormatter.to0Decimal(quickWizardEntry.carbs()) + "g";
+            BolusWizard wizard = quickWizardEntry.doCalc(profile, profileName, lastBG, false);
+            text += " " + DecimalFormatter.toPumpSupportedBolus(wizard.getCalculatedTotalInsulin()) + "U";
+
+            if (wizard.getCalculatedTotalInsulin() <= 0) {
+                //overviewQuickwizardbutton.hide();
+                //findViewById(R.id.quickwizardbutton_label).setVisibility(View.VISIBLE);
+            } else{
+                //overviewQuickwizardbutton.hide();
+                //findViewById(R.id.quickwizardbutton_label).setVisibility(View.GONE);
+            }
+
+        }
+        // **** Calibration button ****
+        boolean xDripIsBgSource = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
+        boolean dexcomIsSource = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
+        boolean bgAvailable = DatabaseHelper.actualBg() != null;
+        if (calibrationButton != null) {
+            if ((xDripIsBgSource || dexcomIsSource) && bgAvailable && SP.getBoolean(R.string.key_show_calibration_button, true)) {
+                calibrationButton.show();
+                findViewById(R.id.calibrationbutton_label).setVisibility(View.VISIBLE);
+            } else {
+                calibrationButton.hide();
+                findViewById(R.id.calibrationbutton_label).setVisibility(View.VISIBLE);
+            }
+        }
+        // **** CGM button ****
+       if (itemCgm != null) {
+            if (xDripIsBgSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
+                itemCgm.setVisible(true);
+            } else if (dexcomIsSource && SP.getBoolean(R.string.key_show_cgm_button, false)) {
+                itemCgm.setVisible(true);
+            } else {
+                itemCgm.setVisible(false);
+            }
+       }
+    }
+
     private void checkPluginPreferences(ViewPager viewPager) {
         if (pluginPreferencesMenuItem == null) return;
         if (((TabPageAdapter) viewPager.getAdapter()).getPluginAt(viewPager.getCurrentItem()).getPreferencesId() != -1)
@@ -776,6 +858,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         sLoopHandler.postDelayed(sRefreshLoop, 60 * 1000L);
         this.getCareportalInfo();
         this.upDateGlucose();
+        this.upDateBottomMenuButtons();
     }
 
     private void setWakeLock() {
@@ -946,6 +1029,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 MainActivity.this.runOnUiThread(() -> {
                     getCareportalInfo();
                     upDateGlucose();
+                    upDateBottomMenuButtons();
                     scheduledUpdate = null;
                 });
             }
