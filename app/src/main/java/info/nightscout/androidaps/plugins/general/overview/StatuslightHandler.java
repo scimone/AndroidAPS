@@ -1,5 +1,7 @@
 package info.nightscout.androidaps.plugins.general.overview;
 
+import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,36 +19,30 @@ import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.SetWarnColor;
 
-class StatuslightHandler {
+public class StatuslightHandler {
+
+    boolean extended = true;
 
     /**
-     * applies the statuslight subview on the overview fragement
+     * applies the battery status
      */
-    void statuslight(TextView cageView, TextView iageView, TextView reservoirView,
-                     TextView sageView, TextView batteryView) {
+    public void statuslightBattery( TextView batteryView) {
         PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        applyStatuslight("cage", CareportalEvent.SITECHANGE, cageView, "CAN", 48, 72);
-        applyStatuslight("iage", CareportalEvent.INSULINCHANGE, iageView, "INS", 72, 96);
-
-        double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
-        applyStatuslightLevel(R.string.key_statuslights_res_critical, 10.0,
-                R.string.key_statuslights_res_warning, 80.0, reservoirView, "RES", reservoirLevel);
-
-        applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, "SEN", 164, 166);
-
-        if (pump.model() != PumpType.AccuChekCombo) {
+        if (pump.model() != PumpType.AccuChekCombo && pump.model() != PumpType.DanaRS) {
             double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
-            applyStatuslightLevel(R.string.key_statuslights_bat_critical, 5.0,
-                    R.string.key_statuslights_bat_warning, 22.0,
-                    batteryView, "BAT", batteryLevel);
+            applyStatuslightLevel(R.string.key_statuslights_bat_critical, 26.0,
+                    R.string.key_statuslights_bat_warning, 51.0,
+                    batteryView, "", batteryLevel);
+            batteryView.setText(extended ? (DecimalFormatter.to0Decimal(batteryLevel) + "%  ") : "");
+
         } else {
-            applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, "BAT", 504, 240);
+            applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 504, 240);
         }
 
     }
 
-    void applyStatuslight(String nsSettingPlugin, String eventName, TextView view, String text,
+    public void applyStatuslight(String nsSettingPlugin, String eventName, TextView view, String text,
                           int defaultWarnThreshold, int defaultUrgentThreshold) {
         NSSettingsStatus nsSettings = NSSettingsStatus.getInstance();
 
@@ -69,18 +65,24 @@ class StatuslightHandler {
         }
     }
 
-    void applyStatuslight(TextView view, String text, double value, double warnThreshold,
+    public void applyStatuslight(TextView view, String text, double value, double warnThreshold,
                                          double urgentThreshold, double invalid, boolean checkAscending) {
+        ColorStateList colorStateList = view.getTextColors();
+        final int normalColor = colorStateList.getDefaultColor();
+
         Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value >= threshold :
                 (Double threshold) -> value <= threshold;
         if (value != invalid) {
-            view.setText(text);
+            view.setTextColor(normalColor);
             if (check.apply(urgentThreshold)) {
                 view.setTextColor(MainApp.gc(R.color.ribbonCritical));
+                view.setTypeface(null, Typeface.BOLD);
             } else if (check.apply(warnThreshold)) {
                 view.setTextColor(MainApp.gc(R.color.ribbonWarning));
+                view.setTypeface(null, Typeface.BOLD);
             } else {
-                view.setTextColor(MainApp.gc(R.color.ribbonDefault));
+                view.setTextColor(normalColor);
+                view.setTypeface(null, Typeface.NORMAL);
             }
             view.setVisibility(View.VISIBLE);
         } else {

@@ -5,10 +5,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -32,7 +30,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.arch.core.util.Function;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.ViewCompat;
@@ -98,6 +95,7 @@ import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
 import info.nightscout.androidaps.plugins.general.overview.OverviewPlugin;
+import info.nightscout.androidaps.plugins.general.overview.StatuslightHandler;
 import info.nightscout.androidaps.plugins.general.themeselector.ScrollingActivity;
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.GlucoseStatus;
@@ -215,29 +213,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
     }
 
-
-    public static void applyStatuslight(TextView view, String text, double value, double warnThreshold, double urgentThreshold, double invalid, boolean checkAscending) {
-        ColorStateList colorStateList = view.getTextColors();
-        final int normalColor = colorStateList.getDefaultColor();
-
-            Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value > threshold : (Double threshold) -> value <= threshold;
-        if (value != invalid) {
-            view.setTextColor(normalColor);
-            if (check.apply(urgentThreshold)) {
-                view.setTextColor(MainApp.gc(R.color.low));
-            } else if (check.apply(warnThreshold)) {
-                view.setTextColor(MainApp.gc(R.color.high));
-                view.setTypeface(null, Typeface.BOLD);
-            } else {
-                view.setTextColor(normalColor);
-            }
-            view.setVisibility(View.VISIBLE);
-        } else {
-            view.setVisibility(View.GONE);
-        }
-
-    }
-
     public void getCareportalInfo() {
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
@@ -247,6 +222,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         cageView =  findViewById(R.id.careportal_canulaage);
         reservoirView = findViewById(R.id.careportal_prLevel);
         batteryView = findViewById(R.id.careportal_pbLevel);
+        StatuslightHandler handler = new StatuslightHandler();
 
         if (statuslightsLayout != null) {
             if (SP.getBoolean(R.string.key_show_statuslights, false)) {
@@ -265,32 +241,32 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 if (sageView != null) {
                 careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE);
                 double sensorAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                applyStatuslight(sageView, "", sensorAge, sageWarn, sageUrgent, Double.MAX_VALUE, true);
+                    handler.applyStatuslight(sageView, "", sensorAge, sageWarn, sageUrgent, Double.MAX_VALUE, true);
                 }
 
                 if (iageView != null) {
                 careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.INSULINCHANGE);
                 double insulinAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                applyStatuslight(iageView, "IAGE", insulinAge, iageWarn, iageUrgent, Double.MAX_VALUE, true);
+                    handler.applyStatuslight(iageView, "IAGE", insulinAge, iageWarn, iageUrgent, Double.MAX_VALUE, true);
                 }
                 if (cageView != null) {
                 careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE);
                 double canAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                applyStatuslight(cageView, "CAGE", canAge, cageWarn, cageUrgent, Double.MAX_VALUE, true);
+                    handler.applyStatuslight(cageView, "CAGE", canAge, cageWarn, cageUrgent, Double.MAX_VALUE, true);
                 }
 
                 if (reservoirView != null) {
                 double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
-                applyStatuslight(reservoirView, "RES", reservoirLevel, resWarn, resUrgent, -1, false);
+                    handler.applyStatuslight(reservoirView, "RES", reservoirLevel, resWarn, resUrgent, -1, false);
                 }
 
                 if (batteryView != null) {
-                double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
-                applyStatuslight(batteryView, "BAT", batteryLevel, batWarn, batUrgent, -1, false);
+                handler.statuslightBattery(batteryView);
                 }
 
                 CareportalFragment.updateAge( MainActivity.this, sageView, iageView, cageView, batteryView);
-                CareportalFragment.updatePumpSpecifics(reservoirView, batteryView);
+                CareportalFragment.updatePumpSpecifics(reservoirView, null);
+
                 statuslightsLayout.setVisibility(View.VISIBLE);
         } else {
             statuslightsLayout.setVisibility(View.GONE);

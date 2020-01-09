@@ -302,8 +302,10 @@ public class CareportalFragment extends Fragment implements View.OnClickListener
         PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
         updatePumpEntry(reservoirLevel, pump.getReservoirLevel(),
                 DecimalFormatter.to2Decimal(pump.getReservoirLevel()), resWarn, resUrgent);
-        updatePumpEntry(batteryLevel, pump.getBatteryLevel(),
-                String.valueOf(pump.getBatteryLevel()), batWarn, batUrgent);
+        if( batteryLevel != null) {
+            updatePumpEntry(batteryLevel, pump.getBatteryLevel(),
+                    String.valueOf(pump.getBatteryLevel()), batWarn, batUrgent);
+        }
     }
 
     public static TextView updatePumpEntry(final TextView pumpEntry, final Number value,
