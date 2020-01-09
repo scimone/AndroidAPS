@@ -57,6 +57,8 @@
     <color name="defaultbackground">#BBBBBB</color>
     <color name="defaulttext">#BBBBBB</color>
 
+    <color name="fabmenubackground">#73101346</color>
+
     <!-- Target line  -->
     <color name="tempTargetBackground">#FAFAE1</color>
 

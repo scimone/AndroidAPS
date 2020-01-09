@@ -765,7 +765,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 findViewById(R.id.calibrationbutton_label).setVisibility(View.VISIBLE);
             } else {
                 calibrationButton.hide();
-                findViewById(R.id.calibrationbutton_label).setVisibility(View.VISIBLE);
+                findViewById(R.id.calibrationbutton_label).setVisibility(View.GONE);
             }
         }
         // **** CGM button ****
