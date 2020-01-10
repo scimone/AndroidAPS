@@ -10,7 +10,7 @@
         <item name="fabmenubackground">@color/fabmenubackground</item>
     </style>
 
-    <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.Bridge"/>
+    <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.NoActionBar"/>
 
     <style name="AppTheme.preference" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="iconColor">@color/iconColor</item>

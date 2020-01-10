@@ -668,10 +668,10 @@ public class MainActivity extends NoSplashAppCompatActivity {
             if (overview_Treatmentbutton != null) {
                 if (SP.getBoolean(R.string.key_show_treatment_button, false)) {
                     overview_Treatmentbutton.show();
-                    findViewById(R.id.overview_treatmentbutton_label).setVisibility(View.VISIBLE);
+                    if( findViewById(R.id.overview_treatmentbutton_label) != null )findViewById(R.id.overview_treatmentbutton_label).setVisibility(View.VISIBLE);
                 } else {
                     overview_Treatmentbutton.hide();
-                    findViewById(R.id.overview_treatmentbutton_label).setVisibility(View.GONE);
+                    if( findViewById(R.id.overview_treatmentbutton_label) != null ) findViewById(R.id.overview_treatmentbutton_label).setVisibility(View.GONE);
                 }
             }
         }
@@ -708,7 +708,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         QuickWizardEntry quickWizardEntry = QuickWizard.INSTANCE.getActive();
         if (quickWizardEntry != null && lastBG != null && pump.isInitialized() && !pump.isSuspended()) {
             overviewQuickwizardbutton.show();
-            findViewById(R.id.quickwizardbutton_label).setVisibility(View.VISIBLE);
+            if (findViewById(R.id.quickwizardbutton_label) !=null )findViewById(R.id.quickwizardbutton_label).setVisibility(View.VISIBLE);
             String text = quickWizardEntry.buttonText() + "\n" + DecimalFormatter.to0Decimal(quickWizardEntry.carbs()) + "g";
             BolusWizard wizard = quickWizardEntry.doCalc(profile, profileName, lastBG, false);
             text += " " + DecimalFormatter.toPumpSupportedBolus(wizard.getCalculatedTotalInsulin()) + "U";
@@ -729,10 +729,10 @@ public class MainActivity extends NoSplashAppCompatActivity {
         if (calibrationButton != null) {
             if ((xDripIsBgSource || dexcomIsSource) && bgAvailable && SP.getBoolean(R.string.key_show_calibration_button, true)) {
                 calibrationButton.show();
-                findViewById(R.id.calibrationbutton_label).setVisibility(View.VISIBLE);
+                if( findViewById(R.id.calibrationbutton_label) != null) findViewById(R.id.calibrationbutton_label).setVisibility(View.VISIBLE);
             } else {
                 calibrationButton.hide();
-                findViewById(R.id.calibrationbutton_label).setVisibility(View.GONE);
+                if( findViewById(R.id.calibrationbutton_label) != null) findViewById(R.id.calibrationbutton_label).setVisibility(View.GONE);
             }
         }
         // **** CGM button ****
