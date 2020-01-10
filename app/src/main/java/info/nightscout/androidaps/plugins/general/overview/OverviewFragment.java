@@ -606,7 +606,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             }
 
             if (!loopPlugin.isDisconnected()) {
-                showSuspendtPump(menu, pumpDescription);
+                showSuspendPump(menu, pumpDescription);
             } else {
                 menu.add(MainApp.gs(R.string.reconnect));
             }
@@ -629,7 +629,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         }
     }
 
-    private void showSuspendtPump(ContextMenu menu, PumpDescription pumpDescription) {
+    private void showSuspendPump(ContextMenu menu, PumpDescription pumpDescription) {
         if (pumpDescription.tempDurationStep15mAllowed)
             menu.add(MainApp.gs(R.string.disconnectpumpfor15m));
         if (pumpDescription.tempDurationStep30mAllowed)
@@ -793,32 +793,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             case R.id.overview_accepttempbutton:
                 onClickAcceptTemp();
                 break;
-           /* case R.id.overview_quickwizardbutton:
-                onClickQuickwizard();
-                break;*/
-           /* case R.id.overview_wizardbutton:
-                WizardDialog wizardDialog = new WizardDialog();
-                wizardDialog.show(manager, "WizardDialog");
-                break;
-            case R.id.overview_calibrationbutton:
-                if (xdrip) {
-                    CalibrationDialog calibrationDialog = new CalibrationDialog();
-                    calibrationDialog.show(manager, "CalibrationDialog");
-                } else if (dexcom) {
-                    try {
-                        String packageName = SourceDexcomPlugin.INSTANCE.findDexcomPackageName();
-                        if (packageName != null) {
-                            Intent i = new Intent("com.dexcom.cgm.activities.MeterEntryActivity");
-                            i.setPackage(packageName);
-                            startActivity(i);
-                        } else {
-                            ToastUtils.showToastInUiThread(getActivity(), MainApp.gs(R.string.dexcom_app_not_installed));
-                        }
-                    } catch (ActivityNotFoundException e) {
-                        ToastUtils.showToastInUiThread(getActivity(), MainApp.gs(R.string.g5appnotdetected));
-                    }
-                }
-                break;*/
             case R.id.overview_pumpstatus:
                 if (ConfigBuilderPlugin.getPlugin().getActivePump().isSuspended() || !ConfigBuilderPlugin.getPlugin().getActivePump().isInitialized())
                     ConfigBuilderPlugin.getPlugin().getCommandQueue().readStatus("RefreshClicked", null);
@@ -1030,11 +1004,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
             drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
             if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
-            // test and delete
-          //  tempTargetView.setText(Profile.toTargetRangeString(profile.getTargetLowMgdl(), profile.getTargetHighMgdl(), units, units));
-          //  tempTargetView.setBackgroundColor(MainApp.gc(R.color.ribbonDefault));
             tempTargetView.setText(Profile.toTargetRangeString(profile.getTargetLowMgdl(), profile.getTargetHighMgdl(), Constants.MGDL, units));
-          //  tempTargetView.setVisibility(View.VISIBLE);
         }
 
         // **** Temp button ****
@@ -1134,47 +1104,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             String text = quickWizardEntry.buttonText() + "\n" + DecimalFormatter.to0Decimal(quickWizardEntry.carbs()) + "g";
             BolusWizard wizard = quickWizardEntry.doCalc(profile, profileName, lastBG, false);
             text += " " + DecimalFormatter.toPumpSupportedBolus(wizard.getCalculatedTotalInsulin()) + "U";
-
-           // if (wizard.getCalculatedTotalInsulin() <= 0)
-            //    quickWizardButton.hide();
-            // quickwizardbutton_space.setVisibility(View.GONE);
-        //} else
-           // quickWizardButton.hide();
-          // quickwizardbutton_space.setVisibility(View.GONE);
           }
-
-
-     /*   if (pump.isInitialized() && !pump.isSuspended()) {
-            if (itemTreatment != null) {
-                if (SP.getBoolean(R.string.key_show_treatment_button, false)) {
-                    itemTreatment.setVisible(true);
-                } else {
-                    itemTreatment.setVisible(false);
-                }
-            }
-            if (pump.isInitialized() && !pump.isSuspended() && itemBolus != null) {
-                if (SP.getBoolean(R.string.key_show_insulin_button, true)) {
-                    itemBolus.setVisible(true);
-                } else {
-                    itemBolus.setVisible(false);
-                }
-            }
-            if (pump.isInitialized() && !pump.isSuspended() && itemWizzard != null) {
-                if (SP.getBoolean(R.string.key_show_wizard_button, true)) {
-                    itemWizzard.setVisible(true);
-                } else {
-                    itemWizzard.setVisible(false);
-                }
-            }
-            if (pump.isInitialized() && !pump.isSuspended() && itemBolus != null) {
-                if (SP.getBoolean(R.string.key_show_insulin_button, true)) {
-                    itemBolus.setVisible(true);
-                } else {
-                    itemBolus.setVisible(false);
-                }
-            }
-        }*/
-
 
         // iob
         TreatmentsPlugin.getPlugin().updateTotalIOBTreatments();
@@ -1214,56 +1144,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             }
             cobView.setText(cobText);
         }
-
-      /*  if (statuslightsLayout != null) {
-            if (SP.getBoolean(R.string.key_show_statuslights, false)) {
-                CareportalEvent careportalEvent;
-                NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
-                double iageUrgent = nsSettings.getExtendedWarnValue("iage", "urgent", 96);
-                double iageWarn = nsSettings.getExtendedWarnValue("iage", "warn", 72);
-                double cageUrgent = nsSettings.getExtendedWarnValue("cage", "urgent", 72);
-                double cageWarn = nsSettings.getExtendedWarnValue("cage", "warn", 48);
-                double sageUrgent = nsSettings.getExtendedWarnValue("sage", "urgent", 166);
-                double sageWarn = nsSettings.getExtendedWarnValue("sage", "warn", 164);
-                //double pbageUrgent = nsSettings.getExtendedWarnValue("pgage", "urgent", 360);
-                //double pbageWarn = nsSettings.getExtendedWarnValue("pgage", "warn", 240);
-                double batUrgent = SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
-                double batWarn = SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
-                double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 10.0);
-                double resWarn = SP.getDouble(R.string.key_statuslights_res_warning, 80.0);
-
-                if (cageView != null) {
-                    careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE);
-                    double canAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                    applyStatuslight(cageView, "CAN", canAge, cageWarn, cageUrgent, Double.MAX_VALUE, true);
-                }
-
-                if (iageView != null) {
-                    careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.INSULINCHANGE);
-                    double insulinAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                    applyStatuslight(iageView, "INS", insulinAge, iageWarn, iageUrgent, Double.MAX_VALUE, true);
-                }
-
-                if (reservoirView != null) {
-                    double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
-                    applyStatuslight(reservoirView, "RES", reservoirLevel, resWarn, resUrgent, -1, false);
-                }
-
-                if (sageView != null) {
-                    careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE);
-                    double sensorAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                    applyStatuslight(sageView, "SEN", sensorAge, sageWarn, sageUrgent, Double.MAX_VALUE, true);
-                }
-
-                if (batteryView != null) {
-                    double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
-                    applyStatuslight(batteryView, "BAT", batteryLevel, batWarn, batUrgent, -1, false);
-                }
-                //statuslightsLayout.setVisibility(View.GONE);
-            } else {
-                //statuslightsLayout.setVisibility(View.GONE);
-            }
-        }*/
 
         boolean predictionsAvailable;
         if (Config.APS)
