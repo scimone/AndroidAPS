@@ -59,7 +59,7 @@ public class ConfigBuilderPlugin extends PluginBase {
                 .fragmentClass(ConfigBuilderFragment.class.getName())
                 .showInList(true)
                 .alwaysEnabled(true)
-                .alwaysVisible(false)
+                .alwaysVisible(true)
                 .pluginName(R.string.configbuilder)
                 .shortName(R.string.configbuilder_shortname)
                 .description(R.string.description_config_builder)

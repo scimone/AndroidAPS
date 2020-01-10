@@ -57,7 +57,6 @@ import java.util.concurrent.TimeUnit;
 import info.nightscout.androidaps.activities.HistoryBrowseActivity;
 import info.nightscout.androidaps.activities.NoSplashAppCompatActivity;
 import info.nightscout.androidaps.activities.PreferencesActivity;
-import info.nightscout.androidaps.activities.SingleFragmentActivity;
 import info.nightscout.androidaps.activities.StatsActivity;
 import info.nightscout.androidaps.data.Profile;
 import info.nightscout.androidaps.data.QuickWizard;
@@ -492,8 +491,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
         itemBolus = bottomNavigationView.getMenu().findItem(R.id.overview_insulinbutton);
         itemCarbs = bottomNavigationView.getMenu().findItem(R.id.overview_carbsbutton);
         itemWizzard = bottomNavigationView.getMenu().findItem(R.id.overview_wizardbutton);
-        itemCgm = bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton); ;
-
+        itemCgm = bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton);
 
         fab = (FloatingActionButton)findViewById(R.id.fab);
         calibrationButton = (FloatingActionButton)findViewById(R.id.calibrationButton);
@@ -543,13 +541,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 //Log.d("TAG", "page scrolled");
-
-                NestedScrollView cLayout = findViewById(R.id.main_activity_content_frame);
-                if( cLayout != null ) {
-                    cLayout.startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL);
-                    cLayout.dispatchNestedPreScroll(0, -Integer.MAX_VALUE, null, null);
-                    cLayout.stopNestedScroll();
-                }
 
                 bottom_app_bar.setVisibility(View.VISIBLE);
                 bottomNavigationView.setVisibility(View.VISIBLE);
@@ -756,13 +747,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
        }
     }
 
-    private void checkPluginPreferences(ViewPager viewPager) {
-        if (pluginPreferencesMenuItem == null) return;
-        if (((TabPageAdapter) viewPager.getAdapter()).getPluginAt(viewPager.getCurrentItem()).getPreferencesId() != -1)
-            pluginPreferencesMenuItem.setEnabled(true);
-        else pluginPreferencesMenuItem.setEnabled(false);
-    }
-
     @Override
     public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
@@ -857,17 +841,21 @@ public class MainActivity extends NoSplashAppCompatActivity {
         navigationView.setNavigationItemSelectedListener(menuItem -> true);
         Menu menu = navigationView.getMenu();
         menu.clear();
+        int itemId = 0;
         for (PluginBase p : MainApp.getPluginsList()) {
             pageAdapter.registerNewFragment(p);
-            if (p.hasFragment()  && p.isEnabled(p.pluginDescription.getType()) && !p.pluginDescription.neverVisible) {
-                MenuItem menuItem = menu.add(p.getName());
+            if (p.hasFragment()  && p.isFragmentVisible() &&p.isEnabled(p.pluginDescription.getType()) && !p.pluginDescription.neverVisible) {
+                MenuItem menuItem = menu.add(Menu.NONE, itemId++ , Menu.NONE , p.getName());
                 menuItem.setIcon(R.drawable.ic_settings);
                 menuItem.setCheckable(true);
                 menuItem.setOnMenuItemClickListener(item -> {
-                    Intent intent = new Intent(this, SingleFragmentActivity.class);
-                    intent.putExtra("plugin", MainApp.getPluginsList().indexOf(p));
-                    startActivity(intent);
+                   // Intent intent = new Intent(this, SingleFragmentActivity.class);
+                   // intent.putExtra("plugin", MainApp.getPluginsList().indexOf(p));
+                   // startActivity(intent);
                     ((DrawerLayout) findViewById(R.id.drawer_layout)).closeDrawers();
+                    ViewPager mPager = findViewById(R.id.pager);
+                    mPager.setAdapter(pageAdapter);
+                    mPager.setCurrentItem(item.getItemId() , true);
                     return true;
                 });
             }
@@ -877,13 +865,11 @@ public class MainActivity extends NoSplashAppCompatActivity {
         checkPluginPreferences(mPager);
     }
 
-    private void doMigrations() {
-        // guarantee that the unreachable threshold is at least 30 and of type String
-        // Added in 1.57 at 21.01.2018
-        int unreachable_threshold = SP.getInt(R.string.key_pump_unreachable_threshold, 30);
-        SP.remove(R.string.key_pump_unreachable_threshold);
-        if (unreachable_threshold < 30) unreachable_threshold = 30;
-        SP.putString(R.string.key_pump_unreachable_threshold, Integer.toString(unreachable_threshold));
+    private void checkPluginPreferences(ViewPager viewPager) {
+        if (pluginPreferencesMenuItem == null) return;
+        if (((TabPageAdapter) viewPager.getAdapter()).getPluginAt(viewPager.getCurrentItem()).getPreferencesId() != -1)
+            pluginPreferencesMenuItem.setEnabled(true);
+        else pluginPreferencesMenuItem.setEnabled(false);
     }
 
     @Override
@@ -928,7 +914,6 @@ public class MainActivity extends NoSplashAppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         pluginPreferencesMenuItem = menu.findItem(R.id.nav_plugin_preferences);
        // checkPluginPreferences(findViewById(R.id.pager));
-       // bottom_app_bar.replaceMenu(R.menu.menu_main);
         return true;
     }
 
