@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
 import info.nightscout.androidaps.MainApp;
@@ -39,7 +40,7 @@ public class NSClientFragment extends Fragment implements View.OnClickListener, 
     private TextView delivernow;
     private TextView clearqueue;
     private TextView showqueue;
-    private ScrollView logScrollview;
+    private NestedScrollView logScrollview;
     private CheckBox autoscrollCheckbox;
     private CheckBox pausedCheckbox;
 
@@ -48,7 +49,7 @@ public class NSClientFragment extends Fragment implements View.OnClickListener, 
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.nsclientinternal_fragment, container, false);
 
-        logScrollview = (ScrollView) view.findViewById(R.id.nsclientinternal_logscrollview);
+        logScrollview =  view.findViewById(R.id.nsclientinternal_logscrollview);
         autoscrollCheckbox = (CheckBox) view.findViewById(R.id.nsclientinternal_autoscroll);
         autoscrollCheckbox.setChecked(NSClientPlugin.getPlugin().autoscroll);
         autoscrollCheckbox.setOnCheckedChangeListener(this);
