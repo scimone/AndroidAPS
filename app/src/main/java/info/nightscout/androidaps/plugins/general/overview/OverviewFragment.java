@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.PopupMenu;
-import androidx.arch.core.util.Function;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -69,6 +68,7 @@ import info.nightscout.androidaps.events.EventInitializationChanged;
 import info.nightscout.androidaps.events.EventPreferenceChange;
 import info.nightscout.androidaps.events.EventProfileNeedsUpdate;
 import info.nightscout.androidaps.events.EventPumpStatusChanged;
+import info.nightscout.androidaps.events.EventRefreshMainActivity;
 import info.nightscout.androidaps.events.EventRefreshOverview;
 import info.nightscout.androidaps.events.EventTempBasalChange;
 import info.nightscout.androidaps.events.EventTempTargetChange;
@@ -160,7 +160,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
     private boolean smallWidth;
     private boolean smallHeight;
 
-    public static boolean shorttextmode = false;
+    public static boolean shorttextmode = true;
 
     private boolean accepted;
 
@@ -205,15 +205,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             shorttextmode = true;
         }
 
-        // set elements to fragment elements
-       // timeView = (TextView) view.findViewById(R.id.overview_time);
-       // if (smallWidth) {
-           // arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 35);
-       // }
         sensitivityView = (TextView) view.findViewById(R.id.overview_sensitivity);
-        //timeAgoShortView = (TextView) view.findViewById(R.id.overview_timeagoshort);
         deltaView = (TextView) view.findViewById(R.id.overview_delta);
-       // deltaShortView = (TextView) view.findViewById(R.id.overview_deltashort);
         baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
         extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
         pumpStatusView = (TextView) view.findViewById(R.id.overview_pumpstatus);
@@ -316,7 +309,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         });
 
         setupChartMenu(view);
-        //setupBottomNavigationView(view);
 
         return view;
     }
@@ -464,15 +456,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 item.setChecked(SP.getBoolean("showprediction", true));
             }
 
-          /*  item = popup.getMenu().add(Menu.NONE, CHARTTYPE.BAS.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_basals));
-            title = item.getTitle();
-            if (titleMaxChars < title.length()) titleMaxChars = title.length();
-            s = new SpannableString(title);
-            s.setSpan(new ForegroundColorSpan(ResourcesCompat.getColor(getResources(), R.color.basal, null)), 0, s.length(), 0);
-            item.setTitle(s);
-            item.setCheckable(true);
-            item.setChecked(SP.getBoolean("showbasals", true)); */
-
             item = popup.getMenu().add(Menu.NONE, CHARTTYPE.ACTPRIM.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_activity));
             title = item.getTitle();
             if (titleMaxChars < title.length()) titleMaxChars = title.length();
@@ -484,24 +467,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
 
             dividerItem = popup.getMenu().add("");
             dividerItem.setEnabled(false);
-
-           /* item = popup.getMenu().add(Menu.NONE, CHARTTYPE.IOB.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_iob));
-            title = item.getTitle();
-            if (titleMaxChars < title.length()) titleMaxChars = title.length();
-            s = new SpannableString(title);
-            s.setSpan(new ForegroundColorSpan(ResourcesCompat.getColor(getResources(), R.color.iob, null)), 0, s.length(), 0);
-            item.setTitle(s);
-            item.setCheckable(true);
-            item.setChecked(SP.getBoolean("showiob", true));
-
-            item = popup.getMenu().add(Menu.NONE, CHARTTYPE.COB.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_cob));
-            title = item.getTitle();
-            if (titleMaxChars < title.length()) titleMaxChars = title.length();
-            s = new SpannableString(title);
-            s.setSpan(new ForegroundColorSpan(ResourcesCompat.getColor(getResources(), R.color.cob, null)), 0, s.length(), 0);
-            item.setTitle(s);
-            item.setCheckable(true);
-            item.setChecked(SP.getBoolean("showcob", true));*/
 
             item = popup.getMenu().add(Menu.NONE, CHARTTYPE.DEV.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_deviations));
             title = item.getTitle();
@@ -865,6 +830,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 Activity activity = getActivity();
                 if (activity != null)
                     activity.runOnUiThread(() -> {
+                        RxBus.INSTANCE.send(new EventRefreshMainActivity("ScheduledUpdateGui"));
                         updateGUI(from);
                         scheduledUpdate = null;
                     });
@@ -925,9 +891,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 color = MainApp.gc(R.color.high);
         }
 
-        Constraint<Boolean> closedLoopEnabled = MainApp.getConstraintChecker().isClosedLoopAllowed();
-
         // pill for open loop mode
+        Constraint<Boolean> closedLoopEnabled = MainApp.getConstraintChecker().isClosedLoopAllowed();
         final LoopPlugin.LastRun finalLastRun = LoopPlugin.lastRun;
         if (Config.APS && pump.getPumpDescription().isTempBasalCapable) {
             apsModeView.setVisibility(View.VISIBLE);
@@ -1329,22 +1294,4 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
             Profiler.log(log, from, updateGUIStart);
     }
 
-    public static void applyStatuslight(TextView view, String text, double value, double warnThreshold, double urgentThreshold, double invalid, boolean checkAscending) {
-        Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value >= threshold : (Double threshold) -> value <= threshold;
-        if (value != invalid) {
-            view.setText(text);
-            view.setTextColor(MainApp.gc(R.color.overviewPillColor));
-            if (check.apply(urgentThreshold)) {
-                view.setTextColor(MainApp.gc(R.color.ribbonCritical));
-            } else if (check.apply(warnThreshold)) {
-                view.setTextColor(MainApp.gc(R.color.ribbonWarning));
-            } else {
-                view.setTextColor(MainApp.gc(R.color.overviewPillColor));
-            }
-            view.setVisibility(View.VISIBLE);
-        } else {
-            view.setVisibility(View.GONE);
-        }
-
-    }
 }

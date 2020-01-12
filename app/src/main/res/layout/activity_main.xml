@@ -34,7 +34,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
-                <include layout="@layout/status_fragment" />
+                    <include layout="@layout/status_fragment" />
 
                 </LinearLayout>
 
@@ -84,7 +84,7 @@
                 app:itemTextColor="?attr/iconColor"
                 app:menu="@menu/bottom_navigation_menu" />
 
-    </com.google.android.material.bottomappbar.BottomAppBar>
+        </com.google.android.material.bottomappbar.BottomAppBar>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -125,4 +125,4 @@
         android:fitsSystemWindows="true"
         android:layout_gravity="start" />
 
- </androidx.drawerlayout.widget.DrawerLayout >
+</androidx.drawerlayout.widget.DrawerLayout >

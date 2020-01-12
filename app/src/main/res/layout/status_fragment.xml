@@ -8,7 +8,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -89,6 +90,7 @@
 
             <ImageView
                 android:id="@+id/sensorage"
+                android:contentDescription="@null"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_statuslight_sensor"
@@ -116,6 +118,7 @@
 
             <ImageView
                 android:id="@+id/insulinage"
+                android:contentDescription="@null"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_statuslight_cartridge"
@@ -141,6 +144,7 @@
 
             <ImageView
                 android:id="@+id/canulaage"
+                android:contentDescription="@null"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_katheter_35"
@@ -167,6 +171,7 @@
 
             <ImageView
                 android:id="@+id/batteryage"
+                android:contentDescription="@null"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_statuslight_battery"

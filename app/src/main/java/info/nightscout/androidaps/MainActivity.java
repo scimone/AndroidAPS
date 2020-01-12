@@ -5,8 +5,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
@@ -14,6 +18,7 @@ import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -64,20 +69,26 @@ import info.nightscout.androidaps.data.QuickWizardEntry;
 import info.nightscout.androidaps.db.BgReading;
 import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.db.DatabaseHelper;
+import info.nightscout.androidaps.db.TempTarget;
 import info.nightscout.androidaps.dialogs.CalibrationDialog;
 import info.nightscout.androidaps.dialogs.CarbsDialog;
 import info.nightscout.androidaps.dialogs.CareDialog;
+import info.nightscout.androidaps.dialogs.FillDialog;
 import info.nightscout.androidaps.dialogs.InsulinDialog;
 import info.nightscout.androidaps.dialogs.TreatmentDialog;
 import info.nightscout.androidaps.dialogs.WizardDialog;
 import info.nightscout.androidaps.events.EventAcceptOpenLoopChange;
 import info.nightscout.androidaps.events.EventAppExit;
 import info.nightscout.androidaps.events.EventCareportalEventChange;
+import info.nightscout.androidaps.events.EventExtendedBolusChange;
 import info.nightscout.androidaps.events.EventInitializationChanged;
 import info.nightscout.androidaps.events.EventPreferenceChange;
+import info.nightscout.androidaps.events.EventProfileNeedsUpdate;
 import info.nightscout.androidaps.events.EventPumpStatusChanged;
 import info.nightscout.androidaps.events.EventRebuildTabs;
-import info.nightscout.androidaps.events.EventRefreshOverview;
+import info.nightscout.androidaps.events.EventRefreshMainActivity;
+import info.nightscout.androidaps.events.EventTempBasalChange;
+import info.nightscout.androidaps.events.EventTempTargetChange;
 import info.nightscout.androidaps.events.EventTreatmentChange;
 import info.nightscout.androidaps.interfaces.Constraint;
 import info.nightscout.androidaps.interfaces.PluginBase;
@@ -95,11 +106,14 @@ import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatm
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
 import info.nightscout.androidaps.plugins.general.overview.OverviewPlugin;
 import info.nightscout.androidaps.plugins.general.overview.StatuslightHandler;
+import info.nightscout.androidaps.plugins.general.overview.activities.QuickWizardListActivity;
 import info.nightscout.androidaps.plugins.general.themeselector.ScrollingActivity;
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil;
 import info.nightscout.androidaps.plugins.iob.iobCobCalculator.GlucoseStatus;
+import info.nightscout.androidaps.plugins.iob.iobCobCalculator.events.EventAutosensCalculationFinished;
 import info.nightscout.androidaps.plugins.source.SourceDexcomPlugin;
 import info.nightscout.androidaps.plugins.source.SourceXdripPlugin;
+import info.nightscout.androidaps.plugins.treatments.TreatmentsPlugin;
 import info.nightscout.androidaps.setupwizard.SetupWizardActivity;
 import info.nightscout.androidaps.tabs.TabPageAdapter;
 import info.nightscout.androidaps.utils.AndroidPermission;
@@ -118,11 +132,10 @@ import io.reactivex.disposables.CompositeDisposable;
 import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.INSULINCHANGE;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
-import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SITECHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
 // public class MainActivity extends AppCompatActivity {
-public class MainActivity extends NoSplashAppCompatActivity {
+public class MainActivity extends NoSplashAppCompatActivity implements View.OnLongClickListener {
 
     private static final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> scheduledUpdate = null;
@@ -279,6 +292,7 @@ public class MainActivity extends NoSplashAppCompatActivity {
 
     public  void action(View view , int id, FragmentManager manager) {
         NewNSTreatmentDialog newDialog = new NewNSTreatmentDialog();
+        FillDialog fillDialog = new FillDialog();
         CareDialog newCareDialog = new CareDialog();
         boolean xdrip = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
         boolean dexcom = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
@@ -293,8 +307,9 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 newDialog.setOptions(INSULINCHANGE, R.string.careportal_insulincartridgechange);
                 break;
             case R.id.canulaage:
-                newDialog.setOptions(SITECHANGE, R.string.careportal_pumpsitechange);
-                break;
+                //newDialog.setOptions(SITECHANGE, R.string.careportal_pumpsitechange);
+                fillDialog.show(manager ,"FillDialog") ;
+                return;
             case R.id.batteryage:
                 newCareDialog.setOptions(CareDialog.EventType.BATTERY_CHANGE, R.string.careportal_pumpbatterychange).show( manager, "Actions");
                 return;
@@ -468,6 +483,8 @@ public class MainActivity extends NoSplashAppCompatActivity {
         timeAgoView = (TextView) findViewById(R.id.overview_timeago);
         deltaView = (TextView) findViewById(R.id.overview_delta);
 
+        avgdeltaView= (TextView) findViewById(R.id.average_delta);
+
         // set BG in header are for small display like Unihertz Atom
         timedelta = (LinearLayout) findViewById(R.id.time_delta);
         //check screen width and choose main dialog
@@ -496,6 +513,10 @@ public class MainActivity extends NoSplashAppCompatActivity {
         fab = (FloatingActionButton)findViewById(R.id.fab);
         calibrationButton = (FloatingActionButton)findViewById(R.id.calibrationButton);
         overviewQuickwizardbutton = (FloatingActionButton)findViewById(R.id.overview_quickwizardbutton);
+        overviewQuickwizardbutton.setLongClickable(true);
+        overviewQuickwizardbutton.setOnLongClickListener(this::onLongClick);
+
+
         overview_Treatmentbutton = (FloatingActionButton)findViewById(R.id.overview_treatmentbutton);
         fab.setOnClickListener(this::onClick);
         calibrationButton.setOnClickListener(this::onClick);
@@ -747,6 +768,139 @@ public class MainActivity extends NoSplashAppCompatActivity {
        }
     }
 
+    private void updateLoopPill() {
+        // pill for open loop mode
+        TextView apsModeView;
+        apsModeView = (TextView) findViewById(R.id.overview_apsmode);
+
+        if(apsModeView == null ) return;
+
+        Constraint<Boolean> closedLoopEnabled = MainApp.getConstraintChecker().isClosedLoopAllowed();
+        final LoopPlugin.LastRun finalLastRun = LoopPlugin.lastRun;
+        final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
+        if (Config.APS && pump.getPumpDescription().isTempBasalCapable) {
+            apsModeView.setVisibility(View.VISIBLE);
+            Drawable drawable = apsModeView.getBackground();
+            Drawable[] drawableLeft= apsModeView.getCompoundDrawables();
+            Resources.Theme theme = getTheme();
+            TypedValue typedValue = new TypedValue();
+            theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
+            drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+            if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
+            apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
+            final LoopPlugin loopPlugin = LoopPlugin.getPlugin();
+            if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuperBolus()) {
+                drawable = apsModeView.getBackground();
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
+                apsModeView.setText(String.format(MainApp.gs(R.string.loopsuperbolusfor), loopPlugin.minutesToEndOfSuspend()));
+                apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
+                apsModeView.setTypeface(null, Typeface.BOLD);
+            } else if (loopPlugin.isDisconnected()) {
+                drawable = apsModeView.getBackground();
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null)drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
+                apsModeView.setText(String.format(MainApp.gs(R.string.loopdisconnectedfor), loopPlugin.minutesToEndOfSuspend()));
+                apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
+            } else if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuspended()) {
+                drawable = apsModeView.getBackground();
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                apsModeView.setText(String.format(MainApp.gs(R.string.loopsuspendedfor), loopPlugin.minutesToEndOfSuspend()));
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
+                apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
+                apsModeView.setTypeface(null, Typeface.BOLD);
+            } else if (pump.isSuspended()) {
+                drawable = apsModeView.getBackground();
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
+                apsModeView.setText(MainApp.gs(R.string.pumpsuspended));
+                apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
+                apsModeView.setTypeface(null, Typeface.BOLD);
+            } else if (loopPlugin.isEnabled(PluginType.LOOP)) {
+                if (closedLoopEnabled.value()) {
+                    apsModeView.setText(MainApp.gs(R.string.closedloop));
+                } else {
+                    apsModeView.setText(MainApp.gs(R.string.openloop));
+                }
+            } else {
+                drawable = apsModeView.getBackground();
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
+                apsModeView.setText(MainApp.gs(R.string.disabledloop));
+                apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
+            }
+        } else {
+            apsModeView.setVisibility(View.GONE);
+        }
+    }
+
+
+    private void updateProfilePill() {
+        // **** activeProfileView pill button ****
+        TextView activeProfileView;
+        activeProfileView = (TextView) findViewById(R.id.overview_activeprofile);
+
+        if(activeProfileView == null) return;
+
+        Profile profile = ProfileFunctions.getInstance().getProfile();
+        activeProfileView.setText(ProfileFunctions.getInstance().getProfileNameWithDuration());
+        if (profile.getPercentage() != 100 || profile.getTimeshift() != 0) {
+            Drawable drawable = activeProfileView.getBackground();
+            Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
+            if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
+            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+            activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
+            activeProfileView.setTypeface(null, Typeface.BOLD);
+        } else {
+            Drawable drawable = activeProfileView.getBackground();
+            Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = getTheme();
+            if(theme != null){
+                theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
+                drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
+                activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
+            }
+        }
+    }
+
+
+    private void updateTempTargetPill() {
+        // temp target pill
+        TextView tempTargetView;
+        tempTargetView = (TextView) findViewById(R.id.overview_temptarget);
+
+        if(tempTargetView == null) return;
+
+
+        Profile profile = ProfileFunctions.getInstance().getProfile();
+        String units = ProfileFunctions.getSystemUnits();
+        TempTarget tempTarget = TreatmentsPlugin.getPlugin().getTempTargetFromHistory();
+        if (tempTarget != null) {
+            Log.d("TAG", "updateTempTargetPill warning");
+            tempTargetView.setTypeface(null, Typeface.BOLD);
+            tempTargetView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
+            Drawable drawable = tempTargetView.getBackground();
+            Drawable[] drawableLeft= tempTargetView.getCompoundDrawables();
+            if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
+            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+            tempTargetView.setVisibility(View.VISIBLE);
+            tempTargetView.setText(Profile.toTargetRangeString(tempTarget.low, tempTarget.high, Constants.MGDL, units) + " " + DateUtil.untilString(tempTarget.end()));
+        } else {
+            tempTargetView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
+            Drawable drawable = tempTargetView.getBackground();
+            Drawable[] drawableLeft= tempTargetView.getCompoundDrawables();
+            Resources.Theme theme = getTheme();
+            TypedValue typedValue = new TypedValue();
+            theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
+            drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+            if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
+            tempTargetView.setText(Profile.toTargetRangeString(profile.getTargetLowMgdl(), profile.getTargetHighMgdl(), Constants.MGDL, units));
+        }
+    }
+
+
     @Override
     public void onPostCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onPostCreate(savedInstanceState, persistentState);
@@ -763,16 +917,33 @@ public class MainActivity extends NoSplashAppCompatActivity {
     protected void onResume() {
         super.onResume();
         disposable.add(RxBus.INSTANCE
-                .toObservable(EventRefreshOverview.class)
+                .toObservable(EventRefreshMainActivity.class)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(eventOpenAPSUpdateGui -> scheduleUpdate(eventOpenAPSUpdateGui.getFrom()),
                         FabricPrivacy::logException
                 ));
-
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventExtendedBolusChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventExtendedBolusChange"),
+                        FabricPrivacy::logException
+                ));
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventTempBasalChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventTempBasalChange"),
+                        FabricPrivacy::logException
+                ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventTreatmentChange.class)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(event -> scheduleUpdate("EventTreatmentChange"),
+                        FabricPrivacy::logException
+                ));
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventTempTargetChange.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventTempTargetChange"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
@@ -791,6 +962,18 @@ public class MainActivity extends NoSplashAppCompatActivity {
                 .toObservable(EventInitializationChanged.class)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(event -> scheduleUpdate("EventInitializationChanged"),
+                        FabricPrivacy::logException
+                ));
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventAutosensCalculationFinished.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventAutosensCalculationFinished"),
+                        FabricPrivacy::logException
+                ));
+        disposable.add(RxBus.INSTANCE
+                .toObservable(EventProfileNeedsUpdate.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> scheduleUpdate("EventProfileNeedsUpdate"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
@@ -819,6 +1002,9 @@ public class MainActivity extends NoSplashAppCompatActivity {
         this.getCareportalInfo();
         this.upDateGlucose();
         this.upDateBottomMenuButtons();
+        this.updateLoopPill();
+        this.updateProfilePill();
+        this.updateTempTargetPill();
     }
 
     private void setWakeLock() {
@@ -910,6 +1096,17 @@ public class MainActivity extends NoSplashAppCompatActivity {
     }
 
     @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()) {
+            case R.id.overview_quickwizardbutton:
+             Intent i = new Intent(v.getContext(), QuickWizardListActivity.class);
+             startActivity(i);
+             return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         pluginPreferencesMenuItem = menu.findItem(R.id.nav_plugin_preferences);
@@ -991,6 +1188,9 @@ public class MainActivity extends NoSplashAppCompatActivity {
                     getCareportalInfo();
                     upDateGlucose();
                     upDateBottomMenuButtons();
+                    updateLoopPill();
+                    updateProfilePill();
+                    updateTempTargetPill();
                     scheduledUpdate = null;
                 });
             }

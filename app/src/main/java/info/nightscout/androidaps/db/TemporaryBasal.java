@@ -350,6 +350,11 @@ public class TemporaryBasal implements Interval, DbObjectBase {
         return result;
     }
 
+
+    public String toDuration() {
+        return "(" + getRealDuration() + "/" + durationInMinutes + "')";
+    }
+
     public int getRealDuration() {
         return getDurationToTime(System.currentTimeMillis());
     }
