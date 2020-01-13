@@ -16,7 +16,7 @@
             app:tabMode="scrollable"
             app:tabIndicatorAnimationDuration="1400"
             app:tabIndicatorFullWidth="false"
-            app:tabUnboundedRipple="true"
+            app:tabUnboundedRipple="false"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
         </com.google.android.material.tabs.TabLayout>
