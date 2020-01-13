@@ -114,13 +114,12 @@ import io.reactivex.disposables.CompositeDisposable;
 
 import static info.nightscout.androidaps.utils.DateUtil.now;
 
-public class OverviewFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener {
+public class OverviewFragment extends Fragment implements View.OnClickListener {
     private static Logger log = LoggerFactory.getLogger(L.OVERVIEW);
 
     private CompositeDisposable disposable = new CompositeDisposable();
 
     private TextView sensitivityView;
-    private TextView deltaView;
     private TextView baseBasalView;
     private TextView extendedBolusView;
     private TextView iobView;
@@ -206,7 +205,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
         }
 
         sensitivityView = (TextView) view.findViewById(R.id.overview_sensitivity);
-        deltaView = (TextView) view.findViewById(R.id.overview_delta);
         baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
         extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
         pumpStatusView = (TextView) view.findViewById(R.id.overview_pumpstatus);
@@ -764,17 +762,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener, 
                 break;
         }
 
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        switch (v.getId()) {
-            //case R.id.overview_quickwizardbutton:
-              //  Intent i = new Intent(v.getContext(), QuickWizardListActivity.class);
-               // startActivity(i);
-               // return true;
-        }
-        return false;
     }
 
     private void onClickAcceptTemp() {

@@ -37,8 +37,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -47,6 +45,7 @@ import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.utility.ViewAnimation;
@@ -563,28 +562,17 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 //Log.d("TAG", "page scrolled");
 
-                bottom_app_bar.setVisibility(View.VISIBLE);
-                bottomNavigationView.setVisibility(View.VISIBLE);
-                fab.show();
             }
 
             @Override
             public void onPageSelected(int position) {
+
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
                // Log.d("TAG", "onPageScrollStateChanged changed: " + state);
 
-                NestedScrollView cLayout = findViewById(R.id.main_activity_content_frame);
-                if( cLayout != null ) {
-                    cLayout.startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL);
-                    cLayout.dispatchNestedPreScroll(0, -Integer.MAX_VALUE, null, null);
-                    cLayout.stopNestedScroll();
-                }
-                bottomNavigationView.setVisibility(View.VISIBLE);
-                bottom_app_bar.setVisibility(View.VISIBLE);
-                fab.show();
             }
         });
 
@@ -735,7 +723,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             text += " " + DecimalFormatter.toPumpSupportedBolus(wizard.getCalculatedTotalInsulin()) + "U";
 
             if (wizard.getCalculatedTotalInsulin() <= 0) {
-                //overviewQuickwizardbutton.hide();
+                //overviewQuickwizardbutton.show();
                 //findViewById(R.id.quickwizardbutton_label).setVisibility(View.VISIBLE);
             } else{
                 //overviewQuickwizardbutton.hide();
@@ -1021,6 +1009,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     }
 
     private void setupViews() {
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(), this);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.getHeaderView(0);
@@ -1031,6 +1020,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         for (PluginBase p : MainApp.getPluginsList()) {
             pageAdapter.registerNewFragment(p);
             if (p.hasFragment()  && p.isFragmentVisible() &&p.isEnabled(p.pluginDescription.getType()) && !p.pluginDescription.neverVisible) {
+                tabLayout.addTab(tabLayout.newTab().setText(p.getName()));
                 MenuItem menuItem = menu.add(Menu.NONE, itemId++ , Menu.NONE , p.getName());
                 menuItem.setIcon(R.drawable.ic_settings);
                 menuItem.setCheckable(true);

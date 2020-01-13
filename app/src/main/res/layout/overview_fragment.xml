@@ -307,7 +307,16 @@
                     android:background="@color/chart_background"
                     android:visibility="gone" />
 
+                <LinearLayout
+                    android:id="@+id/dummy"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="bottom"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal">
+                </LinearLayout>
+
             </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
         <LinearLayout
@@ -342,4 +351,5 @@
                     android:textColor="@color/colorAcceptTempButton" />
             </LinearLayout>
         </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

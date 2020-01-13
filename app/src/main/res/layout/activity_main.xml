@@ -44,7 +44,19 @@
                 android:id="@+id/pager"
                 android:nestedScrollingEnabled="true"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                app:tabMode="scrollable"
+                app:tabGravity="center"
+                app:tabIndicatorAnimationDuration="1400"
+                app:tabIndicatorFullWidth="false"
+                app:tabUnboundedRipple="false"
+                android:layout_height="24dp"
+                android:layout_width="wrap_content" />
+
+        </androidx.viewpager.widget.ViewPager>
 
         </LinearLayout>
 
