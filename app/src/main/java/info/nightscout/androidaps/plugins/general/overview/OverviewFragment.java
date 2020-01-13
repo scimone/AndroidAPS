@@ -981,7 +981,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             if (activeTemp != null) {
                 basalText = "T: " + activeTemp.toStringVeryShort();
             } else {
-                basalText = MainApp.gs(R.string.pump_basebasalrate,profile.getBasal());
+                basalText = MainApp.gs(R.string.pump_basebasalrate, profile.getBasal());
             }
 
             baseBasalView.setOnClickListener(v -> {
@@ -996,7 +996,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             if (activeTemp != null) {
                 basalText = activeTemp.toStringFull();
             } else {
-                basalText = MainApp.gs(R.string.pump_basebasalrate,profile.getBasal());
+                basalText = MainApp.gs(R.string.pump_basebasalrate, profile.getBasal());
             }
         }
 
@@ -1014,9 +1014,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 }
             }
             extendedBolusView.setText(extendedBolusText);
-            if (Config.NSCLIENT) {
-                extendedBolusView.setOnClickListener(v -> OKDialog.show(getActivity(), MainApp.gs(R.string.extended_bolus), extendedBolus.toString()));
-            }
+            extendedBolusView.setOnClickListener(v -> OKDialog.show(getActivity(), MainApp.gs(R.string.extended_bolus), extendedBolus.toString()));
             if (extendedBolusText.equals(""))
                 extendedBolusView.setVisibility(Config.NSCLIENT ? View.INVISIBLE : View.GONE);
             else
