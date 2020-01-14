@@ -984,6 +984,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 basalText = MainApp.gs(R.string.pump_basebasalrate, profile.getBasal());
             }
 
+            baseBasalView.setText(basalText);
             baseBasalView.setOnClickListener(v -> {
                 String fullText = MainApp.gs(R.string.pump_basebasalrate_label) + ": " + MainApp.gs(R.string.pump_basebasalrate,profile.getBasal()) + "\n";
                 if (activeTemp != null) {
@@ -999,6 +1000,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 basalText = MainApp.gs(R.string.pump_basebasalrate, profile.getBasal());
             }
         }
+
 
 
         final ExtendedBolus extendedBolus = TreatmentsPlugin.getPlugin().getExtendedBolusFromHistory(System.currentTimeMillis());
