@@ -13,9 +13,9 @@ import info.nightscout.androidaps.Config
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.activities.ErrorHelperActivity
-import info.nightscout.androidaps.activities.HistoryBrowseActivity
-import info.nightscout.androidaps.activities.TDDStatsActivity
-import info.nightscout.androidaps.dialogs.*
+import info.nightscout.androidaps.dialogs.CareDialog
+import info.nightscout.androidaps.dialogs.ExtendedBolusDialog
+import info.nightscout.androidaps.dialogs.TempBasalDialog
 import info.nightscout.androidaps.events.*
 import info.nightscout.androidaps.plugins.bus.RxBus
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin
@@ -28,7 +28,6 @@ import info.nightscout.androidaps.utils.FabricPrivacy
 import info.nightscout.androidaps.utils.SP
 import info.nightscout.androidaps.utils.SingleClickButton
 import info.nightscout.androidaps.utils.plusAssign
-import info.nightscout.androidaps.utils.toVisibility
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.actions_fragment.*
@@ -50,12 +49,6 @@ class ActionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        actions_profileswitch.setOnClickListener {
-            fragmentManager?.let { ProfileSwitchDialog().show(it, "Actions") }
-        }
-        actions_temptarget.setOnClickListener {
-            fragmentManager?.let { TempTargetDialog().show(it, "Actions") }
-        }
         actions_extendedbolus.setOnClickListener {
             fragmentManager?.let { ExtendedBolusDialog().show(it, "Actions") }
         }
@@ -94,17 +87,8 @@ class ActionsFragment : Fragment() {
                 })
             }
         }
-        actions_fill.setOnClickListener { fragmentManager?.let { FillDialog().show(it, "FillDialog") } }
-        actions_historybrowser.setOnClickListener { startActivity(Intent(context, HistoryBrowseActivity::class.java)) }
-        actions_tddstats.setOnClickListener { startActivity(Intent(context, TDDStatsActivity::class.java)) }
         actions_bgcheck.setOnClickListener {
             fragmentManager?.let { CareDialog().setOptions(CareDialog.EventType.BGCHECK, R.string.careportal_bgcheck).show(it, "Actions") }
-        }
-        actions_cgmsensorinsert.setOnClickListener {
-            fragmentManager?.let { CareDialog().setOptions(CareDialog.EventType.SENSOR_INSERT, R.string.careportal_cgmsensorinsert).show(it, "Actions") }
-        }
-        actions_pumpbatterychange.setOnClickListener {
-            fragmentManager?.let { CareDialog().setOptions(CareDialog.EventType.BATTERY_CHANGE, R.string.careportal_pumpbatterychange).show(it, "Actions") }
         }
         actions_note.setOnClickListener {
             fragmentManager?.let { CareDialog().setOptions(CareDialog.EventType.NOTE, R.string.careportal_note).show(it, "Actions") }
@@ -154,24 +138,17 @@ class ActionsFragment : Fragment() {
 
     @Synchronized
     fun updateGui() {
-        actions_profileswitch?.visibility =
-                if (ConfigBuilderPlugin.getPlugin().activeProfileInterface?.profile != null) View.VISIBLE
-                else View.GONE
 
         if (ProfileFunctions.getInstance().profile == null) {
-            actions_temptarget?.visibility = View.GONE
             actions_extendedbolus?.visibility = View.GONE
             actions_extendedbolus_cancel?.visibility = View.GONE
             actions_settempbasal?.visibility = View.GONE
             actions_canceltempbasal?.visibility = View.GONE
-            actions_fill?.visibility = View.GONE
             return
         }
 
         val pump = ConfigBuilderPlugin.getPlugin().activePump ?: return
         val basalProfileEnabled = MainApp.isEngineeringModeOrRelease() && pump.pumpDescription.isSetBasalProfileCapable
-
-        actions_profileswitch?.visibility = if (!basalProfileEnabled || !pump.isInitialized || pump.isSuspended) View.GONE else View.VISIBLE
 
         if (!pump.pumpDescription.isExtendedBolusCapable || !pump.isInitialized || pump.isSuspended || pump.isFakingTempsByExtendedBoluses || Config.APS) {
             actions_extendedbolus?.visibility = View.GONE
@@ -203,12 +180,6 @@ class ActionsFragment : Fragment() {
             }
         }
 
-        actions_fill?.visibility =
-                if (!pump.pumpDescription.isRefillingCapable || !pump.isInitialized || pump.isSuspended) View.GONE
-                else View.VISIBLE
-
-        actions_temptarget?.visibility = Config.APS.toVisibility()
-        actions_tddstats?.visibility = pump.pumpDescription.supportsTDDs.toVisibility()
         activity?.let { activity ->
             CareportalFragment.updateAge(activity, careportal_sensorage, careportal_insulinage, careportal_canulaage, careportal_pbage)
         }
