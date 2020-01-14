@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -315,13 +316,19 @@
 
         </LinearLayout>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/save_user_options"
-            style="@style/Buton.Colored"
-            android:layout_width="match_parent"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:backgroundTint="?attr/matButtonBackground"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/icon_local_save"
-            android:text="@string/danar_saveuseroptions" />
+            android:layout_width="match_parent"
+            app:icon="@drawable/icon_local_save"
+            android:paddingLeft="4dp"
+            android:paddingRight="0dp"
+            android:text="@string/danar_saveuseroptions"
+            android:textSize="14sp"
+            app:cornerRadius="20dp"
+            app:layout_gravity="fill_horizontal" />
 
     </LinearLayout>
 

@@ -1,18 +1,23 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="5dp"
-    tools:context=".plugins.pump.combo.ComboFragment">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="5dp"
+        tools:context=".plugins.pump.combo.ComboFragment">
 
     <RelativeLayout
+        android:id="@+id/combopump_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:padding="5dp">
 
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/main_activity_content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -93,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -138,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:text=""
                     android:textSize="14sp" />
 
@@ -183,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -227,7 +232,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -271,7 +276,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -315,7 +320,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -359,7 +364,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -403,7 +408,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -447,7 +452,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:paddingLeft="5dp"
+                    android:paddingStart="5dp"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -463,13 +468,14 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:paddingRight="4dp"
+        android:layout_marginBottom="70dp"
+        android:paddingEnd="4dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -477,22 +483,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <info.nightscout.androidaps.utils.SingleClickButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/combo_refresh_button"
-                style="@style/ButtonSmallFontStyle"
-                android:background="@drawable/action_button"
-                android:layout_width="match_parent"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:backgroundTint="?attr/matButtonBackground"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_marginRight="-4dp"
-                android:drawableTop="@drawable/icon_actions_refill"
-                android:paddingLeft="0dp"
-                android:paddingRight="0dp"
-                android:text="@string/combo_refresh" />
+                android:layout_width="match_parent"
+                app:icon="@drawable/icon_actions_refill"
+                android:paddingStart="4dp"
+                android:paddingEnd="0dp"
+                android:text="@string/combo_refresh"
+                android:textSize="14sp"
+                app:cornerRadius="20dp"
+                app:layout_gravity="fill_horizontal" />
+
         </LinearLayout>
 
     </LinearLayout>
 
-    </RelativeLayout>
+</RelativeLayout>
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

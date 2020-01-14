@@ -219,23 +219,25 @@
                         android:textSize="16sp"
                         android:textStyle="bold"/>
 
-                </LinearLayout>
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fab_cancelbasal"
+                        app:fabSize="mini"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:visibility="gone"
+                        app:borderWidth="2dp"
+                        android:tint="?attr/iconColor"
+                        android:src="@drawable/icon_cancelbasal"
+                        android:layout_gravity="top|end"
+                        app:maxImageSize="26dp"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab"
-                    app:fabSize="mini"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:elevation="6dp"
-                    app:borderWidth="2dp"
-                    android:tint="?attr/iconColor"
-                    android:src="@drawable/icon_cancelbasal"
-                    android:layout_gravity="top|right"
-                    app:maxImageSize="24dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:layout_anchor="@id/overview_basalgraph"
-                    app:layout_anchorGravity="end" />
+                </LinearLayout>
 
                 <com.jjoe64.graphview.GraphView
                     android:id="@+id/overview_basalgraph"
