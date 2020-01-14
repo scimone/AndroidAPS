@@ -4,11 +4,11 @@
     <color name="basal">#6B85FF</color>
     <!-- IOB  -->
     <color name="iob">#1ba1e2</color>
-    <color name="iobBorder">#EDFCFF</color>
+    <color name="iobBorder">#F0F0F0</color>
     <color name="iobSurface">#1ba1e2</color>
     <!-- COB  -->
     <color name="cob">#f0a30a</color>
-    <color name="cobBorder">#EDFCFF</color>
+    <color name="cobBorder">#F0F0F0</color>
     <color name="cobSurface">#f0a30a</color>
 
     <color name="bolus">#1ea3e5</color>

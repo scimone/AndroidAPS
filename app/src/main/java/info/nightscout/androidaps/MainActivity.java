@@ -165,7 +165,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     //All for the fab menu
     private boolean isRotate = false;
     //The middle menu fab bottom bottom app menu bar
-    private Boolean isFabOpen = false;
     private FloatingActionButton fab;
     private FloatingActionButton calibrationButton;
     private FloatingActionButton overviewQuickwizardbutton;
