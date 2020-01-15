@@ -168,7 +168,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     Handler sLoopHandler = new Handler();
     Runnable sRefreshLoop = null;
 
-    public enum CHARTTYPE {PRE, BAS, IOB, COB, DEV, SEN, ACTPRIM, ACTSEC, DEVSLOPE}
+    public enum CHARTTYPE {PRE, BAS, IOB, COB, DEV, SEN, ACTPRIM, ACTSEC, DEVSLOPE, TREATM}
 
     private static final ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
     private static ScheduledFuture<?> scheduledUpdate = null;
@@ -463,6 +463,15 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             item.setCheckable(true);
             item.setChecked(SP.getBoolean("showactivityprimary", true));
 
+            item = popup.getMenu().add(Menu.NONE, CHARTTYPE.TREATM.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_treatments));
+            title = item.getTitle();
+            if (titleMaxChars < title.length()) titleMaxChars = title.length();
+            s = new SpannableString(title);
+            s.setSpan(new ForegroundColorSpan(ResourcesCompat.getColor(getResources(), R.color.treatment, null)), 0, s.length(), 0);
+            item.setTitle(s);
+            item.setCheckable(true);
+            item.setChecked(SP.getBoolean("showtreatments", true));
+
             dividerItem = popup.getMenu().add("");
             dividerItem.setEnabled(false);
 
@@ -523,6 +532,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                         SP.putBoolean("showactivitysecondary", !item.isChecked());
                     } else if (item.getItemId() == CHARTTYPE.DEVSLOPE.ordinal()) {
                         SP.putBoolean("showdevslope", !item.isChecked());
+                    } else if (item.getItemId() == CHARTTYPE.TREATM.ordinal()) {
+                        SP.putBoolean("showtreatments", !item.isChecked());
                     }
                     scheduleUpdateGUI("onGraphCheckboxesCheckedChanged");
                     return true;
@@ -1189,7 +1200,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             graphData.formatAxis(fromTime, endTime);
 
             // Treatments
-            graphData.addTreatments(fromTime, endTime);
+            if (SP.getBoolean("showtreatments", true)) {
+                graphData.addTreatments(fromTime, endTime);
+            }
 
             if (SP.getBoolean("showactivityprimary", true)) {
                 graphData.addActivity(fromTime, endTime, false, 0.8d);

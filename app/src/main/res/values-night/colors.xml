@@ -41,7 +41,7 @@
     <color name="tempbasal">#1ba1e2</color>
 
     <!-- Treatment Text   -->
-    <color name="treatment">#FF0000</color>
+    <color name="treatment">#B2B2B2</color>
 
     <!-- Profil switch Text   -->
     <color name="profilswitch">#FF0000</color>
