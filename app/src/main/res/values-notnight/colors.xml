@@ -72,6 +72,7 @@
     <color name="linearBlockBackground">#3e3d3d</color>
     <color name="configBuilderSelectedBackground">#262525</color>
 
+    <!-- Buttons   -->
     <color name="colorAcceptTempButton">#f4d700</color>
     <color name="colorTreatmentButton">#A6DEFF</color>
     <color name="colorInsulinButton">#8EC1FF</color>
@@ -82,6 +83,7 @@
     <color name="colorSetTempButton">#FF478EFF</color>
     <color name="colorSetExtendedButton">#FFDD7792</color>
     <color name="colorProfileSwitchButton">#ca77dd</color>
+    <color name="materialButtonBackground">#804A4E55</color>
 
     <color name="colorScheduled">#de7550</color>
     <color name="colorActive">#25912e</color>
@@ -224,15 +226,15 @@
     <color name="overviewPillColorIndigo">#3F51B5</color>
 
     <!-- BLUE Theme -->
-    <color name="primaryColorBlue">#1e88e5</color>
-    <color name="primaryLightColorBlue">#6ab7ff</color>
-    <color name="primaryDarkColorBlue">#005cb2</color>
+    <color name="primaryColorBlue">#1ba1e2</color>
+    <color name="primaryLightColorBlue">#bbe3f6</color>
+    <color name="primaryDarkColorBlue">#1085d6</color>
     <color name="secondaryColorBlue">#607D8B</color>
     <color name="secondaryLightColorBlue">#CFD8DC</color>
     <color name="secondaryDarkColorBlue">#455A64</color>
     <color name="primaryTextColorBlue">#000000</color>
     <color name="secondaryTextColorBlue">#000000</color>
-    <color name="overviewPillColorBlue">#3A7EFF</color>
+    <color name="overviewPillColorBlue">#1ba1e2</color>
 
     <!-- LIGHTBLUE Theme -->
     <color name="primaryColorLightBlue">#039be5</color>

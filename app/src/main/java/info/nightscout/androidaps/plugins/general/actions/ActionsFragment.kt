@@ -9,13 +9,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.button.MaterialButton
 import info.nightscout.androidaps.Config
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.activities.ErrorHelperActivity
-import info.nightscout.androidaps.activities.HistoryBrowseActivity
-import info.nightscout.androidaps.activities.TDDStatsActivity
-import info.nightscout.androidaps.dialogs.*
+import info.nightscout.androidaps.dialogs.CareDialog
+import info.nightscout.androidaps.dialogs.ExtendedBolusDialog
+import info.nightscout.androidaps.dialogs.TempBasalDialog
 import info.nightscout.androidaps.events.*
 import info.nightscout.androidaps.plugins.bus.RxBus
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin
@@ -26,9 +27,7 @@ import info.nightscout.androidaps.plugins.treatments.TreatmentsPlugin
 import info.nightscout.androidaps.queue.Callback
 import info.nightscout.androidaps.utils.FabricPrivacy
 import info.nightscout.androidaps.utils.SP
-import info.nightscout.androidaps.utils.SingleClickButton
 import info.nightscout.androidaps.utils.plusAssign
-import info.nightscout.androidaps.utils.toVisibility
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.actions_fragment.*
@@ -40,7 +39,7 @@ class ActionsFragment : Fragment() {
     private var disposable: CompositeDisposable = CompositeDisposable()
 
     private val pumpCustomActions = HashMap<String, CustomAction>()
-    private val pumpCustomButtons = ArrayList<SingleClickButton>()
+    private val pumpCustomButtons = ArrayList<MaterialButton>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -50,12 +49,6 @@ class ActionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        actions_profileswitch.setOnClickListener {
-            fragmentManager?.let { ProfileSwitchDialog().show(it, "Actions") }
-        }
-        actions_temptarget.setOnClickListener {
-            fragmentManager?.let { TempTargetDialog().show(it, "Actions") }
-        }
         actions_extendedbolus.setOnClickListener {
             fragmentManager?.let { ExtendedBolusDialog().show(it, "Actions") }
         }
@@ -94,17 +87,14 @@ class ActionsFragment : Fragment() {
                 })
             }
         }
-        actions_fill.setOnClickListener { fragmentManager?.let { FillDialog().show(it, "FillDialog") } }
-        actions_historybrowser.setOnClickListener { startActivity(Intent(context, HistoryBrowseActivity::class.java)) }
-        actions_tddstats.setOnClickListener { startActivity(Intent(context, TDDStatsActivity::class.java)) }
         actions_bgcheck.setOnClickListener {
             fragmentManager?.let { CareDialog().setOptions(CareDialog.EventType.BGCHECK, R.string.careportal_bgcheck).show(it, "Actions") }
         }
-        actions_cgmsensorinsert.setOnClickListener {
-            fragmentManager?.let { CareDialog().setOptions(CareDialog.EventType.SENSOR_INSERT, R.string.careportal_cgmsensorinsert).show(it, "Actions") }
+        actions_note.setOnClickListener {
+            fragmentManager?.let { CareDialog().setOptions(CareDialog.EventType.NOTE, R.string.careportal_note).show(it, "Actions") }
         }
-        actions_pumpbatterychange.setOnClickListener {
-            fragmentManager?.let { CareDialog().setOptions(CareDialog.EventType.BATTERY_CHANGE, R.string.careportal_pumpbatterychange).show(it, "Actions") }
+        actions_exercise.setOnClickListener {
+            fragmentManager?.let { CareDialog().setOptions(CareDialog.EventType.EXERCISE, R.string.careportal_exercise).show(it, "Actions") }
         }
 
         SP.putBoolean(R.string.key_objectiveuseactions, true)
@@ -148,24 +138,17 @@ class ActionsFragment : Fragment() {
 
     @Synchronized
     fun updateGui() {
-        actions_profileswitch?.visibility =
-                if (ConfigBuilderPlugin.getPlugin().activeProfileInterface?.profile != null) View.VISIBLE
-                else View.GONE
 
         if (ProfileFunctions.getInstance().profile == null) {
-            actions_temptarget?.visibility = View.GONE
             actions_extendedbolus?.visibility = View.GONE
             actions_extendedbolus_cancel?.visibility = View.GONE
             actions_settempbasal?.visibility = View.GONE
             actions_canceltempbasal?.visibility = View.GONE
-            actions_fill?.visibility = View.GONE
             return
         }
 
         val pump = ConfigBuilderPlugin.getPlugin().activePump ?: return
         val basalProfileEnabled = MainApp.isEngineeringModeOrRelease() && pump.pumpDescription.isSetBasalProfileCapable
-
-        actions_profileswitch?.visibility = if (!basalProfileEnabled || !pump.isInitialized || pump.isSuspended) View.GONE else View.VISIBLE
 
         if (!pump.pumpDescription.isExtendedBolusCapable || !pump.isInitialized || pump.isSuspended || pump.isFakingTempsByExtendedBoluses || Config.APS) {
             actions_extendedbolus?.visibility = View.GONE
@@ -197,12 +180,6 @@ class ActionsFragment : Fragment() {
             }
         }
 
-        actions_fill?.visibility =
-                if (!pump.pumpDescription.isRefillingCapable || !pump.isInitialized || pump.isSuspended) View.GONE
-                else View.VISIBLE
-
-        actions_temptarget?.visibility = Config.APS.toVisibility()
-        actions_tddstats?.visibility = pump.pumpDescription.supportsTDDs.toVisibility()
         activity?.let { activity ->
             CareportalFragment.updateAge(activity, careportal_sensorage, careportal_insulinage, careportal_canulaage, careportal_pbage)
         }
@@ -217,7 +194,7 @@ class ActionsFragment : Fragment() {
         for (customAction in customActions) {
             if (!customAction.isEnabled) continue
 
-            val btn = SingleClickButton(context, null, android.R.attr.buttonStyle)
+            val btn = MaterialButton(context, null, R.style.Widget_MaterialComponents_Button)
             btn.text = MainApp.gs(customAction.name)
 
             val layoutParams = LinearLayout.LayoutParams(
@@ -226,12 +203,15 @@ class ActionsFragment : Fragment() {
 
             btn.layoutParams = layoutParams
             btn.setOnClickListener { v ->
-                val b = v as SingleClickButton
+                val b = v as MaterialButton
                 val action = this.pumpCustomActions[b.text.toString()]
                 ConfigBuilderPlugin.getPlugin().activePump!!.executeCustomAction(action!!.customActionType)
             }
-            val top = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
-            btn.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null)
+            //val left = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
+            // btn.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null)
+            btn.icon = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
+            btn.cornerRadius = 20
+            btn.backgroundTintList = activity?.let { ContextCompat.getColorStateList( it , R.color.materialButtonBackground)}
 
             action_buttons_layout?.addView(btn)
 

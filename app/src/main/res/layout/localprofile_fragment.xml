@@ -254,20 +254,21 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Buton.Colored"
             android:id="@+id/localprofile_profileswitch"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+            android:backgroundTint="?attr/matButtonBackground"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="3dp"
-            android:layout_weight="1"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_gravity="center_horizontal"
+            app:icon="@drawable/icon_local_activate"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:text="@string/activate_profile"
-            app:icon="@drawable/icon_local_activate" />
+            app:cornerRadius="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -276,36 +277,38 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Buton.Colored"
                 android:id="@+id/localprofile_reset"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:backgroundTint="?attr/matButtonBackground"
+                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginBottom="3dp"
-                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
                 app:icon="@drawable/icon_local_reset"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="@string/reset" />
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:text="@string/reset"
+                app:cornerRadius="20dp" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Buton.Colored"
                 android:id="@+id/localprofile_save"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:backgroundTint="?attr/matButtonBackground"
+                android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginBottom="3dp"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_gravity="center_horizontal"
                 app:icon="@drawable/icon_local_save"
-                android:text="@string/save" />
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:text="@string/save"
+                app:cornerRadius="20dp" />
         </LinearLayout>
 
         <LinearLayout

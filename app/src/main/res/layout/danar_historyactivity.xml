@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".plugins.pump.danaR.activities.DanaRHistoryActivity">
 
 
@@ -13,7 +14,6 @@
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
         android:background="@color/activity_title_background"
-        android:orientation="horizontal"
         android:padding="5dp">
 
         <ImageView
@@ -78,15 +78,30 @@
         android:id="@+id/danar_history_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/danar_historyreload"
         android:layout_below="@+id/danar_history_status" />
 
-    <Button
-        android:id="@+id/danar_history_reload"
-        style="@style/Buton.Colored"
+    <LinearLayout
+        android:id="@+id/danar_historyreload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:drawableStart="@drawable/icon_actions_refill"
-        android:text="@string/danar_historyreload" />
+        android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/danar_history_reload"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        android:backgroundTint="?attr/matButtonBackground"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        app:icon="@drawable/icon_actions_refill"
+        android:paddingLeft="4dp"
+        android:paddingRight="0dp"
+        android:text="@string/danar_historyreload"
+        android:textSize="14sp"
+        app:cornerRadius="20dp"
+        app:layout_gravity="fill_horizontal" />
+
+</LinearLayout>
 
 </RelativeLayout>

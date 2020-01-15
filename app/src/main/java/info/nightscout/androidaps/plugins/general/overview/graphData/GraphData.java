@@ -10,6 +10,7 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.Series;
+import com.utility.Helper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -428,14 +429,15 @@ public class GraphData {
             }
         }
 
+
         // color for iob
         ScaledDataPoint[] iobData = new ScaledDataPoint[iobArray.size()];
         iobData = iobArray.toArray(iobData);
         iobSeries = new FixedLineGraphSeries<>(iobData);
         iobSeries.setDrawBackground(true);
         iobSeries.setBackgroundColor( MainApp.gc(R.color.iobSurface));
-        iobSeries.setColor(MainApp.gc(R.color.iobBorder));
-        iobSeries.setThickness(4);
+        iobSeries.setColor(Helper.getAttributeColor(MainApp.instance(), R.color.iobBorder));
+        iobSeries.setThickness(5);
 
         if (showPrediction) {
             AutosensResult lastAutosensResult;
@@ -517,8 +519,8 @@ public class GraphData {
         cobSeries = new FixedLineGraphSeries<>(cobData);
         cobSeries.setDrawBackground(true);
         cobSeries.setBackgroundColor( MainApp.gc(R.color.cobSurface));
-        cobSeries.setColor(MainApp.gc(R.color.cobBorder));
-        cobSeries.setThickness(4);
+        cobSeries.setColor(Helper.getAttributeColor(MainApp.instance(), R.color.cobBorder));
+        cobSeries.setThickness(5);
 
         if (useForScale) {
             maxY = maxCobValueFound;

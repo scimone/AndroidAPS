@@ -981,9 +981,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             if (activeTemp != null) {
                 basalText = "T: " + activeTemp.toStringVeryShort();
             } else {
-                basalText = MainApp.gs(R.string.pump_basebasalrate,profile.getBasal());
+                basalText = MainApp.gs(R.string.pump_basebasalrate, profile.getBasal());
             }
 
+            baseBasalView.setText(basalText);
             baseBasalView.setOnClickListener(v -> {
                 String fullText = MainApp.gs(R.string.pump_basebasalrate_label) + ": " + MainApp.gs(R.string.pump_basebasalrate,profile.getBasal()) + "\n";
                 if (activeTemp != null) {
@@ -996,9 +997,10 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             if (activeTemp != null) {
                 basalText = activeTemp.toStringFull();
             } else {
-                basalText = MainApp.gs(R.string.pump_basebasalrate,profile.getBasal());
+                basalText = MainApp.gs(R.string.pump_basebasalrate, profile.getBasal());
             }
         }
+
 
 
         final ExtendedBolus extendedBolus = TreatmentsPlugin.getPlugin().getExtendedBolusFromHistory(System.currentTimeMillis());
@@ -1014,9 +1016,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 }
             }
             extendedBolusView.setText(extendedBolusText);
-            if (Config.NSCLIENT) {
-                extendedBolusView.setOnClickListener(v -> OKDialog.show(getActivity(), MainApp.gs(R.string.extended_bolus), extendedBolus.toString()));
-            }
+            extendedBolusView.setOnClickListener(v -> OKDialog.show(getActivity(), MainApp.gs(R.string.extended_bolus), extendedBolus.toString()));
             if (extendedBolusText.equals(""))
                 extendedBolusView.setVisibility(Config.NSCLIENT ? View.INVISIBLE : View.GONE);
             else
