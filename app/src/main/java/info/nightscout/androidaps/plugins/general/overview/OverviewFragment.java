@@ -207,6 +207,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         sensitivityView = (TextView) view.findViewById(R.id.overview_sensitivity);
         baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
         extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
+        extendedBolusLayout = view.findViewById(R.id.overview_extendedbolus_layout);
+        activeProfileView = (TextView) view.findViewById(R.id.overview_activeprofile);
         pumpStatusView = (TextView) view.findViewById(R.id.overview_pumpstatus);
         pumpDeviceStatusView = (TextView) view.findViewById(R.id.overview_pump);
         openapsDeviceStatusView = (TextView) view.findViewById(R.id.overview_openaps);
@@ -1017,21 +1019,20 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         final ExtendedBolus extendedBolus = TreatmentsPlugin.getPlugin().getExtendedBolusFromHistory(System.currentTimeMillis());
         String extendedBolusText = "";
         if (extendedBolusView != null) { // must not exists in all layouts
-            if (shorttextmode) {
-                if (extendedBolus != null && !pump.isFakingTempsByExtendedBoluses()) {
-                    extendedBolusText = DecimalFormatter.to2Decimal(extendedBolus.absoluteRate()) + "U/h";
-                }
-            } else {
-                if (extendedBolus != null && !pump.isFakingTempsByExtendedBoluses()) {
-                    extendedBolusText = extendedBolus.toString();
-                }
-            }
+            if (extendedBolus != null && !pump.isFakingTempsByExtendedBoluses())
+                extendedBolusText = shorttextmode ? DecimalFormatter.to2Decimal(extendedBolus.absoluteRate()) + "U/h" : extendedBolus.toStringMedium();
             extendedBolusView.setText(extendedBolusText);
-            extendedBolusView.setOnClickListener(v -> OKDialog.show(getActivity(), MainApp.gs(R.string.extended_bolus), extendedBolus.toString()));
-            if (extendedBolusText.equals(""))
-                extendedBolusView.setVisibility(Config.NSCLIENT ? View.INVISIBLE : View.GONE);
-            else
-                extendedBolusView.setVisibility(View.VISIBLE);
+            extendedBolusView.setOnClickListener(v -> {
+                if (extendedBolus != null)
+                    OKDialog.show(getActivity(), MainApp.gs(R.string.extended_bolus), extendedBolus.toString());
+            });
+            // hide whole line for APS mode
+            if (extendedBolusLayout != null) {
+                if (extendedBolusText.equals(""))
+                    extendedBolusLayout.setVisibility(View.GONE);
+                else
+                    extendedBolusLayout.setVisibility(View.VISIBLE);
+            }
         }
 
         // **** activeProfileView pill button ****
