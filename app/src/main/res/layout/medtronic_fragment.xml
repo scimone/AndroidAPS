@@ -1,25 +1,98 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="5dp"
     tools:context="info.nightscout.androidaps.plugins.pump.medtronic.MedtronicFragment">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMedtronicMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="10dp"
+        app:backgroundTint="?attr/colorPrimaryDark"
+        android:backgroundTint="?attr/colorPrimaryDark"
+        android:background="?attr/colorPrimaryDark"
+        android:tint="?attr/iconColor"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_more" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/medtronic_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="80dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/icon_local_reset" />
 
-        <ScrollView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/medtronic_stats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="150dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/icon_danarstats"
+        app:fabSize="auto" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/medtronic_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="220dp"
+        android:src="@drawable/icon_danarhistory"
+        app:fabSize="auto" />
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id = "@+id/swipeRefresh_dana_rs"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/medtronic_buttons"
-            android:fillViewport="true">
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/main_activity_content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/medtronic_buttons"
+                android:fillViewport="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <!-- Medtronic pump -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:drawableTop="@drawable/ic_medtronic_veo" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/overview_pumpstatuslayout"
@@ -467,59 +540,8 @@
 
             </LinearLayout>
 
-        </ScrollView>
-
-        <LinearLayout
-            android:id="@+id/medtronic_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <Button
-                    android:id="@+id/medtronic_refresh"
-                    style="@style/ButtonSmallFontStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/icon_actions_refill"
-                    android:paddingLeft="0dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/combo_refresh" />
-
-
-                <Button
-                    android:id="@+id/medtronic_history"
-                    style="@style/ButtonSmallFontStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/icon_danarhistory"
-                    android:paddingLeft="0dp"
-                    android:paddingRight="0dp"
-                    android:text="@string/danar_history" />
-
-                <Button
-                    android:id="@+id/medtronic_stats"
-                    style="@style/ButtonSmallFontStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:drawableTop="@drawable/icon_danarstats"
-                    android:paddingLeft="0dp"
-                    android:paddingRight="0dp"
-                    android:text="RL Stats" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
     </RelativeLayout>
-
-</FrameLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

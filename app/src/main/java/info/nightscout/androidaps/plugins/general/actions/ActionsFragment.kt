@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.button.MaterialButton
 import info.nightscout.androidaps.Config
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
@@ -26,7 +27,6 @@ import info.nightscout.androidaps.plugins.treatments.TreatmentsPlugin
 import info.nightscout.androidaps.queue.Callback
 import info.nightscout.androidaps.utils.FabricPrivacy
 import info.nightscout.androidaps.utils.SP
-import info.nightscout.androidaps.utils.SingleClickButton
 import info.nightscout.androidaps.utils.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -39,7 +39,7 @@ class ActionsFragment : Fragment() {
     private var disposable: CompositeDisposable = CompositeDisposable()
 
     private val pumpCustomActions = HashMap<String, CustomAction>()
-    private val pumpCustomButtons = ArrayList<SingleClickButton>()
+    private val pumpCustomButtons = ArrayList<MaterialButton>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -194,7 +194,7 @@ class ActionsFragment : Fragment() {
         for (customAction in customActions) {
             if (!customAction.isEnabled) continue
 
-            val btn = SingleClickButton(context, null, android.R.attr.buttonStyle)
+            val btn = MaterialButton(context, null, R.style.Widget_MaterialComponents_Button)
             btn.text = MainApp.gs(customAction.name)
 
             val layoutParams = LinearLayout.LayoutParams(
@@ -203,12 +203,15 @@ class ActionsFragment : Fragment() {
 
             btn.layoutParams = layoutParams
             btn.setOnClickListener { v ->
-                val b = v as SingleClickButton
+                val b = v as MaterialButton
                 val action = this.pumpCustomActions[b.text.toString()]
                 ConfigBuilderPlugin.getPlugin().activePump!!.executeCustomAction(action!!.customActionType)
             }
-            val top = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
-            btn.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null)
+            //val left = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
+            // btn.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null)
+            btn.icon = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
+            btn.cornerRadius = 20
+            btn.backgroundTintList = activity?.let { ContextCompat.getColorStateList( it , R.color.materialButtonBackground)}
 
             action_buttons_layout?.addView(btn)
 
