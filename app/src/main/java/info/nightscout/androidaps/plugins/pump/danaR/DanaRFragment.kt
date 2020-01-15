@@ -3,7 +3,6 @@ package info.nightscout.androidaps.plugins.pump.danaR
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -114,7 +113,6 @@ class DanaRFragment : Fragment()  {
     private val clickListener: View.OnClickListener = View.OnClickListener { view ->
         when ( view.id ){
             R.id.fabDanaMenu -> {
-                Log.d("TAG", "dana menu clicked !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 if ( fabDanaMenuUserOptions.visibility == View.GONE) {
                     ViewAnimation.showIn(fabDanaMenuUserOptions)
                     ViewAnimation.showIn(danar_history)
