@@ -137,6 +137,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     private GraphView cobGraph;
     private ImageButton chartButton;
 
+    private LinearLayout extendedBolusLayout;
     private LinearLayout loopStatusLayout;
     private TextView activeProfileView;
     private TextView apsModeView;
