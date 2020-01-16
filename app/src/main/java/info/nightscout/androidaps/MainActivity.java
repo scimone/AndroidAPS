@@ -559,19 +559,21 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //Log.d("TAG", "page scrolled");
-
+                //Log.d("TAG", "page scrolled: " + position);
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                //Log.d("TAG", "onPageSelected changed: " + position);
+                // set selected item in navigation drawer so the right one is highlighted if page is changed
+                NavigationView navigationView = findViewById(R.id.navigation_view);
+                ViewPager mPager = findViewById(R.id.pager);
+                navigationView.getMenu().getItem( mPager.getCurrentItem()).setChecked(true);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
                // Log.d("TAG", "onPageScrollStateChanged changed: " + state);
-
             }
         });
 
@@ -854,7 +856,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
     }
 
-
     private void updateTempTargetPill() {
         // temp target pill
         TextView tempTargetView;
@@ -1039,6 +1040,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         ViewPager mPager = findViewById(R.id.pager);
         mPager.setAdapter(pageAdapter);
         checkPluginPreferences(mPager);
+        navigationView.getMenu().getItem( mPager.getCurrentItem()).setChecked(true);
     }
 
     private void checkPluginPreferences(ViewPager viewPager) {
