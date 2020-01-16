@@ -10,7 +10,6 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
-import info.nightscout.androidaps.Config
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.activities.ErrorHelperActivity
@@ -26,6 +25,7 @@ import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment
 import info.nightscout.androidaps.plugins.treatments.TreatmentsPlugin
 import info.nightscout.androidaps.queue.Callback
 import info.nightscout.androidaps.utils.FabricPrivacy
+import info.nightscout.androidaps.utils.OKDialog
 import info.nightscout.androidaps.utils.SP
 import info.nightscout.androidaps.utils.plusAssign
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -50,7 +50,12 @@ class ActionsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         actions_extendedbolus.setOnClickListener {
-            fragmentManager?.let { ExtendedBolusDialog().show(it, "Actions") }
+            context?.let { context ->
+                OKDialog.showConfirmation(context, MainApp.gs(R.string.extended_bolus), MainApp.gs(R.string.ebstopsloop),
+                    Runnable {
+                        fragmentManager?.let { ExtendedBolusDialog().show(it, "Actions") }
+                    }, null)
+            }
         }
         actions_extendedbolus_cancel.setOnClickListener {
             if (TreatmentsPlugin.getPlugin().isInHistoryExtendedBoluslInProgress) {
@@ -150,7 +155,8 @@ class ActionsFragment : Fragment() {
         val pump = ConfigBuilderPlugin.getPlugin().activePump ?: return
         val basalProfileEnabled = MainApp.isEngineeringModeOrRelease() && pump.pumpDescription.isSetBasalProfileCapable
 
-        if (!pump.pumpDescription.isExtendedBolusCapable || !pump.isInitialized || pump.isSuspended || pump.isFakingTempsByExtendedBoluses || Config.APS) {
+
+        if (!pump.pumpDescription.isExtendedBolusCapable || !pump.isInitialized || pump.isSuspended || pump.isFakingTempsByExtendedBoluses) {
             actions_extendedbolus?.visibility = View.GONE
             actions_extendedbolus_cancel?.visibility = View.GONE
         } else {
@@ -158,7 +164,7 @@ class ActionsFragment : Fragment() {
             if (activeExtendedBolus != null) {
                 actions_extendedbolus?.visibility = View.GONE
                 actions_extendedbolus_cancel?.visibility = View.VISIBLE
-                actions_extendedbolus_cancel?.text = MainApp.gs(R.string.cancel) + " " + activeExtendedBolus.toString()
+                actions_extendedbolus_cancel?.text = MainApp.gs(R.string.cancel) + " " + activeExtendedBolus.toStringMedium()
             } else {
                 actions_extendedbolus?.visibility = View.VISIBLE
                 actions_extendedbolus_cancel?.visibility = View.GONE
