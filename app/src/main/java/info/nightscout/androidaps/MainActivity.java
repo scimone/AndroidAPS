@@ -828,28 +828,30 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         activeProfileView = (TextView) findViewById(R.id.overview_activeprofile);
 
         if(activeProfileView == null) return;
-
         Profile profile = ProfileFunctions.getInstance().getProfile();
-        activeProfileView.setText(ProfileFunctions.getInstance().getProfileNameWithDuration());
-        if (profile.getPercentage() != 100 || profile.getTimeshift() != 0) {
-            Drawable drawable = activeProfileView.getBackground();
-            Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
-            if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
-            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
-            activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
-            activeProfileView.setTypeface(null, Typeface.BOLD);
-        } else {
-            Drawable drawable = activeProfileView.getBackground();
-            Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
-            TypedValue typedValue = new TypedValue();
-            Resources.Theme theme = getTheme();
-            if(theme != null){
-                theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
-                drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
-                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
-                activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
+        if( profile != null){
+            activeProfileView.setText(ProfileFunctions.getInstance().getProfileNameWithDuration());
+            if (profile.getPercentage() != 100 || profile.getTimeshift() != 0) {
+                Drawable drawable = activeProfileView.getBackground();
+                Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
+                if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
+                activeProfileView.setTypeface(null, Typeface.BOLD);
+            } else {
+                Drawable drawable = activeProfileView.getBackground();
+                Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
+                TypedValue typedValue = new TypedValue();
+                Resources.Theme theme = getTheme();
+                if(theme != null){
+                    theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
+                    drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+                    if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
+                    activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
+                }
             }
         }
+
     }
 
 
@@ -859,9 +861,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         tempTargetView = (TextView) findViewById(R.id.overview_temptarget);
 
         if(tempTargetView == null) return;
-
-
         Profile profile = ProfileFunctions.getInstance().getProfile();
+        if(profile == null) return;
         String units = ProfileFunctions.getSystemUnits();
         TempTarget tempTarget = TreatmentsPlugin.getPlugin().getTempTargetFromHistory();
         if (tempTarget != null) {
