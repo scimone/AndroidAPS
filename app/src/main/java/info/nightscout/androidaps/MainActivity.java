@@ -778,27 +778,27 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             final LoopPlugin loopPlugin = LoopPlugin.getPlugin();
             if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuperBolus()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor( R.color.ribbonWarning, getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopsuperbolusfor), loopPlugin.minutesToEndOfSuspend()));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTypeface(null, Typeface.BOLD);
             } else if (loopPlugin.isDisconnected()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical, getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null)drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopdisconnectedfor), loopPlugin.minutesToEndOfSuspend()));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
             } else if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuspended()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getTheme()), PorterDuff.Mode.SRC_IN);
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopsuspendedfor), loopPlugin.minutesToEndOfSuspend()));
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTypeface(null, Typeface.BOLD);
             } else if (pump.isSuspended()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setText(MainApp.gs(R.string.pumpsuspended));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
@@ -811,7 +811,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 }
             } else {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical,getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
                 apsModeView.setText(MainApp.gs(R.string.disabledloop));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
@@ -835,7 +835,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 Drawable drawable = activeProfileView.getBackground();
                 Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning , getTheme()), PorterDuff.Mode.SRC_IN);
                 activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 activeProfileView.setTypeface(null, Typeface.BOLD);
             } else {
@@ -872,7 +872,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             Drawable drawable = tempTargetView.getBackground();
             Drawable[] drawableLeft= tempTargetView.getCompoundDrawables();
             if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
-            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getTheme()), PorterDuff.Mode.SRC_IN);
             tempTargetView.setVisibility(View.VISIBLE);
             tempTargetView.setText(Profile.toTargetRangeString(tempTarget.low, tempTarget.high, Constants.MGDL, units) + " " + DateUtil.untilString(tempTarget.end()));
         } else {
