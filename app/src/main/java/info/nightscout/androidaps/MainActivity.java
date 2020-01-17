@@ -37,6 +37,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -183,6 +184,9 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     private boolean smallHeight;
 
     private MenuItem pluginPreferencesMenuItem;
+
+    Handler handler = new Handler();
+    private Runnable runnable;
 
     Handler sLoopHandler = new Handler();
     Runnable sRefreshLoop = null;
@@ -501,7 +505,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             timedelta.setOrientation(LinearLayout.VERTICAL);
         }
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         itemBolus = bottomNavigationView.getMenu().findItem(R.id.overview_insulinbutton);
         itemCarbs = bottomNavigationView.getMenu().findItem(R.id.overview_carbsbutton);
@@ -569,6 +573,40 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 NavigationView navigationView = findViewById(R.id.navigation_view);
                 ViewPager mPager = findViewById(R.id.pager);
                 navigationView.getMenu().getItem( mPager.getCurrentItem()).setChecked(true);
+
+                bottom_app_bar.setHideOnScroll(false);
+                bottom_app_bar.setVisibility(View.VISIBLE);
+                fab.show();
+                bottomNavigationView.setVisibility(View.VISIBLE);
+                bottom_app_bar.setHideOnScroll(true);
+
+                NestedScrollView nestedScrollView;
+                nestedScrollView = findViewById(R.id.main_activity_content_frame);
+                if( nestedScrollView != null) {
+                    Log.d("TAG", "Set Scroll listener");
+                    nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                        @Override
+                        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                            if (scrollY > oldScrollY) {
+                                Log.d("TAG", "Scroll DOWN");
+                                bottom_app_bar.setVisibility(View.GONE);
+                            }
+                            if (scrollY < oldScrollY) {
+                                Log.d("TAG", "Scroll UP");
+                                bottom_app_bar.setVisibility(View.VISIBLE);
+                            }
+
+                            if (scrollY == 0) {
+                                Log.d("TAG", "TOP SCROLL");
+                            }
+
+                            if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                                Log.d("TAG", "BOTTOM SCROLL");
+                            }
+                        }
+                    });
+                }
             }
 
             @Override

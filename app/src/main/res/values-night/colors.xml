@@ -34,7 +34,7 @@
 
     <!-- in range Area  -->
     <color name="inrangebackground">#10FFFFFF</color>
-    <color name="inrangebackgroundBorder">#10FFFFFF</color>
+    <color name="inrangebackgroundBorder">#4dB1B1B1</color>
 
     <!-- Basal   -->
     <color name="basebasal">#3D15FF</color>
@@ -380,5 +380,17 @@
     <color name="primaryTextColorBlueGray">#ffffff</color>
     <color name="secondaryTextColorBlueGray">#000000</color>
     <color name="overviewPillColorBlueGray">#607D8B</color>
+
+    <!-- Darkside Theme -->
+    <color name="primaryColorDarkside">#1c171c</color>
+    <color name="primaryLightColorDarkside">#bbb9bb</color>
+    <color name="primaryDarkColorDarkside">#110d11</color>
+    <color name="secondaryColorDarkside">#8d8c8c</color>
+    <color name="secondaryLightColorDarkside">#dddddd</color>
+    <color name="secondaryDarkColorDarkside">#706f6f</color>
+    <color name="primaryTextColorDarkside">#ffffff</color>
+    <color name="secondaryTextColorDarkside">#000000</color>
+    <color name="overviewPillColorDarkside">#1c171c</color>
+
 
 </resources>

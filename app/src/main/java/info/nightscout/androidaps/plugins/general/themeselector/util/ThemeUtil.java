@@ -1,9 +1,9 @@
 package info.nightscout.androidaps.plugins.general.themeselector.util;
 
+import java.util.ArrayList;
+
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.plugins.general.themeselector.model.Theme;
-
-import java.util.ArrayList;
 
 /**
  * Created by Pankaj on 12-11-2017.
@@ -29,6 +29,7 @@ public class ThemeUtil {
     public static final int THEME_BROWN = 16;
     public static final int THEME_GRAY = 17;
     public static final int THEME_BLUEGRAY = 18;
+    public static final int THEME_DARKSIDE = 19;
 
     public static int getThemeId(int theme){
         int themeId=0;
@@ -90,6 +91,9 @@ public class ThemeUtil {
             case THEME_BLUEGRAY  :
                 themeId = R.style.AppTheme_BLUEGRAY;
                 break;
+            case THEME_DARKSIDE  :
+                themeId = R.style.AppTheme_DARKSIDE;
+                break;
             default:
                 break;
         }
@@ -117,6 +121,7 @@ public class ThemeUtil {
         themeArrayList.add(new Theme(16,R.color.primaryColorBrown, R.color.primaryDarkColorBrown, R.color.secondaryColorBrown));
         themeArrayList.add(new Theme(17,R.color.primaryColorGray, R.color.primaryDarkColorGray, R.color.secondaryColorGray));
         themeArrayList.add(new Theme(18,R.color.primaryColorBlueGray, R.color.primaryDarkColorBlueGray, R.color.secondaryColorBlueGray));
+        themeArrayList.add(new Theme(19,R.color.primaryColorDarkside, R.color.primaryDarkColorDarkside, R.color.secondaryColorDarkside));
         return themeArrayList;
     }
 }

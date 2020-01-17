@@ -182,6 +182,14 @@
 
     </style>
 
+    <style name="AppTheme.DARKSIDE" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColorDarkside</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorDarkside</item>
+        <item name="colorAccent">@color/secondaryColorDarkside</item>
+        <item name="overviewPillColor">@color/overviewPillColorDarkside</item>
+    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
