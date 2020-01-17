@@ -385,9 +385,9 @@
     <color name="primaryColorDarkside">#1c171c</color>
     <color name="primaryLightColorDarkside">#bbb9bb</color>
     <color name="primaryDarkColorDarkside">#110d11</color>
-    <color name="secondaryColorDarkside">#8d8c8c</color>
-    <color name="secondaryLightColorDarkside">#dddddd</color>
-    <color name="secondaryDarkColorDarkside">#706f6f</color>
+    <color name="secondaryColorDarkside">#a0a0a0</color>
+    <color name="secondaryLightColorDarkside">#e3e3e3</color>
+    <color name="secondaryDarkColorDarkside">#848484</color>
     <color name="primaryTextColorDarkside">#ffffff</color>
     <color name="secondaryTextColorDarkside">#000000</color>
     <color name="overviewPillColorDarkside">#1c171c</color>
