@@ -62,6 +62,7 @@ import java.util.concurrent.TimeUnit;
 import info.nightscout.androidaps.activities.HistoryBrowseActivity;
 import info.nightscout.androidaps.activities.NoSplashAppCompatActivity;
 import info.nightscout.androidaps.activities.PreferencesActivity;
+import info.nightscout.androidaps.activities.SingleFragmentActivity;
 import info.nightscout.androidaps.activities.StatsActivity;
 import info.nightscout.androidaps.data.Profile;
 import info.nightscout.androidaps.data.QuickWizard;
@@ -1138,8 +1139,22 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //show all selected plugins not selected for hamburger menu in option menu
+        int itemId = 0;
+        for (PluginBase p : MainApp.getPluginsList()) {
+            if (p.hasFragment()  && !p.isFragmentVisible() &&p.isEnabled(p.pluginDescription.getType()) && !p.pluginDescription.neverVisible) {
+                MenuItem menuItem = menu.add(Menu.NONE, itemId++ , Menu.NONE , p.getName());
+                menuItem.setOnMenuItemClickListener(item -> {
+                    Intent intent = new Intent(this, SingleFragmentActivity.class);
+                    intent.putExtra("plugin", MainApp.getPluginsList().indexOf(p));
+                    startActivity(intent);
+                    return true;
+                });
+            }
+        }
         getMenuInflater().inflate(R.menu.menu_main, menu);
         pluginPreferencesMenuItem = menu.findItem(R.id.nav_plugin_preferences);
+
        // checkPluginPreferences(findViewById(R.id.pager));
         return true;
     }
