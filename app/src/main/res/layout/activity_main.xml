@@ -65,6 +65,7 @@
         </androidx.viewpager.widget.ViewPager>
 
         <com.google.android.material.bottomappbar.BottomAppBar
+            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
             android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -73,7 +74,6 @@
             app:hideOnScroll="true"
             app:layout_behavior="com.google.android.material.bottomappbar.BottomAppBar$Behavior"
             app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
-            app:backgroundTint="?attr/colorPrimaryDark"
             app:fabAlignmentMode="center"
             app:fabCradleMargin="4dp"
             app:fabCradleRoundedCornerRadius="4dp"
