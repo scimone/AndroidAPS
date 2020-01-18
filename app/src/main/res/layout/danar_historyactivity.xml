@@ -90,8 +90,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/danar_history_reload"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:backgroundTint="?attr/matButtonBackground"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         app:icon="@drawable/icon_actions_refill"

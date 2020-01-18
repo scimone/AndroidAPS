@@ -34,8 +34,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/actions_settempbasal"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/icon_actions_starttempbasal"
                 android:paddingLeft="4dp"
@@ -50,8 +49,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/actions_canceltempbasal"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/icon_cancelbasal"
                 android:paddingLeft="4dp"
@@ -67,8 +65,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/actions_extendedbolus"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/icon_actions_startextbolus"
                 android:paddingLeft="4dp"
@@ -83,8 +80,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/actions_extendedbolus_cancel"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_height="wrap_content"
                 app:icon="@drawable/icon_actions_cancelextbolus"
                 android:paddingLeft="4dp"
@@ -115,8 +111,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/actions_bgcheck"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_height="fill_parent"
                 app:icon="@drawable/icon_cp_bgcheck"
                 android:paddingLeft="4dp"
@@ -131,8 +126,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/actions_note"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_height="fill_parent"
                 app:icon="@drawable/icon_cp_note"
                 android:paddingLeft="0dp"
@@ -147,8 +141,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/actions_exercise"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_height="fill_parent"
                 app:icon="@drawable/icon_cp_exercise"
                 android:paddingLeft="0dp"

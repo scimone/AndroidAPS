@@ -199,30 +199,32 @@ class ActionsFragment : Fragment() {
 
         for (customAction in customActions) {
             if (!customAction.isEnabled) continue
-
-            val btn = MaterialButton(context, null, R.style.Widget_MaterialComponents_Button)
-            btn.text = MainApp.gs(customAction.name)
-
-            val layoutParams = LinearLayout.LayoutParams(
+            val btn: MaterialButton
+            context?.let {
+                btn = MaterialButton(it, null, R.style.Widget_MaterialComponents_Button)
+                btn.text = MainApp.gs(customAction.name)
+                val layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f)
-            layoutParams.setMargins(20, 8, 20, 8) // 10,3,10,3
+                layoutParams.setMargins(20, 8, 20, 8) // 10,3,10,3
 
-            btn.layoutParams = layoutParams
-            btn.setOnClickListener { v ->
-                val b = v as MaterialButton
-                val action = this.pumpCustomActions[b.text.toString()]
-                ConfigBuilderPlugin.getPlugin().activePump!!.executeCustomAction(action!!.customActionType)
+                btn.layoutParams = layoutParams
+                btn.setOnClickListener { v ->
+                    val b = v as MaterialButton
+                    val action = this.pumpCustomActions[b.text.toString()]
+                    ConfigBuilderPlugin.getPlugin().activePump!!.executeCustomAction(action!!.customActionType)
+                }
+                //val left = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
+                // btn.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null)
+                btn.icon = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
+                btn.cornerRadius = 20
+                btn.backgroundTintList = activity?.let { ContextCompat.getColorStateList( it , R.color.materialButtonBackground)}
+
+                action_buttons_layout?.addView(btn)
+
+                this.pumpCustomActions[MainApp.gs(customAction.name)] = customAction
+                this.pumpCustomButtons.add(btn)
             }
-            //val left = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
-            // btn.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null)
-            btn.icon = activity?.let { ContextCompat.getDrawable(it, customAction.iconResourceId) }
-            btn.cornerRadius = 20
-            btn.backgroundTintList = activity?.let { ContextCompat.getColorStateList( it , R.color.materialButtonBackground)}
 
-            action_buttons_layout?.addView(btn)
-
-            this.pumpCustomActions[MainApp.gs(customAction.name)] = customAction
-            this.pumpCustomButtons.add(btn)
         }
     }
 

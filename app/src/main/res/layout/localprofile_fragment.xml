@@ -255,8 +255,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/localprofile_profileswitch"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:backgroundTint="?attr/matButtonBackground"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_marginBottom="3dp"
@@ -278,8 +277,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/localprofile_reset"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="3dp"
@@ -295,8 +293,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/localprofile_save"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_marginBottom="3dp"

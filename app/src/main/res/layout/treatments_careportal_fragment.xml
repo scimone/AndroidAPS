@@ -23,8 +23,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/careportal_removeandroidapsstartedevents"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
-                android:backgroundTint="?attr/matButtonBackground"
+                style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="4dp"

@@ -136,10 +136,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="end"
-                                android:layout_marginEnd="10dp"
+                                android:layout_marginEnd="14dp"
                                 android:text=""
                                 android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="?attr/color_val"/>
                         </LinearLayout>
 
                 </LinearLayout>
@@ -199,10 +200,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="14dp"
                         android:text="0.50U/h @17:35 1/30min - 0.40U/h"
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab_cancelbasal"
@@ -258,10 +260,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="14dp"
                         android:text=""
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -286,10 +289,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:layout_marginEnd="10dp"
+                        android:layout_marginEnd="14dp"
                         android:text="0.50U/h @17:35 1/30min - 0.40U/h"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
 
                 </LinearLayout>
 
@@ -325,10 +329,21 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:layout_marginEnd="10dp"
                         android:text=""
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
+
+                    <TextView
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="14dp"
+                        android:text="g"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
 
                 </LinearLayout>
                 <com.jjoe64.graphview.GraphView
