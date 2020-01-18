@@ -8,8 +8,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/nsprofile_profileswitch"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:backgroundTint="?attr/matButtonBackground"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

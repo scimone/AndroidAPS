@@ -14,9 +14,11 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
+            style="@style/Widget.MaterialComponents.TabLayout.Colored"
             app:tabMode="scrollable"
             app:tabIndicatorAnimationDuration="1400"
             app:tabIndicatorFullWidth="false"
+            app:tabIndicatorColor="@color/iconColor"
             app:tabUnboundedRipple="false"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content">
