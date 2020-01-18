@@ -318,8 +318,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/save_user_options"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-            android:backgroundTint="?attr/matButtonBackground"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             app:icon="@drawable/icon_local_save"

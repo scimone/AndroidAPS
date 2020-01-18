@@ -125,7 +125,7 @@ public class GraphData {
                 new DoubleDataPoint(toTime, lowLine, highLine)
         };
         inRangeAreaSeries = new AreaGraphSeries<>(inRangeAreaDataPoints);
-        inRangeAreaSeries.setColor(R.color.inrangebackgroundBorder);
+        inRangeAreaSeries.setColor(MainApp.gc(R.color.inrangebackgroundBorder));
         inRangeAreaSeries.setDrawBackground(true);
         inRangeAreaSeries.setBackgroundColor(MainApp.gc(R.color.inrangebackground));
 

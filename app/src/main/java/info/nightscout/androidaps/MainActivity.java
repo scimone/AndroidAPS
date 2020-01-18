@@ -37,6 +37,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -61,6 +62,7 @@ import java.util.concurrent.TimeUnit;
 import info.nightscout.androidaps.activities.HistoryBrowseActivity;
 import info.nightscout.androidaps.activities.NoSplashAppCompatActivity;
 import info.nightscout.androidaps.activities.PreferencesActivity;
+import info.nightscout.androidaps.activities.SingleFragmentActivity;
 import info.nightscout.androidaps.activities.StatsActivity;
 import info.nightscout.androidaps.data.Profile;
 import info.nightscout.androidaps.data.QuickWizard;
@@ -183,6 +185,9 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     private boolean smallHeight;
 
     private MenuItem pluginPreferencesMenuItem;
+
+    Handler handler = new Handler();
+    private Runnable runnable;
 
     Handler sLoopHandler = new Handler();
     Runnable sRefreshLoop = null;
@@ -451,7 +456,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         // sets the main theme and color
         int newtheme = SP.getInt("theme", THEME_PINK);
         mTheme = newtheme;
@@ -501,7 +505,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             timedelta.setOrientation(LinearLayout.VERTICAL);
         }
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         itemBolus = bottomNavigationView.getMenu().findItem(R.id.overview_insulinbutton);
         itemCarbs = bottomNavigationView.getMenu().findItem(R.id.overview_carbsbutton);
@@ -559,19 +563,55 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //Log.d("TAG", "page scrolled");
-
+                //Log.d("TAG", "page scrolled: " + position);
             }
 
             @Override
             public void onPageSelected(int position) {
+                //Log.d("TAG", "onPageSelected changed: " + position);
+                // set selected item in navigation drawer so the right one is highlighted if page is changed
+                NavigationView navigationView = findViewById(R.id.navigation_view);
+                ViewPager mPager = findViewById(R.id.pager);
+                navigationView.getMenu().getItem( mPager.getCurrentItem()).setChecked(true);
 
+                bottom_app_bar.setHideOnScroll(false);
+                bottom_app_bar.setVisibility(View.VISIBLE);
+                fab.show();
+                bottomNavigationView.setVisibility(View.VISIBLE);
+                bottom_app_bar.setHideOnScroll(true);
+
+                NestedScrollView nestedScrollView;
+                nestedScrollView = findViewById(R.id.main_activity_content_frame);
+                if( nestedScrollView != null) {
+                    Log.d("TAG", "Set Scroll listener");
+                    nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+                        @Override
+                        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                            if (scrollY > oldScrollY) {
+                                Log.d("TAG", "Scroll DOWN");
+                                bottom_app_bar.setVisibility(View.GONE);
+                            }
+                            if (scrollY < oldScrollY) {
+                                Log.d("TAG", "Scroll UP");
+                                bottom_app_bar.setVisibility(View.VISIBLE);
+                            }
+
+                            if (scrollY == 0) {
+                                Log.d("TAG", "TOP SCROLL");
+                            }
+
+                            if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
+                                Log.d("TAG", "BOTTOM SCROLL");
+                            }
+                        }
+                    });
+                }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
                // Log.d("TAG", "onPageScrollStateChanged changed: " + state);
-
             }
         });
 
@@ -778,27 +818,27 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             final LoopPlugin loopPlugin = LoopPlugin.getPlugin();
             if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuperBolus()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor( R.color.ribbonWarning, getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopsuperbolusfor), loopPlugin.minutesToEndOfSuspend()));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTypeface(null, Typeface.BOLD);
             } else if (loopPlugin.isDisconnected()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical, getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null)drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopdisconnectedfor), loopPlugin.minutesToEndOfSuspend()));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
             } else if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuspended()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getTheme()), PorterDuff.Mode.SRC_IN);
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopsuspendedfor), loopPlugin.minutesToEndOfSuspend()));
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTypeface(null, Typeface.BOLD);
             } else if (pump.isSuspended()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setText(MainApp.gs(R.string.pumpsuspended));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
@@ -811,7 +851,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 }
             } else {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical,getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
                 apsModeView.setText(MainApp.gs(R.string.disabledloop));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
@@ -835,7 +875,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 Drawable drawable = activeProfileView.getBackground();
                 Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning , getTheme()), PorterDuff.Mode.SRC_IN);
                 activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 activeProfileView.setTypeface(null, Typeface.BOLD);
             } else {
@@ -854,7 +894,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
     }
 
-
     private void updateTempTargetPill() {
         // temp target pill
         TextView tempTargetView;
@@ -872,7 +911,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             Drawable drawable = tempTargetView.getBackground();
             Drawable[] drawableLeft= tempTargetView.getCompoundDrawables();
             if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
-            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getTheme()), PorterDuff.Mode.SRC_IN);
             tempTargetView.setVisibility(View.VISIBLE);
             tempTargetView.setText(Profile.toTargetRangeString(tempTarget.low, tempTarget.high, Constants.MGDL, units) + " " + DateUtil.untilString(tempTarget.end()));
         } else {
@@ -1039,6 +1078,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         ViewPager mPager = findViewById(R.id.pager);
         mPager.setAdapter(pageAdapter);
         checkPluginPreferences(mPager);
+        navigationView.getMenu().getItem( mPager.getCurrentItem()).setChecked(true);
     }
 
     private void checkPluginPreferences(ViewPager viewPager) {
@@ -1098,8 +1138,22 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //show all selected plugins not selected for hamburger menu in option menu
+        int itemId = 0;
+        for (PluginBase p : MainApp.getPluginsList()) {
+            if (p.hasFragment()  && !p.isFragmentVisible() &&p.isEnabled(p.pluginDescription.getType()) && !p.pluginDescription.neverVisible) {
+                MenuItem menuItem = menu.add(Menu.NONE, itemId++ , Menu.NONE , p.getName());
+                menuItem.setOnMenuItemClickListener(item -> {
+                    Intent intent = new Intent(this, SingleFragmentActivity.class);
+                    intent.putExtra("plugin", MainApp.getPluginsList().indexOf(p));
+                    startActivity(intent);
+                    return true;
+                });
+            }
+        }
         getMenuInflater().inflate(R.menu.menu_main, menu);
         pluginPreferencesMenuItem = menu.findItem(R.id.nav_plugin_preferences);
+
        // checkPluginPreferences(findViewById(R.id.pager));
         return true;
     }

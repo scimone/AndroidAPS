@@ -122,27 +122,25 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginEnd="1dp"
                                 android:text="AS"
                                 android:textSize="16sp" />
 
                             <TextView
-                                android:layout_width="5dp"
-                                android:layout_height="wrap_content"
-                                android:text=":"
-                                android:textSize="16sp" />
-
-                            <TextView
                                 android:id="@+id/overview_sensitivity"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="20dp"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:layout_marginEnd="14dp"
                                 android:text=""
                                 android:textSize="16sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:textColor="?attr/color_val"/>
                         </LinearLayout>
 
                 </LinearLayout>
@@ -187,35 +185,32 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/basal_short"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content"
-                        android:text=":"
-                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/overview_basebasal"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:layout_marginEnd="14dp"
                         android:text="0.50U/h @17:35 1/30min - 0.40U/h"
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/fab_cancelbasal"
                         app:fabSize="mini"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentTop="true"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:visibility="gone"
@@ -243,7 +238,7 @@
                 android:id="@+id/overview_iob_extbolus_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -251,27 +246,25 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/iob"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content"
-                        android:text=":"
-                        android:textSize="16sp" />
-
-                    <TextView
                         android:id="@+id/overview_iob"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:layout_marginEnd="14dp"
                         android:text=""
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -282,26 +275,25 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginEnd="1dp"
                         android:text="@string/extended_bolus_short"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content"
-                        android:text=":"
-                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/overview_extendedbolus"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:layout_marginEnd="14dp"
                         android:text="0.50U/h @17:35 1/30min - 0.40U/h"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
 
                 </LinearLayout>
 
@@ -323,27 +315,35 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/cob"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content"
-                        android:text=":"
-                        android:textSize="16sp" />
-
-                    <TextView
                         android:id="@+id/overview_cob"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
                         android:text=""
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
+
+                    <TextView
+                        android:layout_width="10dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="14dp"
+                        android:text="g"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
 
                 </LinearLayout>
                 <com.jjoe64.graphview.GraphView
