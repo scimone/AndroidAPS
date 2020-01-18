@@ -6,10 +6,10 @@
 
     <item
         android:id="@+id/overview_insulinbutton"
-        android:icon="@drawable/ic_iob_48"
-        app:showAsAction="always"
+        android:icon="@drawable/ic_pumpe_48"
         android:tint="?attr/iconColor"
-        android:title="@string/overview_insulin_label" />
+        android:title="@string/overview_insulin_label"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/overview_carbsbutton"
