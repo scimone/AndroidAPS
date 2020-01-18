@@ -118,8 +118,12 @@
 
     <!-- Black and White -->
     <color name="white">#FFF</color>
+    <color name="black_alpha_10">#1A000000</color>
+    <color name="black_alpha_20">#33000000</color>
+    <color name="black_alpha_30">#4D000000</color>
     <color name="black_alpha_40">#66000000</color>
     <color name="black_alpha_60">#99000000</color>
+    <color name="black_alpha_80">#CC000000</color>
 
     <!---Swipe on refresh colors-->
     <color name="orange">#FF9900</color>

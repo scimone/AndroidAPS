@@ -206,11 +206,17 @@
         <item name="colorPrimaryDark">@color/primaryDarkColorDarkside</item>
         <item name="colorAccent">@color/secondaryColorDarkside</item>
         <item name="overviewPillColor">@color/overviewPillColorDarkside</item>
+        <item name="android:windowBackground">@drawable/blackmetallic</item>
+        <item name="android:windowActionBarOverlay">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="NavigationDrawer" parent="Theme.MaterialComponents.DayNight.Bridge" >
+        <item name="android:background">@color/black_alpha_70</item>
+    </style>
 
 
     <!-- Text styles -->

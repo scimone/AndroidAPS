@@ -215,6 +215,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="NavigationDrawer" />
 
     <!-- Text styles -->
     <style name="Text" parent="TextAppearance.AppCompat"></style>
