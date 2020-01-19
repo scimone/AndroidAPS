@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusableInTouchMode="true"
     android:minWidth="300dp"
     android:orientation="vertical"
@@ -246,30 +247,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:width="120dp"
-                android:paddingLeft="2dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:labelFor="@+id/treatment_wizard_notes"
-                android:padding="10dp"
-                android:text="@string/careportal_newnstreatment_notes_label"
-                android:textAppearance="@android:style/TextAppearance.Material.Small"
-                android:textStyle="bold" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:hint="@string/careportal_newnstreatment_notes_label"
+                app:endIconMode="clear_text">
 
-            <EditText
-                android:id="@+id/treatment_wizard_notes"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:autofillHints="@string/careportal_newnstreatment_notes_label"
-                android:gravity="start"
-                android:inputType="text|textCapSentences"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/treatment_wizard_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:autofillHints="@string/careportal_newnstreatment_notes_label"
+                    android:gravity="start"
+                    android:textStyle="bold"
+                    android:inputType="text|textCapSentences" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
