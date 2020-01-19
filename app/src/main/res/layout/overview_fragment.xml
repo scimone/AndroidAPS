@@ -341,7 +341,7 @@
                         android:gravity="start"
                         android:layout_marginStart="1dp"
                         android:layout_marginEnd="14dp"
-                        android:text="g"
+                        android:text="@string/shortgramm"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="?attr/color_val"/>
