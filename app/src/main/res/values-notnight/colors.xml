@@ -64,8 +64,8 @@
     <color name="tempTargetConfirmation">#77dd77</color>
     <color name="tempTargetDisabledBackground">#303F9F</color>
 
-    <color name="dialog_title_background">#FFFFFF</color>
-    <color name="activity_title_background">#FFFFFF</color>
+    <color name="dialog_title_background">#EEEEEE</color>
+    <color name="activity_title_background">#EEEEEE</color>
 
     <color name="toolbar_background">#EEEEEE</color>
 
@@ -118,8 +118,14 @@
 
     <!-- Black and White -->
     <color name="white">#FFF</color>
+    <color name="black_alpha_10">#1A000000</color>
+    <color name="black_alpha_20">#33000000</color>
+    <color name="black_alpha_30">#4D000000</color>
     <color name="black_alpha_40">#66000000</color>
     <color name="black_alpha_60">#99000000</color>
+    <color name="black_alpha_70">#B3000000</color>
+    <color name="black_alpha_80">#CC000000</color>
+
 
     <!---Swipe on refresh colors-->
     <color name="orange">#FF9900</color>
@@ -161,6 +167,9 @@
     <color name="colorOnPrimary">#FFFFFF</color>
     <color name="colorOnSecondary">#FFFFFF</color>
     <color name="colorOnSurface">#000000</color>
+    <color name="color_on_error">#000000</color>
+    <color name="color_on_background">#FFFFFF</color>
+    <color name="surface_color">#363640</color>
 
     <color name="colorPrimary_grey">#707991</color>
     <color name="colorPrimaryDark_grey">#5a6275</color>

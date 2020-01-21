@@ -286,7 +286,7 @@ public class GraphData {
         targetsSeries = new LineGraphSeries<>(targets);
         targetsSeries.setDrawBackground(false);
         targetsSeries.setColor(MainApp.gc(R.color.tempTargetBackground));
-        targetsSeries.setThickness(3);
+        targetsSeries.setThickness(2);
 
         addSeries(targetsSeries);
     }
@@ -366,7 +366,7 @@ public class GraphData {
 
         for (long time = fromTime; time <= toTime; time += 5 * 60 * 1000L) {
             Profile profile = ProfileFunctions.getInstance().getProfile(time);
-            double act = 0d;
+            double act;
             if (profile == null) continue;
             total = iobCobCalculatorPlugin.calculateFromTreatmentsAndTempsSynchronized(time, profile);
             act = total.activity;
@@ -542,7 +542,7 @@ public class GraphData {
         class DeviationDataPoint extends ScaledDataPoint {
             public int color;
 
-            public DeviationDataPoint(double x, double y, int color, Scale scale) {
+            private DeviationDataPoint(double x, double y, int color, Scale scale) {
                 super(x, y, scale);
                 this.color = color;
             }
@@ -599,8 +599,8 @@ public class GraphData {
     public void addRatio(long fromTime, long toTime, boolean useForScale, double scale) {
         LineGraphSeries<ScaledDataPoint> ratioSeries;
         List<ScaledDataPoint> ratioArray = new ArrayList<>();
-        Double maxRatioValueFound = Double.MIN_VALUE;
-        Double minRatioValueFound = Double.MAX_VALUE;
+        double maxRatioValueFound = Double.MIN_VALUE;
+        double minRatioValueFound = Double.MAX_VALUE;
         Scale ratioScale = new Scale();
 
         for (long time = fromTime; time <= toTime; time += 5 * 60 * 1000L) {
@@ -635,8 +635,8 @@ public class GraphData {
         LineGraphSeries<ScaledDataPoint> dsMinSeries;
         List<ScaledDataPoint> dsMaxArray = new ArrayList<>();
         List<ScaledDataPoint> dsMinArray = new ArrayList<>();
-        Double maxFromMaxValueFound = 0d;
-        Double maxFromMinValueFound = 0d;
+        double maxFromMaxValueFound = 0d;
+        double maxFromMinValueFound = 0d;
         Scale dsMaxScale = new Scale();
         Scale dsMinScale = new Scale();
 
