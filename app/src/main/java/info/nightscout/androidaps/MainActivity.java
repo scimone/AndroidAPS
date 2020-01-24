@@ -231,7 +231,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     public void getCareportalInfo() {
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        statuslightsLayout = findViewById(R.id.overview_statuslights);
+        statuslightsLayout = findViewById(R.id.statuslight);
         sageView =  findViewById(R.id.careportal_sensorage);
         iageView =  findViewById(R.id.careportal_insulinage);
         cageView =  findViewById(R.id.careportal_canulaage);

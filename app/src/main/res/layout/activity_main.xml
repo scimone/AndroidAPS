@@ -68,7 +68,7 @@
         </androidx.viewpager.widget.ViewPager>
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
+            style="@style/BottomAppbar"
             android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
