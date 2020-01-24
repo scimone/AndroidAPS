@@ -56,7 +56,7 @@
     <color name="defaultbackground">#BBBBBB</color>
     <color name="defaulttext">#BBBBBB</color>
 
-    <color name="fabmenubackground">#73101346</color>
+    <color name="fabmenubackground">#73141428</color>
 
     <!-- Target line  -->
     <color name="tempTargetBackground">#FAFAE1</color>
@@ -448,7 +448,7 @@
     <color name="secondaryColorDarkside">#a0a0a0</color>
     <color name="secondaryLightColorDarkside">#e3e3e3</color>
     <color name="secondaryDarkColorDarkside">#848484</color>
-    <color name="primaryTextColorDarkside">#666666</color>
+    <color name="primaryTextColorDarkside">#4e4e4e</color>
     <color name="secondaryTextColorDarkside">#000000</color>
     <color name="overviewPillColorDarkside">#1c171c</color>
     <color name="colorOnPrimaryDarkside">#FFFFFF</color>

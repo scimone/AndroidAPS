@@ -105,6 +105,7 @@
                 app:labelVisibilityMode = "labeled"
                 app:itemIconSize="@dimen/bottom_navigation_icon_size"
                 app:backgroundTint="@color/transparent"
+                app:itemBackground="@color/transparent"
                 app:itemIconTint="?attr/iconColor"
                 app:itemTextColor="?attr/iconColor"
                 app:menu="@menu/bottom_navigation_menu" />

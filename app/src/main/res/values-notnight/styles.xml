@@ -225,7 +225,7 @@
         <item name="colorPrimary">@color/primaryColorDarkside</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorDarkside</item>
         <item name="colorAccent">@color/secondaryColorDarkside</item>
-        <item name="colorOnPrimary">@color/plastic_grey</item>
+        <item name="colorOnPrimary">@color/primaryTextColorDarkside</item>
         <item name="overviewPillColor">@color/plastic_grey</item>
         <item name="iconColor">@color/sphere_plastic_grey</item>
         <item name="android:windowBackground">@color/plastic</item>

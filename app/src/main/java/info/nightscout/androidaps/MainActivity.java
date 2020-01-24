@@ -37,6 +37,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -667,7 +668,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             if (lastBG.valueToUnits(units) < lowLine)
                 color = MainApp.gc(R.color.low);
             else if (lastBG.valueToUnits(units) > highLine)
-                color = MainApp.gc(R.color.high);
+                color = ContextCompat.getColor(MainApp.instance(), R.color.high);
             bgView.setText(lastBG.valueToUnitsToString(units));
             arrowView.setText(lastBG.directionToSymbol());
             bgView.setTextColor(color);
