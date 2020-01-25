@@ -216,6 +216,9 @@
         <item name="overviewPillColor">@color/overviewPillColorDarkside</item>
     </style>
 
+    <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >
+
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

@@ -40,6 +40,8 @@
         <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
         <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+        <item name="popupMenuStyle">@style/Widget.MaterialComponents.PopupMenu</item>
+        <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow</item>
     </style>
 
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.DayNight.Bridge"/>
@@ -225,8 +227,12 @@
         <item name="colorPrimaryDark">@color/primaryDarkColorDarkside</item>
         <item name="colorAccent">@color/secondaryColorDarkside</item>
         <item name="overviewPillColor">@color/overviewPillColorDarkside</item>
-        <item name="android:windowBackground">@drawable/blackmetallic</item>
+        <item name="android:windowBackground">@drawable/carbonfiber02</item>
         <item name="android:windowActionBarOverlay">true</item>
+    </style>
+
+    <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >
+
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -239,25 +245,25 @@
 
 
     <!-- Text styles -->
-    <style name="Text" parent="TextAppearance.AppCompat"></style>
-    <style name="Text.Caption" parent="TextAppearance.AppCompat.Caption"></style>
-    <style name="Text.Small" parent="TextAppearance.AppCompat.Small"></style>
-    <style name="Text.Body1" parent="TextAppearance.AppCompat.Body1"></style>
-    <style name="Text.Body2" parent="TextAppearance.AppCompat.Body2"></style>
-    <style name="Text.Medium" parent="TextAppearance.AppCompat.Medium"></style>
-    <style name="Text.Large" parent="TextAppearance.AppCompat.Large"></style>
-    <style name="Text.Headline" parent="TextAppearance.AppCompat.Headline"></style>
-    <style name="Text.Title" parent="TextAppearance.AppCompat.Title"></style>
-    <style name="Text.Display1" parent="TextAppearance.AppCompat.Display1"></style>
-    <style name="Text.Subhead" parent="TextAppearance.AppCompat.Subhead"></style>
-    <style name="Text.Button" parent="TextAppearance.AppCompat.Button"></style>
+    <style name="Text" parent="TextAppearance.AppCompat"/>
+    <style name="Text.Caption" parent="TextAppearance.AppCompat.Caption"/>
+    <style name="Text.Small" parent="TextAppearance.AppCompat.Small"/>
+    <style name="Text.Body1" parent="TextAppearance.AppCompat.Body1"/>
+    <style name="Text.Body2" parent="TextAppearance.AppCompat.Body2"/>
+    <style name="Text.Medium" parent="TextAppearance.AppCompat.Medium"/>
+    <style name="Text.Large" parent="TextAppearance.AppCompat.Large"/>
+    <style name="Text.Headline" parent="TextAppearance.AppCompat.Headline"/>
+    <style name="Text.Title" parent="TextAppearance.AppCompat.Title"/>
+    <style name="Text.Display1" parent="TextAppearance.AppCompat.Display1"/>
+    <style name="Text.Subhead" parent="TextAppearance.AppCompat.Subhead"/>
+    <style name="Text.Button" parent="TextAppearance.AppCompat.Button"/>
 
     <!-- Button Styles-->
-    <style name="Buton" parent="Widget.AppCompat.Button"></style>
-    <style name="Buton.Small" parent="Widget.AppCompat.Button.Small"></style>
-    <style name="Buton.Colored" parent="Widget.MaterialComponents.Button"></style>
-    <style name="Buton.Borderless" parent="Widget.AppCompat.Button.Borderless"></style>
-    <style name="Buton.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored"></style>
+    <style name="Buton" parent="Widget.AppCompat.Button"/>
+    <style name="Buton.Small" parent="Widget.AppCompat.Button.Small"/>
+    <style name="Buton.Colored" parent="Widget.MaterialComponents.Button"/>
+    <style name="Buton.Borderless" parent="Widget.AppCompat.Button.Borderless"/>
+    <style name="Buton.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored"/>
 
 
     <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">

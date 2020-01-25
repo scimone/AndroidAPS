@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.CompoundButton
 import androidx.fragment.app.DialogFragment
 import info.nightscout.androidaps.Constants
@@ -134,7 +134,7 @@ class WizardDialog : DialogFragment() {
             }
         }
         // profile spinner
-        treatments_wizard_profile.onItemSelectedListener = object : OnItemSelectedListener {
+     treatments_wizard_profile.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 ToastUtils.showToastInUiThread(MainApp.instance().applicationContext, MainApp.gs(R.string.noprofileselected))
                 ok.visibility = View.GONE
@@ -203,12 +203,16 @@ class WizardDialog : DialogFragment() {
             return
         }
 
+
+        treatments_wizard_profile.setText(MainApp.gs(R.string.active))
+
         val profileList: ArrayList<CharSequence>
         profileList = profileStore.getProfileList()
         profileList.add(0, MainApp.gs(R.string.active))
         context?.let { context ->
-            val adapter = ArrayAdapter(context, R.layout.spinner_centered, profileList)
-            treatments_wizard_profile.adapter = adapter
+            val adapter = ArrayAdapter(context,R.layout.dropdown_menu_popup_item , profileList)
+            var editTextFilledExposedDropdown = treatments_wizard_profile as AutoCompleteTextView
+            editTextFilledExposedDropdown.setAdapter(adapter)
         } ?: return
 
         val units = ProfileFunctions.getSystemUnits()
@@ -244,9 +248,9 @@ class WizardDialog : DialogFragment() {
 
     private fun calculateInsulin() {
         val profileStore = ConfigBuilderPlugin.getPlugin().activeProfileInterface?.profile
-        if (treatments_wizard_profile.selectedItem == null || profileStore == null)
-            return  // not initialized yet
-        var profileName = treatments_wizard_profile.selectedItem.toString()
+        if (treatments_wizard_profile == null || profileStore == null)
+           return  // not initialized yet
+        var profileName = treatments_wizard_profile.text.toString()
         val specificProfile: Profile?
         if (profileName == MainApp.gs(R.string.active)) {
             specificProfile = ProfileFunctions.getInstance().profile

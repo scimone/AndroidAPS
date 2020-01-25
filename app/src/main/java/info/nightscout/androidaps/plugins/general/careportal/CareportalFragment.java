@@ -296,7 +296,7 @@ public class CareportalFragment extends Fragment implements View.OnClickListener
     public static void updatePumpSpecifics(TextView reservoirLevel, TextView batteryLevel) {
         double batUrgent = SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
         double batWarn = SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
-        double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 10.0);
+        double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 20.0);
         double resWarn = SP.getDouble(R.string.key_statuslights_res_warning, 80.0);
 
         PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
@@ -308,13 +308,15 @@ public class CareportalFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    private static  int normalColor;
+
     public static TextView updatePumpEntry(final TextView pumpEntry, final Number value,
                                                     final String valueString, double warnThreshold, double urgentThreshold) {
         String notavailable = OverviewFragment.shorttextmode ? "-" : MainApp.gs(R.string.notavailable);
 
         if (pumpEntry != null) {
             ColorStateList colorStateList = pumpEntry.getTextColors();
-            final int normalColor = colorStateList.getDefaultColor();
+            normalColor = colorStateList.getDefaultColor();
             pumpEntry.setTextColor(normalColor);
 
             if (value.doubleValue() < urgentThreshold) {

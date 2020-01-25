@@ -478,6 +478,36 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             dividerItem = popup.getMenu().add("");
             dividerItem.setEnabled(false);
 
+            item = popup.getMenu().add(Menu.NONE, CHARTTYPE.BAS.ordinal(), Menu.NONE, MainApp.gs(R.string.basal));
+            title = item.getTitle();
+            if (titleMaxChars < title.length()) titleMaxChars = title.length();
+            s = new SpannableString(title);
+            s.setSpan(new ForegroundColorSpan(ResourcesCompat.getColor(getResources(), R.color.basal, null)), 0, s.length(), 0);
+            item.setTitle(s);
+            item.setCheckable(true);
+            item.setChecked(SP.getBoolean("showbasal", true));
+
+            item = popup.getMenu().add(Menu.NONE, CHARTTYPE.IOB.ordinal(), Menu.NONE, MainApp.gs(R.string.iob));
+            title = item.getTitle();
+            if (titleMaxChars < title.length()) titleMaxChars = title.length();
+            s = new SpannableString(title);
+            s.setSpan(new ForegroundColorSpan(ResourcesCompat.getColor(getResources(), R.color.iob, null)), 0, s.length(), 0);
+            item.setTitle(s);
+            item.setCheckable(true);
+            item.setChecked(SP.getBoolean("showiob", true));
+
+            item = popup.getMenu().add(Menu.NONE, CHARTTYPE.COB.ordinal(), Menu.NONE, MainApp.gs(R.string.cob));
+            title = item.getTitle();
+            if (titleMaxChars < title.length()) titleMaxChars = title.length();
+            s = new SpannableString(title);
+            s.setSpan(new ForegroundColorSpan(ResourcesCompat.getColor(getResources(), R.color.cob, null)), 0, s.length(), 0);
+            item.setTitle(s);
+            item.setCheckable(true);
+            item.setChecked(SP.getBoolean("showcob", true));
+
+            dividerItem = popup.getMenu().add("");
+            dividerItem.setEnabled(false);
+
             item = popup.getMenu().add(Menu.NONE, CHARTTYPE.DEV.ordinal(), Menu.NONE, MainApp.gs(R.string.overview_show_deviations));
             title = item.getTitle();
             if (titleMaxChars < title.length()) titleMaxChars = title.length();
@@ -537,6 +567,12 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                         SP.putBoolean("showdevslope", !item.isChecked());
                     } else if (item.getItemId() == CHARTTYPE.TREATM.ordinal()) {
                         SP.putBoolean("showtreatments", !item.isChecked());
+                    } else if (item.getItemId() == CHARTTYPE.BAS.ordinal()) {
+                        SP.putBoolean("showbasal", !item.isChecked());
+                    } else if (item.getItemId() == CHARTTYPE.IOB.ordinal()) {
+                        SP.putBoolean("showiob", !item.isChecked());
+                    } else if (item.getItemId() == CHARTTYPE.COB.ordinal()) {
+                        SP.putBoolean("showcob", !item.isChecked());
                     }
                     scheduleUpdateGUI("onGraphCheckboxesCheckedChanged");
                     return true;
@@ -1268,9 +1304,22 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             FragmentActivity activity = getActivity();
             //if (activity != null) {
                 activity.runOnUiThread(() -> {
-                    basalGraph.setVisibility(View.VISIBLE);
-                    iobGraph.setVisibility(View.VISIBLE);
-                    cobGraph.setVisibility(View.VISIBLE);
+                    // Basal Graph
+                    if (SP.getBoolean("showbasal", true)) {
+                        basalGraph.setVisibility(View.VISIBLE);
+                    } else {
+                        basalGraph.setVisibility(View.GONE);
+                    }
+                    if (SP.getBoolean("showiob", true)) {
+                        iobGraph.setVisibility(View.VISIBLE);
+                    } else {
+                        iobGraph.setVisibility(View.GONE);
+                    }
+                    if (SP.getBoolean("showcob", true)) {
+                        cobGraph.setVisibility(View.VISIBLE);
+                    } else {
+                        cobGraph.setVisibility(View.GONE);
+                    }
                     // finally enforce drawing of graphs
                     graphData.performUpdate();
                     basalGraphData.performUpdate();

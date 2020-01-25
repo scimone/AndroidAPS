@@ -37,6 +37,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -231,7 +232,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     public void getCareportalInfo() {
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        statuslightsLayout = findViewById(R.id.overview_statuslights);
+        statuslightsLayout = findViewById(R.id.statuslight);
         sageView =  findViewById(R.id.careportal_sensorage);
         iageView =  findViewById(R.id.careportal_insulinage);
         cageView =  findViewById(R.id.careportal_canulaage);
@@ -667,7 +668,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             if (lastBG.valueToUnits(units) < lowLine)
                 color = MainApp.gc(R.color.low);
             else if (lastBG.valueToUnits(units) > highLine)
-                color = MainApp.gc(R.color.high);
+                color = ContextCompat.getColor(MainApp.instance(), R.color.high);
             bgView.setText(lastBG.valueToUnitsToString(units));
             arrowView.setText(lastBG.directionToSymbol());
             bgView.setTextColor(color);
