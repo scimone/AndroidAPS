@@ -37,7 +37,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -50,6 +49,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.utility.Helper;
 import com.utility.ViewAnimation;
 
 import org.slf4j.Logger;
@@ -250,8 +250,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 double cageWarn = nsSettings.getExtendedWarnValue("cage", "warn", 48);
                 double sageUrgent = nsSettings.getExtendedWarnValue("sage", "urgent", 166);
                 double sageWarn = nsSettings.getExtendedWarnValue("sage", "warn", 164);
-                double batUrgent = SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
-                double batWarn = SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
+                double batUrgent = 600 ; //SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
+                double batWarn = 480; // SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
                 double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 10.0);
                 double resWarn = SP.getDouble(R.string.key_statuslights_res_warning, 80.0);
                 if (sageView != null) {
@@ -278,6 +278,9 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
                 if (batteryView != null) {
                 handler.statuslightBattery(batteryView);
+
+                    double batteryViewLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
+                    handler.applyStatuslight(batteryView, "BAT", batteryViewLevel, batWarn, batUrgent, -1, false);
                 }
 
                 CareportalFragment.updateAge( MainActivity.this, sageView, iageView, cageView, batteryView);
@@ -664,11 +667,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         BgReading actualBG = DatabaseHelper.actualBg();
         BgReading lastBG = DatabaseHelper.lastBg();
         if (lastBG != null) {
-            int color = MainApp.gc(R.color.inrange_bg);
+            int color = Helper.getAttributeColor(MainActivity.this, R.attr.bgInRange);
             if (lastBG.valueToUnits(units) < lowLine)
-                color = MainApp.gc(R.color.low);
+                color = Helper.getAttributeColor(MainActivity.this, R.attr.bgLow);
             else if (lastBG.valueToUnits(units) > highLine)
-                color = ContextCompat.getColor(MainApp.instance(), R.color.high);
+                color = Helper.getAttributeColor(MainActivity.this, R.attr.bgHigh);
             bgView.setText(lastBG.valueToUnitsToString(units));
             arrowView.setText(lastBG.directionToSymbol());
             bgView.setTextColor(color);

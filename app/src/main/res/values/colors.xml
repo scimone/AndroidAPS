@@ -145,6 +145,7 @@
     <color name="colorAccent">#FFFFFF</color>
     <color name="mdtp_accent_color">#3A7EFF</color>
     <color name="iconColor">#FFFFFF</color>
+    <color name="iconColorbottomAppbar">#FFFFFF</color>
     <color name="actionBarColor">#FFFFFF</color>
 
     <color name="colorInitializingBorder">#A6DEFF</color>

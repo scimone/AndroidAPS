@@ -7,13 +7,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="2dp"
                 android:orientation="vertical">
@@ -50,29 +50,27 @@
                 <LinearLayout
                     android:id="@+id/time_delta"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginTop="-6dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
                     android:layout_marginBottom="0dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/overview_delta"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="0dp"
-                        android:layout_marginTop="-2dp"
+                        android:layout_marginTop="0dp"
                         android:paddingStart="2dp"
-                        android:layout_weight="1"
                         android:text="Δ 2mg/dl"
                         android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/overview_timeago"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="0dp"
-                        android:layout_marginTop="-2dp"
+                        android:layout_marginTop="0dp"
                         android:paddingStart="2dp"
                         android:layout_weight="1"
                         android:text="2 min her"
@@ -100,6 +98,7 @@
                 android:contentDescription="@null"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_marginTop="4dp"
                 android:src="@drawable/ic_statuslight_sensor"
                 android:layout_gravity="center_horizontal"
                 android:onClick="onClick"
@@ -110,6 +109,7 @@
                 android:id="@+id/careportal_sensorage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="3dp"
                 android:gravity="center_horizontal"
                 android:textSize="12sp"
                 android:textStyle="bold"/>
@@ -128,6 +128,7 @@
                 android:contentDescription="@null"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_marginTop="4dp"
                 android:src="@drawable/ic_statuslight_cartridge"
                 android:layout_gravity="center_horizontal"
                 android:onClick="onClick"
@@ -137,6 +138,7 @@
                 android:id="@+id/careportal_prLevel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="3dp"
                 android:gravity="center_horizontal"
                 android:textSize="12sp"
                 android:textStyle="bold"/>
@@ -154,6 +156,7 @@
                 android:contentDescription="@null"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_marginTop="4dp"
                 android:src="@drawable/ic_katheter_35"
                 android:layout_gravity="center_horizontal"
                 android:onClick="onClick"
@@ -163,6 +166,7 @@
                 android:id="@+id/careportal_canulaage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="3dp"
                 android:gravity="center_horizontal"
                 android:layout_gravity="center_horizontal"
                 android:textSize="12sp"
@@ -181,6 +185,7 @@
                 android:contentDescription="@null"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_marginTop="4dp"
                 android:src="@drawable/ic_statuslight_battery"
                 android:layout_gravity="center_horizontal"
                 android:onClick="onClick"
@@ -190,6 +195,7 @@
                 android:id="@+id/careportal_pbLevel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="3dp"
                 android:gravity="center_horizontal"
                 android:textSize="12sp"
                 android:textStyle="bold"/>

@@ -8,14 +8,14 @@
         android:id="@+id/overview_insulinbutton"
         android:icon="@drawable/ic_iob_48"
         app:showAsAction="always"
-        android:tint="?attr/iconColor"
+        android:tint="?attr/iconColorbottomAppbar"
         android:title="@string/overview_insulin_label" />
 
     <item
         android:id="@+id/overview_carbsbutton"
         android:icon="@drawable/ic_carb_48"
         app:showAsAction="always"
-        android:tint="?attr/iconColor"
+        android:tint="?attr/iconColorbottomAppbar"
         android:title="@string/overview_carbs_label"/>
 
     <item
@@ -37,7 +37,7 @@
         android:id="@+id/overview_wizardbutton"
         android:icon="@drawable/ic_calculator_48"
         app:showAsAction="always"
-        android:tint="?attr/iconColor"
+        android:tint="?attr/iconColorbottomAppbar"
         android:title="@string/overview_calculator_label"/>
 
 
@@ -45,7 +45,7 @@
         android:id="@+id/overview_cgmbutton"
         android:icon="@drawable/ic_blooddrop_48"
         app:showAsAction="always"
-        android:tint="?attr/iconColor"
+        android:tint="?attr/iconColorbottomAppbar"
         android:title="@string/overview_cgm"/>
 
 </menu>
