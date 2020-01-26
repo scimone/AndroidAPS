@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="compact_height">30dp</dimen>
+    <dimen name="toolbar_height">60dp</dimen>
     <dimen name="design_fab_image_size" tools:override="true">56dp</dimen>
     <dimen name="progress_bar_size">0dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
