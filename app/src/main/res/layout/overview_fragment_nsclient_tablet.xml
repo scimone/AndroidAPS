@@ -34,12 +34,14 @@
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/overview_looplayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="2dp">
+                    app:layout_constraintBottom_toTopOf="@+id/overview_pumpstatuslayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/overview_notifications">
 
                     <TextView
                         android:id="@+id/overview_apsmode"
@@ -59,7 +61,7 @@
 
                     <TextView
                         android:id="@+id/overview_activeprofile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginEnd="5dp"
@@ -76,7 +78,7 @@
 
                     <TextView
                         android:id="@+id/overview_temptarget"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
@@ -89,7 +91,7 @@
                         android:background="@drawable/rounded_corner"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
                     android:id="@+id/overview_pumpstatuslayout"

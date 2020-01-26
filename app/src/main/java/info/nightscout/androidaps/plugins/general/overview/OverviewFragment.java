@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.PopupMenu;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -111,6 +112,7 @@ import info.nightscout.androidaps.utils.T;
 import info.nightscout.androidaps.utils.ToastUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 import static info.nightscout.androidaps.utils.DateUtil.now;
 
@@ -208,7 +210,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         sensitivityView = (TextView) view.findViewById(R.id.overview_sensitivity);
         baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
         extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
-        extendedBolusLayout = view.findViewById(R.id.overview_extendedbolus_layout);
         activeProfileView = (TextView) view.findViewById(R.id.overview_activeprofile);
         pumpStatusView = (TextView) view.findViewById(R.id.overview_pumpstatus);
         pumpDeviceStatusView = (TextView) view.findViewById(R.id.overview_pump);
@@ -243,8 +244,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         if (acceptTempButton != null)
             acceptTempButton.setOnClickListener(this);
 
-
-        acceptTempLayout = (LinearLayout) view.findViewById(R.id.overview_accepttemplayout);
 
         notificationsView = (RecyclerView) view.findViewById(R.id.overview_notifications);
         notificationsView.setHasFixedSize(false);
@@ -329,80 +328,80 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         super.onResume();
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventRefreshOverview.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(eventOpenAPSUpdateGui -> scheduleUpdateGUI(eventOpenAPSUpdateGui.getFrom()),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventExtendedBolusChange.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventExtendedBolusChange"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventTempBasalChange.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventTempBasalChange"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventTreatmentChange.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventTreatmentChange"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventTempTargetChange.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventTempTargetChange"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventAcceptOpenLoopChange.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventAcceptOpenLoopChange"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventCareportalEventChange.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventCareportalEventChange"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventInitializationChanged.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventInitializationChanged"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventAutosensCalculationFinished.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventAutosensCalculationFinished"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventProfileNeedsUpdate.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventProfileNeedsUpdate"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventPreferenceChange.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventPreferenceChange"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventNewOpenLoopNotification.class)
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .subscribe(event -> scheduleUpdateGUI("EventNewOpenLoopNotification"),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
                 .toObservable(EventPumpStatusChanged.class)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(event -> updatePumpStatus(event.getStatus()),
+                .subscribe(event -> updatePumpStatus(event),
                         FabricPrivacy::logException
                 ));
         disposable.add(RxBus.INSTANCE
@@ -837,8 +836,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         Activity activity = getActivity();
         if (activity != null)
             activity.runOnUiThread(() -> {
-                if (acceptTempLayout != null)
-                    acceptTempLayout.setVisibility(View.GONE);
+                if (acceptTempButton != null)
+                    acceptTempButton.setVisibility(View.GONE);
             });
     }
 
@@ -850,7 +849,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         ActionStringHandler.handleInitiate("cancelChangeRequest");
     }
 
-    private void updatePumpStatus(String status) {
+    private void updatePumpStatus(EventPumpStatusChanged event) {
+        String status = event.getStatus();
         if (!status.equals("")) {
             pumpStatusView.setText(status);
             pumpStatusLayout.setVisibility(View.VISIBLE);
@@ -1010,17 +1010,17 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         }
 
         // **** Temp button ****
-        if (acceptTempLayout != null) {
+        if (acceptTempButton != null) {
             boolean showAcceptButton = !closedLoopEnabled.value(); // Open mode needed
             showAcceptButton = showAcceptButton && finalLastRun != null && finalLastRun.lastAPSRun != null; // aps result must exist
             showAcceptButton = showAcceptButton && (finalLastRun.lastOpenModeAccept == null || finalLastRun.lastOpenModeAccept.getTime() < finalLastRun.lastAPSRun.getTime()); // never accepted or before last result
             showAcceptButton = showAcceptButton && finalLastRun.constraintsProcessed.isChangeRequested(); // change is requested
 
             if (showAcceptButton && pump.isInitialized() && !pump.isSuspended() && LoopPlugin.getPlugin().isEnabled(PluginType.LOOP)) {
-                acceptTempLayout.setVisibility(View.VISIBLE);
+                acceptTempButton.setVisibility(View.VISIBLE);
                 acceptTempButton.setText(MainApp.gs(R.string.setbasalquestion) + "\n" + finalLastRun.constraintsProcessed);
             } else {
-                acceptTempLayout.setVisibility(View.GONE);
+                acceptTempButton.setVisibility(View.GONE);
             }
         }
 
@@ -1063,13 +1063,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 if (extendedBolus != null)
                     OKDialog.show(getActivity(), MainApp.gs(R.string.extended_bolus), extendedBolus.toString());
             });
-            // hide whole line for APS mode
-            if (extendedBolusLayout != null) {
-                if (extendedBolusText.equals(""))
-                    extendedBolusLayout.setVisibility(View.GONE);
-                else
-                    extendedBolusLayout.setVisibility(View.VISIBLE);
-            }
         }
 
         // **** activeProfileView pill button ****
