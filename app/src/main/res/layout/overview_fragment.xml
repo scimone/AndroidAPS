@@ -280,6 +280,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="10dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/extended_bolus_short"
                         android:textSize="16sp" />

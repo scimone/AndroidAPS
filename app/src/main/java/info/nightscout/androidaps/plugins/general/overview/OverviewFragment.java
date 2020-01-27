@@ -25,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.PopupMenu;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -132,6 +131,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     private TextView uploaderDeviceStatusView;
     private TextView iobCalculationProgressView;
     private LinearLayout pumpStatusLayout;
+    private LinearLayout overview_extendedbolus_layout;
     // chart graph
     private GraphView bgGraph;
     private GraphView basalGraph;
@@ -210,6 +210,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         sensitivityView = (TextView) view.findViewById(R.id.overview_sensitivity);
         baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
         extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
+        overview_extendedbolus_layout = (LinearLayout) view.findViewById(R.id.overview_extendedbolus_layout);
         activeProfileView = (TextView) view.findViewById(R.id.overview_activeprofile);
         pumpStatusView = (TextView) view.findViewById(R.id.overview_pumpstatus);
         pumpDeviceStatusView = (TextView) view.findViewById(R.id.overview_pump);
@@ -1055,13 +1056,17 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         final ExtendedBolus extendedBolus = TreatmentsPlugin.getPlugin().getExtendedBolusFromHistory(System.currentTimeMillis());
         String extendedBolusText = "";
         if (extendedBolusView != null) { // must not exists in all layouts
-            if (extendedBolus != null && !pump.isFakingTempsByExtendedBoluses())
+            if (extendedBolus != null && !pump.isFakingTempsByExtendedBoluses()){
+                overview_extendedbolus_layout.setVisibility(View.VISIBLE);
                 extendedBolusText = shorttextmode ? DecimalFormatter.to2Decimal(extendedBolus.absoluteRate()) + "U/h" : extendedBolus.toStringMedium();
-            extendedBolusView.setText(extendedBolusText);
-            extendedBolusView.setOnClickListener(v -> {
-                if (extendedBolus != null)
-                    OKDialog.show(getActivity(), MainApp.gs(R.string.extended_bolus), extendedBolus.toString());
-            });
+                extendedBolusView.setText(extendedBolusText);
+                extendedBolusView.setOnClickListener(v -> {
+                    if (extendedBolus != null)
+                        OKDialog.show(getActivity(), MainApp.gs(R.string.extended_bolus), extendedBolus.toString());
+                });
+            } else {
+                overview_extendedbolus_layout.setVisibility(View.GONE);
+            }
         }
 
         // **** activeProfileView pill button ****

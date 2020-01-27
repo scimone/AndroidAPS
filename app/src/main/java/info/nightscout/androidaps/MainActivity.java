@@ -155,6 +155,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     TextView reservoirView;
     TextView sageView;
     TextView batteryView;
+    LinearLayout statuslightsLayout;
     LinearLayout timedelta;
 
     // BottomNavigation and menu items
@@ -231,6 +232,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     public void getCareportalInfo() {
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
+        statuslightsLayout = findViewById(R.id.statuslight);
         sageView =  findViewById(R.id.careportal_sensorage);
         iageView =  findViewById(R.id.careportal_insulinage);
         cageView =  findViewById(R.id.careportal_canulaage);
@@ -238,7 +240,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         batteryView = findViewById(R.id.careportal_pbLevel);
         StatuslightHandler handler = new StatuslightHandler();
 
-        if( sageView != null && reservoirView != null && cageView != null && batteryView != null ) {
+        if (statuslightsLayout != null) {
             if (SP.getBoolean(R.string.key_show_statuslights, false)) {
                 CareportalEvent careportalEvent;
                 NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
@@ -248,53 +250,47 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 double cageWarn = nsSettings.getExtendedWarnValue("cage", "warn", 48);
                 double sageUrgent = nsSettings.getExtendedWarnValue("sage", "urgent", 166);
                 double sageWarn = nsSettings.getExtendedWarnValue("sage", "warn", 164);
-                double batUrgent = 600; //SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
+                double batUrgent = 600 ; //SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
                 double batWarn = 480; // SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
                 double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 10.0);
                 double resWarn = SP.getDouble(R.string.key_statuslights_res_warning, 80.0);
                 if (sageView != null) {
-                    careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE);
-                    double sensorAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
+                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE);
+                double sensorAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
                     handler.applyStatuslight(sageView, "", sensorAge, sageWarn, sageUrgent, Double.MAX_VALUE, true);
                 }
 
                 if (iageView != null) {
-                    careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.INSULINCHANGE);
-                    double insulinAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
+                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.INSULINCHANGE);
+                double insulinAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
                     handler.applyStatuslight(iageView, "IAGE", insulinAge, iageWarn, iageUrgent, Double.MAX_VALUE, true);
                 }
                 if (cageView != null) {
-                    careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE);
-                    double canAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
+                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE);
+                double canAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
                     handler.applyStatuslight(cageView, "CAGE", canAge, cageWarn, cageUrgent, Double.MAX_VALUE, true);
                 }
 
                 if (reservoirView != null) {
-                    double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
+                double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
                     handler.applyStatuslight(reservoirView, "RES", reservoirLevel, resWarn, resUrgent, -1, false);
                 }
 
                 if (batteryView != null) {
-                    handler.statuslightBattery(batteryView);
+                handler.statuslightBattery(batteryView);
 
                     double batteryViewLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
                     handler.applyStatuslight(batteryView, "BAT", batteryViewLevel, batWarn, batUrgent, -1, false);
                 }
 
-                CareportalFragment.updateAge(MainActivity.this, sageView, iageView, cageView, batteryView);
+                CareportalFragment.updateAge( MainActivity.this, sageView, iageView, cageView, batteryView);
                 CareportalFragment.updatePumpSpecifics(reservoirView, null);
 
-                sageView.setVisibility(View.VISIBLE);
-                reservoirView.setVisibility(View.VISIBLE);
-                cageView.setVisibility(View.VISIBLE);
-                batteryView.setVisibility(View.VISIBLE);
-            } else {
-                sageView.setVisibility(View.GONE);
-                reservoirView.setVisibility(View.GONE);
-                cageView.setVisibility(View.GONE);
-                batteryView.setVisibility(View.GONE);
-            }
+                statuslightsLayout.setVisibility(View.VISIBLE);
+        } else {
+            statuslightsLayout.setVisibility(View.GONE);
         }
+    }
     }
 
     public void onClick(View view) {
@@ -308,19 +304,20 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         boolean xdrip = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
         boolean dexcom = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
         switch (id) {
-            case R.id.careportal_sensorage:
+            case R.id.sensorage:
                 newDialog.setOptions(SENSORCHANGE, R.string.careportal_cgmsensorinsert);
                 break;
             case R.id.careportal_cgmsensorstart:
                 newCareDialog.setOptions(CareDialog.EventType.SENSOR_INSERT , R.string.careportal_cgmsensorinsert).show( manager, "Actions");
                 return;
-            case R.id.careportal_prLevel:
+            case R.id.insulinage:
                 newDialog.setOptions(INSULINCHANGE, R.string.careportal_insulincartridgechange);
                 break;
-            case R.id.careportal_canulaage:
+            case R.id.canulaage:
+                //newDialog.setOptions(SITECHANGE, R.string.careportal_pumpsitechange);
                 fillDialog.show(manager ,"FillDialog") ;
                 return;
-            case R.id.careportal_pbLevel:
+            case R.id.batteryage:
                 newCareDialog.setOptions(CareDialog.EventType.BATTERY_CHANGE, R.string.careportal_pumpbatterychange).show( manager, "Actions");
                 return;
             case R.id.fab:
@@ -489,13 +486,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         // set elements to fragment elements
         bgView = (TextView) findViewById(R.id.overview_bg);
         arrowView = (TextView) findViewById(R.id.overview_arrow);
-        timeAgoView = (TextView) findViewById(R.id.overview_timeago);
         deltaView = (TextView) findViewById(R.id.overview_delta);
 
         avgdeltaView= (TextView) findViewById(R.id.average_delta);
 
         // set BG in header are for small display like Unihertz Atom
-        timedelta = (LinearLayout) findViewById(R.id.time_delta);
         //check screen width and choose main dialog
         final DisplayMetrics dm = new DisplayMetrics();
         MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -509,7 +504,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
             timeAgoView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             deltaView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-            timedelta.setOrientation(LinearLayout.VERTICAL);
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -682,7 +676,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             GlucoseStatus glucoseStatus = GlucoseStatus.getGlucoseStatusData();
             if (glucoseStatus != null) {
                 if (deltaView != null)
-                    deltaView.setText("Δ " + Profile.toUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units) + " " + units);
+                    deltaView.setText("Δ " + Profile.toUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units) + " " + units + " " + DateUtil.minAgoShort(lastBG.date) + "min");
                 if (deltaShortView != null)
                     deltaShortView.setText(Profile.toSignedUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units));
                 if (avgdeltaView != null)

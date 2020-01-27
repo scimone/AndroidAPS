@@ -72,6 +72,7 @@
         android:layout_marginRight="5dp"
         android:maxHeight="5dp"
         android:minHeight="3dp"
+        android:progressBackgroundTint="?attr/colorPrimaryDark"
         android:progressTint="?android:attr/colorPrimary"/>
 
     <Button

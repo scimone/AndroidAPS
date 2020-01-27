@@ -22,16 +22,26 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:fitsSystemWindows="false"
                 app:layout_scrollFlags="scroll|enterAlways"
                 android:background="@color/transparent"
-                android:minHeight="@dimen/toolbar_height"
+                android:minHeight="?attr/actionBarSize"
                 app:contentInsetStart="4dp"
                 app:contentInsetEnd="4dp">
 
-                <include layout="@layout/status_fragment" />
+                <LinearLayout
+                    android:id="@+id/overview_statuslights"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/status_fragment" />
+
+                </LinearLayout>
 
             </androidx.appcompat.widget.Toolbar>
 
