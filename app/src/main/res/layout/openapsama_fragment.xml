@@ -4,7 +4,7 @@
         android:id = "@+id/swipeRefresh_openaps_ama"
         android:layout_width = "match_parent"
         android:layout_height = "match_parent"
-        android:paddingTop="5dp"
+        android:layout_marginTop="10dp"
         tools:context=".plugins.aps.openAPSAMA.OpenAPSAMAFragment">
 
         <androidx.core.widget.NestedScrollView
