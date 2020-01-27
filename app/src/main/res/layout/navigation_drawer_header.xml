@@ -42,7 +42,6 @@
             android:gravity="right"
             android:layout_marginBottom="24dp"
             android:src="@drawable/me"
-            app:srcCompat="@drawable/ic_account_circle_white_64dp"
             tools:ignore="ContentDescription" />
 
         <LinearLayout
