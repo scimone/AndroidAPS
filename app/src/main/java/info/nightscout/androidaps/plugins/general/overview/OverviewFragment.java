@@ -50,10 +50,6 @@ import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.data.IobTotal;
 import info.nightscout.androidaps.data.Profile;
-import info.nightscout.androidaps.data.QuickWizard;
-import info.nightscout.androidaps.data.QuickWizardEntry;
-import info.nightscout.androidaps.db.BgReading;
-import info.nightscout.androidaps.db.DatabaseHelper;
 import info.nightscout.androidaps.db.ExtendedBolus;
 import info.nightscout.androidaps.db.Source;
 import info.nightscout.androidaps.db.TempTarget;
@@ -84,7 +80,6 @@ import info.nightscout.androidaps.plugins.aps.loop.events.EventNewOpenLoopNotifi
 import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
-import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.nsclient.NSUpload;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSDeviceStatus;
 import info.nightscout.androidaps.plugins.general.overview.graphData.GraphData;
@@ -98,7 +93,6 @@ import info.nightscout.androidaps.plugins.source.SourceDexcomPlugin;
 import info.nightscout.androidaps.plugins.source.SourceXdripPlugin;
 import info.nightscout.androidaps.plugins.treatments.TreatmentsPlugin;
 import info.nightscout.androidaps.queue.Callback;
-import info.nightscout.androidaps.utils.BolusWizard;
 import info.nightscout.androidaps.utils.DateUtil;
 import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.DefaultValueHelper;
@@ -904,8 +898,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         }
         loopStatusLayout.setVisibility(View.VISIBLE);
 
-        CareportalFragment.updateAge(getActivity(), sage, iage, cage, pbage);
-        CareportalFragment.updatePumpSpecifics(prLevel, pbLevel);
+        //CareportalFragment.updateAge(getActivity(), sage, iage, cage, pbage);
+        //CareportalFragment.updatePumpSpecifics(prLevel, pbLevel);
 
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
@@ -916,17 +910,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         final double lowLine = OverviewPlugin.INSTANCE.determineLowLine();
         final double highLine = OverviewPlugin.INSTANCE.determineHighLine();
 
-        //Start with updating the BG as it is unaffected by loop.
-        // **** BG value ****
-        BgReading actualBG = DatabaseHelper.actualBg();
-        BgReading lastBG = DatabaseHelper.lastBg();
-        if (lastBG != null) {
-            int color = MainApp.gc(R.color.inrange_bg);
-            if (lastBG.valueToUnits(units) < lowLine)
-                color = MainApp.gc(R.color.low);
-            else if (lastBG.valueToUnits(units) > highLine)
-                color = MainApp.gc(R.color.high);
-        }
 
         // pill for open loop mode
         Constraint<Boolean> closedLoopEnabled = MainApp.getConstraintChecker().isClosedLoopAllowed();
@@ -1090,15 +1073,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
             }
         }
-
-        // QuickWizard button
-        QuickWizardEntry quickWizardEntry = QuickWizard.INSTANCE.getActive();
-        if (quickWizardEntry != null && lastBG != null && pump.isInitialized() && !pump.isSuspended()) {
-          //  quickWizardButton.show();
-            String text = quickWizardEntry.buttonText() + "\n" + DecimalFormatter.to0Decimal(quickWizardEntry.carbs()) + "g";
-            BolusWizard wizard = quickWizardEntry.doCalc(profile, profileName, lastBG, false);
-            text += " " + DecimalFormatter.toPumpSupportedBolus(wizard.getCalculatedTotalInsulin()) + "U";
-          }
 
         // iob
         TreatmentsPlugin.getPlugin().updateTotalIOBTreatments();

@@ -458,6 +458,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 });
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // sets the main theme and color
