@@ -22,7 +22,6 @@
             android:layout_marginTop="6dp"
             android:fillViewport="true">
 
-
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -35,12 +34,14 @@
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/overview_looplayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="2dp">
+                    app:layout_constraintBottom_toTopOf="@+id/overview_pumpstatuslayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/overview_notifications">
 
                     <TextView
                         android:id="@+id/overview_apsmode"
@@ -60,7 +61,7 @@
 
                     <TextView
                         android:id="@+id/overview_activeprofile"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginEnd="5dp"
@@ -77,7 +78,7 @@
 
                     <TextView
                         android:id="@+id/overview_temptarget"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_weight="1"
@@ -90,7 +91,7 @@
                         android:background="@drawable/rounded_corner"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <LinearLayout
                     android:id="@+id/overview_pumpstatuslayout"
@@ -137,7 +138,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@color/listdelimiter" />
+                                android:background="?android:attr/dividerHorizontal" />
 
 
                             <LinearLayout
@@ -184,7 +185,7 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:layout_marginTop="5dp"
-                                android:background="@color/listdelimiter" />
+                                android:background="?android:attr/dividerHorizontal" />
 
                         </LinearLayout>
 
@@ -235,7 +236,7 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="5dp"
-                            android:background="@color/listdelimiter" />
+                            android:background="?android:attr/dividerHorizontal" />
 
 
                         <LinearLayout
@@ -263,7 +264,7 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="5dp"
-                            android:background="@color/listdelimiter" />
+                            android:background="?android:attr/dividerHorizontal" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -290,7 +291,7 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="5dp"
-                            android:background="@color/listdelimiter" />
+                            android:background="?android:attr/dividerHorizontal" />
 
                     </LinearLayout>
 
@@ -304,7 +305,7 @@
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        android:layout_height="200dp"
                         android:layout_weight="1">
 
                         <com.jjoe64.graphview.GraphView
@@ -365,7 +366,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="8dp"
-                        android:layout_height="60dp"
+                        android:layout_height="100dp"
                         android:background="@color/chart_background"
                         android:visibility="gone" />
 
@@ -404,7 +405,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="8dp"
-                        android:layout_height="90dp"
+                        android:layout_height="100dp"
                         android:background="@color/chart_background"
                         android:visibility="gone" />
 
@@ -442,7 +443,7 @@
                         android:layout_width="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_height="90dp"
+                        android:layout_height="100dp"
                         android:background="@color/chart_background"
                         android:visibility="gone" />
 

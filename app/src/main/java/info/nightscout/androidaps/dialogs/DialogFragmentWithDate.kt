@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
+import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
+import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil
 import info.nightscout.androidaps.utils.DateUtil
 import info.nightscout.androidaps.utils.SP
 import info.nightscout.androidaps.utils.toVisibility
@@ -55,6 +57,9 @@ abstract class DialogFragmentWithDate : DialogFragment() {
         eventTimeChanged = savedInstanceState?.getBoolean("eventTimeChanged") ?: false
         overview_eventdate?.text = DateUtil.dateString(eventTime)
         overview_eventtime?.text = DateUtil.timeString(eventTime)
+
+        val newtheme = SP.getInt("theme", ThemeUtil.THEME_PINK)
+        MainApp.instance().setTheme(newtheme)
 
         // create an OnDateSetListener
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->

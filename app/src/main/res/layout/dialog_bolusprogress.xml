@@ -18,6 +18,7 @@
             android:id="@+id/header_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/transparent"
             android:src="@drawable/ic_trending_flat_white_48dp" />
 
         <TextView
@@ -71,6 +72,7 @@
         android:layout_marginRight="5dp"
         android:maxHeight="5dp"
         android:minHeight="3dp"
+        android:progressBackgroundTint="?android:attr/colorPrimaryDark"
         android:progressTint="?android:attr/colorPrimary"/>
 
     <Button

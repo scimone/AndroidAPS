@@ -24,6 +24,8 @@
                 android:id="@+id/toolbar"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 android:fitsSystemWindows="false"
                 app:layout_scrollFlags="scroll|enterAlways"
                 android:background="@color/transparent"
@@ -68,15 +70,15 @@
         </androidx.viewpager.widget.ViewPager>
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            style="@style/BottomAppbar"
             android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="bottom"
             app:menu="@menu/bottom_navigation_menu"
             app:hideOnScroll="true"
-            app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
+            app:contentInsetEnd="0dp"
+            app:contentInsetStartWithNavigation="0dp"
             app:fabAnimationMode="slide"
             app:layout_behavior="com.google.android.material.bottomappbar.BottomAppBar$Behavior"
             app:popupTheme="@style/ThemeOverlay.AppCompat.DayNight"
@@ -92,10 +94,11 @@
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="58dp"
-                android:paddingStart="0dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="10dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetStart="0dp"
+                app:contentInsetEnd="0dp"
                 app:elevation="0dp"
                 app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
                 android:layout_gravity="bottom|center_horizontal"
@@ -106,8 +109,8 @@
                 app:itemIconSize="@dimen/bottom_navigation_icon_size"
                 app:backgroundTint="@color/transparent"
                 app:itemBackground="@color/transparent"
-                app:itemIconTint="?attr/iconColor"
-                app:itemTextColor="?attr/iconColor"
+                app:itemIconTint="?attr/iconColorbottomAppbar"
+                app:itemTextColor="?attr/iconColorbottomAppbar"
                 app:menu="@menu/bottom_navigation_menu" />
 
         </com.google.android.material.bottomappbar.BottomAppBar>
