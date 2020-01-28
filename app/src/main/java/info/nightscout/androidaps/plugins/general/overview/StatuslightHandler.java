@@ -118,12 +118,12 @@ public class StatuslightHandler {
                     batteryView, "BAT ", pump.getBatteryLevel());
         } else {
             handleAge("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, "BAT ",
-                    336, 240);
+                    224, 336);
         }
     }
 
     void handleAge(String nsSettingPlugin, String eventName, TextView view, String text,
-                   int defaultUrgentThreshold, int defaultWarnThreshold) {
+                   int defaultWarnThreshold, int defaultUrgentThreshold) {
         NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
 
         if (view != null) {

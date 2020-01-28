@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import com.utility.Helper
 import info.nightscout.androidaps.Constants
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
@@ -221,7 +222,9 @@ class LocalProfileFragment : Fragment() {
         val isValid = LocalProfilePlugin.isValidEditState()
         val isEdited = LocalProfilePlugin.isEdited
         if (isValid) {
-            this.view?.setBackgroundColor(MainApp.gc(R.color.ok_background))
+            context?.let {
+                this.view?.setBackgroundColor(Helper.getAttributeColor(it,R.attr.backgroundColor))
+            }
 
             if (isEdited) {
                 //edited profile -> save first

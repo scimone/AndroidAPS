@@ -217,7 +217,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="4dp"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:background="@color/chart_background"
                 android:visibility="gone" />
 

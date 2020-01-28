@@ -17,170 +17,106 @@
         android:fillViewport="false">
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/overview_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
             <LinearLayout
+                android:id="@+id/overview_looplayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:paddingLeft="4sp"
+                android:paddingRight="4sp"
+                android:paddingTop="2dp">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/overview_notifications"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-                <LinearLayout
-                    android:id="@+id/overview_looplayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="4sp"
-                    android:paddingRight="4sp"
-                    android:paddingTop="2dp">
-
-                    <TextView
-                        android:id="@+id/overview_apsmode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:paddingStart="4dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:text="Open Loop"
-                        android:drawableStart="@drawable/ic_aaps_logo_white"
-                        android:background="@drawable/rounded_corner"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-
-                    <TextView
-                        android:id="@+id/overview_activeprofile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:paddingStart="4dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:text="Profile"
-                        android:shape="rectangle"
-                        android:drawableStart="@drawable/ic_user_white"
-                        android:background="@drawable/rounded_corner"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                    <TextView
-                        android:id="@+id/overview_temptarget"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:paddingStart="4dp"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:text="TempTarget"
-                        android:drawableStart="@drawable/ic_zielkreuz_white"
-                        android:background="@drawable/rounded_corner"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/overview_pumpstatuslayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="2dp">
-
-                    <TextView
-                        android:id="@+id/overview_pumpstatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:text="@string/initializing"
-                        android:textAppearance="?android:attr/textAppearanceSmall" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:baselineAligned="false"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:layout_marginStart="14dp"
-                                android:layout_marginEnd="1dp"
-                                android:text="AS"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/overview_sensitivity"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="end"
-                                android:layout_marginEnd="14dp"
-                                android:text=""
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="?attr/color_val"/>
-                        </LinearLayout>
-
-                </LinearLayout>
-
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/overview_apsmode"
                     android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingStart="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="Open Loop"
+                    android:drawableStart="@drawable/ic_aaps_logo_white"
+                    android:background="@drawable/rounded_corner"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <com.jjoe64.graphview.GraphView
-                        android:id="@+id/overview_bggraph"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorCarbsButton"
-                        android:background="@color/chart_background"/>
 
-                    <ImageButton
-                        android:id="@+id/overview_chartMenuButton"
-                        android:layout_width="36dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="18dp"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:contentDescription="overview_chartMenuButton"
-                        android:paddingTop="5dp"
-                        app:srcCompat="@drawable/ic_arrow_drop_down_white_24dp" />
+                <TextView
+                    android:id="@+id/overview_activeprofile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingStart="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="Profile"
+                    android:shape="rectangle"
+                    android:drawableStart="@drawable/ic_user_white"
+                    android:background="@drawable/rounded_corner"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                    <TextView
-                        android:id="@+id/overview_iobcalculationprogess"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/overview_temptarget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingStart="4dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="TempTarget"
+                    android:drawableStart="@drawable/ic_zielkreuz_white"
+                    android:background="@drawable/rounded_corner"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/overview_pumpstatuslayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="2dp">
+
+                <TextView
+                    android:id="@+id/overview_pumpstatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:text="@string/initializing"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:baselineAligned="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/basalLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -189,53 +125,118 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="6dp"
+                        android:layout_marginStart="14dp"
                         android:layout_marginEnd="1dp"
-                        android:text="@string/basal_short"
+                        android:text="AS"
                         android:textSize="16sp" />
 
-
                     <TextView
-                        android:id="@+id/overview_basebasal"
+                        android:id="@+id/overview_sensitivity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
                         android:layout_marginEnd="14dp"
-                        android:text="0.50U/h @17:35 1/30min - 0.40U/h"
+                        android:text=""
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="?attr/color_val"/>
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fab_cancelbasal"
-                        app:fabSize="mini"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:visibility="gone"
-                        app:borderWidth="2dp"
-                        android:tint="?attr/iconColor"
-                        android:src="@drawable/icon_cancelbasal"
-                        android:layout_gravity="top|end"
-                        app:maxImageSize="26dp"
-                        android:clickable="true"
-                        android:focusable="true" />
-
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_weight="1">
+
                 <com.jjoe64.graphview.GraphView
-                    android:id="@+id/overview_basalgraph"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/overview_bggraph"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_height="60dp"
-                    android:background="@color/chart_background"
-                    android:visibility="gone" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorCarbsButton"
+                    android:background="@color/chart_background"/>
 
-                <LinearLayout
+                <ImageButton
+                    android:id="@+id/overview_chartMenuButton"
+                    android:layout_width="36dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="18dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="overview_chartMenuButton"
+                    android:paddingTop="5dp"
+                    app:srcCompat="@drawable/ic_arrow_drop_down_white_24dp" />
+
+                <TextView
+                    android:id="@+id/overview_iobcalculationprogess"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/basalLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="1dp"
+                    android:text="@string/basal_short"
+                    android:textSize="16sp" />
+
+
+                <TextView
+                    android:id="@+id/overview_basebasal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:layout_marginEnd="12dp"
+                    android:text="0.50U/h @17:35 1/30min - 0.40U/h"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/color_val"/>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_cancelbasal"
+                    app:fabSize="mini"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    app:borderWidth="2dp"
+                    android:tint="?attr/iconColor"
+                    android:src="@drawable/icon_cancelbasal"
+                    android:layout_gravity="top|end"
+                    app:maxImageSize="26dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+            </LinearLayout>
+
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/overview_basalgraph"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_height="60dp"
+                android:background="@color/chart_background"
+                android:visibility="gone" />
+
+            <LinearLayout
                 android:id="@+id/overview_iob_extbolus_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -250,7 +251,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/iob"
                         android:textSize="16sp" />
@@ -279,6 +280,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginStart="10dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/extended_bolus_short"
                         android:textSize="16sp" />
@@ -298,107 +300,107 @@
 
                 </LinearLayout>
 
-                </LinearLayout>
+            </LinearLayout>
 
-                <com.jjoe64.graphview.GraphView
-                    android:id="@+id/overview_iobgraph"
-                    android:layout_width="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:layout_height="90dp"
-                    android:background="@color/chart_background"
-                    android:visibility="gone" />
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/overview_iobgraph"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_height="90dp"
+                android:background="@color/chart_background"
+                android:visibility="gone" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="1dp"
+                    android:text="@string/cob"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="6dp"
-                        android:layout_marginEnd="1dp"
-                        android:text="@string/cob"
-                        android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/overview_cob"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/color_val"/>
 
-                    <TextView
-                        android:id="@+id/overview_cob"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text=""
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="?attr/color_val"/>
-
-                    <TextView
-                        android:layout_width="10dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:layout_marginStart="1dp"
-                        android:layout_marginEnd="14dp"
-                        android:text="@string/shortgramm"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="?attr/color_val"/>
-
-                </LinearLayout>
-                <com.jjoe64.graphview.GraphView
-                    android:id="@+id/overview_cobgraph"
-                    android:layout_width="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_height="90dp"
-                    android:background="@color/chart_background"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:id="@+id/dummy"
-                    android:layout_width="match_parent"
-                    android:layout_gravity="bottom"
-                    android:layout_height="70dp"
-                    android:orientation="horizontal">
-                </LinearLayout>
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="14dp"
+                    android:text="@string/shortgramm"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/color_val"/>
 
             </LinearLayout>
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/overview_cobgraph"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="8dp"
+                android:layout_height="90dp"
+                android:background="@color/chart_background"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/dummy"
+                android:layout_width="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_height="80dp"
+                android:orientation="horizontal">
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
+    <LinearLayout
+        android:id="@+id/overview_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:id="@+id/overview_buttons"
+            android:id="@+id/overview_accepttemplayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="72dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone">
 
-            <LinearLayout
-                android:id="@+id/overview_accepttemplayout"
-                android:layout_width="match_parent"
+            <info.nightscout.androidaps.utils.SingleClickButton
+                android:id="@+id/overview_accepttempbutton"
+                style="?android:attr/buttonStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="72dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="gone">
-
-                <info.nightscout.androidaps.utils.SingleClickButton
-                    android:id="@+id/overview_accepttempbutton"
-                    style="?android:attr/buttonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="2dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
-                    android:layout_weight="0.5"
-                    android:text="Accept new temp\n0.25U/h"
-                    android:textColor="@color/colorAcceptTempButton" />
-            </LinearLayout>
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="3dp"
+                android:layout_weight="0.5"
+                android:text="Accept new temp\n0.25U/h"
+                android:textColor="@color/colorAcceptTempButton" />
         </LinearLayout>
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

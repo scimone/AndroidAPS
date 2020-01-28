@@ -49,6 +49,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.utility.Helper;
 import com.utility.ViewAnimation;
 
 import org.slf4j.Logger;
@@ -231,7 +232,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     public void getCareportalInfo() {
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        statuslightsLayout = findViewById(R.id.overview_statuslights);
+        statuslightsLayout = findViewById(R.id.statuslight);
         sageView =  findViewById(R.id.careportal_sensorage);
         iageView =  findViewById(R.id.careportal_insulinage);
         cageView =  findViewById(R.id.careportal_canulaage);
@@ -249,8 +250,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 double cageWarn = nsSettings.getExtendedWarnValue("cage", "warn", 48);
                 double sageUrgent = nsSettings.getExtendedWarnValue("sage", "urgent", 166);
                 double sageWarn = nsSettings.getExtendedWarnValue("sage", "warn", 164);
-                double batUrgent = SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
-                double batWarn = SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
+                double batUrgent = 600 ; //SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
+                double batWarn = 480; // SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
                 double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 10.0);
                 double resWarn = SP.getDouble(R.string.key_statuslights_res_warning, 80.0);
                 if (sageView != null) {
@@ -277,6 +278,9 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
                 if (batteryView != null) {
                 handler.statuslightBattery(batteryView);
+
+                    double batteryViewLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
+                    handler.applyStatuslight(batteryView, "BAT", batteryViewLevel, batWarn, batUrgent, -1, false);
                 }
 
                 CareportalFragment.updateAge( MainActivity.this, sageView, iageView, cageView, batteryView);
@@ -454,6 +458,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 });
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // sets the main theme and color
@@ -482,13 +487,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         // set elements to fragment elements
         bgView = (TextView) findViewById(R.id.overview_bg);
         arrowView = (TextView) findViewById(R.id.overview_arrow);
-        timeAgoView = (TextView) findViewById(R.id.overview_timeago);
         deltaView = (TextView) findViewById(R.id.overview_delta);
 
         avgdeltaView= (TextView) findViewById(R.id.average_delta);
 
         // set BG in header are for small display like Unihertz Atom
-        timedelta = (LinearLayout) findViewById(R.id.time_delta);
         //check screen width and choose main dialog
         final DisplayMetrics dm = new DisplayMetrics();
         MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -502,7 +505,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
             timeAgoView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             deltaView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-            timedelta.setOrientation(LinearLayout.VERTICAL);
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -663,11 +665,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         BgReading actualBG = DatabaseHelper.actualBg();
         BgReading lastBG = DatabaseHelper.lastBg();
         if (lastBG != null) {
-            int color = MainApp.gc(R.color.inrange_bg);
+            int color = Helper.getAttributeColor(MainActivity.this, R.attr.bgInRange);
             if (lastBG.valueToUnits(units) < lowLine)
-                color = MainApp.gc(R.color.low);
+                color = Helper.getAttributeColor(MainActivity.this, R.attr.bgLow);
             else if (lastBG.valueToUnits(units) > highLine)
-                color = MainApp.gc(R.color.high);
+                color = Helper.getAttributeColor(MainActivity.this, R.attr.bgHigh);
             bgView.setText(lastBG.valueToUnitsToString(units));
             arrowView.setText(lastBG.directionToSymbol());
             bgView.setTextColor(color);
@@ -675,7 +677,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             GlucoseStatus glucoseStatus = GlucoseStatus.getGlucoseStatusData();
             if (glucoseStatus != null) {
                 if (deltaView != null)
-                    deltaView.setText("Δ " + Profile.toUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units) + " " + units);
+                    deltaView.setText("Δ " + Profile.toUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units) + " " + units + " " + DateUtil.minAgoShort(lastBG.date) + "min");
                 if (deltaShortView != null)
                     deltaShortView.setText(Profile.toSignedUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units));
                 if (avgdeltaView != null)

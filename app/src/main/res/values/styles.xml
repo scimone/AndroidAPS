@@ -3,14 +3,20 @@
     <attr name="overviewPillColor" format="reference|color" />
     <attr name="fabmenubackground" format="reference|color" />
     <attr name="iconColor" format="reference|color" />
+    <attr name="iconColorbottomAppbar" format="reference|color" />
     <attr name="iobBorder" format="reference|color" />
     <attr name="cobBorder" format="reference|color" />
+    <attr name="bgInRange" format="reference|color" />
+    <attr name="bgLow" format="reference|color" />
+    <attr name="bgHigh" format="reference|color" />
     <attr name="matButtonBackground" format="reference|color" />
     <attr name="color_val" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:actionBarTheme">@android:style/Theme.Material</item>
         <item name="iconColor">@color/iconColor</item>
+        <item name="iconColorbottomAppbar">@color/iconColorbottomAppbar</item>
         <item name="color_val">@color/color_val</item>
         <item name="fabmenubackground">@color/fabmenubackground</item>
         <item name="iobBorder">@color/iobBorder</item>
@@ -40,6 +46,10 @@
         <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
         <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+        <!-- Color of bg value -->
+        <item name="bgInRange">@color/inrange_bg</item>
+        <item name="bgLow">@color/low</item>
+        <item name="bgHigh">@color/high</item>
     </style>
 
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar"/>
@@ -216,6 +226,9 @@
         <item name="overviewPillColor">@color/overviewPillColorDarkside</item>
     </style>
 
+    <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >
+
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
