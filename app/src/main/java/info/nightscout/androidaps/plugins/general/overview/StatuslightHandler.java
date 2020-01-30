@@ -1,7 +1,6 @@
 package info.nightscout.androidaps.plugins.general.overview;
 
 import android.content.res.ColorStateList;
-import android.graphics.Typeface;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,26 +11,33 @@ import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.interfaces.PumpInterface;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
-import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
 import info.nightscout.androidaps.plugins.pump.common.defs.PumpType;
 import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.SP;
-import info.nightscout.androidaps.utils.SetWarnColor;
 
 public class StatuslightHandler {
 
-    boolean extended = true;
-
+    boolean extended = false;
     /**
-     * applies the battery status
+     * applies the statuslight subview on the overview fragement
      */
-    public void statuslightBattery( TextView batteryView) {
+   public void statuslight(TextView cageView,  TextView reservoirView,
+                     TextView sageView, TextView batteryView) {
         PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        if (pump.model() != PumpType.AccuChekCombo && pump.model() != PumpType.DanaRS) {
+        applyStatuslight("cage", CareportalEvent.SITECHANGE, cageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE).age(true) + " ") : "", 24, 60);
+
+        double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
+        applyStatuslightLevel(R.string.key_statuslights_res_critical, 20.0,
+                R.string.key_statuslights_res_warning, 50.0, reservoirView, "", reservoirLevel);
+        reservoirView.setText(extended ? (DecimalFormatter.to0Decimal(reservoirLevel) + "U  ") : "");
+
+        applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE).age(true) + " ") : "", 164, 166);
+
+        if (pump.model() != PumpType.AccuChekCombo || pump.model() != PumpType.DanaRS) {
             double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
-            applyStatuslightLevel(R.string.key_statuslights_bat_critical, 26.0,
+            applyStatuslightLevel(R.string.key_statuslights_bat_critical, 30.0,
                     R.string.key_statuslights_bat_warning, 51.0,
                     batteryView, "", batteryLevel);
             batteryView.setText(extended ? (DecimalFormatter.to0Decimal(batteryLevel) + "%  ") : "");
@@ -42,7 +48,7 @@ public class StatuslightHandler {
 
     }
 
-    public void applyStatuslight(String nsSettingPlugin, String eventName, TextView view, String text,
+  public  void applyStatuslight(String nsSettingPlugin, String eventName, TextView view, String text,
                           int defaultWarnThreshold, int defaultUrgentThreshold) {
         NSSettingsStatus nsSettings = NSSettingsStatus.getInstance();
 
@@ -55,7 +61,7 @@ public class StatuslightHandler {
         }
     }
 
-    void applyStatuslightLevel(int criticalSetting, double criticalDefaultValue,
+  public  void applyStatuslightLevel(int criticalSetting, double criticalDefaultValue,
                                int warnSetting, double warnDefaultValue,
                                TextView view, String text, double level) {
         if (view != null) {
@@ -65,24 +71,24 @@ public class StatuslightHandler {
         }
     }
 
-    public void applyStatuslight(TextView view, String text, double value, double warnThreshold,
-                                         double urgentThreshold, double invalid, boolean checkAscending) {
-        ColorStateList colorStateList = view.getTextColors();
-        final int normalColor = colorStateList.getDefaultColor();
-
+  public  void applyStatuslight(TextView view, String text, double value, double warnThreshold,
+                          double urgentThreshold, double invalid, boolean checkAscending) {
         Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value >= threshold :
-                (Double threshold) -> value <= threshold;
+                (Double threshold) -> value < threshold;
+      ColorStateList colorStateList = view.getTextColors();
+      final int normalColor = colorStateList.getDefaultColor();
+      view.setTextColor(normalColor);
+      //Log.d("TAG", "get statuslight value: " + value + " text: " + text + " warn: " + warnThreshold + " urgent: " + urgentThreshold );
         if (value != invalid) {
-            view.setTextColor(normalColor);
+            view.setText(text);
             if (check.apply(urgentThreshold)) {
                 view.setTextColor(MainApp.gc(R.color.ribbonCritical));
-                view.setTypeface(null, Typeface.BOLD);
+                //Log.d("TAG", "urgentThreshold: " + urgentThreshold + " value: " + value + " text: " + text);
             } else if (check.apply(warnThreshold)) {
                 view.setTextColor(MainApp.gc(R.color.ribbonWarning));
-                view.setTypeface(null, Typeface.BOLD);
+                //Log.d("TAG", "warnThreshold: " + warnThreshold + " value: " + value + " text: " + text );
             } else {
                 view.setTextColor(normalColor);
-                view.setTypeface(null, Typeface.NORMAL);
             }
             view.setVisibility(View.VISIBLE);
         } else {
@@ -94,54 +100,11 @@ public class StatuslightHandler {
     /**
      * applies the extended statuslight subview on the overview fragement
      */
-    void extendedStatuslight(TextView cageView, TextView iageView,
+ public   void extendedStatuslight(TextView cageView,
                              TextView reservoirView, TextView sageView,
                              TextView batteryView) {
-        PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
-                48, 72);
-
-        handleAge("iage", CareportalEvent.INSULINCHANGE, iageView, "INS ",
-                72, 96);
-
-        handleLevel(R.string.key_statuslights_res_critical, 10.0,
-                R.string.key_statuslights_res_warning, 80.0,
-                reservoirView, "RES ", pump.getReservoirLevel());
-
-        handleAge("sage", CareportalEvent.SENSORCHANGE, sageView, "SEN ",
-                164, 166);
-
-        if (pump.model() != PumpType.AccuChekCombo) {
-            handleLevel(R.string.key_statuslights_bat_critical, 26.0,
-                    R.string.key_statuslights_bat_warning, 51.0,
-                    batteryView, "BAT ", pump.getBatteryLevel());
-        } else {
-            handleAge("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, "BAT ",
-                    224, 336);
-        }
+        extended = true;
+        statuslight(cageView, reservoirView, sageView, batteryView);
     }
-
-    void handleAge(String nsSettingPlugin, String eventName, TextView view, String text,
-                   int defaultWarnThreshold, int defaultUrgentThreshold) {
-        NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
-
-        if (view != null) {
-            double urgent = nsSettings.getExtendedWarnValue(nsSettingPlugin, "urgent", defaultUrgentThreshold);
-            double warn = nsSettings.getExtendedWarnValue(nsSettingPlugin, "warn", defaultWarnThreshold);
-            CareportalFragment.handleAge(view, text, eventName, warn, urgent, true);
-        }
-    }
-
-    void handleLevel(int criticalSetting, double criticalDefaultValue,
-                     int warnSetting, double warnDefaultValue,
-                     TextView view, String text, double level) {
-        if (view != null) {
-            double resUrgent = SP.getDouble(criticalSetting, criticalDefaultValue);
-            double resWarn = SP.getDouble(warnSetting, warnDefaultValue);
-            view.setText(text + DecimalFormatter.to0Decimal(level));
-            SetWarnColor.setColorInverse(view, level, resWarn, resUrgent);
-        }
-    }
-
 }

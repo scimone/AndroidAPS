@@ -1,5 +1,6 @@
 package info.nightscout.androidaps;
 
+import android.annotation.SuppressLint;
 import android.app.TaskStackBuilder;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -43,6 +44,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -55,6 +58,7 @@ import com.utility.ViewAnimation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -69,7 +73,6 @@ import info.nightscout.androidaps.data.Profile;
 import info.nightscout.androidaps.data.QuickWizard;
 import info.nightscout.androidaps.data.QuickWizardEntry;
 import info.nightscout.androidaps.db.BgReading;
-import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.db.DatabaseHelper;
 import info.nightscout.androidaps.db.TempTarget;
 import info.nightscout.androidaps.dialogs.CalibrationDialog;
@@ -103,7 +106,6 @@ import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
 import info.nightscout.androidaps.plugins.constraints.versionChecker.VersionCheckerUtilsKt;
-import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
 import info.nightscout.androidaps.plugins.general.overview.OverviewPlugin;
@@ -132,7 +134,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
 import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
-import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.INSULINCHANGE;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
@@ -230,67 +231,33 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     }
 
     public void getCareportalInfo() {
-        final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
-
         statuslightsLayout = findViewById(R.id.statuslight);
-        sageView =  findViewById(R.id.careportal_sensorage);
-        iageView =  findViewById(R.id.careportal_insulinage);
-        cageView =  findViewById(R.id.careportal_canulaage);
-        reservoirView = findViewById(R.id.careportal_prLevel);
-        batteryView = findViewById(R.id.careportal_pbLevel);
+        sageView =  findViewById(R.id.sensorage_text);
+        reservoirView =  findViewById(R.id.reservoirView_text);
+        cageView =  findViewById(R.id.canulaage_text);
+        //reservoirView = findViewById(R.id.insulinage_text);
+        batteryView = findViewById(R.id.batteryage_text);
         StatuslightHandler handler = new StatuslightHandler();
 
-        if (statuslightsLayout != null) {
-            if (SP.getBoolean(R.string.key_show_statuslights, false)) {
-                CareportalEvent careportalEvent;
-                NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
-                double iageUrgent = nsSettings.getExtendedWarnValue("iage", "urgent", 40);
-                double iageWarn = nsSettings.getExtendedWarnValue("iage", "warn", 70);
-                double cageUrgent = nsSettings.getExtendedWarnValue("cage", "urgent", 72);
-                double cageWarn = nsSettings.getExtendedWarnValue("cage", "warn", 48);
-                double sageUrgent = nsSettings.getExtendedWarnValue("sage", "urgent", 166);
-                double sageWarn = nsSettings.getExtendedWarnValue("sage", "warn", 164);
-                double batUrgent = 600 ; //SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
-                double batWarn = 480; // SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
-                double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 10.0);
-                double resWarn = SP.getDouble(R.string.key_statuslights_res_warning, 80.0);
-                if (sageView != null) {
-                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE);
-                double sensorAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                    handler.applyStatuslight(sageView, "", sensorAge, sageWarn, sageUrgent, Double.MAX_VALUE, true);
+        if(sageView != null ){
+            if (statuslightsLayout != null) {
+                if (SP.getBoolean(R.string.key_show_statuslights, false)) {
+                    if (SP.getBoolean(R.string.key_show_statuslights_extended, false)) {
+                        handler.extendedStatuslight(cageView, reservoirView , sageView, batteryView);
+                        statuslightsLayout.setVisibility(View.VISIBLE);
+                    } else {
+                        handler.statuslight(cageView, reservoirView , sageView, batteryView);
+                        statuslightsLayout.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    statuslightsLayout.setVisibility(View.GONE);
                 }
-
-                if (iageView != null) {
-                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.INSULINCHANGE);
-                double insulinAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                    handler.applyStatuslight(iageView, "IAGE", insulinAge, iageWarn, iageUrgent, Double.MAX_VALUE, true);
-                }
-                if (cageView != null) {
-                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE);
-                double canAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                    handler.applyStatuslight(cageView, "CAGE", canAge, cageWarn, cageUrgent, Double.MAX_VALUE, true);
-                }
-
-                if (reservoirView != null) {
-                double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
-                    handler.applyStatuslight(reservoirView, "RES", reservoirLevel, resWarn, resUrgent, -1, false);
-                }
-
-                if (batteryView != null) {
-                handler.statuslightBattery(batteryView);
-
-                    double batteryViewLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
-                    handler.applyStatuslight(batteryView, "BAT", batteryViewLevel, batWarn, batUrgent, -1, false);
-                }
-
-                CareportalFragment.updateAge( MainActivity.this, sageView, iageView, cageView, batteryView);
-                CareportalFragment.updatePumpSpecifics(reservoirView, null);
 
                 statuslightsLayout.setVisibility(View.VISIBLE);
-        } else {
-            statuslightsLayout.setVisibility(View.GONE);
+            } else {
+                statuslightsLayout.setVisibility(View.GONE);
+            }
         }
-    }
     }
 
     public void onClick(View view) {
@@ -310,9 +277,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             case R.id.careportal_cgmsensorstart:
                 newCareDialog.setOptions(CareDialog.EventType.SENSOR_INSERT , R.string.careportal_cgmsensorinsert).show( manager, "Actions");
                 return;
-            case R.id.insulinage:
-                newDialog.setOptions(INSULINCHANGE, R.string.careportal_insulincartridgechange);
-                break;
             case R.id.canulaage:
                 //newDialog.setOptions(SITECHANGE, R.string.careportal_pumpsitechange);
                 fillDialog.show(manager ,"FillDialog") ;
@@ -458,6 +422,26 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 });
     }
 
+    @SuppressLint("RestrictedApi")
+    private void disableShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                item.setShifting(false);
+                // set once again checked value, so view will be updated
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException e) {
+            Log.d("TAG", "Unable to get shift mode field", e);
+        } catch (IllegalAccessException e) {
+            Log.d("TAG", "Unable to change value of shift mode", e);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
