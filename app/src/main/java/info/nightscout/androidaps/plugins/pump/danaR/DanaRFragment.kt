@@ -92,10 +92,7 @@ class DanaRFragment : Fragment()  {
         danar_stats.setOnClickListener(clickListener)
         danar_viewprofile.setOnClickListener(clickListener)
 
-        ViewAnimation.showOut(fabDanaMenuUserOptions)
-        ViewAnimation.showOut(danar_history)
-        ViewAnimation.showOut(danar_stats)
-        ViewAnimation.showOut(danar_viewprofile)
+
 
         danar_btconnection.setOnClickListener {
             readPumpStatus()
@@ -127,12 +124,24 @@ class DanaRFragment : Fragment()  {
             }
             R.id.fabDanaMenuUserOptions -> {
                 startActivity(Intent(context, DanaRUserOptionsActivity::class.java))
+                ViewAnimation.showOut(fabDanaMenuUserOptions)
+                ViewAnimation.showOut(danar_history)
+                ViewAnimation.showOut(danar_stats)
+                ViewAnimation.showOut(danar_viewprofile)
             }
             R.id.danar_history -> {
                 startActivity(Intent(context, DanaRHistoryActivity::class.java))
+                ViewAnimation.showOut(fabDanaMenuUserOptions)
+                ViewAnimation.showOut(danar_history)
+                ViewAnimation.showOut(danar_stats)
+                ViewAnimation.showOut(danar_viewprofile)
             }
             R.id.danar_stats -> {
                 startActivity(Intent(context, TDDStatsActivity::class.java))
+                ViewAnimation.showOut(fabDanaMenuUserOptions)
+                ViewAnimation.showOut(danar_history)
+                ViewAnimation.showOut(danar_stats)
+                ViewAnimation.showOut(danar_viewprofile)
             }
             R.id.danar_viewprofile -> {
                 fragmentManager?.let { fragmentManager ->
@@ -150,6 +159,10 @@ class DanaRFragment : Fragment()  {
                     pvd.arguments = args
                     pvd.show(fragmentManager, "ProfileViewDialog")
                 }
+                ViewAnimation.showOut(fabDanaMenuUserOptions)
+                ViewAnimation.showOut(danar_history)
+                ViewAnimation.showOut(danar_stats)
+                ViewAnimation.showOut(danar_viewprofile)
             }
         }
 
