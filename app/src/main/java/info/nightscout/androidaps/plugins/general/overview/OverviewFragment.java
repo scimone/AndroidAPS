@@ -260,9 +260,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             axisWidth = 80;
 
         bgGraph.getGridLabelRenderer().reloadStyles();
-        bgGraph.getGridLabelRenderer().reloadStyles();
         bgGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
         bgGraph.getGridLabelRenderer().reloadStyles();
+        bgGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
 
         basalGraph.getGridLabelRenderer().reloadStyles();
         basalGraph.getGridLabelRenderer().reloadStyles();
@@ -278,7 +278,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         iobGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
         iobGraph.getGridLabelRenderer().reloadStyles();
         iobGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-        bgGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         iobGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         iobGraph.getGridLabelRenderer().setNumVerticalLabels(3);
 
@@ -293,7 +292,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
 
         rangeToDisplay = SP.getInt(R.string.key_rangetodisplay, 3);
 
-        bgGraph.setOnLongClickListener(v -> {
+         bgGraph.setOnLongClickListener(v -> {
             rangeToDisplay = rangeToDisplay * 2;
             rangeToDisplay = rangeToDisplay > 24 ? 3 : rangeToDisplay;
             SP.putInt(R.string.key_rangetodisplay, rangeToDisplay);

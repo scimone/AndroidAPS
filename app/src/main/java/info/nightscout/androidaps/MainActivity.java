@@ -235,7 +235,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         sageView =  findViewById(R.id.sensorage_text);
         reservoirView =  findViewById(R.id.reservoirView_text);
         cageView =  findViewById(R.id.canulaage_text);
-        //reservoirView = findViewById(R.id.insulinage_text);
         batteryView = findViewById(R.id.batteryage_text);
         StatuslightHandler handler = new StatuslightHandler();
 

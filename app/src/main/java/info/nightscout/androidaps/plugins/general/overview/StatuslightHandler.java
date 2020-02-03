@@ -11,6 +11,7 @@ import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.interfaces.PumpInterface;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
+import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
 import info.nightscout.androidaps.plugins.pump.common.defs.PumpType;
 import info.nightscout.androidaps.utils.DecimalFormatter;
@@ -27,6 +28,8 @@ public class StatuslightHandler {
         PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
         applyStatuslight("cage", CareportalEvent.SITECHANGE, cageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE).age(true) + " ") : "", 24, 60);
+        handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
+               24, 60);
 
         double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
         applyStatuslightLevel(R.string.key_statuslights_res_critical, 20.0,
@@ -46,6 +49,17 @@ public class StatuslightHandler {
             applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 504, 240);
         }
 
+    }
+
+    void handleAge(String nsSettingPlugin, String eventName, TextView view, String text,
+                   int defaultWarnThreshold, int defaultUrgentThreshold) {
+        NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
+
+        if (view != null) {
+            double urgent = nsSettings.getExtendedWarnValue(nsSettingPlugin, "urgent", defaultUrgentThreshold);
+            double warn = nsSettings.getExtendedWarnValue(nsSettingPlugin, "warn", defaultWarnThreshold);
+            CareportalFragment.handleAge(view, text, eventName, warn, urgent, true);
+        }
     }
 
   public  void applyStatuslight(String nsSettingPlugin, String eventName, TextView view, String text,
