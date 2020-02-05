@@ -18,7 +18,6 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -272,13 +271,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         basalGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         basalGraph.getGridLabelRenderer().setNumVerticalLabels(3);
 
-        bgGraph.getViewport().setXAxisBoundsManual(true);
-        bgGraph.getViewport().setMinX(4);
-        bgGraph.getViewport().setMaxX(100);
-        bgGraph.getViewport().setScalable(true);
-        bgGraph.getViewport().setScrollable(true);
-
-
         iobGraph.getGridLabelRenderer().reloadStyles();
         iobGraph.getGridLabelRenderer().reloadStyles();
         iobGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
@@ -307,15 +299,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             return false;
         });
 
-
-        bgGraph.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-
-        });
 
         setupChartMenu(view);
 
