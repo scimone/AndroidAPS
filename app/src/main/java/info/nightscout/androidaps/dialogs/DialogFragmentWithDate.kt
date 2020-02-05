@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory
 import java.util.*
 
 abstract class DialogFragmentWithDate : DialogFragment() {
-    private val log = LoggerFactory.getLogger(DialogFragmentWithDate::class.java)
+    val log = LoggerFactory.getLogger(DialogFragmentWithDate::class.java)
 
     var eventTime = DateUtil.now()
     var eventTimeChanged = false
