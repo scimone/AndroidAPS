@@ -18,6 +18,7 @@ import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -80,7 +81,6 @@ import info.nightscout.androidaps.plugins.aps.loop.events.EventNewOpenLoopNotifi
 import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
-import info.nightscout.androidaps.plugins.general.nsclient.NSUpload;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSDeviceStatus;
 import info.nightscout.androidaps.plugins.general.overview.graphData.GraphData;
 import info.nightscout.androidaps.plugins.general.wear.ActionStringHandler;
@@ -173,7 +173,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     public OverviewFragment() {
         super();
     }
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -272,6 +272,12 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         basalGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         basalGraph.getGridLabelRenderer().setNumVerticalLabels(3);
 
+        bgGraph.getViewport().setXAxisBoundsManual(true);
+        bgGraph.getViewport().setMinX(4);
+        bgGraph.getViewport().setMaxX(100);
+        bgGraph.getViewport().setScalable(true);
+        bgGraph.getViewport().setScrollable(true);
+
 
         iobGraph.getGridLabelRenderer().reloadStyles();
         iobGraph.getGridLabelRenderer().reloadStyles();
@@ -299,6 +305,16 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             updateGUI("rangeChange");
             SP.putBoolean(R.string.key_objectiveusescale, true);
             return false;
+        });
+
+
+        bgGraph.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+
         });
 
         setupChartMenu(view);
