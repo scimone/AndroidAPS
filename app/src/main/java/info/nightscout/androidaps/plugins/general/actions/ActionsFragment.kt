@@ -22,7 +22,6 @@ import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions
 import info.nightscout.androidaps.plugins.general.actions.defs.CustomAction
 import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment
-import info.nightscout.androidaps.activities.ErrorHelperActivity
 import info.nightscout.androidaps.dialogs.ProfileSwitchDialog
 import info.nightscout.androidaps.dialogs.TempTargetDialog
 import info.nightscout.androidaps.logging.L
