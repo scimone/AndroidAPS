@@ -484,10 +484,10 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         smallHeight = screen_height <= Constants.SMALL_HEIGHT;
 
         if( smallHeight ) {
-            bgView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
-            arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
-            timeAgoView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-            deltaView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            if( bgView != null ) bgView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
+            if( arrowView != null ) arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
+            if( timeAgoView != null ) timeAgoView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            if( deltaView != null ) deltaView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
