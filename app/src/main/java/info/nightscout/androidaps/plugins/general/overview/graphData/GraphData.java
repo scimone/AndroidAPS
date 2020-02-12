@@ -700,7 +700,7 @@ public class GraphData {
         graph.getViewport().setMaxX(endTime);
         graph.getViewport().setMinX(fromTime);
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getGridLabelRenderer().setLabelFormatter(new TimeAsXAxisLabelFormatter("HH:MM"));
+        graph.getGridLabelRenderer().setLabelFormatter(new TimeAsXAxisLabelFormatter("hh:mm"));
         graph.getGridLabelRenderer().setNumHorizontalLabels(7); // only 7 because of the space
     }
 

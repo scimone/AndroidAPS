@@ -2,7 +2,7 @@ package info.nightscout.androidaps.db;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -291,7 +291,7 @@ public class ProfileSwitch implements Interval, DataPointWithLabelInterface {
 
     @Override
     public int getColor() {
-        return ContextCompat.getColor(MainApp.instance(), R.color.profilswitch);
+        return ResourcesCompat.getColor(MainApp.instance().getResources(), R.color.profilswitch, MainApp.instance().getTheme());
     }
 
     @NonNull
