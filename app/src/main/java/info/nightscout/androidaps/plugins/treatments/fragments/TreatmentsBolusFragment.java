@@ -74,13 +74,13 @@ public class TreatmentsBolusFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull TreatmentsViewHolder holder, int position) {
             Profile profile = ProfileFunctions.getInstance().getProfile();
-            if (profile == null)
-                return;
+            //if (profile == null)
+              //  return;
             Treatment t = treatments.get(position);
             holder.date.setText(DateUtil.dateAndTimeString(t.date));
             holder.insulin.setText(MainApp.gs(R.string.formatinsulinunits, t.insulin));
             holder.carbs.setText(MainApp.gs(R.string.format_carbs, (int) t.carbs));
-            Iob iob = t.iobCalc(System.currentTimeMillis(), profile.getDia());
+            Iob iob = t.iobCalc(System.currentTimeMillis(), profile != null ? profile.getDia() : ' ');
             holder.iob.setText(MainApp.gs(R.string.formatinsulinunits, iob.iobContrib));
             holder.mealOrCorrection.setText(t.isSMB ? "SMB" : t.mealBolus ? MainApp.gs(R.string.mealbolus) : MainApp.gs(R.string.correctionbous));
             holder.ph.setVisibility(t.source == Source.PUMP ? View.VISIBLE : View.GONE);
