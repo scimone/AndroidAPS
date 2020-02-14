@@ -38,17 +38,19 @@ public class StatuslightHandler {
 
         applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE).age(true) + " ") : "", 164, 166);
 
-        if (pump.model() != PumpType.AccuChekCombo || pump.model() != PumpType.DanaRS) {
-            double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
-            applyStatuslightLevel(R.string.key_statuslights_bat_critical, 30.0,
-                    R.string.key_statuslights_bat_warning, 51.0,
-                    batteryView, "", batteryLevel);
-            batteryView.setText(extended ? (DecimalFormatter.to0Decimal(batteryLevel) + "%  ") : "");
-
+       if (  pump.model() == PumpType.DanaRS) {
+           applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
+        } else if(pump.model() == PumpType.DanaRv2 ||
+                  pump.model() == PumpType.AccuChekCombo) {
+            applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
         } else {
-            applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 504, 240);
+           // all other pumps
+           double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
+           applyStatuslightLevel(R.string.key_statuslights_bat_critical, 30.0,
+                   R.string.key_statuslights_bat_warning, 51.0,
+                   batteryView, "", batteryLevel);
+           batteryView.setText(extended ? (DecimalFormatter.to0Decimal(batteryLevel) + "%  ") : "");
         }
-
     }
 
     void handleAge(String nsSettingPlugin, String eventName, TextView view, String text,

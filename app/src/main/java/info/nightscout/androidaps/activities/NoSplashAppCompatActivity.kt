@@ -2,10 +2,9 @@ package info.nightscout.androidaps.activities
 
 import android.content.Context
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import info.nightscout.androidaps.utils.LocaleHelper
 
-open class NoSplashAppCompatActivity : AppCompatActivity() {
+open class NoSplashAppCompatActivity : BaseActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

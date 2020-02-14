@@ -149,15 +149,13 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     TextView deltaView;
     TextView deltaShortView;
     TextView avgdeltaView;
-
-
-    TextView iageView;
     TextView cageView;
     TextView reservoirView;
     TextView sageView;
     TextView batteryView;
     LinearLayout statuslightsLayout;
-    LinearLayout timedelta;
+
+    StatuslightHandler handler;
 
     // BottomNavigation and menu items
     BottomNavigationView bottomNavigationView;
@@ -183,13 +181,9 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     private BottomAppBar bottom_app_bar;
     static int y;
 
-    private boolean smallWidth;
     private boolean smallHeight;
 
     private MenuItem pluginPreferencesMenuItem;
-
-    Handler handler = new Handler();
-    private Runnable runnable;
 
     Handler sLoopHandler = new Handler();
     Runnable sRefreshLoop = null;
@@ -236,7 +230,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         reservoirView =  findViewById(R.id.reservoirView_text);
         cageView =  findViewById(R.id.canulaage_text);
         batteryView = findViewById(R.id.batteryage_text);
-        StatuslightHandler handler = new StatuslightHandler();
 
         if(sageView != null ){
             if (statuslightsLayout != null) {
@@ -467,6 +460,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
         setContentView(R.layout.activity_main);
 
+        handler = new StatuslightHandler();
+
         // set elements to fragment elements
         bgView = (TextView) findViewById(R.id.overview_bg);
         arrowView = (TextView) findViewById(R.id.overview_arrow);
@@ -480,7 +475,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screen_width = dm.widthPixels;
         int screen_height = dm.heightPixels;
-        smallWidth = screen_width <= Constants.SMALL_WIDTH;
         smallHeight = screen_height <= Constants.SMALL_HEIGHT;
 
         if( smallHeight ) {
@@ -568,7 +562,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 NestedScrollView nestedScrollView;
                 nestedScrollView = findViewById(R.id.main_activity_content_frame);
                 if( nestedScrollView != null) {
-                    Log.d("TAG", "Set Scroll listener");
+                    //Log.d("TAG", "Set Scroll listener");
                     nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
                         @Override
                         public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {

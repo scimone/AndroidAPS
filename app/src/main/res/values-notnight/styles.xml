@@ -36,6 +36,8 @@
         <item name="colorOnError">@color/color_on_error</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="scrimBackground">@color/mtrl_scrim_color</item>
+        <item name="android:textColorPrimary">@color/black_alpha_80</item>
+        <item name="android:textColor">@color/black_alpha_80</item>
         <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
