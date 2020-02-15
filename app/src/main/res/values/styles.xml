@@ -91,9 +91,19 @@
     <style name="AppTheme.PURPLE" parent="AppTheme.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColorPurple</item>
+        <item name="colorPrimaryVariant">@color/primaryColorPurpleVariant</item>
+        <item name="colorSecondary">@color/colorSecondaryPurple</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariantPurple</item>
+        <item name="colorOnPrimary">@color/colorOnPrimaryPurple</item>
+        <item name="colorOnSecondary">@color/colorOnSecondaryPurple</item>
+        <item name="colorOnBackground">@color/colorOnBackgroundPurple</item>
+        <item name="colorOnSurface">@color/colorOnSurfacePurple</item>
+        <item name="colorOnError">@color/colorOnErrorPurple</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorPurple</item>
         <item name="colorAccent">@color/secondaryColorPurple</item>
         <item name="overviewPillColor">@color/overviewPillColorPurple</item>
+        <item name="iconColor">@color/sphere_plastic_grey</item>
+        <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
     </style>
 
     <style name="AppTheme.DEEPPURPLE" parent="AppTheme.NoActionBar">

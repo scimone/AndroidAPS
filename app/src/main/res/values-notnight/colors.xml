@@ -220,17 +220,24 @@
     <color name="bottomBarBackgroundPink">#E91E63</color>
 
     <!-- PURPLE Theme -->
-    <color name="primaryColorPurple">#9C27B0</color>
-    <color name="primaryLightColorPurple">#E1BEE7</color>
-    <color name="primaryDarkColorPurple">#7B1FA2</color>
-    <color name="secondaryColorPurple">#CDDC39</color>
-    <color name="secondaryLightColorPurple">#e1ea86</color>
-    <color name="secondaryDarkColorPurple">#b4c320</color>
+    <color name="primaryColorPurple">#6200EE</color>
+    <color name="primaryColorPurpleVariant">#BB86FC</color>
+    <color name="colorSecondaryPurple">#03DAC6</color>
+    <color name="colorSecondaryVariantPurple">#018786</color>
+    <color name="colorOnPrimaryPurple">#FFFFFF</color>
+    <color name="colorOnSecondaryPurple">#000000</color>
+    <color name="colorOnBackgroundPurple">#000000</color>
+    <color name="colorOnSurfacePurple">#000000</color>
+    <color name="colorOnErrorPurple">#FFFFFF</color>
+    <color name="primaryLightColorPurple">#BB868C</color>
+    <color name="primaryDarkColorPurple">#3700B3</color>
+    <color name="secondaryColorPurple">#03DAC6</color>
+    <color name="secondaryLightColorPurple">#03F5E1</color>
+    <color name="secondaryDarkColorPurple">#018786</color>
     <color name="primaryTextColorPurple">#ffffff</color>
     <color name="secondaryTextColorPurple">#000000</color>
-    <color name="overviewPillColorPurple">#9C27B0</color>
-    <color name="colorOnPrimaryPurple">#E1BEE7</color>
-    <color name="bottomBarBackgroundPurple">#9C27B0</color>
+    <color name="overviewPillColorPurple">#6200EE</color>
+    <color name="bottomBarBackgroundPurple">#6200EE</color>
 
 
     <!-- DEEPPURPLE Theme -->
