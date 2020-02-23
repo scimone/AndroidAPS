@@ -147,6 +147,9 @@
 
     <!---The 3 pills in overview page-->
     <color name="overviewPillColor">#5a6275</color>
+    <!---The 3 pills in overview page with gradient color-->
+    <color name="PillColorStart">#FF91908D</color>
+    <color name="PillColorEnd">#FF393938</color>
 
     <!---Background Gradient Blue-->
     <color name="background_start_color_blue">#FF1E05AD</color>
@@ -200,6 +203,8 @@
     <color name="overviewPillColorRed">#3A7EFF</color>
     <color name="colorOnPrimaryRed">#FFCDD2</color>
     <color name="bottomBarBackgroundRed">#F44336</color>
+    <color name="PillColorStartRed">#D32F2F</color>
+    <color name="PillColorEndRed">#F44336</color>
 
     <!-- PINK Theme -->
     <color name="primaryColorPink">#E91E63</color>

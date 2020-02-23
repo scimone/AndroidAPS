@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <attr name="overviewPillColor" format="reference|color" />
+    <attr name="PillColorStart" format="reference|color" />
+    <attr name="PillColorEnd" format="reference|color" />
     <attr name="iconColor" format="reference|color" />
     <attr name="iconColorbottomAppbar" format="reference|color" />
     <attr name="fabmenubackground" format="reference|color" />
@@ -55,6 +57,9 @@
         <item name="bgInRange">@color/inrange_bg</item>
         <item name="bgLow">@color/low</item>
         <item name="bgHigh">@color/high</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStart</item>
+        <item name="PillColorEnd">@color/PillColorEnd</item>
         <!-- Color of dialog -->
         <item name="colorPrimaryDialog">?attr/colorPrimary</item>
         <item name="colorPrimaryDarkDialog">?attr/colorPrimaryDark</item>
@@ -95,6 +100,9 @@
         <item name="iconColor">@color/sphere_plastic_grey</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
         <item name="bgInRange">@color/primaryColorPurple</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartRed</item>
+        <item name="PillColorEnd">@color/PillColorEndRed</item>
     </style>
 
     <style name="AppTheme.PINK" parent="AppTheme.NoActionBar">
@@ -300,6 +308,9 @@
         <item name="android:background">@color/plastic</item>
         <item name="bottomAppBarStyle">@style/BottomAppbar</item>
         <item name="colorOnSurface">@color/sphere_plastic_grey</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartDarkside</item>
+        <item name="PillColorEnd">@color/PillColorEndDarkside</item>
     </style>
 
     <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >

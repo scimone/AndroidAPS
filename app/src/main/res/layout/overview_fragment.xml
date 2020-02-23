@@ -50,7 +50,7 @@
                     android:paddingBottom="4dp"
                     android:text="Open Loop"
                     android:drawableStart="@drawable/ic_aaps_logo_white"
-                    android:background="@drawable/rounded_corner"
+                    android:background="@drawable/ic_concinnity_pille"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
@@ -68,7 +68,7 @@
                     android:text="Profile"
                     android:shape="rectangle"
                     android:drawableStart="@drawable/ic_user_white"
-                    android:background="@drawable/rounded_corner"
+                    android:background="@drawable/ic_concinnity_pille"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -83,7 +83,7 @@
                     android:paddingBottom="4dp"
                     android:text="TempTarget"
                     android:drawableStart="@drawable/ic_zielkreuz_white"
-                    android:background="@drawable/rounded_corner"
+                    android:background="@drawable/ic_concinnity_pille"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>

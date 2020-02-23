@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <attr name="overviewPillColor" format="reference|color" />
+    <attr name="PillColorStart" format="reference|color" />
+    <attr name="PillColorEnd" format="reference|color" />
     <attr name="fabmenubackground" format="reference|color" />
     <attr name="iconColor" format="reference|color" />
     <attr name="iconColorbottomAppbar" format="reference|color" />
@@ -53,6 +55,9 @@
         <item name="bgInRange">@color/inrange_bg</item>
         <item name="bgLow">@color/low</item>
         <item name="bgHigh">@color/high</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStart</item>
+        <item name="PillColorEnd">@color/PillColorEnd</item>
         <!-- Color of dialog -->
         <item name="colorPrimaryDialog">?attr/colorPrimary</item>
         <item name="colorPrimaryDarkDialog">?attr/colorPrimaryDark</item>
@@ -78,6 +83,9 @@
         <item name="colorPrimaryDark">@color/primaryDarkColorRed</item>
         <item name="colorAccent">@color/secondaryColorRed</item>
         <item name="overviewPillColor">@color/overviewPillColorRed</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartRed</item>
+        <item name="PillColorEnd">@color/PillColorEndRed</item>
     </style>
 
     <style name="AppTheme.PINK" parent="AppTheme.NoActionBar">
