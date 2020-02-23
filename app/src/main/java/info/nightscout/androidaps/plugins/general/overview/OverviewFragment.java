@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.SpannableString;
@@ -138,18 +139,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     private TextView apsModeView;
     private TextView tempTargetView;
 
-    private TextView iage;
-    private TextView cage;
-    private TextView sage;
-    private TextView pbage;
-
-    private TextView pbLevel;
-    private TextView prLevel;
-
     private RecyclerView notificationsView;
     private LinearLayoutManager llm;
 
-    private LinearLayout acceptTempLayout;
     private SingleClickButton acceptTempButton;
 
     private boolean smallWidth;
@@ -200,45 +192,37 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             shorttextmode = true;
         }
 
-        sensitivityView = (TextView) view.findViewById(R.id.overview_sensitivity);
-        baseBasalView = (TextView) view.findViewById(R.id.overview_basebasal);
-        extendedBolusView = (TextView) view.findViewById(R.id.overview_extendedbolus);
-        overview_extendedbolus_layout = (LinearLayout) view.findViewById(R.id.overview_extendedbolus_layout);
-        activeProfileView = (TextView) view.findViewById(R.id.overview_activeprofile);
-        pumpStatusView = (TextView) view.findViewById(R.id.overview_pumpstatus);
-        pumpDeviceStatusView = (TextView) view.findViewById(R.id.overview_pump);
-        openapsDeviceStatusView = (TextView) view.findViewById(R.id.overview_openaps);
-        uploaderDeviceStatusView = (TextView) view.findViewById(R.id.overview_uploader);
-        iobCalculationProgressView = (TextView) view.findViewById(R.id.overview_iobcalculationprogess);
-        pumpStatusLayout = (LinearLayout) view.findViewById(R.id.overview_pumpstatuslayout);
+        sensitivityView = view.findViewById(R.id.overview_sensitivity);
+        baseBasalView = view.findViewById(R.id.overview_basebasal);
+        extendedBolusView = view.findViewById(R.id.overview_extendedbolus);
+        overview_extendedbolus_layout = view.findViewById(R.id.overview_extendedbolus_layout);
+        activeProfileView =  view.findViewById(R.id.overview_activeprofile);
+        pumpStatusView = view.findViewById(R.id.overview_pumpstatus);
+        pumpDeviceStatusView = view.findViewById(R.id.overview_pump);
+        openapsDeviceStatusView = view.findViewById(R.id.overview_openaps);
+        uploaderDeviceStatusView = view.findViewById(R.id.overview_uploader);
+        iobCalculationProgressView = view.findViewById(R.id.overview_iobcalculationprogess);
+        pumpStatusLayout = view.findViewById(R.id.overview_pumpstatuslayout);
         pumpStatusView.setBackgroundColor(MainApp.gc(R.color.colorInitializingBorder));
         pumpStatusView.setTextColor(getResources().getColor(R.color.colorInitializingBorderText));
-        iobView = (TextView) view.findViewById(R.id.overview_iob);
-        cobView = (TextView) view.findViewById(R.id.overview_cob);
+        iobView = view.findViewById(R.id.overview_iob);
+        cobView = view.findViewById(R.id.overview_cob);
 
-        loopStatusLayout = (LinearLayout) view.findViewById(R.id.overview_looplayout);
-        apsModeView = (TextView) view.findViewById(R.id.overview_apsmode);
-        activeProfileView = (TextView) view.findViewById(R.id.overview_activeprofile);
-        tempTargetView = (TextView) view.findViewById(R.id.overview_temptarget);
+        loopStatusLayout = view.findViewById(R.id.overview_looplayout);
+        apsModeView = view.findViewById(R.id.overview_apsmode);
+        activeProfileView = view.findViewById(R.id.overview_activeprofile);
+        tempTargetView = view.findViewById(R.id.overview_temptarget);
 
-        iage = view.findViewById(R.id.careportal_insulinage);
-        cage = view.findViewById(R.id.careportal_canulaage);
-        sage = view.findViewById(R.id.careportal_sensorage);
-        pbage = view.findViewById(R.id.careportal_pbage);
+        bgGraph = view.findViewById(R.id.overview_bggraph);
+        basalGraph = view.findViewById(R.id.overview_basalgraph);
+        iobGraph = view.findViewById(R.id.overview_iobgraph);
+        cobGraph = view.findViewById(R.id.overview_cobgraph);
 
-        pbLevel = view.findViewById(R.id.careportal_pbLevel);
-        prLevel = view.findViewById(R.id.careportal_prLevel);
-
-        bgGraph = (GraphView) view.findViewById(R.id.overview_bggraph);
-        basalGraph = (GraphView) view.findViewById(R.id.overview_basalgraph);
-        iobGraph = (GraphView) view.findViewById(R.id.overview_iobgraph);
-        cobGraph = (GraphView) view.findViewById(R.id.overview_cobgraph);
-
-        acceptTempButton = (SingleClickButton) view.findViewById(R.id.overview_accepttempbutton);
+        acceptTempButton = view.findViewById(R.id.overview_accepttempbutton);
         if (acceptTempButton != null)
             acceptTempButton.setOnClickListener(this);
 
-        notificationsView = (RecyclerView) view.findViewById(R.id.overview_notifications);
+        notificationsView = view.findViewById(R.id.overview_notifications);
         notificationsView.setHasFixedSize(false);
         llm = new LinearLayoutManager(view.getContext());
         notificationsView.setLayoutManager(llm);
@@ -421,7 +405,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
     sets all elements in chart
      */
     private void setupChartMenu(View view) {
-        chartButton = (ImageButton) view.findViewById(R.id.overview_chartMenuButton);
+        chartButton = view.findViewById(R.id.overview_chartMenuButton);
         chartButton.setOnClickListener(v -> {
             final LoopPlugin.LastRun finalLastRun = LoopPlugin.lastRun;
             boolean predictionsAvailable;
@@ -913,9 +897,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         }
         loopStatusLayout.setVisibility(View.VISIBLE);
 
-        //CareportalFragment.updateAge(getActivity(), sage, iage, cage, pbage);
-        //CareportalFragment.updatePumpSpecifics(prLevel, pbLevel);
-
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
         final Profile profile = ProfileFunctions.getInstance().getProfile();
@@ -933,36 +914,46 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             apsModeView.setVisibility(View.VISIBLE);
             Drawable drawable = apsModeView.getBackground();
             Drawable[] drawableLeft= apsModeView.getCompoundDrawables();
+
+            // create a gradient drawable
             Resources.Theme theme = getContext().getTheme();
-            TypedValue typedValue = new TypedValue();
-            theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
-            drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+            TypedValue typedValueStart = new TypedValue();
+            theme.resolveAttribute(R.attr.PillColorStart, typedValueStart, true);
+            TypedValue typedValueEnd = new TypedValue();
+            theme.resolveAttribute(R.attr.PillColorEnd, typedValueEnd, true);
+            int colors[] ={typedValueStart.data, typedValueEnd.data};
+            GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+            gradientDrawable.setCornerRadius(40);
+            apsModeView.setBackground(gradientDrawable);
+
+
             if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
             apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
             final LoopPlugin loopPlugin = LoopPlugin.getPlugin();
             if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuperBolus()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getContext().getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopsuperbolusfor), loopPlugin.minutesToEndOfSuspend()));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTypeface(null, Typeface.BOLD);
             } else if (loopPlugin.isDisconnected()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical, getContext().getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null)drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopdisconnectedfor), loopPlugin.minutesToEndOfSuspend()));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
             } else if (loopPlugin.isEnabled(PluginType.LOOP) && loopPlugin.isSuspended()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getContext().getTheme()), PorterDuff.Mode.SRC_IN);
                 apsModeView.setText(String.format(MainApp.gs(R.string.loopsuspendedfor), loopPlugin.minutesToEndOfSuspend()));
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setTypeface(null, Typeface.BOLD);
             } else if (pump.isSuspended()) {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getContext().getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
                 apsModeView.setText(MainApp.gs(R.string.pumpsuspended));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
@@ -975,7 +966,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 }
             } else {
                 drawable = apsModeView.getBackground();
-                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical), PorterDuff.Mode.SRC_IN);
+                drawable.setColorFilter(getResources().getColor(R.color.ribbonCritical, getContext().getTheme()), PorterDuff.Mode.SRC_IN);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextCritical));
                 apsModeView.setText(MainApp.gs(R.string.disabledloop));
                 apsModeView.setTextColor(MainApp.gc(R.color.ribbonTextCritical));
@@ -989,21 +980,30 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         if (tempTarget != null) {
             tempTargetView.setTypeface(null, Typeface.BOLD);
             tempTargetView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
+
             Drawable drawable = tempTargetView.getBackground();
             Drawable[] drawableLeft= tempTargetView.getCompoundDrawables();
             if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
-            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+
+            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getContext().getTheme()), PorterDuff.Mode.SRC_IN);
             tempTargetView.setVisibility(View.VISIBLE);
             tempTargetView.setText(Profile.toTargetRangeString(tempTarget.low, tempTarget.high, Constants.MGDL, units) + " " + DateUtil.untilString(tempTarget.end()));
         } else {
-            tempTargetView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
-            Drawable drawable = tempTargetView.getBackground();
-            Drawable[] drawableLeft= tempTargetView.getCompoundDrawables();
+            // create a gradient drawable
             Resources.Theme theme = getContext().getTheme();
-            TypedValue typedValue = new TypedValue();
-            theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
-            drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+            TypedValue typedValueStart = new TypedValue();
+            theme.resolveAttribute(R.attr.PillColorStart, typedValueStart, true);
+            TypedValue typedValueEnd = new TypedValue();
+            theme.resolveAttribute(R.attr.PillColorEnd, typedValueEnd, true);
+            int colors[] ={typedValueStart.data, typedValueEnd.data};
+            GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+            gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+            gradientDrawable.setCornerRadius(40);
+            tempTargetView.setBackground(gradientDrawable);
+            // set left icon color
+            Drawable[] drawableLeft= tempTargetView.getCompoundDrawables();
             if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
+            tempTargetView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
             tempTargetView.setText(Profile.toTargetRangeString(profile.getTargetLowMgdl(), profile.getTargetHighMgdl(), Constants.MGDL, units));
         }
 
@@ -1073,17 +1073,24 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             Drawable drawable = activeProfileView.getBackground();
             Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
             if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextWarning));
-            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning), PorterDuff.Mode.SRC_IN);
+            drawable.setColorFilter(getResources().getColor(R.color.ribbonWarning, getContext().getTheme()), PorterDuff.Mode.SRC_IN);
             activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextWarning));
             activeProfileView.setTypeface(null, Typeface.BOLD);
         } else {
-            Drawable drawable = activeProfileView.getBackground();
             Drawable[] drawableLeft= activeProfileView.getCompoundDrawables();
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = getContext().getTheme();
             if(theme != null){
-                theme.resolveAttribute(R.attr.overviewPillColor, typedValue, true);
-                drawable.setColorFilter(typedValue.data, PorterDuff.Mode.SRC_IN);
+                // create a gradient drawable
+                TypedValue typedValueStart = new TypedValue();
+                theme.resolveAttribute(R.attr.PillColorStart, typedValueStart, true);
+                TypedValue typedValueEnd = new TypedValue();
+                theme.resolveAttribute(R.attr.PillColorEnd, typedValueEnd, true);
+                int colors[] ={typedValueStart.data, typedValueEnd.data};
+                GradientDrawable gradientDrawable = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors);
+                gradientDrawable.setShape(GradientDrawable.RECTANGLE);
+                gradientDrawable.setCornerRadius(40);
+                activeProfileView.setBackground(gradientDrawable);
                 if ( drawableLeft[0] !=null) drawableLeft[0].setTint(MainApp.gc(R.color.ribbonTextDefault));
                 activeProfileView.setTextColor(MainApp.gc(R.color.ribbonTextDefault));
             }

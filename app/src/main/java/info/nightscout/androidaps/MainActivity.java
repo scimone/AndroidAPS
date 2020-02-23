@@ -137,6 +137,7 @@ import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
+@SuppressLint("SetTextI18n")
 // public class MainActivity extends AppCompatActivity {
 public class MainActivity extends NoSplashAppCompatActivity implements View.OnLongClickListener {
 
@@ -179,9 +180,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private BottomAppBar bottom_app_bar;
-    static int y;
-
-    private boolean smallHeight;
 
     private MenuItem pluginPreferencesMenuItem;
 
@@ -190,6 +188,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
     public static int mTheme = THEME_PINK;
     public static boolean mIsNightMode = true;
+
+    // get active theme
+    public Resources.Theme getActiveTheme(){
+        return getTheme();
+    }
 
     // change to selected theme in theme manager
     public void changeTheme(int newTheme){
@@ -246,14 +249,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 }
 
                 statuslightsLayout.setVisibility(View.VISIBLE);
-            } else {
-                statuslightsLayout.setVisibility(View.GONE);
             }
         }
     }
 
-    public void onClick(View view) {
-        action(view , view.getId(), getSupportFragmentManager());
+    public void onClick(View view) { action(view , view.getId(), getSupportFragmentManager());
     }
 
     public  void action(View view , int id, FragmentManager manager) {
@@ -348,7 +348,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     }
 
 
-    public  boolean openCgmApp(String packageName) {
+    public  void openCgmApp(String packageName) {
         PackageManager packageManager = getApplicationContext().getPackageManager();
         try {
             Intent intent = packageManager.getLaunchIntentForPackage(packageName);
@@ -357,19 +357,16 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             }
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             this.startActivity(intent);
-            return true;
         } catch (ActivityNotFoundException e) {
             new AlertDialog.Builder(getApplicationContext())
                     .setMessage(R.string.error_starting_cgm)
                     .setPositiveButton("OK", null)
                     .show();
-            return false;
         }
     }
-
     /*
      sets clicklistener on BottomNavigationView
-*/
+    */
     private void setupBottomNavigationView(View view) {
         boolean xdrip = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
         boolean dexcom = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
@@ -440,8 +437,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         // sets the main theme and color
         int newtheme = SP.getInt("theme", THEME_PINK);
         mTheme = newtheme;
-        boolean newMode = SP.getBoolean("daynight", mIsNightMode);
-        mIsNightMode = newMode;
+        mIsNightMode = SP.getBoolean("daynight", mIsNightMode);
 
         if(mIsNightMode){
             setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -463,11 +459,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         handler = new StatuslightHandler();
 
         // set elements to fragment elements
-        bgView = (TextView) findViewById(R.id.overview_bg);
-        arrowView = (TextView) findViewById(R.id.overview_arrow);
-        deltaView = (TextView) findViewById(R.id.overview_delta);
+        bgView = findViewById(R.id.overview_bg);
+        arrowView = findViewById(R.id.overview_arrow);
+        deltaView = findViewById(R.id.overview_delta);
 
-        avgdeltaView= (TextView) findViewById(R.id.average_delta);
+        avgdeltaView = findViewById(R.id.average_delta);
 
         // set BG in header are for small display like Unihertz Atom
         //check screen width and choose main dialog
@@ -475,7 +471,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screen_width = dm.widthPixels;
         int screen_height = dm.heightPixels;
-        smallHeight = screen_height <= Constants.SMALL_HEIGHT;
+        boolean smallHeight = screen_height <= Constants.SMALL_HEIGHT;
 
         if( smallHeight ) {
             if( bgView != null ) bgView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
@@ -491,14 +487,14 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         itemWizzard = bottomNavigationView.getMenu().findItem(R.id.overview_wizardbutton);
         itemCgm = bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton);
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
-        calibrationButton = (FloatingActionButton)findViewById(R.id.calibrationButton);
-        overviewQuickwizardbutton = (FloatingActionButton)findViewById(R.id.overview_quickwizardbutton);
+        fab = findViewById(R.id.fab);
+        calibrationButton = findViewById(R.id.calibrationButton);
+        overviewQuickwizardbutton = findViewById(R.id.overview_quickwizardbutton);
         overviewQuickwizardbutton.setLongClickable(true);
         overviewQuickwizardbutton.setOnLongClickListener(this::onLongClick);
 
 
-        overview_Treatmentbutton = (FloatingActionButton)findViewById(R.id.overview_treatmentbutton);
+        overview_Treatmentbutton = findViewById(R.id.overview_treatmentbutton);
         fab.setOnClickListener(this::onClick);
         calibrationButton.setOnClickListener(this::onClick);
         overviewQuickwizardbutton.setOnClickListener(this::onClick);
@@ -778,7 +774,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     private void updateLoopPill() {
         // pill for open loop mode
         TextView apsModeView;
-        apsModeView = (TextView) findViewById(R.id.overview_apsmode);
+        apsModeView = findViewById(R.id.overview_apsmode);
 
         if(apsModeView == null ) return;
 
@@ -1009,9 +1005,9 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         this.getCareportalInfo();
         this.upDateGlucose();
         this.upDateBottomMenuButtons();
-        this.updateLoopPill();
-        this.updateProfilePill();
-        this.updateTempTargetPill();
+        //this.updateLoopPill();
+        //this.updateProfilePill();
+        //this.updateTempTargetPill();
     }
 
     private void setWakeLock() {
@@ -1028,7 +1024,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     }
 
     private void setupViews() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(), this);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.getHeaderView(0);
@@ -1213,9 +1209,9 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                     getCareportalInfo();
                     upDateGlucose();
                     upDateBottomMenuButtons();
-                    updateLoopPill();
-                    updateProfilePill();
-                    updateTempTargetPill();
+                    //updateLoopPill();
+                    //updateProfilePill();
+                    //updateTempTargetPill();
                     scheduledUpdate = null;
                 });
             }
