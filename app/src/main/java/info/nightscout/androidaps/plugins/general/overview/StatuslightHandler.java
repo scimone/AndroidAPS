@@ -19,6 +19,7 @@ import info.nightscout.androidaps.utils.SP;
 
 public class StatuslightHandler {
 
+    ColorStateList oldColors = null;
     boolean extended = false;
     /**
      * applies the statuslight subview on the overview fragement
@@ -27,7 +28,7 @@ public class StatuslightHandler {
                      TextView sageView, TextView batteryView) {
         PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        applyStatuslight("cage", CareportalEvent.SITECHANGE, cageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE).age(true) + " ") : "", 24, 60);
+        applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE).age(true) + " ") : "", 24, 60);
         handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
                24, 60);
 
@@ -39,14 +40,14 @@ public class StatuslightHandler {
         applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE).age(true) + " ") : "", 164, 166);
 
        if (  pump.model() == PumpType.DanaRS) {
-           applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
+           applyStatuslight( "bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
         } else if(pump.model() == PumpType.DanaRv2 ||
                   pump.model() == PumpType.AccuChekCombo) {
             applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
         } else {
            // all other pumps
            double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
-           applyStatuslightLevel(R.string.key_statuslights_bat_critical, 30.0,
+           applyStatuslightLevel( R.string.key_statuslights_bat_critical, 30.0,
                    R.string.key_statuslights_bat_warning, 51.0,
                    batteryView, "", batteryLevel);
            batteryView.setText(extended ? (DecimalFormatter.to0Decimal(batteryLevel) + "%  ") : "");
@@ -77,7 +78,7 @@ public class StatuslightHandler {
         }
     }
 
-  public  void applyStatuslightLevel(int criticalSetting, double criticalDefaultValue,
+  public  void applyStatuslightLevel( int criticalSetting, double criticalDefaultValue,
                                int warnSetting, double warnDefaultValue,
                                TextView view, String text, double level) {
         if (view != null) {
@@ -87,13 +88,16 @@ public class StatuslightHandler {
         }
     }
 
+
   public  void applyStatuslight(TextView view, String text, double value, double warnThreshold,
                           double urgentThreshold, double invalid, boolean checkAscending) {
         Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value >= threshold :
                 (Double threshold) -> value < threshold;
-      ColorStateList colorStateList = view.getTextColors();
-      final int normalColor = colorStateList.getDefaultColor();
-      view.setTextColor(normalColor);
+
+        if( this.oldColors == null ) {
+            this.oldColors = view.getTextColors();
+        }
+        view.setTextColor(this.oldColors);
       //Log.d("TAG", "get statuslight value: " + value + " text: " + text + " warn: " + warnThreshold + " urgent: " + urgentThreshold );
         if (value != invalid) {
             view.setText(text);
@@ -104,7 +108,7 @@ public class StatuslightHandler {
                 view.setTextColor(MainApp.gc(R.color.ribbonWarning));
                 //Log.d("TAG", "warnThreshold: " + warnThreshold + " value: " + value + " text: " + text );
             } else {
-                view.setTextColor(normalColor);
+                view.setTextColor(this.oldColors);
             }
             view.setVisibility(View.VISIBLE);
         } else {
@@ -121,6 +125,6 @@ public class StatuslightHandler {
                              TextView batteryView) {
 
         extended = true;
-        statuslight(cageView, reservoirView, sageView, batteryView);
+        statuslight( cageView, reservoirView, sageView, batteryView);
     }
 }
