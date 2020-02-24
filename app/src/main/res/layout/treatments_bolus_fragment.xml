@@ -5,11 +5,6 @@
     android:layout_marginTop="4dp"
     tools:context=".plugins.treatments.fragments.TreatmentsBolusFragment">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id = "@+id/swipeRefresh"
-        android:layout_width = "match_parent"
-        android:layout_height = "match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -79,13 +74,16 @@
 
         </LinearLayout>
 
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id = "@+id/swipeRefreshBolus"
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/treatments_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </androidx.recyclerview.widget.RecyclerView>
-
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

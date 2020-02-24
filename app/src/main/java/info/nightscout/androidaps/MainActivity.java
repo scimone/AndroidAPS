@@ -509,7 +509,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         }
         // Sets a Bottom App bar
         bottom_app_bar = (BottomAppBar) findViewById(R.id.bottom_app_bar);
-        setSupportActionBar(bottom_app_bar);
+        //setSupportActionBar(bottom_app_bar);
         //bottom_app_bar.setHideOnScroll(true);
         setupBottomNavigationView(findViewById(R.id.drawer_layout));
 

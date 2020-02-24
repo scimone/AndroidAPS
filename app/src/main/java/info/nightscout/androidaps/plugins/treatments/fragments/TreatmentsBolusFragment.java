@@ -191,7 +191,7 @@ public class TreatmentsBolusFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.treatments_bolus_fragment, container, false);
 
-        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh = view.findViewById(R.id.swipeRefreshBolus);
         swipeRefresh.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
         swipeRefresh.setProgressBackgroundColorSchemeColor(ResourcesCompat.getColor(getResources(), R.color.swipe_background, null));
 
@@ -242,6 +242,12 @@ public class TreatmentsBolusFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view , Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        updateGui();
     }
 
     @Override
