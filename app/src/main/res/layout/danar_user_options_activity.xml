@@ -321,6 +321,8 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             app:icon="@drawable/icon_local_save"
             android:paddingLeft="4dp"
             android:paddingRight="0dp"
