@@ -1,8 +1,11 @@
 package info.nightscout.androidaps.plugins.general.overview.graphData;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+
+import androidx.core.content.ContextCompat;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
@@ -10,7 +13,6 @@ import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.Series;
-import com.utility.Helper;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -437,8 +439,9 @@ public class GraphData {
         iobSeries = new FixedLineGraphSeries<>(iobData);
         iobSeries.setDrawBackground(true);
         iobSeries.setBackgroundColor( MainApp.gc(R.color.iobSurface));
-        iobSeries.setColor(Helper.getAttributeColor(MainApp.instance(), R.color.iobBorder));
-        iobSeries.setThickness(5);
+        Context ctx = MainApp.instance().getBaseContext();
+        iobSeries.setColor(ContextCompat.getColor(MainApp.instance(), R.color.iobBorder));
+        iobSeries.setThickness(8);
 
         if (showPrediction) {
             AutosensResult lastAutosensResult;
@@ -520,8 +523,8 @@ public class GraphData {
         cobSeries = new FixedLineGraphSeries<>(cobData);
         cobSeries.setDrawBackground(true);
         cobSeries.setBackgroundColor( MainApp.gc(R.color.cobSurface));
-        cobSeries.setColor(Helper.getAttributeColor(MainApp.instance(), R.color.cobBorder));
-        cobSeries.setThickness(5);
+        cobSeries.setColor(ContextCompat.getColor(MainApp.instance(), R.color.cobBorder));
+        cobSeries.setThickness(8);
 
         if (useForScale) {
             maxY = maxCobValueFound;
@@ -700,7 +703,7 @@ public class GraphData {
         graph.getViewport().setMaxX(endTime);
         graph.getViewport().setMinX(fromTime);
         graph.getViewport().setXAxisBoundsManual(true);
-        graph.getGridLabelRenderer().setLabelFormatter(new TimeAsXAxisLabelFormatter("HH"));
+        graph.getGridLabelRenderer().setLabelFormatter(new TimeAsXAxisLabelFormatter("k:mm"));
         graph.getGridLabelRenderer().setNumHorizontalLabels(7); // only 7 because of the space
     }
 

@@ -31,6 +31,7 @@
          android:clickable="true"
          android:focusable="true"
          android:text="@string/danar_useroptions"
+         android:visibility="gone"
          app:icon="@drawable/icon_danar_useropt"/>
 
      <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -44,6 +45,7 @@
          android:focusable="true"
          android:text="@string/danar_stats"
          app:icon="@drawable/icon_danarstats"
+         android:visibility="gone"
          app:fabSize="auto" />
 
      <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -57,6 +59,7 @@
          android:layout_marginTop="220dp"
          android:text="@string/danar_history"
          app:icon="@drawable/icon_danarhistory"
+         android:visibility="gone"
          app:fabSize="auto" />
 
      <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -70,6 +73,7 @@
          android:focusable="true"
          android:text="@string/danar_viewprofile"
          app:icon="@drawable/icon_danarprofile"
+         android:visibility="gone"
          app:fabSize="auto" />
 
      <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

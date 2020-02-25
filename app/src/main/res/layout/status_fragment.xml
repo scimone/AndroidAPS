@@ -84,7 +84,7 @@
                     />
 
                 <TextView
-                    android:id="@+id/careportal_sensorage"
+                    android:id="@+id/sensorage_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal"
@@ -101,7 +101,7 @@
 
 
                 <ImageView
-                    android:id="@+id/insulinage"
+                    android:id="@+id/reservoirView"
                     android:contentDescription="@null"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
@@ -111,7 +111,7 @@
                     android:gravity="top"/>
 
                 <TextView
-                    android:id="@+id/careportal_prLevel"
+                    android:id="@+id/reservoirView_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal"
@@ -137,7 +137,7 @@
                     android:gravity="top"/>
 
                 <TextView
-                    android:id="@+id/careportal_canulaage"
+                    android:id="@+id/canulaage_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal"
@@ -164,7 +164,7 @@
                     android:gravity="top"/>
 
                 <TextView
-                    android:id="@+id/careportal_pbLevel"
+                    android:id="@+id/batteryage_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_horizontal"

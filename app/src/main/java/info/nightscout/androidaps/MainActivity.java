@@ -1,5 +1,6 @@
 package info.nightscout.androidaps;
 
+import android.annotation.SuppressLint;
 import android.app.TaskStackBuilder;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -43,6 +44,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -55,6 +58,7 @@ import com.utility.ViewAnimation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Field;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -69,7 +73,6 @@ import info.nightscout.androidaps.data.Profile;
 import info.nightscout.androidaps.data.QuickWizard;
 import info.nightscout.androidaps.data.QuickWizardEntry;
 import info.nightscout.androidaps.db.BgReading;
-import info.nightscout.androidaps.db.CareportalEvent;
 import info.nightscout.androidaps.db.DatabaseHelper;
 import info.nightscout.androidaps.db.TempTarget;
 import info.nightscout.androidaps.dialogs.CalibrationDialog;
@@ -103,7 +106,6 @@ import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin;
 import info.nightscout.androidaps.plugins.configBuilder.ProfileFunctions;
 import info.nightscout.androidaps.plugins.constraints.versionChecker.VersionCheckerUtilsKt;
-import info.nightscout.androidaps.plugins.general.careportal.CareportalFragment;
 import info.nightscout.androidaps.plugins.general.careportal.Dialogs.NewNSTreatmentDialog;
 import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus;
 import info.nightscout.androidaps.plugins.general.overview.OverviewPlugin;
@@ -132,10 +134,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
 import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
-import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.INSULINCHANGE;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 
+@SuppressLint("SetTextI18n")
 // public class MainActivity extends AppCompatActivity {
 public class MainActivity extends NoSplashAppCompatActivity implements View.OnLongClickListener {
 
@@ -148,15 +150,13 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     TextView deltaView;
     TextView deltaShortView;
     TextView avgdeltaView;
-
-
-    TextView iageView;
     TextView cageView;
     TextView reservoirView;
     TextView sageView;
     TextView batteryView;
     LinearLayout statuslightsLayout;
-    LinearLayout timedelta;
+
+    StatuslightHandler handler;
 
     // BottomNavigation and menu items
     BottomNavigationView bottomNavigationView;
@@ -180,21 +180,19 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private BottomAppBar bottom_app_bar;
-    static int y;
-
-    private boolean smallWidth;
-    private boolean smallHeight;
 
     private MenuItem pluginPreferencesMenuItem;
-
-    Handler handler = new Handler();
-    private Runnable runnable;
 
     Handler sLoopHandler = new Handler();
     Runnable sRefreshLoop = null;
 
     public static int mTheme = THEME_PINK;
     public static boolean mIsNightMode = true;
+
+    // get active theme
+    public Resources.Theme getActiveTheme(){
+        return getTheme();
+    }
 
     // change to selected theme in theme manager
     public void changeTheme(int newTheme){
@@ -230,71 +228,32 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     }
 
     public void getCareportalInfo() {
-        final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
-
         statuslightsLayout = findViewById(R.id.statuslight);
-        sageView =  findViewById(R.id.careportal_sensorage);
-        iageView =  findViewById(R.id.careportal_insulinage);
-        cageView =  findViewById(R.id.careportal_canulaage);
-        reservoirView = findViewById(R.id.careportal_prLevel);
-        batteryView = findViewById(R.id.careportal_pbLevel);
-        StatuslightHandler handler = new StatuslightHandler();
+        sageView =  findViewById(R.id.sensorage_text);
+        reservoirView =  findViewById(R.id.reservoirView_text);
+        cageView =  findViewById(R.id.canulaage_text);
+        batteryView = findViewById(R.id.batteryage_text);
 
-        if (statuslightsLayout != null) {
-            if (SP.getBoolean(R.string.key_show_statuslights, false)) {
-                CareportalEvent careportalEvent;
-                NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
-                double iageUrgent = nsSettings.getExtendedWarnValue("iage", "urgent", 40);
-                double iageWarn = nsSettings.getExtendedWarnValue("iage", "warn", 70);
-                double cageUrgent = nsSettings.getExtendedWarnValue("cage", "urgent", 72);
-                double cageWarn = nsSettings.getExtendedWarnValue("cage", "warn", 48);
-                double sageUrgent = nsSettings.getExtendedWarnValue("sage", "urgent", 166);
-                double sageWarn = nsSettings.getExtendedWarnValue("sage", "warn", 164);
-                double batUrgent = 600 ; //SP.getDouble(R.string.key_statuslights_bat_critical, 5.0);
-                double batWarn = 480; // SP.getDouble(R.string.key_statuslights_bat_warning, 25.0);
-                double resUrgent = SP.getDouble(R.string.key_statuslights_res_critical, 10.0);
-                double resWarn = SP.getDouble(R.string.key_statuslights_res_warning, 80.0);
-                if (sageView != null) {
-                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE);
-                double sensorAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                    handler.applyStatuslight(sageView, "", sensorAge, sageWarn, sageUrgent, Double.MAX_VALUE, true);
+        if(sageView != null ){
+            if (statuslightsLayout != null) {
+                if (SP.getBoolean(R.string.key_show_statuslights, false)) {
+                    if (SP.getBoolean(R.string.key_show_statuslights_extended, false)) {
+                        handler.extendedStatuslight(cageView, reservoirView , sageView, batteryView);
+                        statuslightsLayout.setVisibility(View.VISIBLE);
+                    } else {
+                        handler.statuslight(cageView, reservoirView , sageView, batteryView);
+                        statuslightsLayout.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    statuslightsLayout.setVisibility(View.GONE);
                 }
-
-                if (iageView != null) {
-                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.INSULINCHANGE);
-                double insulinAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                    handler.applyStatuslight(iageView, "IAGE", insulinAge, iageWarn, iageUrgent, Double.MAX_VALUE, true);
-                }
-                if (cageView != null) {
-                careportalEvent = MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE);
-                double canAge = careportalEvent != null ? careportalEvent.getHoursFromStart() : Double.MAX_VALUE;
-                    handler.applyStatuslight(cageView, "CAGE", canAge, cageWarn, cageUrgent, Double.MAX_VALUE, true);
-                }
-
-                if (reservoirView != null) {
-                double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
-                    handler.applyStatuslight(reservoirView, "RES", reservoirLevel, resWarn, resUrgent, -1, false);
-                }
-
-                if (batteryView != null) {
-                handler.statuslightBattery(batteryView);
-
-                    double batteryViewLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
-                    handler.applyStatuslight(batteryView, "BAT", batteryViewLevel, batWarn, batUrgent, -1, false);
-                }
-
-                CareportalFragment.updateAge( MainActivity.this, sageView, iageView, cageView, batteryView);
-                CareportalFragment.updatePumpSpecifics(reservoirView, null);
 
                 statuslightsLayout.setVisibility(View.VISIBLE);
-        } else {
-            statuslightsLayout.setVisibility(View.GONE);
+            }
         }
     }
-    }
 
-    public void onClick(View view) {
-        action(view , view.getId(), getSupportFragmentManager());
+    public void onClick(View view) { action(view , view.getId(), getSupportFragmentManager());
     }
 
     public  void action(View view , int id, FragmentManager manager) {
@@ -310,9 +269,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             case R.id.careportal_cgmsensorstart:
                 newCareDialog.setOptions(CareDialog.EventType.SENSOR_INSERT , R.string.careportal_cgmsensorinsert).show( manager, "Actions");
                 return;
-            case R.id.insulinage:
-                newDialog.setOptions(INSULINCHANGE, R.string.careportal_insulincartridgechange);
-                break;
             case R.id.canulaage:
                 //newDialog.setOptions(SITECHANGE, R.string.careportal_pumpsitechange);
                 fillDialog.show(manager ,"FillDialog") ;
@@ -392,7 +348,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     }
 
 
-    public  boolean openCgmApp(String packageName) {
+    public  void openCgmApp(String packageName) {
         PackageManager packageManager = getApplicationContext().getPackageManager();
         try {
             Intent intent = packageManager.getLaunchIntentForPackage(packageName);
@@ -401,19 +357,16 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             }
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             this.startActivity(intent);
-            return true;
         } catch (ActivityNotFoundException e) {
             new AlertDialog.Builder(getApplicationContext())
                     .setMessage(R.string.error_starting_cgm)
                     .setPositiveButton("OK", null)
                     .show();
-            return false;
         }
     }
-
     /*
      sets clicklistener on BottomNavigationView
-*/
+    */
     private void setupBottomNavigationView(View view) {
         boolean xdrip = SourceXdripPlugin.getPlugin().isEnabled(PluginType.BGSOURCE);
         boolean dexcom = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
@@ -458,14 +411,33 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 });
     }
 
+    @SuppressLint("RestrictedApi")
+    private void disableShiftMode(BottomNavigationView view) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
+        try {
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
+                item.setShifting(false);
+                // set once again checked value, so view will be updated
+                item.setChecked(item.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException e) {
+            Log.d("TAG", "Unable to get shift mode field", e);
+        } catch (IllegalAccessException e) {
+            Log.d("TAG", "Unable to change value of shift mode", e);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // sets the main theme and color
         int newtheme = SP.getInt("theme", THEME_PINK);
         mTheme = newtheme;
-        boolean newMode = SP.getBoolean("daynight", mIsNightMode);
-        mIsNightMode = newMode;
+        mIsNightMode = SP.getBoolean("daynight", mIsNightMode);
 
         if(mIsNightMode){
             setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -484,12 +456,14 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
         setContentView(R.layout.activity_main);
 
-        // set elements to fragment elements
-        bgView = (TextView) findViewById(R.id.overview_bg);
-        arrowView = (TextView) findViewById(R.id.overview_arrow);
-        deltaView = (TextView) findViewById(R.id.overview_delta);
+        handler = new StatuslightHandler();
 
-        avgdeltaView= (TextView) findViewById(R.id.average_delta);
+        // set elements to fragment elements
+        bgView = findViewById(R.id.overview_bg);
+        arrowView = findViewById(R.id.overview_arrow);
+        deltaView = findViewById(R.id.overview_delta);
+
+        avgdeltaView = findViewById(R.id.average_delta);
 
         // set BG in header are for small display like Unihertz Atom
         //check screen width and choose main dialog
@@ -497,14 +471,13 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         MainActivity.this.getWindowManager().getDefaultDisplay().getMetrics(dm);
         int screen_width = dm.widthPixels;
         int screen_height = dm.heightPixels;
-        smallWidth = screen_width <= Constants.SMALL_WIDTH;
-        smallHeight = screen_height <= Constants.SMALL_HEIGHT;
+        boolean smallHeight = screen_height <= Constants.SMALL_HEIGHT;
 
         if( smallHeight ) {
-            bgView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
-            arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
-            timeAgoView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
-            deltaView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            if( bgView != null ) bgView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
+            if( arrowView != null ) arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
+            if( timeAgoView != null ) timeAgoView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            if( deltaView != null ) deltaView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -514,14 +487,14 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         itemWizzard = bottomNavigationView.getMenu().findItem(R.id.overview_wizardbutton);
         itemCgm = bottomNavigationView.getMenu().findItem(R.id.overview_cgmbutton);
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
-        calibrationButton = (FloatingActionButton)findViewById(R.id.calibrationButton);
-        overviewQuickwizardbutton = (FloatingActionButton)findViewById(R.id.overview_quickwizardbutton);
+        fab = findViewById(R.id.fab);
+        calibrationButton = findViewById(R.id.calibrationButton);
+        overviewQuickwizardbutton = findViewById(R.id.overview_quickwizardbutton);
         overviewQuickwizardbutton.setLongClickable(true);
         overviewQuickwizardbutton.setOnLongClickListener(this::onLongClick);
 
 
-        overview_Treatmentbutton = (FloatingActionButton)findViewById(R.id.overview_treatmentbutton);
+        overview_Treatmentbutton = findViewById(R.id.overview_treatmentbutton);
         fab.setOnClickListener(this::onClick);
         calibrationButton.setOnClickListener(this::onClick);
         overviewQuickwizardbutton.setOnClickListener(this::onClick);
@@ -536,7 +509,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         }
         // Sets a Bottom App bar
         bottom_app_bar = (BottomAppBar) findViewById(R.id.bottom_app_bar);
-        setSupportActionBar(bottom_app_bar);
+        //setSupportActionBar(bottom_app_bar);
         //bottom_app_bar.setHideOnScroll(true);
         setupBottomNavigationView(findViewById(R.id.drawer_layout));
 
@@ -585,7 +558,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 NestedScrollView nestedScrollView;
                 nestedScrollView = findViewById(R.id.main_activity_content_frame);
                 if( nestedScrollView != null) {
-                    Log.d("TAG", "Set Scroll listener");
+                    //Log.d("TAG", "Set Scroll listener");
                     nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
                         @Override
                         public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -653,6 +626,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         if (Config.PUMPDRIVERS) {
             AndroidPermission.notifyForLocationPermissions(this);
             AndroidPermission.notifyForSMSPermissions(this);
+            AndroidPermission.notifyForSystemWindowPermissions(this);
         }
     }
 
@@ -800,7 +774,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     private void updateLoopPill() {
         // pill for open loop mode
         TextView apsModeView;
-        apsModeView = (TextView) findViewById(R.id.overview_apsmode);
+        apsModeView = findViewById(R.id.overview_apsmode);
 
         if(apsModeView == null ) return;
 
@@ -1031,9 +1005,9 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         this.getCareportalInfo();
         this.upDateGlucose();
         this.upDateBottomMenuButtons();
-        this.updateLoopPill();
-        this.updateProfilePill();
-        this.updateTempTargetPill();
+        //this.updateLoopPill();
+        //this.updateProfilePill();
+        //this.updateTempTargetPill();
     }
 
     private void setWakeLock() {
@@ -1050,7 +1024,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     }
 
     private void setupViews() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(), this);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.getHeaderView(0);
@@ -1104,6 +1078,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                     case AndroidPermission.CASE_SMS:
                     case AndroidPermission.CASE_BATTERY:
                     case AndroidPermission.CASE_PHONE_STATE:
+                    case AndroidPermission.CASE_SYSTEM_WINDOW:
                         break;
                 }
             }
@@ -1234,9 +1209,9 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                     getCareportalInfo();
                     upDateGlucose();
                     upDateBottomMenuButtons();
-                    updateLoopPill();
-                    updateProfilePill();
-                    updateTempTargetPill();
+                    //updateLoopPill();
+                    //updateProfilePill();
+                    //updateTempTargetPill();
                     scheduledUpdate = null;
                 });
             }
