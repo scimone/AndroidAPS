@@ -17,7 +17,10 @@ import info.nightscout.androidaps.plugins.pump.common.defs.PumpType;
  */
 public interface PumpInterface {
 
-    boolean isInitialized(); // true if pump status has been read and is ready to accept commands
+    default boolean isInitialized()  // true if pump status has been read and is ready to accept commands
+    {
+        return false;
+    }
 
     boolean isSuspended();   // true if suspended (not delivering insulin)
 
@@ -83,7 +86,10 @@ public interface PumpInterface {
     // Short info for SMS, Wear etc
     String shortStatus(boolean veryShort);
 
-    boolean isFakingTempsByExtendedBoluses();
+    default boolean isFakingTempsByExtendedBoluses()
+    {
+        return false;
+    }
 
     PumpEnactResult loadTDDs();
 

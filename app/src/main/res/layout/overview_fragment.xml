@@ -13,8 +13,9 @@
         android:layout_marginStart="2dp"
         android:layout_marginEnd="2dp"
         android:layout_marginTop="6dp"
+        android:layout_marginBottom="130dp"
         android:layout_above="@+id/overview_buttons"
-        android:fillViewport="false">
+        android:fillViewport="true">
 
 
         <LinearLayout
@@ -50,7 +51,7 @@
                     android:paddingBottom="4dp"
                     android:text="Open Loop"
                     android:drawableStart="@drawable/ic_aaps_logo_white"
-                    android:background="@drawable/rounded_corner"
+                    android:background="@drawable/ic_concinnity_pille"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
@@ -68,7 +69,7 @@
                     android:text="Profile"
                     android:shape="rectangle"
                     android:drawableStart="@drawable/ic_user_white"
-                    android:background="@drawable/rounded_corner"
+                    android:background="@drawable/ic_concinnity_pille"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -83,7 +84,7 @@
                     android:paddingBottom="4dp"
                     android:text="TempTarget"
                     android:drawableStart="@drawable/ic_zielkreuz_white"
-                    android:background="@drawable/rounded_corner"
+                    android:background="@drawable/ic_concinnity_pille"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>
@@ -108,51 +109,53 @@
                     android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
 
-            <LinearLayout
-                android:baselineAligned="false"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="14dp"
-                        android:layout_marginEnd="1dp"
-                        android:text="AS"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/overview_sensitivity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:layout_marginEnd="14dp"
-                        android:text=""
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="?attr/color_val"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_weight="1">
+                android:layout_height="match_parent"
+                android:layout_weight="6">
+
+                <LinearLayout
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="@+id/overview_bggraph"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="1dp"
+                            android:text="AS"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/overview_sensitivity"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:layout_marginEnd="14dp"
+                            android:text=""
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/color_val"/>
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <com.jjoe64.graphview.GraphView
                     android:id="@+id/overview_bggraph"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -163,7 +166,8 @@
                     android:id="@+id/overview_chartMenuButton"
                     android:layout_width="36dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="24dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:contentDescription="overview_chartMenuButton"
@@ -189,7 +193,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginStart="4dp"
                     android:layout_marginEnd="1dp"
                     android:text="@string/basal_short"
                     android:textSize="16sp" />
@@ -229,7 +233,7 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/overview_basalgraph"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_height="60dp"
@@ -251,7 +255,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/iob"
                         android:textSize="16sp" />
@@ -280,7 +284,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="8dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/extended_bolus_short"
                         android:textSize="16sp" />
@@ -305,7 +309,7 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/overview_iobgraph"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_height="90dp"
@@ -321,7 +325,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="3dp"
                     android:layout_marginEnd="1dp"
                     android:text="@string/cob"
                     android:textSize="16sp" />
@@ -352,19 +356,11 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/overview_cobgraph"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_height="90dp"
+                android:layout_height="80dp"
                 android:background="@color/chart_background"
                 android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/dummy"
-                android:layout_width="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_height="80dp"
-                android:orientation="horizontal">
-            </LinearLayout>
 
         </LinearLayout>
 

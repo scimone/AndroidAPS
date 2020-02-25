@@ -23,6 +23,9 @@ class StatsActivity : NoSplashAppCompatActivity() {
             delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
         }
         setTheme(newtheme)
+        val theme = super.getTheme()
+        theme.applyStyle(ThemeUtil.getThemeId(newtheme), true)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.stats_activity)
 

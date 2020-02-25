@@ -162,6 +162,12 @@ public class HistoryBrowseActivity extends NoSplashAppCompatActivity {
         iobGraph.getGridLabelRenderer().setLabelVerticalWidth(50);
         iobGraph.getGridLabelRenderer().setNumVerticalLabels(5);
 
+        bgGraph.getViewport().setXAxisBoundsManual(true);
+        bgGraph.getViewport().setMinX(4);
+        bgGraph.getViewport().setMaxX(100);
+        bgGraph.getViewport().setScalable(true);
+        bgGraph.getViewport().setScrollable(true);
+
         setupChartMenu();
     }
 

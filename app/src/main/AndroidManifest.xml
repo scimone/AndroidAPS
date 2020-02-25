@@ -278,7 +278,8 @@
             android:name=".activities.SingleFragmentActivity"
             android:theme="@style/AppTheme" />
 
-        <activity android:name=".plugins.general.maintenance.activities.LogSettingActivity" />
+        <activity android:name=".plugins.general.maintenance.activities.LogSettingActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".plugins.pump.insight.activities.InsightPairingActivity"
             android:label="@string/insight_pairing"

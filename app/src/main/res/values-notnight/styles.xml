@@ -1,6 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <attr name="overviewPillColor" format="reference|color" />
+    <attr name="PillColorStart" format="reference|color" />
+    <attr name="PillColorEnd" format="reference|color" />
     <attr name="iconColor" format="reference|color" />
     <attr name="iconColorbottomAppbar" format="reference|color" />
     <attr name="fabmenubackground" format="reference|color" />
@@ -11,6 +13,9 @@
     <attr name="bgHigh" format="reference|color" />
     <attr name="matButtonBackground" format="reference|color" />
     <attr name="color_val" format="reference|color" />
+    <attr name="colorPrimaryDialog" format="reference|color" />
+    <attr name="colorPrimaryDarkDialog" format="reference|color" />
+    <attr name="colorAccentDialog" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
@@ -33,6 +38,8 @@
         <item name="colorOnError">@color/color_on_error</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="scrimBackground">@color/mtrl_scrim_color</item>
+        <item name="android:textColorPrimary">@color/black_alpha_80</item>
+        <item name="android:textColor">@color/black_alpha_80</item>
         <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
         <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
@@ -50,6 +57,13 @@
         <item name="bgInRange">@color/inrange_bg</item>
         <item name="bgLow">@color/low</item>
         <item name="bgHigh">@color/high</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStart</item>
+        <item name="PillColorEnd">@color/PillColorEnd</item>
+        <!-- Color of dialog -->
+        <item name="colorPrimaryDialog">?attr/colorPrimary</item>
+        <item name="colorPrimaryDarkDialog">?attr/colorPrimaryDark</item>
+        <item name="colorAccentDialog">?attr/colorAccent</item>
     </style>
 
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.DayNight.Bridge"/>
@@ -86,6 +100,9 @@
         <item name="iconColor">@color/sphere_plastic_grey</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
         <item name="bgInRange">@color/primaryColorPurple</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartRed</item>
+        <item name="PillColorEnd">@color/PillColorEndRed</item>
     </style>
 
     <style name="AppTheme.PINK" parent="AppTheme.NoActionBar">
@@ -101,6 +118,14 @@
     <style name="AppTheme.PURPLE" parent="AppTheme.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColorPurple</item>
+        <item name="colorPrimaryVariant">@color/primaryColorPurpleVariant</item>
+        <item name="colorSecondary">@color/colorSecondaryPurple</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariantPurple</item>
+        <item name="colorOnPrimary">@color/colorOnPrimaryPurple</item>
+        <item name="colorOnSecondary">@color/colorOnSecondaryPurple</item>
+        <item name="colorOnBackground">@color/colorOnBackgroundPurple</item>
+        <item name="colorOnSurface">@color/colorOnSurfacePurple</item>
+        <item name="colorOnError">@color/colorOnErrorPurple</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorPurple</item>
         <item name="colorAccent">@color/secondaryColorPurple</item>
         <item name="overviewPillColor">@color/overviewPillColorPurple</item>
@@ -283,6 +308,9 @@
         <item name="android:background">@color/plastic</item>
         <item name="bottomAppBarStyle">@style/BottomAppbar</item>
         <item name="colorOnSurface">@color/sphere_plastic_grey</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartDarkside</item>
+        <item name="PillColorEnd">@color/PillColorEndDarkside</item>
     </style>
 
     <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >
@@ -317,11 +345,7 @@
     <style name="Buton.Borderless" parent="Widget.AppCompat.Button.Borderless"/>
     <style name="Buton.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored"/>
 
-
-    <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
-        <item name="colorPrimary">@color/primaryColorGray</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorGray</item>
-        <item name="colorAccent">@color/secondaryColorGray</item>
+    <style name="Theme.AppCompat.Translucent" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
@@ -329,10 +353,7 @@
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
-    <style name="InsightAlertDialog" parent="Theme.AppCompat.Dialog">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="InsightAlertDialog" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowMinWidthMajor">96%</item>
         <item name="android:windowMinWidthMinor">96%</item>
     </style>

@@ -74,13 +74,13 @@ public class TreatmentsBolusFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull TreatmentsViewHolder holder, int position) {
             Profile profile = ProfileFunctions.getInstance().getProfile();
-            if (profile == null)
-                return;
+            //if (profile == null)
+              //  return;
             Treatment t = treatments.get(position);
             holder.date.setText(DateUtil.dateAndTimeString(t.date));
             holder.insulin.setText(MainApp.gs(R.string.formatinsulinunits, t.insulin));
             holder.carbs.setText(MainApp.gs(R.string.format_carbs, (int) t.carbs));
-            Iob iob = t.iobCalc(System.currentTimeMillis(), profile.getDia());
+            Iob iob = t.iobCalc(System.currentTimeMillis(), profile != null ? profile.getDia() : ' ');
             holder.iob.setText(MainApp.gs(R.string.formatinsulinunits, iob.iobContrib));
             holder.mealOrCorrection.setText(t.isSMB ? "SMB" : t.mealBolus ? MainApp.gs(R.string.mealbolus) : MainApp.gs(R.string.correctionbous));
             holder.ph.setVisibility(t.source == Source.PUMP ? View.VISIBLE : View.GONE);
@@ -191,7 +191,7 @@ public class TreatmentsBolusFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.treatments_bolus_fragment, container, false);
 
-        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh = view.findViewById(R.id.swipeRefreshBolus);
         swipeRefresh.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
         swipeRefresh.setProgressBackgroundColorSchemeColor(ResourcesCompat.getColor(getResources(), R.color.swipe_background, null));
 
@@ -242,6 +242,12 @@ public class TreatmentsBolusFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view , Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        updateGui();
     }
 
     @Override
