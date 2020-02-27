@@ -213,17 +213,24 @@
     <color name="PillColorEndRed">#F44336</color>
 
     <!-- PINK Theme -->
-    <color name="primaryColorPink">#E91E63</color>
-    <color name="primaryLightColorPink">#F8BBD0</color>
-    <color name="primaryDarkColorPink">#C2185B</color>
-    <color name="secondaryColorPink">#448AFF</color>
-    <color name="secondaryLightColorPink">#89b3f8</color>
-    <color name="secondaryDarkColorPink">#1a62da</color>
+    <color name="primaryColorPink">#f76dc9</color>
+    <color name="primaryColorPinkVariant">#c13998</color>
+    <color name="primaryLightColorPink">#ffa0fc</color>
+    <color name="primaryDarkColorPink">#c13998</color>
+    <color name="secondaryColorPink">#bdbdbd</color>
+    <color name="secondaryLightColorPink">#efefef</color>
+    <color name="secondaryDarkColorPink">#8d8d8d</color>
+    <color name="colorSecondaryPink">#bdbdbd</color>
+    <color name="colorSecondaryVariantPink">#efefef</color>
+    <color name="colorOnPrimaryPink">#FFFFFF</color>
+    <color name="colorOnSecondaryPink">#000000</color>
+    <color name="colorOnBackgroundPink">#000000</color>
+    <color name="colorOnSurfacePink">#000000</color>
+    <color name="colorOnErrorPink">#FFFFFF</color>
     <color name="primaryTextColorPink">#000000</color>
     <color name="secondaryTextColorPink">#000000</color>
     <color name="overviewPillColorPink">#E91E63</color>
-    <color name="colorOnPrimaryPink">#F8BBD0</color>
-    <color name="bottomBarBackgroundPink">#E91E63</color>
+    <color name="bottomBarBackgroundPink">#f76dc9</color>
 
     <!-- PURPLE Theme -->
     <color name="primaryColorPurple">#6200EE</color>

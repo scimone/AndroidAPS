@@ -159,8 +159,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorCarbsButton"
-                    android:background="@color/chart_background"/>
+                    android:textColor="@color/colorCarbsButton"/>
 
                 <ImageButton
                     android:id="@+id/overview_chartMenuButton"
@@ -237,7 +236,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_height="60dp"
-                android:background="@color/chart_background"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -313,7 +311,6 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_height="90dp"
-                android:background="@color/chart_background"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -359,7 +356,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_height="80dp"
-                android:background="@color/chart_background"
                 android:visibility="gone" />
 
         </LinearLayout>

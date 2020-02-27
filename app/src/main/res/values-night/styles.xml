@@ -104,12 +104,24 @@
     </style>
 
     <style name="AppTheme.PINK" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!-- PINK Theme -->
         <item name="colorPrimary">@color/primaryColorPink</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorPink</item>
-        <item name="colorAccent">@color/secondaryColorPink</item>
+        <item name="colorPrimaryVariant">@color/primaryColorPinkVariant</item>
+        <item name="colorSecondary">@color/colorSecondaryPink</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariantPink</item>
+        <item name="colorOnPrimary">@color/colorOnPrimaryPink</item>
+        <item name="colorOnSecondary">@color/colorOnSecondaryPink</item>
+        <item name="colorOnBackground">@color/colorOnBackgroundPink</item>
+        <item name="colorOnSurface">@color/colorOnSurfacePink</item>
+        <item name="colorOnError">@color/colorOnErrorPink</item>
+        <item name="android:textColorPrimary">@color/primaryTextColorPink</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColorPink</item>
+        <item name="iconColor">@color/sphere_plastic_grey</item>
         <item name="overviewPillColor">@color/overviewPillColorPink</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
+        <item name="PillColorStart">@color/primaryColorPinkVariant</item>
+        <item name="PillColorEnd">@color/primaryColorPink</item>
     </style>
 
     <style name="AppTheme.PURPLE" parent="AppTheme.NoActionBar">
