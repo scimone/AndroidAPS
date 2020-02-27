@@ -327,7 +327,7 @@
         <!-- Color of pills -->
         <item name="PillColorStart">@color/PillColorStartDarkside</item>
         <item name="PillColorEnd">@color/PillColorEndDarkside</item>
-        <item name="colorGraphBackground">@color/black_alpha_30</item>
+        <item name="colorGraphBackground">@color/black_alpha_20</item>
     </style>
 
     <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >
