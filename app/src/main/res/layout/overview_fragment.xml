@@ -159,7 +159,8 @@
                     android:layout_marginEnd="8dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorCarbsButton"/>
+                    android:textColor="@color/colorCarbsButton"
+                    android:background="?attr/colorGraphBackground"/>
 
                 <ImageButton
                     android:id="@+id/overview_chartMenuButton"
@@ -236,7 +237,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_height="60dp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:background="?attr/colorGraphBackground"/>
 
             <LinearLayout
                 android:id="@+id/overview_iob_extbolus_layout"
@@ -311,7 +313,8 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_height="90dp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:background="?attr/colorGraphBackground"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -356,7 +359,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_height="80dp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:background="?attr/colorGraphBackground"/>
 
         </LinearLayout>
 
