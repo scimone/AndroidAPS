@@ -466,8 +466,8 @@
     <color name="overviewPillColorDarkside">#1c171c</color>
     <color name="colorOnPrimaryDarkside">#FFFFFF</color>
     <color name="bottomBarBackgroundDarkside">#8c8c8c</color>
-    <color name="PillColorStartDarkside">#666666</color>
-    <color name="PillColorEndDarkside">#bbb9bb</color>
+    <color name="PillColorStartDarkside">#FF2495d7</color>
+    <color name="PillColorEndDarkside">#FFEBEBEA</color>
 
 
     <!-- Rig22 Colors -->

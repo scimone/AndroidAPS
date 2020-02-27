@@ -490,6 +490,16 @@
     <color name="crimson">#911d10</color>
     <color name="plastic_grey">#666666</color>
     <color name="sphere_plastic_grey">#8c8c8c</color>
+    <color name="lila">#fa8a4b</color>
+    <color name="peachblue">#6ac0e0</color>
+    <color name="concinnity_black">#050503</color>
+    <color name="concinnity_bright_grey">#bdbcb8</color>
+    <color name="concinnity_cyan">#2495d7</color>
+    <color name="concinnity_amber">#90faae00</color>
+    <color name="concinnity_amber_icon">#FCC851</color>
+    <color name="concinnity_grey">#999999</color>
+    <color name="light_white">#50ffffff</color>
+    <color name="statuslightsymbol">#595555</color>
 
     <color name="colorButton">#00000000</color>
 </resources>
