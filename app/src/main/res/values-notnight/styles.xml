@@ -328,6 +328,8 @@
         <item name="PillColorStart">@color/PillColorStartDarkside</item>
         <item name="PillColorEnd">@color/PillColorEndDarkside</item>
         <item name="colorGraphBackground">@color/black_alpha_20</item>
+        <item name="android:textColorPrimary">@color/inrange_bg</item>
+        <item name="android:textColor">@color/inrange_bg</item>
     </style>
 
     <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >
