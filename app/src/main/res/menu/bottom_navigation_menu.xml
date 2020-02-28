@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/overview_insulinbutton"
-        android:icon="@drawable/ic_iob_48"
+        android:icon="?attr/iconInsulin"
         app:showAsAction="ifRoom"
         android:tint="?attr/iconColorbottomAppbar"
         android:title="@string/overview_insulin_label" />

@@ -167,7 +167,7 @@
                     android:layout_width="36dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="22dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:contentDescription="overview_chartMenuButton"
