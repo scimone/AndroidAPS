@@ -468,6 +468,7 @@
     <color name="overviewPillColorDarkside">#1c171c</color>
     <color name="colorOnPrimaryDarkside">#FFFFFF</color>
     <color name="bottomBarBackgroundDarkside">#1c171c</color>
+    <color name="fabmenubackgroundDarkside">#83141428</color>
 
     <!-- Rig22 Colors -->>
     <color name="black">#000000</color>

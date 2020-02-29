@@ -475,6 +475,7 @@
     <color name="bottomBarBackgroundDarkside">#8c8c8c</color>
     <color name="PillColorStartDarkside">#1c171c</color>
     <color name="PillColorEndDarkside">#bbb9bb</color>
+    <color name="fabmenubackgroundDarkside">#43141428</color>
 
 
     <color name="splashBackground">#2E2E2E</color>
