@@ -105,7 +105,7 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        minSdkVersion 23
+        minSdkVersion 24
         targetSdkVersion 28
         multiDexEnabled true
         versionCode 1500

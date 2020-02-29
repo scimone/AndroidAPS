@@ -165,6 +165,9 @@
         <item name="colorPrimaryDark">@color/primaryDarkColorIndigo</item>
         <item name="colorAccent">@color/secondaryColorIndigo</item>
         <item name="overviewPillColor">@color/overviewPillColorIndigo</item>
+        <item name="android:windowBackground">@drawable/blue_gradient_background</item>
+        <item name="android:textColorPrimary">@color/mdtp_white</item>
+        <item name="android:textColor">@color/mdtp_white</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
     </style>
 
@@ -174,6 +177,8 @@
         <item name="colorPrimaryDark">@color/primaryDarkColorBlue</item>
         <item name="colorAccent">@color/secondaryColorBlue</item>
         <item name="overviewPillColor">@color/overviewPillColorBlue</item>
+        <item name="android:textColorPrimary">@color/mdtp_white</item>
+        <item name="android:textColor">@color/mdtp_white</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
     </style>
 
