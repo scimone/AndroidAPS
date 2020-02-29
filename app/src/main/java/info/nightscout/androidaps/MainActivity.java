@@ -132,7 +132,7 @@ import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.ToastUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-
+import static info.nightscout.androidaps.utils.EspressoTestHelperKt.isRunningRealPumpTest;
 import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
@@ -616,7 +616,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 .subscribe(this::processPreferenceChange, FabricPrivacy::logException)
         );
 
-        if (!SP.getBoolean(R.string.key_setupwizard_processed, false)) {
+        if (!SP.getBoolean(R.string.key_setupwizard_processed, false) && !isRunningRealPumpTest()) {
             Intent intent = new Intent(this, SetupWizardActivity.class);
             startActivity(intent);
         }

@@ -62,6 +62,8 @@ class TreatmentsProfileSwitchFragment : Fragment() {
                 swipeRefresh.isRefreshing = false
             }
         }
+        if (SP.getBoolean(R.string.key_ns_upload_only, true)) profileswitch_refreshfromnightscout.visibility = View.GONE
+
     }
 
     @Synchronized
