@@ -2,6 +2,7 @@ package info.nightscout.androidaps.plugins.treatments.fragments;
 
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,9 @@ public class TreatmentsBolusFragment extends Fragment {
     private TextView iobTotal;
     private TextView activityTotal;
     private Button deleteFutureTreatments;
+
+    private Handler handler;
+    private Runnable runnable;
 
     SwipeRefreshLayout swipeRefresh;
 
@@ -246,8 +250,9 @@ public class TreatmentsBolusFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view , Bundle savedInstanceState) {
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(TreatmentsPlugin.getPlugin().getTreatmentsFromHistory());
+        recyclerView.setAdapter(adapter);
         super.onViewCreated(view, savedInstanceState);
-        updateGui();
     }
 
     @Override

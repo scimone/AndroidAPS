@@ -335,8 +335,6 @@
         <item name="PillColorStart">@color/PillColorStartDarkside</item>
         <item name="PillColorEnd">@color/PillColorEndDarkside</item>
         <item name="colorGraphBackground">@color/black_alpha_20</item>
-        <item name="android:textColorPrimary">@color/primaryDarkColorBlue</item>
-        <item name="android:textColor">@color/primaryDarkColorBlue</item>
         <!-- Icons of bottom naviagtion bar -->
         <item name="iconInsulin">@drawable/ic_pumpe_48</item>
     </style>

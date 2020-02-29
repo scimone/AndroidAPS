@@ -28,13 +28,13 @@ public class StatuslightHandler {
                      TextView sageView, TextView batteryView) {
         PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE).age(true) + " ") : "", 24, 60);
+        applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE).age(true) + " ") : "", 24, 36);
         handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
                24, 60);
 
         double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
-        applyStatuslightLevel(R.string.key_statuslights_res_critical, 20.0,
-                R.string.key_statuslights_res_warning, 50.0, reservoirView, "", reservoirLevel);
+        applyStatuslightLevel(R.string.key_statuslights_res_critical, 40.0,
+                R.string.key_statuslights_res_warning, 80.0, reservoirView, "", reservoirLevel);
         reservoirView.setText(extended ? (DecimalFormatter.to0Decimal(reservoirLevel) + "U  ") : "");
 
         applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE).age(true) + " ") : "", 164, 166);

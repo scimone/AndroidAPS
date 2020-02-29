@@ -105,7 +105,7 @@
     <color name="deviationblack">#72000000</color>
 
     <color name="ribbonDefault">#3A7EFF</color>
-    <color name="ribbonWarning">#f0a30a</color>
+    <color name="ribbonWarning">#FCC851</color>
     <color name="ribbonCritical">#ff0400</color>
     <color name="ribbonTextDefault">#FFFFFF</color>
     <color name="ribbonTextWarning">#303030</color>
@@ -180,21 +180,15 @@
     <color name="colorPrimaryDark_grey">#5a6275</color>
     <color name="colorAccent_grey">#FFFFFF</color>
 
-
     <color name="common_background_grey">#707991</color>
     <color name="labelsColor">#FFFFFF</color>
-
 
     <color name="colorPrimary1">#AF216D</color>
     <color name="colorPrimaryDark1">#8E1A59</color>
 
-
     <color name="themeDeselected">#d69b9b9b</color>
     <color name="themeSelected">#e300aaff</color>
     <color name="seperator">#7ca6a6a6</color>
-
-
-
 
     <!-- RED Theme -->
     <color name="primaryColorRed">#F44336</color>
@@ -473,9 +467,8 @@
     <color name="overviewPillColorDarkside">#1c171c</color>
     <color name="colorOnPrimaryDarkside">#FFFFFF</color>
     <color name="bottomBarBackgroundDarkside">#8c8c8c</color>
-    <color name="PillColorStartDarkside">#666666</color>
-    <color name="PillColorEndDarkside">#bbb9bb</color>
-
+    <color name="PillColorStartDarkside">#bbb9bb</color>
+    <color name="PillColorEndDarkside">#666666</color>
 
     <!-- Rig22 Colors -->>
     <color name="black">#000000</color>
@@ -505,7 +498,6 @@
     <color name="concinnity_grey">#999999</color>
     <color name="careportal_low">#fa8a4b</color>
     <color name="careportal_high">#f06b0a</color>
-
 
     <color name="colorButton">#00000000</color>
 
