@@ -16,6 +16,7 @@ import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus
 import info.nightscout.androidaps.plugins.pump.common.defs.PumpType;
 import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.SP;
+import info.nightscout.androidaps.utils.SetWarnColor;
 
 public class StatuslightHandler {
 
