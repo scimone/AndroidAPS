@@ -236,18 +236,16 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
         if(sageView != null ){
             if (statuslightsLayout != null) {
-                if (SP.getBoolean(R.string.key_show_statuslights, false)) {
-                    if (SP.getBoolean(R.string.key_show_statuslights_extended, false)) {
+                if (SP.getBoolean(R.string.key_show_statuslights, false) == true) {
+                    statuslightsLayout.setVisibility(View.VISIBLE);
+                    if (SP.getBoolean(R.string.key_show_statuslights_extended, false) == true) {
                         handler.extendedStatuslight(cageView, reservoirView , sageView, batteryView);
-                        statuslightsLayout.setVisibility(View.VISIBLE);
                     } else {
                         handler.statuslight(cageView, reservoirView , sageView, batteryView);
-                        statuslightsLayout.setVisibility(View.VISIBLE);
                     }
                 } else {
                     statuslightsLayout.setVisibility(View.GONE);
                 }
-
                 statuslightsLayout.setVisibility(View.VISIBLE);
             }
         }
@@ -523,7 +521,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setShowHideAnimationEnabled(true);
+        // getSupportActionBar().setShowHideAnimationEnabled(true);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_navigation, R.string.close_navigation);
