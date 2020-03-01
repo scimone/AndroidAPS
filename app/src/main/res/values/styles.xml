@@ -201,7 +201,9 @@
         <item name="colorPrimary">@color/primaryColorLime</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorLime</item>
         <item name="colorAccent">@color/secondaryColorLime</item>
-        <item name="overviewPillColor">@color/overviewPillColorLime</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartLime</item>
+        <item name="PillColorEnd">@color/PillColorEndLime</item>
     </style>
 
     <style name="AppTheme.YELLOW" parent="AppTheme.NoActionBar">

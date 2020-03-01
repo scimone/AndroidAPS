@@ -241,9 +241,11 @@
         <item name="colorPrimary">@color/primaryColorLime</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorLime</item>
         <item name="colorAccent">@color/secondaryColorLime</item>
-        <item name="overviewPillColor">@color/overviewPillColorLime</item>
         <item name="iconColor">@color/sphere_plastic_grey</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartLime</item>
+        <item name="PillColorEnd">@color/PillColorEndLime</item>
     </style>
 
     <style name="AppTheme.YELLOW" parent="AppTheme.NoActionBar">

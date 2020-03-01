@@ -16,6 +16,7 @@ import info.nightscout.androidaps.plugins.general.nsclient.data.NSSettingsStatus
 import info.nightscout.androidaps.plugins.pump.common.defs.PumpType;
 import info.nightscout.androidaps.utils.DecimalFormatter;
 import info.nightscout.androidaps.utils.SP;
+import info.nightscout.androidaps.utils.SetWarnColor;
 
 public class StatuslightHandler {
 
@@ -46,11 +47,20 @@ public class StatuslightHandler {
             applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
         } else {
            // all other pumps
-           double batteryLevel = pump.isInitialized() ? pump.getBatteryLevel() : -1;
-           applyStatuslightLevel( R.string.key_statuslights_bat_critical, 30.0,
+           handleLevel(R.string.key_statuslights_bat_critical, 26.0,
                    R.string.key_statuslights_bat_warning, 51.0,
-                   batteryView, "", batteryLevel);
-           batteryView.setText(extended ? (DecimalFormatter.to0Decimal(batteryLevel) + "%  ") : "");
+                   batteryView, "BAT ", pump.getBatteryLevel());
+        }
+    }
+
+    void handleLevel(int criticalSetting, double criticalDefaultValue,
+                     int warnSetting, double warnDefaultValue,
+                     TextView view, String text, double batteryLevel) {
+        if (view != null) {
+            double resUrgent = SP.getDouble(criticalSetting, criticalDefaultValue);
+            double resWarn = SP.getDouble(warnSetting, warnDefaultValue);
+            view.setText(extended ? (DecimalFormatter.to0Decimal(batteryLevel) + "%  ") : "");
+            SetWarnColor.setColorInverse(view, batteryLevel, resWarn, resUrgent);
         }
     }
 

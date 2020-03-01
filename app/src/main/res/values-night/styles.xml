@@ -231,8 +231,16 @@
         <item name="colorPrimary">@color/primaryColorLime</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorLime</item>
         <item name="colorAccent">@color/secondaryColorLime</item>
-        <item name="overviewPillColor">@color/overviewPillColorLime</item>
+        <item name="colorSecondary">@color/secondaryColorLime</item>
+        <item name="colorOnSecondary">@color/secondaryTextColorLime</item>
+        <item name="colorOnPrimary">@color/primaryTextColorLime</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartLime</item>
+        <item name="PillColorEnd">@color/PillColorEndLime</item>
+        <item name="android:windowBackground">@drawable/auroraborealis01</item>
+        <item name="android:background">@color/black_alpha_70</item>
+        <item name="android:backgroundTintMode">multiply</item>
     </style>
 
     <style name="AppTheme.YELLOW" parent="AppTheme.NoActionBar">

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.LIME" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColorLime</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorLime</item>
+        <item name="colorAccent">@color/secondaryColorLime</item>
+        <item name="colorSecondary">@color/secondaryColorLime</item>
+        <item name="colorOnSecondary">@color/primaryTextColorLime</item>
+        <item name="colorOnPrimary">@color/primaryTextColorLime</item>
+        <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartLime</item>
+        <item name="PillColorEnd">@color/PillColorEndLime</item>
+        <item name="android:windowBackground">@drawable/auroraborealis01</item>
+        <item name="android:backgroundTint">@color/white_alpha_70</item>
+        <item name="android:backgroundTintMode">multiply</item>
+        <item name="android:dialogCornerRadius">10dp</item>
+    </style>
+</resources>
