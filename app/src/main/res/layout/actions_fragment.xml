@@ -147,6 +147,7 @@
                 android:paddingLeft="0dp"
                 android:paddingRight="0dp"
                 android:text="@string/careportal_exercise"
+                android:textSize="14sp"
                 app:cornerRadius="20dp"
                 app:layout_column="0"
                 app:layout_columnWeight="1"
