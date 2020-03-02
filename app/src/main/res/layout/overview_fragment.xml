@@ -132,7 +132,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginStart="8dp"
                             android:layout_marginEnd="1dp"
                             android:text="AS"
                             android:textSize="16sp" />
@@ -143,7 +143,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="end"
-                            android:layout_marginEnd="14dp"
+                            android:layout_marginEnd="8dp"
                             android:text=""
                             android:textSize="16sp"
                             android:textStyle="bold"
@@ -155,19 +155,21 @@
                 <com.jjoe64.graphview.GraphView
                     android:id="@+id/overview_bggraph"
                     android:layout_marginTop="24dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorCarbsButton"
-                    android:background="@color/concinnity_bright_grey"/>
+                    android:background="?attr/colorGraphBackground"/>
+
+
 
                 <ImageButton
                     android:id="@+id/overview_chartMenuButton"
                     android:layout_width="36dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="18dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="22dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:contentDescription="overview_chartMenuButton"
@@ -205,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:layout_marginEnd="12dp"
+                    android:layout_marginEnd="8dp"
                     android:text="0.50U/h @17:35 1/30min - 0.40U/h"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -233,12 +235,14 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/overview_basalgraph"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="4dp"
                 android:layout_height="60dp"
-                android:background="@color/concinnity_bright_grey"
+                android:visibility="gone"
+                android:background="?attr/colorGraphBackground"/>
                 android:visibility="gone" />
+
 
             <LinearLayout
                 android:id="@+id/overview_iob_extbolus_layout"
@@ -255,7 +259,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="6dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/iob"
                         android:textSize="16sp" />
@@ -266,7 +270,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:layout_marginEnd="14dp"
+                        android:layout_marginEnd="10dp"
                         android:text=""
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -284,7 +288,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="6dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/extended_bolus_short"
                         android:textSize="16sp" />
@@ -296,7 +300,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:layout_marginEnd="14dp"
+                        android:layout_marginEnd="12dp"
                         android:text="0.50U/h @17:35 1/30min - 0.40U/h"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -309,12 +313,12 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/overview_iobgraph"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="4dp"
                 android:layout_height="90dp"
-                android:background="@color/concinnity_bright_grey"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:background="?attr/colorGraphBackground"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -325,7 +329,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="3dp"
+                    android:layout_marginStart="4dp"
                     android:layout_marginEnd="1dp"
                     android:text="@string/cob"
                     android:textSize="16sp" />
@@ -346,7 +350,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:layout_marginStart="1dp"
-                    android:layout_marginEnd="14dp"
+                    android:layout_marginEnd="10dp"
                     android:text="@string/shortgramm"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -356,11 +360,11 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/overview_cobgraph"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
                 android:layout_height="80dp"
-                android:background="@color/concinnity_bright_grey"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:background="?attr/colorGraphBackground"/>
 
         </LinearLayout>
 

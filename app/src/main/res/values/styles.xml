@@ -16,6 +16,9 @@
     <attr name="colorPrimaryDialog" format="reference|color" />
     <attr name="colorPrimaryDarkDialog" format="reference|color" />
     <attr name="colorAccentDialog" format="reference|color" />
+    <attr name="colorGraphBackground" format="reference|color" />
+
+    <attr name="iconInsulin" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
@@ -62,6 +65,10 @@
         <item name="colorPrimaryDialog">?attr/colorPrimary</item>
         <item name="colorPrimaryDarkDialog">?attr/colorPrimaryDark</item>
         <item name="colorAccentDialog">?attr/colorAccent</item>
+        <!-- Color of graph background -->
+        <item name="colorGraphBackground">@color/transparent</item>
+        <!-- Icons of bottom naviagtion bar -->
+        <item name="iconInsulin">@drawable/ic_iob_48</item>
     </style>
 
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar"/>
@@ -89,11 +96,22 @@
     </style>
 
     <style name="AppTheme.PINK" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
+        <!-- PINK Theme -->
         <item name="colorPrimary">@color/primaryColorPink</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorPink</item>
-        <item name="colorAccent">@color/secondaryColorPink</item>
+        <item name="colorPrimaryVariant">@color/primaryColorPinkVariant</item>
+        <item name="colorSecondary">@color/colorSecondaryPink</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariantPink</item>
+        <item name="colorOnPrimary">@color/colorOnPrimaryPink</item>
+        <item name="colorOnSecondary">@color/colorOnSecondaryPink</item>
+        <item name="colorOnBackground">@color/colorOnBackgroundPink</item>
+        <item name="colorOnSurface">@color/colorOnSurfacePink</item>
+        <item name="colorOnError">@color/colorOnErrorPink</item>
+        <item name="android:textColorPrimary">@color/primaryTextColorPink</item>
+        <item name="android:textColorSecondary">@color/secondaryTextColorPink</item>
+        <item name="iconColor">@color/sphere_plastic_grey</item>
         <item name="overviewPillColor">@color/overviewPillColorPink</item>
+        <item name="bottomAppBarStyle">@color/bottomBarBackgroundPink</item>
     </style>
 
     <style name="AppTheme.PURPLE" parent="AppTheme.NoActionBar">

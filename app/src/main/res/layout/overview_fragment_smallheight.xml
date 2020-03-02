@@ -13,8 +13,10 @@
         android:layout_marginStart="2dp"
         android:layout_marginEnd="2dp"
         android:layout_marginTop="6dp"
+        android:layout_marginBottom="130dp"
         android:layout_above="@+id/overview_buttons"
-        android:fillViewport="false">
+        android:fillViewport="true">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,10 +46,12 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical|center_horizontal"
+                    android:paddingStart="4dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
                     android:text="Open Loop"
-                    android:background="@drawable/rounded_corner"
+                    android:drawableStart="@drawable/ic_aaps_logo_white"
+                    android:background="@drawable/ic_concinnity_pille"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
@@ -59,11 +63,13 @@
                     android:layout_marginEnd="5dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical|center_horizontal"
+                    android:paddingStart="4dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
                     android:text="Profile"
                     android:shape="rectangle"
-                    android:background="@drawable/rounded_corner"
+                    android:drawableStart="@drawable/ic_user_white"
+                    android:background="@drawable/ic_concinnity_pille"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -73,10 +79,12 @@
                     android:layout_gravity="end"
                     android:layout_weight="1"
                     android:gravity="center_vertical|center_horizontal"
+                    android:paddingStart="4dp"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
                     android:text="TempTarget"
-                    android:background="@drawable/rounded_corner"
+                    android:drawableStart="@drawable/ic_zielkreuz_white"
+                    android:background="@drawable/ic_concinnity_pille"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>
@@ -101,21 +109,19 @@
                     android:textAppearance="?android:attr/textAppearanceSmall" />
             </LinearLayout>
 
-            <LinearLayout
-                android:baselineAligned="false"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_weight="0"
-                android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="6">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:layout_marginTop="6dp"
-                    android:orientation="vertical">
-
+                    android:layout_alignParentTop="@+id/overview_bggraph"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="1dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -123,50 +129,45 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="18dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
                             android:layout_marginEnd="1dp"
                             android:text="AS"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="5dp"
-                            android:layout_height="wrap_content"
-                            android:text=":"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:id="@+id/overview_sensitivity"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="18dp"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:layout_marginEnd="8dp"
                             android:text=""
-                            android:textSize="14sp"
-                            android:textStyle="bold"/>
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="?attr/color_val"/>
                     </LinearLayout>
+
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="220dp"
-                android:layout_weight="1">
 
                 <com.jjoe64.graphview.GraphView
                     android:id="@+id/overview_bggraph"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorCarbsButton"
-                    android:background="@color/chart_background"/>
+                    android:background="?attr/colorGraphBackground"/>
 
                 <ImageButton
                     android:id="@+id/overview_chartMenuButton"
                     android:layout_width="36dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="22dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:contentDescription="overview_chartMenuButton"
@@ -183,49 +184,67 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/basalLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
                     android:layout_marginEnd="1dp"
                     android:text="@string/basal_short"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="5dp"
-                    android:layout_height="wrap_content"
-                    android:text=":"
-                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/overview_basebasal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:layout_marginEnd="8dp"
+                    android:text="0.50U/h @17:35 1/30min - 0.40U/h"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/color_val"/>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_cancelbasal"
+                    app:fabSize="mini"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="0.50U/h @17:35 1/30min - 0.40U/h"
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    app:borderWidth="2dp"
+                    android:tint="?attr/iconColor"
+                    android:src="@drawable/icon_cancelbasal"
+                    android:layout_gravity="top|end"
+                    app:maxImageSize="26dp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
             </LinearLayout>
+
 
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/overview_basalgraph"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
                 android:layout_marginBottom="4dp"
-                android:layout_height="120dp"
-                android:background="@color/chart_background"
-                android:visibility="gone" />
+                android:layout_height="60dp"
+                android:visibility="gone"
+                android:background="?attr/colorGraphBackground"/>
 
             <LinearLayout
                 android:id="@+id/overview_iob_extbolus_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -233,27 +252,25 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/iob"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content"
-                        android:text=":"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/overview_iob"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:layout_marginEnd="10dp"
                         android:text=""
-                        android:textSize="14sp"
-                        android:textStyle="bold"/>
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -264,26 +281,26 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/extended_bolus_short"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
 
-                    <TextView
-                        android:layout_width="5dp"
-                        android:layout_height="wrap_content"
-                        android:text=":"
-                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/overview_extendedbolus"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:layout_marginEnd="12dp"
                         android:text="0.50U/h @17:35 1/30min - 0.40U/h"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="?attr/color_val"/>
 
                 </LinearLayout>
 
@@ -292,12 +309,12 @@
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/overview_iobgraph"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="8dp"
-                android:layout_height="150dp"
-                android:background="@color/chart_background"
-                android:visibility="gone" />
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="4dp"
+                android:layout_height="90dp"
+                android:visibility="gone"
+                android:background="?attr/colorGraphBackground"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -305,39 +322,48 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="4dp"
                     android:layout_marginEnd="1dp"
                     android:text="@string/cob"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="5dp"
-                    android:layout_height="wrap_content"
-                    android:text=":"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/overview_cob"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
                     android:text=""
-                    android:textSize="14sp"
-                    android:textStyle="bold"/>
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/color_val"/>
+
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/shortgramm"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/color_val"/>
 
             </LinearLayout>
             <com.jjoe64.graphview.GraphView
                 android:id="@+id/overview_cobgraph"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_height="150dp"
-                android:background="@color/chart_background"
-                android:visibility="gone" />
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:layout_height="80dp"
+                android:visibility="gone"
+                android:background="?attr/colorGraphBackground"/>
 
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
@@ -372,4 +398,5 @@
                 android:textColor="@color/colorAcceptTempButton" />
         </LinearLayout>
     </LinearLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -168,7 +168,7 @@ public class TreatmentsTempTargetFragment extends Fragment {
         swipeRefresh.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
         swipeRefresh.setProgressBackgroundColorSchemeColor(ResourcesCompat.getColor(getResources(), R.color.swipe_background, null));
 
-        boolean nsUploadOnly = SP.getBoolean(R.string.key_ns_upload_only, false);
+        boolean nsUploadOnly = SP.getBoolean(R.string.key_ns_upload_only, true);
         if (nsUploadOnly) {
             swipeRefresh.setEnabled(false);
         } else {

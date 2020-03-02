@@ -132,7 +132,7 @@ import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.ToastUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-
+import static info.nightscout.androidaps.utils.EspressoTestHelperKt.isRunningRealPumpTest;
 import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
@@ -236,18 +236,16 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
         if(sageView != null ){
             if (statuslightsLayout != null) {
-                if (SP.getBoolean(R.string.key_show_statuslights, false)) {
-                    if (SP.getBoolean(R.string.key_show_statuslights_extended, false)) {
+                if (SP.getBoolean(R.string.key_show_statuslights, false) == true) {
+                    statuslightsLayout.setVisibility(View.VISIBLE);
+                    if (SP.getBoolean(R.string.key_show_statuslights_extended, false) == true) {
                         handler.extendedStatuslight(cageView, reservoirView , sageView, batteryView);
-                        statuslightsLayout.setVisibility(View.VISIBLE);
                     } else {
                         handler.statuslight(cageView, reservoirView , sageView, batteryView);
-                        statuslightsLayout.setVisibility(View.VISIBLE);
                     }
                 } else {
                     statuslightsLayout.setVisibility(View.GONE);
                 }
-
                 statuslightsLayout.setVisibility(View.VISIBLE);
             }
         }
@@ -523,7 +521,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setShowHideAnimationEnabled(true);
+        // getSupportActionBar().setShowHideAnimationEnabled(true);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_navigation, R.string.close_navigation);
@@ -616,7 +614,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 .subscribe(this::processPreferenceChange, FabricPrivacy::logException)
         );
 
-        if (!SP.getBoolean(R.string.key_setupwizard_processed, false)) {
+        if (!SP.getBoolean(R.string.key_setupwizard_processed, false) && !isRunningRealPumpTest()) {
             Intent intent = new Intent(this, SetupWizardActivity.class);
             startActivity(intent);
         }

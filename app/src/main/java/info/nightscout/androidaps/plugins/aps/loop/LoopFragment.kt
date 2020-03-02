@@ -48,7 +48,7 @@ class LoopFragment : Fragment() {
 
             swipeRefresh_loop.setOnRefreshListener {
             mRunnable = Runnable {
-                loop_lastrun.text = MainApp.gs(R.string.executing)
+                loop_lastrun?.text = MainApp.gs(R.string.executing)
                 Thread { LoopPlugin.getPlugin().invoke("Loop button", true) }.start()
                 // Hide swipe to refresh icon animation
                 swipeRefresh_loop.isRefreshing = false
