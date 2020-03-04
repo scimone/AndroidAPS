@@ -130,12 +130,14 @@ import info.nightscout.androidaps.utils.OKDialog;
 import info.nightscout.androidaps.utils.PasswordProtection;
 import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.ToastUtils;
+import io.alterac.blurkit.BlurLayout;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import static info.nightscout.androidaps.utils.EspressoTestHelperKt.isRunningRealPumpTest;
+
 import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
+import static info.nightscout.androidaps.utils.EspressoTestHelperKt.isRunningRealPumpTest;
 
 @SuppressLint("SetTextI18n")
 // public class MainActivity extends AppCompatActivity {
@@ -155,7 +157,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     TextView sageView;
     TextView batteryView;
     LinearLayout statuslightsLayout;
-
     StatuslightHandler handler;
 
     // BottomNavigation and menu items
@@ -450,7 +451,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         setTheme(ThemeUtil.getThemeId(newtheme));
 
         super.onCreate(savedInstanceState);
-
         Iconify.with(new FontAwesomeModule());
         LocaleHelper.INSTANCE.update(getApplicationContext());
 

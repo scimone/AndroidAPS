@@ -297,7 +297,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/show_calculation"
                 android:layout_gravity="center_vertical"
-                android:tint="?attr/iconColor"
+                app:tint="?attr/iconColor"
                 android:src="@drawable/ic_visibility" />
 
             <Button
