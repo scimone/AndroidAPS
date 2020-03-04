@@ -419,14 +419,21 @@
 
             </LinearLayout>
 
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/overview_bggraph"
-                android:layout_width="0dp"
-                android:layout_height="200dp"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toTopOf="@+id/overview_iobgraph"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/overview_statuslights" />
+                app:layout_constraintTop_toBottomOf="@+id/overview_statuslights"
+                android:layout_weight="6">
+
+            <com.jjoe64.graphview.GraphView
+                android:id="@+id/overview_bggraph"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageButton
                 android:id="@+id/overview_chartMenuButton"
@@ -438,6 +445,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/overview_bggraph"
                 app:layout_constraintTop_toTopOf="@+id/overview_bggraph"
                 app:srcCompat="@drawable/ic_arrow_drop_down_white_24dp" />
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/overview_iobcalculationprogess"
