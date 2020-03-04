@@ -107,6 +107,8 @@ android {
     defaultConfig {
         minSdkVersion 24
         targetSdkVersion 28
+        renderscriptTargetApi 28 //must match target sdk and build tools
+        renderscriptSupportModeEnabled true
         multiDexEnabled true
         versionCode 1500
         version "12.7.0 gui-refactor-dev"
@@ -244,7 +246,6 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03"
     implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
-    implementation 'io.alterac.blurkit:blurkit:1.1.0'
 
     implementation "com.j256.ormlite:ormlite-core:${ormLiteVersion}"
     implementation "com.j256.ormlite:ormlite-android:${ormLiteVersion}"

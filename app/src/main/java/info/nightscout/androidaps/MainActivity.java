@@ -130,7 +130,6 @@ import info.nightscout.androidaps.utils.OKDialog;
 import info.nightscout.androidaps.utils.PasswordProtection;
 import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.ToastUtils;
-import io.alterac.blurkit.BlurLayout;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
