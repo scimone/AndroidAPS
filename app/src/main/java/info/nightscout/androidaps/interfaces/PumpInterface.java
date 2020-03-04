@@ -53,8 +53,10 @@ public interface PumpInterface {
 
     double getReservoirLevel();
 
-    int getBatteryLevel();  // in percent as integer
-
+    default int getBatteryLevel()  // in percent as integer
+    {
+        return 0;
+    }
     PumpEnactResult deliverTreatment(DetailedBolusInfo detailedBolusInfo);
 
     void stopBolusDelivering();

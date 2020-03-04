@@ -29,27 +29,46 @@ public class StatuslightHandler {
                      TextView sageView, TextView batteryView) {
         PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
 
-        applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE).age(true) + " ") : "", 24, 36);
-        handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
-               24, 60);
+        // Canula age
+        if( cageView != null ) {
+            applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE).age(true) + " ") : "", 24, 36);
+            handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
+                    24, 60);
+        }
 
-        double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
-        applyStatuslightLevel(R.string.key_statuslights_res_critical, 40.0,
-                R.string.key_statuslights_res_warning, 80.0, reservoirView, "", reservoirLevel);
-        reservoirView.setText(extended ? (DecimalFormatter.to0Decimal(reservoirLevel) + "U  ") : "");
+        if( pump.isInitialized() ){
+            // Reservoir age
+            if ( reservoirView != null) {
+                double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
+                applyStatuslightLevel(R.string.key_statuslights_res_critical, 40.0,
+                        R.string.key_statuslights_res_warning, 80.0, reservoirView, "", reservoirLevel);
+                reservoirView.setText(extended ? (DecimalFormatter.to0Decimal(reservoirLevel) + "U  ") : "");
+            }
+            // Sensor age
+            if( sageView != null) {
+                applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE).age(true) + " ") : "", 164, 166);
+            }
 
-        applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE).age(true) + " ") : "", 164, 166);
+            if(batteryView != null) {
+                if (  pump.model() == PumpType.DanaRS) {
+                    applyStatuslight( "bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
+                } else if(pump.model() == PumpType.DanaRv2 ||
+                        pump.model() == PumpType.AccuChekCombo) {
+                    applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
+                } else if ( pump.model() == PumpType.AccuChekInsight ||
+                        pump.model() == PumpType.AccuChekInsightBluetooth ) {
+                    handleLevel(R.string.key_statuslights_bat_critical, 26.0,
+                            R.string.key_statuslights_bat_warning, 51.0,
+                            batteryView, "BAT ", pump.getBatteryLevel());
 
-       if (  pump.model() == PumpType.DanaRS) {
-           applyStatuslight( "bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
-        } else if(pump.model() == PumpType.DanaRv2 ||
-                  pump.model() == PumpType.AccuChekCombo) {
-            applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
-        } else {
-           // all other pumps
-           handleLevel(R.string.key_statuslights_bat_critical, 26.0,
-                   R.string.key_statuslights_bat_warning, 51.0,
-                   batteryView, "BAT ", pump.getBatteryLevel());
+                } else {
+                    // all other pumps
+                    handleLevel(R.string.key_statuslights_bat_critical, 26.0,
+                            R.string.key_statuslights_bat_warning, 51.0,
+                            batteryView, "BAT ", pump.getBatteryLevel());
+                }
+            }
+
         }
     }
 
@@ -63,7 +82,7 @@ public class StatuslightHandler {
             SetWarnColor.setColorInverse(view, batteryLevel, resWarn, resUrgent);
         }
     }
-
+    
     void handleAge(String nsSettingPlugin, String eventName, TextView view, String text,
                    int defaultWarnThreshold, int defaultUrgentThreshold) {
         NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
