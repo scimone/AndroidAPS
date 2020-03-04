@@ -108,7 +108,10 @@ public class CareportalEvent implements DataPointWithLabelInterface, Interval {
     }
 
     public String age() {
-        return age(OverviewFragment.shorttextmode);
+        if( age(OverviewFragment.shorttextmode) != null){
+            return age(OverviewFragment.shorttextmode);
+        }
+        return "";
     }
 
     public boolean isOlderThan(double hours) {
