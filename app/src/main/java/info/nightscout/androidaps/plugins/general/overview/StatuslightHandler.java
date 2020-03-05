@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.arch.core.util.Function;
 
+import java.util.Objects;
+
 import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.R;
 import info.nightscout.androidaps.db.CareportalEvent;
@@ -20,8 +22,8 @@ import info.nightscout.androidaps.utils.SetWarnColor;
 
 public class StatuslightHandler {
 
-    ColorStateList oldColors = null;
-    boolean extended = false;
+    private ColorStateList oldColors = null;
+    private boolean extended = false;
     /**
      * applies the statuslight subview on the overview fragement
      */
@@ -31,12 +33,13 @@ public class StatuslightHandler {
 
         // Canula age
         if( cageView != null ) {
-            applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE).age(true) + " ") : "", 24, 36);
+            applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE)).age(true) + " ") : "", 24, 36);
             handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
                     24, 60);
         }
 
-        if( pump.isInitialized() ){
+       assert pump != null;
+       if( pump.isInitialized() ){
             // Reservoir age
             if ( reservoirView != null) {
                 double reservoirLevel = pump.isInitialized() ? pump.getReservoirLevel() : -1;
@@ -46,15 +49,15 @@ public class StatuslightHandler {
             }
             // Sensor age
             if( sageView != null) {
-                applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE).age(true) + " ") : "", 164, 166);
+                applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE)).age(true) + " ") : "", 164, 166);
             }
 
             if(batteryView != null) {
                 if (  pump.model() == PumpType.DanaRS) {
-                    applyStatuslight( "bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
+                    applyStatuslight( "bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE)).age(true) + " ") : "", 240, 504);
                 } else if(pump.model() == PumpType.DanaRv2 ||
                         pump.model() == PumpType.AccuChekCombo) {
-                    applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE).age(true) + " ") : "", 240, 504);
+                    applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE)).age(true) + " ") : "", 240, 504);
                 } else if ( pump.model() == PumpType.AccuChekInsight ||
                         pump.model() == PumpType.AccuChekInsightBluetooth ) {
                     handleLevel(R.string.key_statuslights_bat_critical, 26.0,
@@ -72,9 +75,9 @@ public class StatuslightHandler {
         }
     }
 
-    void handleLevel(int criticalSetting, double criticalDefaultValue,
-                     int warnSetting, double warnDefaultValue,
-                     TextView view, String text, double batteryLevel) {
+    private void handleLevel(int criticalSetting, double criticalDefaultValue,
+                             int warnSetting, double warnDefaultValue,
+                             TextView view, String text, double batteryLevel) {
         if (view != null) {
             double resUrgent = SP.getDouble(criticalSetting, criticalDefaultValue);
             double resWarn = SP.getDouble(warnSetting, warnDefaultValue);
@@ -83,8 +86,8 @@ public class StatuslightHandler {
         }
     }
     
-    void handleAge(String nsSettingPlugin, String eventName, TextView view, String text,
-                   int defaultWarnThreshold, int defaultUrgentThreshold) {
+    private void handleAge(String nsSettingPlugin, String eventName, TextView view, String text,
+                           int defaultWarnThreshold, int defaultUrgentThreshold) {
         NSSettingsStatus nsSettings = new NSSettingsStatus().getInstance();
 
         if (view != null) {
@@ -94,8 +97,8 @@ public class StatuslightHandler {
         }
     }
 
-  public  void applyStatuslight(String nsSettingPlugin, String eventName, TextView view, String text,
-                          int defaultWarnThreshold, int defaultUrgentThreshold) {
+  private void applyStatuslight(String nsSettingPlugin, String eventName, TextView view, String text,
+                                int defaultWarnThreshold, int defaultUrgentThreshold) {
         NSSettingsStatus nsSettings = NSSettingsStatus.getInstance();
 
         if (view != null) {
@@ -107,9 +110,9 @@ public class StatuslightHandler {
         }
     }
 
-  public  void applyStatuslightLevel( int criticalSetting, double criticalDefaultValue,
-                               int warnSetting, double warnDefaultValue,
-                               TextView view, String text, double level) {
+  private void applyStatuslightLevel(int criticalSetting, double criticalDefaultValue,
+                                     int warnSetting, double warnDefaultValue,
+                                     TextView view, String text, double level) {
         if (view != null) {
             double resUrgent = SP.getDouble(criticalSetting, criticalDefaultValue);
             double resWarn = SP.getDouble(warnSetting, warnDefaultValue);
@@ -118,8 +121,8 @@ public class StatuslightHandler {
     }
 
 
-  public  void applyStatuslight(TextView view, String text, double value, double warnThreshold,
-                          double urgentThreshold, double invalid, boolean checkAscending) {
+  private void applyStatuslight(TextView view, String text, double value, double warnThreshold,
+                                double urgentThreshold, double invalid, boolean checkAscending) {
         Function<Double, Boolean> check = checkAscending ? (Double threshold) -> value >= threshold :
                 (Double threshold) -> value < threshold;
 

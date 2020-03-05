@@ -104,7 +104,11 @@ public class CareportalEvent implements DataPointWithLabelInterface, Interval {
             hours = MainApp.gs(R.string.shorthour);
         }
 
-        return diff.get(TimeUnit.DAYS) + days + diff.get(TimeUnit.HOURS) + hours;
+        String strAge = "" ;
+        if ( (diff.get(TimeUnit.DAYS) + days + diff.get(TimeUnit.HOURS) + hours) != null ) {
+            strAge = diff.get(TimeUnit.DAYS) + days + diff.get(TimeUnit.HOURS) + hours;
+        }
+        return strAge;
     }
 
     public String age() {
