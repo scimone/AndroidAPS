@@ -35,7 +35,8 @@ import info.nightscout.androidaps.utils.T;
 import info.nightscout.androidaps.utils.Translator;
 
 @DatabaseTable(tableName = DatabaseHelper.DATABASE_CAREPORTALEVENTS)
-public class CareportalEvent implements DataPointWithLabelInterface, Interval {
+public class
+CareportalEvent implements DataPointWithLabelInterface, Interval {
     private static Logger log = LoggerFactory.getLogger(L.DATABASE);
 
     @DatabaseField(id = true)

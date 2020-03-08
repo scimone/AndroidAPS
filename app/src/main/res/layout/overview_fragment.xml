@@ -162,8 +162,6 @@
                     android:textColor="@color/colorCarbsButton"
                     android:background="?attr/colorGraphBackground"/>
 
-
-
                 <ImageButton
                     android:id="@+id/overview_chartMenuButton"
                     android:layout_width="36dp"
