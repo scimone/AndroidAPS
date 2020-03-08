@@ -290,6 +290,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                     ViewAnimation.showOut(findViewById(R.id.overview_treatmentbutton));
                     mainBottomFabMenu.setVisibility(View.GONE);
                 }
+                bottom_app_bar.performHide();
+                bottom_app_bar.performShow();
                 return;
             case R.id.calibrationButton:
                 if (xdrip) {
@@ -508,21 +510,16 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         }
         // Sets a Bottom App bar
         bottom_app_bar = (BottomAppBar) findViewById(R.id.bottom_app_bar);
-        //setSupportActionBar(bottom_app_bar);
-        //bottom_app_bar.setHideOnScroll(true);
         setupBottomNavigationView(findViewById(R.id.drawer_layout));
 
         // Sets a Toolbar to replace the ActionBar.
-        //toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(bottom_app_bar);
 
         // This will display an Up icon (<-), we will replace it with hamburger later
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //setSupportActionBar(findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        // getSupportActionBar().setShowHideAnimationEnabled(true);
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_navigation, R.string.close_navigation);
@@ -531,6 +528,27 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         actionBarDrawerToggle.syncState();
         // initialize screen wake lock
         processPreferenceChange(new EventPreferenceChange(R.string.key_keep_screen_on));
+
+        final ViewPager viewPager = findViewById(R.id.pager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //Log.d("TAG", "page scrolled: " + position);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //Log.d("TAG", "onPageSelected changed: " + position);
+                // do the trick to show bottombar >> performHide and than performShow
+                bottom_app_bar.performHide();
+                bottom_app_bar.performShow();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // Log.d("TAG", "onPageScrollStateChanged changed: " + state);
+            }
+        });
 
         //Check here if loop plugin is disabled. Else check via constraints
         if (!LoopPlugin.getPlugin().isEnabled(PluginType.LOOP))
@@ -624,7 +642,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             timeAgoView.setText(" " + DateUtil.minAgoShort(lastBG.date) + "min");
 
     }
-
 
     private void upDateBottomMenuButtons() {
         final PumpInterface pump = ConfigBuilderPlugin.getPlugin().getActivePump();
@@ -1072,8 +1089,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         }
         getMenuInflater().inflate(R.menu.menu_main, menu);
         pluginPreferencesMenuItem = menu.findItem(R.id.nav_plugin_preferences);
-
-       // checkPluginPreferences(findViewById(R.id.pager));
         return true;
     }
 
@@ -1131,11 +1146,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                     startActivity(i);
                 }, null);
                 return true;
-/*
-            case R.id.nav_survey:
-                startActivity(new Intent(this, SurveyActivity.class));
-                return true;
-*/
             case R.id.nav_stats:
                 startActivity(new Intent(this, StatsActivity.class));
                 return true;
