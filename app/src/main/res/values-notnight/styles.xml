@@ -78,10 +78,10 @@
         <!-- Color of graph background -->
         <item name="colorGraphBackground">@color/transparent</item>
         <!-- Top bar icons -->
-        <item name="iconSensor">@drawable/ic_statuslight_sensor</item>
-        <item name="iconReservoir">@drawable/ic_statuslight_cartridge</item>
-        <item name="iconCanula">@drawable/ic_katheter_35</item>
-        <item name="iconBattery">@drawable/ic_statuslight_battery</item>
+        <item name="iconSensor">@drawable/ic_sensor</item>
+        <item name="iconReservoir">@drawable/ic_cartridge</item>
+        <item name="iconCanula">@drawable/ic_katheter</item>
+        <item name="iconBattery">@drawable/ic_battery</item>
         <!-- Icons of bottom naviagtion bar -->
         <item name="iconInsulin">@drawable/ic_iob_48</item>
         <item name="iconCarbs">@drawable/ic_carb_48</item>
@@ -360,11 +360,6 @@
         <item name="PillColorStart">@color/PillColorStartDarkside</item>
         <item name="PillColorEnd">@color/PillColorEndDarkside</item>
         <item name="colorGraphBackground">@color/plastic_grey</item>
-        <!-- Top bar icons -->
-        <item name="iconSensor">@drawable/sensor</item>
-        <item name="iconReservoir">@drawable/cartridge</item>
-        <item name="iconCanula">@drawable/katheter</item>
-        <item name="iconBattery">@drawable/battery</item>
         <!-- Icons of bottom naviagtion bar -->
         <item name="iconInsulin">@drawable/ic_pumpe_48</item>
         <item name="iconCarbs">@drawable/ic_carb_48</item>

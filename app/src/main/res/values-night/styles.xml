@@ -78,10 +78,10 @@
         <!-- Color of graph background -->
         <item name="colorGraphBackground">@color/transparent</item>
         <!-- Top bar icons -->
-        <item name="iconSensor">@drawable/ic_statuslight_sensor</item>
-        <item name="iconReservoir">@drawable/ic_statuslight_cartridge</item>
-        <item name="iconCanula">@drawable/ic_katheter_35</item>
-        <item name="iconBattery">@drawable/ic_statuslight_battery</item>
+        <item name="iconSensor">@drawable/ic_sensor</item>
+        <item name="iconReservoir">@drawable/ic_cartridge</item>
+        <item name="iconCanula">@drawable/ic_katheter</item>
+        <item name="iconBattery">@drawable/ic_battery</item>
         <!-- Icons of bottom naviagtion bar -->
         <item name="iconInsulin">@drawable/ic_iob_48</item>
         <item name="iconCarbs">@drawable/ic_carb_48</item>
@@ -325,6 +325,13 @@
         <item name="colorPrimary">@color/primaryColorDarkside</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorDarkside</item>
         <item name="colorAccent">@color/secondaryColorDarkside</item>
+        <item name="colorSecondary">@color/secondaryColorDarkside</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColorDarkside</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColorDarkside</item>
+        <item name="colorOnPrimary">@color/primaryTextColorDarkside</item>
+        <item name="colorSurface">@color/black_alpha_80</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:popupBackground">@color/black_alpha_80</item>
         <item name="android:windowBackground">@drawable/carbonfiber03</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
@@ -334,6 +341,7 @@
         <item name="iconWizzard">@drawable/calculator_white_shadow</item>
         <item name="iconCgm">@drawable/blooddrop_white_shadow</item>
         <item name="android:backgroundDimAmount">0.2</item>
+        <item name="android:textColorPrimary">@color/ios_blue_default</item>
     </style>
 
     <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >
@@ -342,10 +350,10 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat" />
 
     <style name="NavigationDrawer" parent="Theme.MaterialComponents.DayNight.Bridge" >
-        <item name="android:background">@color/black_alpha_70</item>
+        <item name="android:colorActivatedHighlight">@color/white</item>
     </style>
 
 

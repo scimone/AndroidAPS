@@ -514,4 +514,7 @@
 
     <color name="colorButton">#00000000</color>
 
+    <!-- iOS Colors -->>
+    <color name="ios_blue_default">#007AFF</color>
+
 </resources>
