@@ -53,7 +53,7 @@ public class StatuslightHandler {
             }
 
             if(batteryView != null) {
-                if (  pump.model() == PumpType.DanaRS) {
+                if (  pump.model() == PumpType.DanaRS || pump.model() == PumpType.DanaR) {
                     applyStatuslight( "bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE)).age(true) + " ") : "", 240, 504);
                 } else if(pump.model() == PumpType.DanaRv2 ||
                         pump.model() == PumpType.AccuChekCombo) {
