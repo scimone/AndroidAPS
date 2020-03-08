@@ -1,6 +1,7 @@
 package info.nightscout.androidaps.dialogs
 
 import android.app.Activity
+import android.content.res.Resources
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.LayoutInflater
@@ -18,7 +19,9 @@ import info.nightscout.androidaps.plugins.bus.RxBus.toObservable
 import info.nightscout.androidaps.plugins.configBuilder.ConfigBuilderPlugin
 import info.nightscout.androidaps.plugins.general.overview.events.EventDismissBolusProgressIfRunning
 import info.nightscout.androidaps.plugins.general.overview.events.EventOverviewBolusProgress
+import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil
 import info.nightscout.androidaps.utils.FabricPrivacy
+import info.nightscout.androidaps.utils.SP
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.dialog_bolusprogress.*
@@ -60,6 +63,18 @@ class BolusProgressDialog : DialogFragment() {
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         isCancelable = false
         dialog?.setCanceledOnTouchOutside(false)
+
+        var themeToSet = 0
+        themeToSet = SP.getInt("theme", ThemeUtil.THEME_PINK)
+        try {
+            val theme: Resources.Theme? = context?.getTheme()
+            // https://stackoverflow.com/questions/11562051/change-activitys-theme-programmatically
+            if (theme != null) {
+                theme.applyStyle(ThemeUtil.getThemeId(themeToSet), true)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
         return inflater.inflate(R.layout.dialog_bolusprogress, container, false)
     }
 
