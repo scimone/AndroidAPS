@@ -352,8 +352,8 @@
         <item name="iconColorbottomAppbar">@color/sphere_plastic_grey</item>
         <item name="android:navigationBarColor">@color/sphere_plastic_grey</item>
         <item name="android:windowBackground">@drawable/ic_overview_bg_gradient</item>
-        <item name="android:background">@color/plastic</item>
         <item name="bottomAppBarStyle">@style/BottomAppbar</item>
+        <item name="colorSurface">@color/plastic</item>
         <item name="colorOnSurface">@color/sphere_plastic_grey</item>
         <item name="fabmenubackground">@color/fabmenubackgroundDarkside</item>
         <!-- Color of pills -->
