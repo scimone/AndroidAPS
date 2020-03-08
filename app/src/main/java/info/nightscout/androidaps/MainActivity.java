@@ -132,10 +132,11 @@ import info.nightscout.androidaps.utils.SP;
 import info.nightscout.androidaps.utils.ToastUtils;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import static info.nightscout.androidaps.utils.EspressoTestHelperKt.isRunningRealPumpTest;
+
 import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
 import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
+import static info.nightscout.androidaps.utils.EspressoTestHelperKt.isRunningRealPumpTest;
 
 @SuppressLint("SetTextI18n")
 // public class MainActivity extends AppCompatActivity {
@@ -155,7 +156,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     TextView sageView;
     TextView batteryView;
     LinearLayout statuslightsLayout;
-
     StatuslightHandler handler;
 
     // BottomNavigation and menu items
@@ -164,6 +164,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     MenuItem itemCarbs ;
     MenuItem itemWizzard ;
     MenuItem itemCgm ;
+
+    NestedScrollView nestedScrollView;
 
     //All for the fab menu
     private boolean isRotate = false;
@@ -448,7 +450,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         setTheme(ThemeUtil.getThemeId(newtheme));
 
         super.onCreate(savedInstanceState);
-
         Iconify.with(new FontAwesomeModule());
         LocaleHelper.INSTANCE.update(getApplicationContext());
 
@@ -528,65 +529,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         actionBarDrawerToggle.syncState();
-
         // initialize screen wake lock
         processPreferenceChange(new EventPreferenceChange(R.string.key_keep_screen_on));
-
-        final ViewPager viewPager = findViewById(R.id.pager);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //Log.d("TAG", "page scrolled: " + position);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                //Log.d("TAG", "onPageSelected changed: " + position);
-                // set selected item in navigation drawer so the right one is highlighted if page is changed
-                NavigationView navigationView = findViewById(R.id.navigation_view);
-                ViewPager mPager = findViewById(R.id.pager);
-                navigationView.getMenu().getItem( mPager.getCurrentItem()).setChecked(true);
-
-                bottom_app_bar.setHideOnScroll(false);
-                bottom_app_bar.setVisibility(View.VISIBLE);
-                fab.show();
-                bottomNavigationView.setVisibility(View.VISIBLE);
-                bottom_app_bar.setHideOnScroll(true);
-
-                NestedScrollView nestedScrollView;
-                nestedScrollView = findViewById(R.id.main_activity_content_frame);
-                if( nestedScrollView != null) {
-                    //Log.d("TAG", "Set Scroll listener");
-                    nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-                        @Override
-                        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-
-                            if (scrollY > oldScrollY) {
-                                Log.d("TAG", "Scroll DOWN");
-                                bottom_app_bar.setVisibility(View.GONE);
-                            }
-                            if (scrollY < oldScrollY) {
-                                Log.d("TAG", "Scroll UP");
-                                bottom_app_bar.setVisibility(View.VISIBLE);
-                            }
-
-                            if (scrollY == 0) {
-                                Log.d("TAG", "TOP SCROLL");
-                            }
-
-                            if (scrollY == (v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())) {
-                                Log.d("TAG", "BOTTOM SCROLL");
-                            }
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-               // Log.d("TAG", "onPageScrollStateChanged changed: " + state);
-            }
-        });
 
         //Check here if loop plugin is disabled. Else check via constraints
         if (!LoopPlugin.getPlugin().isEnabled(PluginType.LOOP))

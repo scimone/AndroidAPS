@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     tools:context=".plugins.general.careportal.CareportalFragment">
 
@@ -77,8 +78,9 @@
                     android:contentDescription="@null"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_statuslight_sensor"
+                    android:src="?attr/iconSensor"
                     android:layout_gravity="center_horizontal"
+                    app:tint="?attr/iconColorbottomAppbar"
                     android:onClick="onClick"
                     android:gravity="top"
                     />
@@ -105,8 +107,9 @@
                     android:contentDescription="@null"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_statuslight_cartridge"
+                    android:src="?attr/iconReservoir"
                     android:layout_gravity="center_horizontal"
+                    app:tint="?attr/iconColorbottomAppbar"
                     android:onClick="onClick"
                     android:gravity="top"/>
 
@@ -131,8 +134,9 @@
                     android:contentDescription="@null"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_katheter_35"
+                    android:src="?attr/iconCanula"
                     android:layout_gravity="center_horizontal"
+                    app:tint="?attr/iconColorbottomAppbar"
                     android:onClick="onClick"
                     android:gravity="top"/>
 
@@ -158,8 +162,9 @@
                     android:contentDescription="@null"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
-                    android:src="@drawable/ic_statuslight_battery"
+                    android:src="?attr/iconBattery"
                     android:layout_gravity="center_horizontal"
+                    app:tint="?attr/iconColorbottomAppbar"
                     android:onClick="onClick"
                     android:gravity="top"/>
 

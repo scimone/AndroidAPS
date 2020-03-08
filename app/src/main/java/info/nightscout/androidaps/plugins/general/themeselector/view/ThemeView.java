@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -26,6 +27,8 @@ public class ThemeView extends View {
     private Paint mPrimaryDarkPaint;
     private Paint mAccentPaint;
     private Paint mBackgroundPaint;
+
+    private TextView themeLabel;
 
     private float stroke;
 
@@ -57,6 +60,13 @@ public class ThemeView extends View {
 
     private void init(){
         try {
+
+            themeLabel = findViewById(R.id.themeLabel);
+
+            if(themeLabel != null){
+                themeLabel.setText("Test");
+            }
+
             mBoarderPaint = new Paint();
             mBoarderPaint.setStyle(Paint.Style.STROKE);
             if (this.isSelected()) {

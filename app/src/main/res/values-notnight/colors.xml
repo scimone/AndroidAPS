@@ -123,9 +123,19 @@
     <color name="black_alpha_20">#33000000</color>
     <color name="black_alpha_30">#4D000000</color>
     <color name="black_alpha_40">#66000000</color>
+    <color name="black_alpha_50">#80000000</color>
     <color name="black_alpha_60">#99000000</color>
     <color name="black_alpha_70">#B3000000</color>
     <color name="black_alpha_80">#CC000000</color>
+
+    <color name="white_alpha_10">#1AFFFFFF</color>
+    <color name="white_alpha_20">#33FFFFFF</color>
+    <color name="white_alpha_30">#4DFFFFFF</color>
+    <color name="white_alpha_40">#66FFFFFF</color>
+    <color name="white_alpha_50">#80FFFFFF</color>
+    <color name="white_alpha_60">#99FFFFFF</color>
+    <color name="white_alpha_70">#B3FFFFFF</color>
+    <color name="white_alpha_80">#CCFFFFFF</color>
 
 
     <!---Swipe on refresh colors-->
@@ -351,15 +361,16 @@
     <color name="bottomBarBackgroundLightGreen">#8BC34A</color>
 
     <!-- Lime Theme -->
-    <color name="primaryColorLime">#CDDC39</color>
-    <color name="primaryLightColorLime">#F0F4C3</color>
-    <color name="primaryDarkColorLime">#AFB42B</color>
-    <color name="secondaryColorLime">#7C4DFF</color>
-    <color name="secondaryLightColorLime">#ae94f5</color>
-    <color name="secondaryDarkColorLime">#4f2cb3</color>
+    <color name="primaryColorLime">#17817b</color>
+    <color name="primaryLightColorLime">#53b1aa</color>
+    <color name="primaryDarkColorLime">#00544f</color>
+    <color name="secondaryColorLime">#176480</color>
+    <color name="secondaryLightColorLime">#5092af</color>
+    <color name="secondaryDarkColorLime">#003a53</color>
     <color name="primaryTextColorLime">#ffffff</color>
     <color name="secondaryTextColorLime">#000000</color>
-    <color name="overviewPillColorLime">#CDDC39</color>
+    <color name="PillColorStartLime">#D32F2F</color>
+    <color name="PillColorEndLime">#00544f</color>
     <color name="colorOnPrimaryLime">#F0F4C3</color>
     <color name="bottomBarBackgroundLime">#CDDC39</color>
 
@@ -502,5 +513,8 @@
     <color name="careportal_high">#f06b0a</color>
 
     <color name="colorButton">#00000000</color>
+
+    <!-- iOS Colors -->>
+    <color name="ios_blue_default">#007AFF</color>
 
 </resources>

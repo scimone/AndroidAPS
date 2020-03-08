@@ -17,8 +17,16 @@
     <attr name="colorPrimaryDarkDialog" format="reference|color" />
     <attr name="colorAccentDialog" format="reference|color" />
     <attr name="colorGraphBackground" format="reference|color" />
-
+    <!-- Top bar icons -->
+    <attr name="iconSensor" format="reference|color" />
+    <attr name="iconReservoir" format="reference|color" />
+    <attr name="iconCanula" format="reference|color" />
+    <attr name="iconBattery" format="reference|color" />
+    <!-- Bottom bar icons -->
     <attr name="iconInsulin" format="reference|color" />
+    <attr name="iconCarbs" format="reference|color" />
+    <attr name="iconWizzard" format="reference|color" />
+    <attr name="iconCgm" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
@@ -69,8 +77,16 @@
         <item name="colorAccentDialog">?attr/colorAccent</item>
         <!-- Color of graph background -->
         <item name="colorGraphBackground">@color/transparent</item>
+        <!-- Top bar icons -->
+        <item name="iconSensor">@drawable/ic_sensor</item>
+        <item name="iconReservoir">@drawable/ic_cartridge</item>
+        <item name="iconCanula">@drawable/ic_katheter</item>
+        <item name="iconBattery">@drawable/ic_battery</item>
         <!-- Icons of bottom naviagtion bar -->
         <item name="iconInsulin">@drawable/ic_iob_48</item>
+        <item name="iconCarbs">@drawable/ic_carb_48</item>
+        <item name="iconWizzard">@drawable/ic_calculator_48</item>
+        <item name="iconCgm">@drawable/ic_blooddrop_48</item>
     </style>
 
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.DayNight.Bridge"/>
@@ -231,8 +247,14 @@
         <item name="colorPrimary">@color/primaryColorLime</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorLime</item>
         <item name="colorAccent">@color/secondaryColorLime</item>
-        <item name="overviewPillColor">@color/overviewPillColorLime</item>
+        <item name="colorSecondary">@color/secondaryColorLime</item>
+        <item name="colorOnSecondary">@color/secondaryTextColorLime</item>
+        <item name="colorOnPrimary">@color/primaryTextColorLime</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
+        <!-- Color of pills -->
+        <item name="PillColorStart">@color/PillColorStartLime</item>
+        <item name="PillColorEnd">@color/PillColorEndLime</item>
+        <item name="android:windowBackground">@drawable/auroraborealis01</item>
     </style>
 
     <style name="AppTheme.YELLOW" parent="AppTheme.NoActionBar">
@@ -303,11 +325,23 @@
         <item name="colorPrimary">@color/primaryColorDarkside</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorDarkside</item>
         <item name="colorAccent">@color/secondaryColorDarkside</item>
+        <item name="colorSecondary">@color/secondaryColorDarkside</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColorDarkside</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColorDarkside</item>
+        <item name="colorOnPrimary">@color/primaryTextColorDarkside</item>
+        <item name="colorSurface">@color/black_alpha_80</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:popupBackground">@color/black_alpha_80</item>
         <item name="android:windowBackground">@drawable/carbonfiber03</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
         <!-- Icons of bottom naviagtion bar -->
-        <item name="iconInsulin">@drawable/ic_pumpe_48</item>
+        <item name="iconInsulin">@drawable/pumpe_white_shadow</item>
+        <item name="iconCarbs">@drawable/carb_white_shadow</item>
+        <item name="iconWizzard">@drawable/calculator_white_shadow</item>
+        <item name="iconCgm">@drawable/blooddrop_white_shadow</item>
+        <item name="android:backgroundDimAmount">0.2</item>
+        <item name="android:textColorPrimary">@color/ios_blue_default</item>
     </style>
 
     <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >
@@ -316,10 +350,10 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat" />
 
     <style name="NavigationDrawer" parent="Theme.MaterialComponents.DayNight.Bridge" >
-        <item name="android:background">@color/black_alpha_70</item>
+        <item name="android:colorActivatedHighlight">@color/white</item>
     </style>
 
 
@@ -356,6 +390,12 @@
     <style name="InsightAlertDialog" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowMinWidthMajor">96%</item>
         <item name="android:windowMinWidthMinor">96%</item>
+    </style>
+
+    <style name="StandardDialogs" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorSurface">@color/black_alpha_20</item>
+        <item name="colorPrimarySurface">@color/black_alpha_20</item>
+        <item name="colorSecondary">@color/black_alpha_20</item>
     </style>
 
     <style name="ButtonSmallFontStyle">

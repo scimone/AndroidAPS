@@ -193,4 +193,5 @@ class InsulinDialog : DialogFragmentWithDate() {
             }
         return true
     }
+
 }

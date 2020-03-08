@@ -116,7 +116,7 @@ public class InsightConnectionService extends Service implements ConnectionEstab
     private MessageQueue messageQueue = new MessageQueue();
     private List<info.nightscout.androidaps.plugins.pump.insight.app_layer.Service> activatedServices = new ArrayList<>();
     private long lastDataTime;
-    private long lastConnected;
+    private long lastConnected = 0;
     private long recoveryDuration = 0;
     private int timeoutDuringHandshakeCounter;
 
