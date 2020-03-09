@@ -283,7 +283,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             return false;
         });
 
-
         setupChartMenu(view);
 
         return view;
@@ -886,7 +885,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             return;
 
         OverviewPlugin.INSTANCE.getNotificationStore().updateNotifications(notificationsView);
-
         pumpStatusLayout.setVisibility(View.GONE);
         loopStatusLayout.setVisibility(View.GONE);
 
@@ -905,7 +903,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         final String units = ProfileFunctions.getSystemUnits();
         final double lowLine = OverviewPlugin.INSTANCE.determineLowLine();
         final double highLine = OverviewPlugin.INSTANCE.determineHighLine();
-
 
         // pill for open loop mode
         Constraint<Boolean> closedLoopEnabled = MainApp.getConstraintChecker().isClosedLoopAllowed();
@@ -1048,8 +1045,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 basalText = MainApp.gs(R.string.pump_basebasalrate, profile.getBasal());
             }
         }
-
-
 
         final ExtendedBolus extendedBolus = TreatmentsPlugin.getPlugin().getExtendedBolusFromHistory(System.currentTimeMillis());
         String extendedBolusText = "";
@@ -1207,7 +1202,6 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
                 fromTime = toTime - T.hours(hoursToFetch).msecs();
                 endTime = toTime;
             }
-
 
             final long now = System.currentTimeMillis();
 
