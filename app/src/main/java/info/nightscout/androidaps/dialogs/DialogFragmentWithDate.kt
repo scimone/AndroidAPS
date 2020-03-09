@@ -2,6 +2,7 @@ package info.nightscout.androidaps.dialogs
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
@@ -9,7 +10,6 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
-import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil
 import info.nightscout.androidaps.utils.DateUtil
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.okcancel.*
 import org.slf4j.LoggerFactory
 import java.util.*
 
-abstract class DialogFragmentWithDate : DialogFragment() {
+abstract class DialogFragmentWithDate() : DialogFragment() {
     val log = LoggerFactory.getLogger(DialogFragmentWithDate::class.java)
 
     var eventTime = DateUtil.now()
@@ -58,8 +58,17 @@ abstract class DialogFragmentWithDate : DialogFragment() {
         overview_eventdate?.text = DateUtil.dateString(eventTime)
         overview_eventtime?.text = DateUtil.timeString(eventTime)
 
-        val newtheme = SP.getInt("theme", ThemeUtil.THEME_PINK)
-        MainApp.instance().setTheme(newtheme)
+        var themeToSet = 0
+        themeToSet = SP.getInt("theme", ThemeUtil.THEME_PINK)
+        try {
+            val theme: Resources.Theme? = context?.getTheme()
+            // https://stackoverflow.com/questions/11562051/change-activitys-theme-programmatically
+            if (theme != null) {
+                theme.applyStyle(ThemeUtil.getThemeId(themeToSet), true)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         // create an OnDateSetListener
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -82,6 +91,7 @@ abstract class DialogFragmentWithDate : DialogFragment() {
                     cal.get(Calendar.MONTH),
                     cal.get(Calendar.DAY_OF_MONTH)
                 ).show()
+
             }
         }
 
