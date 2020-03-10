@@ -273,6 +273,9 @@
         <item name="iconColor">@color/sphere_plastic_grey</item>
         <item name="colorOnPrimary">@color/black_alpha_80</item>
         <item name="colorOnSecondary">@color/black_alpha_80</item>
+        <item name="colorSurface">@color/white_alpha_70</item>
+        <item name="android:popupBackground">@color/white_alpha_80</item>
+        <item name="android:windowBackground">@drawable/minions1</item>
         <item name="iconColorbottomAppbar">@color/black_alpha_60</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
     </style>

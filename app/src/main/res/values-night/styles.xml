@@ -124,6 +124,7 @@
         <!-- Color of pills -->
         <item name="PillColorStart">@color/PillColorStartRed</item>
         <item name="PillColorEnd">@color/PillColorEndRed</item>
+        <item name="android:windowBackground">@drawable/ferrari3</item>
     </style>
 
     <style name="AppTheme.PINK" parent="AppTheme.NoActionBar">
@@ -250,11 +251,14 @@
         <item name="colorSecondary">@color/secondaryColorLime</item>
         <item name="colorOnSecondary">@color/secondaryTextColorLime</item>
         <item name="colorOnPrimary">@color/primaryTextColorLime</item>
+        <item name="colorSurface">@color/black_alpha_60</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:popupBackground">@color/black_alpha_80</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
         <!-- Color of pills -->
         <item name="PillColorStart">@color/PillColorStartLime</item>
         <item name="PillColorEnd">@color/PillColorEndLime</item>
-        <item name="android:windowBackground">@drawable/auroraborealis01</item>
+        <item name="android:windowBackground">@drawable/auroraborealis02</item>
     </style>
 
     <style name="AppTheme.YELLOW" parent="AppTheme.NoActionBar">
@@ -263,6 +267,9 @@
         <item name="colorPrimaryDark">@color/primaryDarkColorYellow</item>
         <item name="colorAccent">@color/secondaryColorYellow</item>
         <item name="overviewPillColor">@color/overviewPillColorYellow</item>
+        <item name="iconColor">@color/sphere_plastic_grey</item>
+        <item name="colorOnPrimary">@color/black_alpha_80</item>
+        <item name="colorOnSecondary">@color/black_alpha_80</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
     </style>
 
