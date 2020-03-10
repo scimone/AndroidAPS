@@ -27,6 +27,8 @@
     <attr name="iconCarbs" format="reference|color" />
     <attr name="iconWizzard" format="reference|color" />
     <attr name="iconCgm" format="reference|color" />
+    <!-- Fragment background for some themes default transparent  -->
+    <attr name="fragmentbackground" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
@@ -87,6 +89,8 @@
         <item name="iconCarbs">@drawable/ic_carb_48</item>
         <item name="iconWizzard">@drawable/ic_calculator_48</item>
         <item name="iconCgm">@drawable/ic_blooddrop_48</item>
+        <!-- Fragment background for some themes default transparent  -->
+        <item name="fragmentbackground">@color/transparent</item>
     </style>
 
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.DayNight.Bridge"/>

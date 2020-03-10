@@ -58,8 +58,7 @@ abstract class DialogFragmentWithDate() : DialogFragment() {
         overview_eventdate?.text = DateUtil.dateString(eventTime)
         overview_eventtime?.text = DateUtil.timeString(eventTime)
 
-        var themeToSet = 0
-        themeToSet = SP.getInt("theme", ThemeUtil.THEME_PINK)
+        var themeToSet = SP.getInt("theme", ThemeUtil.THEME_PINK)
         try {
             val theme: Resources.Theme? = context?.getTheme()
             // https://stackoverflow.com/questions/11562051/change-activitys-theme-programmatically
