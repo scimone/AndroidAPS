@@ -281,6 +281,8 @@
         <item name="android:popupBackground">@color/white_alpha_80</item>
         <item name="android:windowBackground">@drawable/minions1</item>
         <item name="iconColorbottomAppbar">@color/black_alpha_60</item>
+        <!-- Fragment background for some themes default transparent  -->
+        <item name="fragmentbackground">@color/white_alpha_20</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
     </style>
 
