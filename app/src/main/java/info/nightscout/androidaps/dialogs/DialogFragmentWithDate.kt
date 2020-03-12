@@ -9,7 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
-import androidx.fragment.app.DialogFragment
+import androidx.core.content.ContextCompat
+import com.ms_square.etsyblur.BlurConfig
+import com.ms_square.etsyblur.BlurDialogFragment
+import com.ms_square.etsyblur.SmartAsyncPolicy
+import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil
 import info.nightscout.androidaps.utils.DateUtil
@@ -21,7 +25,7 @@ import kotlinx.android.synthetic.main.okcancel.*
 import org.slf4j.LoggerFactory
 import java.util.*
 
-abstract class DialogFragmentWithDate() : DialogFragment() {
+abstract class DialogFragmentWithDate() : BlurDialogFragment() {
     val log = LoggerFactory.getLogger(DialogFragmentWithDate::class.java)
 
     var eventTime = DateUtil.now()
@@ -50,6 +54,14 @@ abstract class DialogFragmentWithDate() : DialogFragment() {
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         isCancelable = true
         dialog?.setCanceledOnTouchOutside(false)
+
+        val blurConfig = context?.let { SmartAsyncPolicy(it) }?.let {
+            BlurConfig.Builder()
+                .overlayColor(ContextCompat.getColor(MainApp.instance(), R.color.white_alpha_40))  // semi-transparent white color
+                .debug(true)
+                .asyncPolicy(it)
+                .build()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

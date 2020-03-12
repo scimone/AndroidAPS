@@ -52,6 +52,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.ms_square.etsyblur.BlurSupport;
 import com.utility.Helper;
 import com.utility.ViewAnimation;
 
@@ -533,6 +534,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_navigation, R.string.close_navigation);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        BlurSupport.addTo(drawerLayout);
 
         actionBarDrawerToggle.syncState();
         // initialize screen wake lock

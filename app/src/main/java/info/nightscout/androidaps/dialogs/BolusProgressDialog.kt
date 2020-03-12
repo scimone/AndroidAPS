@@ -9,7 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
-import androidx.fragment.app.DialogFragment
+import androidx.core.content.ContextCompat
+import com.ms_square.etsyblur.BlurConfig
+import com.ms_square.etsyblur.BlurDialogFragment
+import com.ms_square.etsyblur.SmartAsyncPolicy
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.activities.BolusProgressHelperActivity
@@ -27,7 +30,7 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.dialog_bolusprogress.*
 import org.slf4j.LoggerFactory
 
-class BolusProgressDialog : DialogFragment() {
+class BolusProgressDialog : BlurDialogFragment() {
     private val log = LoggerFactory.getLogger(L.UI)
     private val disposable = CompositeDisposable()
 
@@ -74,6 +77,15 @@ class BolusProgressDialog : DialogFragment() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+        val blurConfig = context?.let { SmartAsyncPolicy(it) }?.let {
+            BlurConfig.Builder()
+                .overlayColor(ContextCompat.getColor(MainApp.instance(), R.color.white_alpha_40))  // semi-transparent white color
+                .debug(true)
+                .asyncPolicy(it)
+                .build()
+        }
+
         return inflater.inflate(R.layout.dialog_bolusprogress, container, false)
     }
 

@@ -12,7 +12,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.CompoundButton
-import androidx.fragment.app.DialogFragment
+import androidx.core.content.ContextCompat
+import com.ms_square.etsyblur.BlurConfig
+import com.ms_square.etsyblur.BlurDialogFragment
+import com.ms_square.etsyblur.SmartAsyncPolicy
 import info.nightscout.androidaps.Constants
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
@@ -35,7 +38,7 @@ import java.text.DecimalFormat
 import java.util.*
 import kotlin.math.abs
 
-class WizardDialog : DialogFragment() {
+class WizardDialog : BlurDialogFragment() {
     private val log = LoggerFactory.getLogger(WizardDialog::class.java)
 
     private var wizard: BolusWizard? = null
@@ -72,6 +75,14 @@ class WizardDialog : DialogFragment() {
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         isCancelable = true
         dialog?.setCanceledOnTouchOutside(false)
+
+        val blurConfig = context?.let { SmartAsyncPolicy(it) }?.let {
+            BlurConfig.Builder()
+                .overlayColor(ContextCompat.getColor(MainApp.instance(), R.color.white_alpha_40))  // semi-transparent white color
+                .debug(true)
+                .asyncPolicy(it)
+                .build()
+        }
 
         return inflater.inflate(R.layout.dialog_wizard, container, false)
     }
