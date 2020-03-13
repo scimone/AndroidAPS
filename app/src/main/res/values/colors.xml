@@ -122,7 +122,7 @@
     <color name="chart_background">#00000000</color>
     <color name="transparent">#00000000</color>
 
-    <!-- Black and White -->
+    <!-- Black and White transparent - glass effect-->
     <color name="white">#FFF</color>
     <color name="black_alpha_10">#1A000000</color>
     <color name="black_alpha_20">#33000000</color>
@@ -132,6 +132,7 @@
     <color name="black_alpha_60">#99000000</color>
     <color name="black_alpha_70">#B3000000</color>
     <color name="black_alpha_80">#CC000000</color>
+    <color name="black_alpha_90">#E6000000</color>
 
     <color name="white_alpha_10">#1AFFFFFF</color>
     <color name="white_alpha_20">#33FFFFFF</color>
@@ -141,6 +142,7 @@
     <color name="white_alpha_60">#99FFFFFF</color>
     <color name="white_alpha_70">#B3FFFFFF</color>
     <color name="white_alpha_80">#CCFFFFFF</color>
+    <color name="white_alpha_90">#E6FFFFFF</color>
 
     <color name="bg_glass">#88ffffff</color>
 

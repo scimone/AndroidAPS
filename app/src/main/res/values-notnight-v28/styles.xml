@@ -65,6 +65,26 @@
         <item name="android:dialogCornerRadius">10dp</item>
     </style>
 
+    <style name="AppTheme.YELLOW" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColorYellow</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorYellow</item>
+        <item name="colorAccent">@color/secondaryColorYellow</item>
+        <item name="overviewPillColor">@color/overviewPillColorYellow</item>
+        <item name="iconColor">@color/sphere_plastic_grey</item>
+        <item name="colorOnPrimary">@color/black_alpha_80</item>
+        <item name="colorOnSecondary">@color/black_alpha_80</item>
+        <item name="colorSurface">@color/white_alpha_70</item>
+        <item name="android:popupBackground">@color/white_alpha_80</item>
+        <item name="android:windowBackground">@drawable/minions1</item>
+        <item name="iconColorbottomAppbar">@color/black_alpha_60</item>
+        <!-- Fragment background for some themes default transparent  -->
+        <item name="fragmentbackground">@color/white_alpha_40</item>
+        <item name="android:alertDialogTheme">@style/ApsDialogYellow</item>
+        <item name="android:dialogTheme">@style/ApsDialogYellow</item>
+        <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
+    </style>
+
     <style name="AppTheme.DARKSIDE" parent="AppTheme.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColorDarkside</item>
@@ -91,11 +111,24 @@
         <item name="iconInsulin">@drawable/ic_pumpe_48</item>
         <item name="iconCarbs">@drawable/ic_carb_48</item>
         <item name="android:dialogCornerRadius">10dp</item>
-        <item name="android:alertDialogTheme">@style/ApsDialog</item>
-        <item name="android:dialogTheme">@style/ApsDialog</item>
+        <item name="android:alertDialogTheme">@style/ApsDialogDarkside</item>
+        <item name="android:dialogTheme">@style/ApsDialogDarkside</item>
     </style>
 
-    <style name="ApsDialog" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="ApsDialogYellow" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:dialogCornerRadius">10dp</item>
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColorYellow</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorYellow</item>
+        <item name="colorAccent">@color/secondaryColorYellow</item>
+        <item name="colorSecondary">@color/secondaryColorYellow</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:colorBackgroundFloating">@color/white_alpha_80</item>
+        <item name="android:backgroundTint">@color/white_alpha_80</item>
+        <item name="android:backgroundTintMode">multiply</item>
+    </style>
+
+    <style name="ApsDialogDarkside" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="android:dialogCornerRadius">10dp</item>
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColorDarkside</item>
@@ -103,6 +136,7 @@
         <item name="colorAccent">@color/secondaryColorDarkside</item>
         <item name="colorSecondary">@color/secondaryColorDarkside</item>
         <item name="android:background">@color/transparent</item>
+        <item name="android:colorBackgroundFloating">@color/white_alpha_80</item>
         <item name="android:backgroundTint">@color/white_alpha_80</item>
         <item name="android:backgroundTintMode">multiply</item>
     </style>
