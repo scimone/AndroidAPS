@@ -60,6 +60,8 @@
         <item name="iconCarbs">@drawable/ic_carb_48</item>
         <item name="iconWizzard">@drawable/ic_calculator_48</item>
         <item name="iconCgm">@drawable/ic_blooddrop_48</item>
+        <!-- Fragment background for some themes default transparent  -->
+        <item name="fragmentbackground">@color/transparent</item>
         <!-- Dialog -->
         <item name="android:dialogCornerRadius">10dp</item>
     </style>
@@ -72,10 +74,13 @@
         <item name="colorSecondary">@color/secondaryColorLime</item>
         <item name="colorOnSecondary">@color/primaryTextColorLime</item>
         <item name="colorOnPrimary">@color/primaryTextColorLime</item>
+        <item name="colorSurface">@color/black_alpha_60</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:popupBackground">@color/black_alpha_80</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
         <!-- Color of pills -->
         <item name="PillColorStart">@color/PillColorStartLime</item>
         <item name="PillColorEnd">@color/PillColorEndLime</item>
-        <item name="android:windowBackground">@drawable/auroraborealis01</item>
+        <item name="android:windowBackground">@drawable/auroraborealis02</item>
     </style>
 </resources>

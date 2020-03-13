@@ -52,6 +52,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.ms_square.etsyblur.BlurSupport;
 import com.utility.Helper;
 import com.utility.ViewAnimation;
 
@@ -231,10 +232,10 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
     public void getCareportalInfo() {
         statuslightsLayout = findViewById(R.id.statuslight);
-        sageView =  findViewById(R.id.sensorage_text);
-        reservoirView =  findViewById(R.id.reservoirView_text);
-        cageView =  findViewById(R.id.canulaage_text);
-        batteryView = findViewById(R.id.batteryage_text);
+        if( sageView == null )  sageView =  findViewById(R.id.sensorage_text);
+        if( reservoirView == null )  reservoirView =  findViewById(R.id.reservoirView_text);
+        if( cageView == null ) cageView =  findViewById(R.id.canulaage_text);
+        if( batteryView == null ) batteryView = findViewById(R.id.batteryage_text);
 
         if(sageView != null ){
             if (statuslightsLayout != null) {
@@ -466,6 +467,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
         avgdeltaView = findViewById(R.id.average_delta);
 
+        if( sageView == null )  sageView =  findViewById(R.id.sensorage_text);
+        if( reservoirView == null )  reservoirView =  findViewById(R.id.reservoirView_text);
+        if( cageView == null ) cageView =  findViewById(R.id.canulaage_text);
+        if( batteryView == null ) batteryView = findViewById(R.id.batteryage_text);
+
         // set BG in header are for small display like Unihertz Atom
         //check screen width and choose main dialog
         final DisplayMetrics dm = new DisplayMetrics();
@@ -479,6 +485,10 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             if( arrowView != null ) arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);
             if( timeAgoView != null ) timeAgoView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
             if( deltaView != null ) deltaView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            if( sageView != null ) sageView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            if( reservoirView != null ) reservoirView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            if( cageView != null ) cageView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+            if( batteryView != null ) batteryView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -524,6 +534,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_navigation, R.string.close_navigation);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        BlurSupport.addTo(drawerLayout);
 
         actionBarDrawerToggle.syncState();
         // initialize screen wake lock

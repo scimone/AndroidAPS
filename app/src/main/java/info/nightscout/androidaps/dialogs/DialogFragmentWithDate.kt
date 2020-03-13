@@ -2,13 +2,17 @@ package info.nightscout.androidaps.dialogs
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.content.res.Resources
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
-import androidx.fragment.app.DialogFragment
+import androidx.core.content.ContextCompat
+import com.ms_square.etsyblur.BlurConfig
+import com.ms_square.etsyblur.BlurDialogFragment
+import com.ms_square.etsyblur.SmartAsyncPolicy
 import info.nightscout.androidaps.MainApp
 import info.nightscout.androidaps.R
 import info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil
@@ -21,7 +25,7 @@ import kotlinx.android.synthetic.main.okcancel.*
 import org.slf4j.LoggerFactory
 import java.util.*
 
-abstract class DialogFragmentWithDate : DialogFragment() {
+abstract class DialogFragmentWithDate() : BlurDialogFragment() {
     val log = LoggerFactory.getLogger(DialogFragmentWithDate::class.java)
 
     var eventTime = DateUtil.now()
@@ -50,6 +54,14 @@ abstract class DialogFragmentWithDate : DialogFragment() {
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         isCancelable = true
         dialog?.setCanceledOnTouchOutside(false)
+
+        val blurConfig = context?.let { SmartAsyncPolicy(it) }?.let {
+            BlurConfig.Builder()
+                .overlayColor(ContextCompat.getColor(MainApp.instance(), R.color.white_alpha_40))  // semi-transparent white color
+                .debug(true)
+                .asyncPolicy(it)
+                .build()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,8 +70,16 @@ abstract class DialogFragmentWithDate : DialogFragment() {
         overview_eventdate?.text = DateUtil.dateString(eventTime)
         overview_eventtime?.text = DateUtil.timeString(eventTime)
 
-        val newtheme = SP.getInt("theme", ThemeUtil.THEME_PINK)
-        MainApp.instance().setTheme(newtheme)
+        var themeToSet = SP.getInt("theme", ThemeUtil.THEME_PINK)
+        try {
+            val theme: Resources.Theme? = context?.getTheme()
+            // https://stackoverflow.com/questions/11562051/change-activitys-theme-programmatically
+            if (theme != null) {
+                theme.applyStyle(ThemeUtil.getThemeId(themeToSet), true)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         // create an OnDateSetListener
         val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -82,6 +102,7 @@ abstract class DialogFragmentWithDate : DialogFragment() {
                     cal.get(Calendar.MONTH),
                     cal.get(Calendar.DAY_OF_MONTH)
                 ).show()
+
             }
         }
 

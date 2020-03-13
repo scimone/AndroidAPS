@@ -5,6 +5,7 @@
         android:layout_width = "match_parent"
         android:layout_height = "match_parent"
         android:layout_marginTop="10dp"
+        android:background="?attr/fragmentbackground"
         tools:context=".plugins.aps.openAPSAMA.OpenAPSAMAFragment">
 
         <androidx.core.widget.NestedScrollView

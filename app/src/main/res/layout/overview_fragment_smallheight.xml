@@ -135,7 +135,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="1dp"
                             android:text="AS"
-                            android:textSize="16sp" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/overview_sensitivity"
@@ -145,7 +145,7 @@
                             android:gravity="end"
                             android:layout_marginEnd="8dp"
                             android:text=""
-                            android:textSize="16sp"
+                            android:textSize="14sp"
                             android:textStyle="bold"
                             android:textColor="?attr/color_val"/>
                     </LinearLayout>
@@ -157,6 +157,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="6dp"
+                    android:minHeight="160dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorCarbsButton"
@@ -196,7 +197,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="1dp"
                     android:text="@string/basal_short"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
 
                 <TextView
@@ -207,7 +208,7 @@
                     android:gravity="end"
                     android:layout_marginEnd="8dp"
                     android:text="0.50U/h @17:35 1/30min - 0.40U/h"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="?attr/color_val"/>
 
@@ -236,7 +237,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginBottom="4dp"
-                android:layout_height="60dp"
+                android:layout_height="100dp"
                 android:visibility="gone"
                 android:background="?attr/colorGraphBackground"/>
 
@@ -258,7 +259,7 @@
                         android:layout_marginStart="6dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/iob"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/overview_iob"
@@ -268,7 +269,7 @@
                         android:gravity="end"
                         android:layout_marginEnd="10dp"
                         android:text=""
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="?attr/color_val"/>
                 </LinearLayout>
@@ -287,7 +288,7 @@
                         android:layout_marginStart="6dp"
                         android:layout_marginEnd="1dp"
                         android:text="@string/extended_bolus_short"
-                        android:textSize="16sp" />
+                        android:textSize="14sp" />
 
 
                     <TextView
@@ -298,7 +299,7 @@
                         android:gravity="end"
                         android:layout_marginEnd="12dp"
                         android:text="0.50U/h @17:35 1/30min - 0.40U/h"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="?attr/color_val"/>
 
@@ -312,7 +313,7 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginBottom="4dp"
-                android:layout_height="90dp"
+                android:layout_height="100dp"
                 android:visibility="gone"
                 android:background="?attr/colorGraphBackground"/>
 
@@ -328,7 +329,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="1dp"
                     android:text="@string/cob"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/overview_cob"
@@ -337,7 +338,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:text=""
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="?attr/color_val"/>
 
@@ -348,7 +349,7 @@
                     android:layout_marginStart="1dp"
                     android:layout_marginEnd="10dp"
                     android:text="@string/shortgramm"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="?attr/color_val"/>
 
@@ -358,7 +359,7 @@
                 android:layout_width="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="6dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:visibility="gone"
                 android:background="?attr/colorGraphBackground"/>
 

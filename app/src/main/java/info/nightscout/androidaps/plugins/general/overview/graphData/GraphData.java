@@ -127,9 +127,9 @@ public class GraphData {
                 new DoubleDataPoint(toTime, lowLine, highLine)
         };
         inRangeAreaSeries = new AreaGraphSeries<>(inRangeAreaDataPoints);
-        inRangeAreaSeries.setColor(MainApp.gc(R.color.inrangebackgroundBorder));
+        inRangeAreaSeries.setColor(ContextCompat.getColor(MainApp.instance(), R.color.inrangebackgroundBorder));
         inRangeAreaSeries.setDrawBackground(true);
-        inRangeAreaSeries.setBackgroundColor(MainApp.gc(R.color.inrangebackground));
+        inRangeAreaSeries.setColor(ContextCompat.getColor(MainApp.instance(), R.color.inrangebackground));
 
         addSeries(inRangeAreaSeries);
     }
@@ -214,7 +214,8 @@ public class GraphData {
         tempBasal = tempBasalArray.toArray(tempBasal);
         tempBasalsSeries = new LineGraphSeries<>(tempBasal);
         tempBasalsSeries.setDrawBackground(true);
-        tempBasalsSeries.setBackgroundColor(MainApp.gc(R.color.tempbasal));
+        tempBasalsSeries.setColor(ContextCompat.getColor(MainApp.instance(), R.color.tempbasal));
+
         tempBasalsSeries.setThickness(0);
 
         ScaledDataPoint[] basalLine = new ScaledDataPoint[basalLineArray.size()];
@@ -224,7 +225,7 @@ public class GraphData {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(MainApp.instance().getApplicationContext().getResources().getDisplayMetrics().scaledDensity * 2);
         paint.setPathEffect(new DashPathEffect(new float[]{2, 4}, 0));
-        paint.setColor(MainApp.gc(R.color.basal));
+        paint.setColor(ContextCompat.getColor(MainApp.instance(), R.color.basal));
         basalsLineSeries.setCustomPaint(paint);
 
         ScaledDataPoint[] absoluteBasalLine = new ScaledDataPoint[absoluteBasalLineArray.size()];
@@ -233,7 +234,7 @@ public class GraphData {
         Paint absolutePaint = new Paint();
         absolutePaint.setStyle(Paint.Style.STROKE);
         absolutePaint.setStrokeWidth(MainApp.instance().getApplicationContext().getResources().getDisplayMetrics().scaledDensity * 2);
-        absolutePaint.setColor(MainApp.gc(R.color.basal));
+        absolutePaint.setColor(ContextCompat.getColor(MainApp.instance(), R.color.basal));
         absoluteBasalsLineSeries.setCustomPaint(absolutePaint);
 
         if (useForScale) {
@@ -287,7 +288,7 @@ public class GraphData {
         targets = targetsSeriesArray.toArray(targets);
         targetsSeries = new LineGraphSeries<>(targets);
         targetsSeries.setDrawBackground(false);
-        targetsSeries.setColor(MainApp.gc(R.color.tempTargetBackground));
+        targetsSeries.setColor(ContextCompat.getColor(MainApp.instance(), R.color.tempTargetBackground));
         targetsSeries.setThickness(2);
 
         addSeries(targetsSeries);

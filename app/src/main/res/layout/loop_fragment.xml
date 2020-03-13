@@ -5,6 +5,7 @@
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
     android:layout_marginTop="10dp"
+    android:background="?attr/fragmentbackground"
     tools:context=".plugins.aps.loop.LoopFragment">
 
     <androidx.core.widget.NestedScrollView
@@ -269,7 +270,6 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:paddingLeft="5dp"
-                    android:textColor="@android:color/white"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -402,7 +402,6 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:paddingLeft="5dp"
-                    android:textColor="@android:color/white"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -447,7 +446,6 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:paddingLeft="5dp"
-                    android:textColor="@android:color/white"
                     android:textSize="14sp" />
 
             </LinearLayout>

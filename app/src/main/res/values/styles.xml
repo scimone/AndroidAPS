@@ -27,6 +27,8 @@
     <attr name="iconCarbs" format="reference|color" />
     <attr name="iconWizzard" format="reference|color" />
     <attr name="iconCgm" format="reference|color" />
+    <!-- Fragment background for some themes default transparent  -->
+    <attr name="fragmentbackground" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
@@ -85,6 +87,8 @@
         <item name="iconCarbs">@drawable/ic_carb_48</item>
         <item name="iconWizzard">@drawable/ic_calculator_48</item>
         <item name="iconCgm">@drawable/ic_blooddrop_48</item>
+        <!-- Fragment background for some themes default transparent  -->
+        <item name="fragmentbackground">@color/transparent</item>
     </style>
 
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.Light.DarkActionBar"/>
@@ -236,6 +240,7 @@
         <item name="colorPrimaryDark">@color/primaryDarkColorAmber</item>
         <item name="colorAccent">@color/secondaryColorAmber</item>
         <item name="overviewPillColor">@color/overviewPillColorAmber</item>
+        <item name="iconColor">@color/sphere_plastic_grey</item>
     </style>
 
     <style name="AppTheme.ORANGE" parent="AppTheme.NoActionBar">
@@ -327,9 +332,10 @@
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
-    <style name="InsightAlertDialog" parent="Theme.MaterialComponents.Dialog">
-        <item name="android:windowMinWidthMajor">96%</item>
-        <item name="android:windowMinWidthMinor">96%</item>
+    <style name="InsightAlertDialog" parent="Theme.AppCompat.Dialog.MinWidth">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="Theme.AppCompat.NoTitle" parent="Theme.AppCompat.NoActionBar">
