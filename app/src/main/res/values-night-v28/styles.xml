@@ -83,4 +83,56 @@
         <item name="PillColorEnd">@color/PillColorEndLime</item>
         <item name="android:windowBackground">@drawable/auroraborealis02</item>
     </style>
+
+    <style name="AppTheme.DARKSIDE" parent="AppTheme.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primaryColorDarkside</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorDarkside</item>
+        <item name="colorAccent">@color/secondaryColorDarkside</item>
+        <item name="colorSecondary">@color/secondaryColorDarkside</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColorDarkside</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColorDarkside</item>
+        <item name="colorOnPrimary">@color/primaryTextColorDarkside</item>
+        <item name="colorSurface">@color/black_alpha_60</item>
+        <item name="colorOnSurface">@color/white</item>
+        <item name="android:popupBackground">@color/black_alpha_80</item>
+        <item name="android:windowBackground">@drawable/carbonfiber03</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
+        <!-- Icons of bottom naviagtion bar -->
+        <item name="iconInsulin">@drawable/pumpe_white_shadow</item>
+        <item name="iconCarbs">@drawable/carb_white_shadow</item>
+        <item name="iconWizzard">@drawable/calculator_white_shadow</item>
+        <item name="iconCgm">@drawable/blooddrop_white_shadow</item>
+        <item name="android:backgroundDimAmount">0.2</item>
+        <item name="android:textColorPrimary">@color/ios_blue_default</item>
+        <!-- Color of dialogs -->
+        <item name="android:alertDialogTheme">@style/APSDialogDarkside</item>
+        <item name="android:dialogTheme">@style/APSDialogDarkside</item>
+    </style>
+
+    <style name="APSDialogDarkside" parent="Theme.MaterialComponents.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="android:dialogCornerRadius">10dp</item>
+        <item name="colorPrimary">@color/ios_blue_default</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorDarkside</item>
+        <item name="colorAccent">@color/secondaryColorDarkside</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColorDarkside</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColorDarkside</item>
+        <item name="colorSecondary">@color/secondaryColorDarkside</item>
+        <item name="colorOnPrimary">@color/primaryTextColorDarkside</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorPrimarySurface">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="matButtonBackground">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorPrimary">@color/ios_blue_default</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:backgroundTint">@color/black_alpha_65</item>
+        <item name="android:backgroundTintMode">multiply</item>
+    </style>
+
 </resources>

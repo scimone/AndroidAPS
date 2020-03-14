@@ -38,7 +38,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -165,8 +164,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     MenuItem itemCarbs ;
     MenuItem itemWizzard ;
     MenuItem itemCgm ;
-
-    NestedScrollView nestedScrollView;
 
     //All for the fab menu
     private boolean isRotate = false;

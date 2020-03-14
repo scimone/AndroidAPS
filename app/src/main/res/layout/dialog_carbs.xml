@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusableInTouchMode="true"
     android:minWidth="300dp"
     android:orientation="vertical"
@@ -38,7 +39,7 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/carbs"
                 android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                style="@style/Text.Headline" />
 
         </RelativeLayout>
 
@@ -60,19 +61,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="5dp"
-                android:text="@string/start_activity_tt" />
+                android:text="@string/start_activity_tt"
+                app:useMaterialThemeColors="true"/>
 
             <CheckBox
                 android:id="@+id/overview_carbs_eating_soon_tt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/start_eating_soon_tt" />
+                android:text="@string/start_eating_soon_tt"
+                app:useMaterialThemeColors="true"/>
 
             <CheckBox
                 android:id="@+id/overview_carbs_hypo_tt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/start_hypo_tt" />
+                android:text="@string/start_hypo_tt"
+                app:useMaterialThemeColors="true"/>
 
         </LinearLayout>
 
@@ -181,26 +185,35 @@
             android:orientation="horizontal"
             android:padding="5dp">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/overview_carbs_plus1"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="+5" />
+                android:text="+5"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="1" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/overview_carbs_plus2"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="+10" />
+                android:text="+10"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="1" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/overview_carbs_plus3"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="+20" />
+                android:text="+20"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_weight="1" />
 
         </LinearLayout>
 

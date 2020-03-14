@@ -353,6 +353,33 @@
         <item name="iconCgm">@drawable/blooddrop_white_shadow</item>
         <item name="android:backgroundDimAmount">0.2</item>
         <item name="android:textColorPrimary">@color/ios_blue_default</item>
+        <!-- Color of dialogs -->
+        <item name="android:alertDialogTheme">@style/ApsDialogDarkside</item>
+        <item name="android:dialogTheme">@style/ApsDialogDarkside</item>
+    </style>
+
+
+    <style name="ApsDialogDarkside" parent="Theme.MaterialComponents.Dialog">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/ios_blue_default</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColorDarkside</item>
+        <item name="colorAccent">@color/secondaryColorDarkside</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColorDarkside</item>
+        <item name="colorSecondaryVariant">@color/secondaryLightColorDarkside</item>
+        <item name="colorSecondary">@color/secondaryColorDarkside</item>
+        <item name="colorOnPrimary">@color/primaryTextColorDarkside</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorPrimarySurface">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="matButtonBackground">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="android:textColorPrimary">@color/ios_blue_default</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:backgroundTint">@color/black_alpha_65</item>
+        <item name="android:backgroundTintMode">multiply</item>
     </style>
 
     <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >
