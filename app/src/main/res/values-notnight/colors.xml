@@ -56,7 +56,7 @@
     <color name="defaultbackground">#BBBBBB</color>
     <color name="defaulttext">#BBBBBB</color>
 
-    <color name="fabmenubackground">#73141428</color>
+    <color name="fabmenubackground">#B3FFFFFF</color>
 
     <!-- Target line  -->
     <color name="tempTargetBackground">#FAFAE1</color>
@@ -159,6 +159,7 @@
     <color name="mdtp_accent_color">#3A7EFF</color>
     <color name="iconColor">#FFFFFF</color>
     <color name="iconColorbottomAppbar">#FFFFFF</color>
+    <color name="iconColorToolbar">#999999</color>
     <color name="actionBarColor">#FFFFFF</color>
 
     <color name="colorInitializingBorder">#A6DEFF</color>

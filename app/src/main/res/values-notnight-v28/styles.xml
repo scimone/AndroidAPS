@@ -5,6 +5,7 @@
         <item name="android:actionBarTheme">@android:style/Theme.Material.Light</item>
         <item name="iconColor">@color/iconColor</item>
         <item name="iconColorbottomAppbar">@color/iconColorbottomAppbar</item>
+        <item name="iconColorToolbar">@color/iconColorToolbar</item>
         <item name="color_val">@color/color_val</item>
         <item name="fabmenubackground">@color/fabmenubackground</item>
         <item name="iobBorder">@color/iobBorder</item>
@@ -97,6 +98,7 @@
         <item name="overviewPillColor">@color/plastic_grey</item>
         <item name="iconColor">@color/concinnity_bright_grey</item>
         <item name="iconColorbottomAppbar">@color/sphere_plastic_grey</item>
+        <item name="iconColorToolbar">@color/sphere_plastic_grey</item>
         <item name="android:navigationBarColor">@color/sphere_plastic_grey</item>
         <item name="android:windowBackground">@drawable/ic_overview_bg_gradient</item>
         <item name="bottomAppBarStyle">@style/BottomAppbar</item>
