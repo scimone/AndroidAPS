@@ -29,6 +29,9 @@
     <attr name="iconCgm" format="reference|color" />
     <!-- Fragment background for some themes default transparent  -->
     <attr name="fragmentbackground" format="reference|color" />
+    <!-- Graph specific colors  -->
+    <attr name="graphHorizontalLabelText" format="reference|color" />
+    <attr name="graphVerticalLabelText" format="reference|color" />
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
@@ -91,6 +94,9 @@
         <item name="iconCgm">@drawable/ic_blooddrop_48</item>
         <!-- Fragment background for some themes default transparent  -->
         <item name="fragmentbackground">@color/transparent</item>
+        <!-- Graph specific colors  -->
+        <item name="graphHorizontalLabelText">@color/graphHorizontalLabelText</item>
+        <item name="graphVerticalLabelText">@color/graphVerticalLabelText</item>
     </style>
 
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.DayNight.Bridge"/>
@@ -380,6 +386,9 @@
         <item name="android:background">@color/transparent</item>
         <item name="android:backgroundTint">@color/black_alpha_65</item>
         <item name="android:backgroundTintMode">multiply</item>
+        <!-- Graph specific colors  -->
+        <item name="graphHorizontalLabelText">@color/ios_blue_default</item>
+        <item name="graphVerticalLabelText">@color/ios_blue_default</item>
     </style>
 
     <style name="BottomAppbar" parent="Widget.MaterialComponents.BottomAppBar.Colored" >

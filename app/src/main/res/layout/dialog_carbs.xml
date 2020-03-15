@@ -39,7 +39,7 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/carbs"
                 android:textAlignment="center"
-                style="@style/Text.Headline" />
+                style="@style/Text.Headline"  />
 
         </RelativeLayout>
 
@@ -185,35 +185,26 @@
             android:orientation="horizontal"
             android:padding="5dp">
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/overview_carbs_plus1"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="+5"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="+5" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/overview_carbs_plus2"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="+10"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="+10" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/overview_carbs_plus3"
-                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="+20"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="+20" />
 
         </LinearLayout>
 
