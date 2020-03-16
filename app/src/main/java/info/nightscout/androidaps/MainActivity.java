@@ -38,7 +38,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -166,8 +165,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
     MenuItem itemWizzard ;
     MenuItem itemCgm ;
 
-    NestedScrollView nestedScrollView;
-
     //All for the fab menu
     private boolean isRotate = false;
     //The middle menu fab bottom bottom app menu bar
@@ -239,17 +236,8 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
 
         if(sageView != null ){
             if (statuslightsLayout != null) {
-                if (SP.getBoolean(R.string.key_show_statuslights, false) == true) {
-                    statuslightsLayout.setVisibility(View.VISIBLE);
-                    if (SP.getBoolean(R.string.key_show_statuslights_extended, false) == true) {
-                        handler.extendedStatuslight(cageView, reservoirView , sageView, batteryView);
-                    } else {
-                        handler.statuslight(cageView, reservoirView , sageView, batteryView);
-                    }
-                } else {
-                    statuslightsLayout.setVisibility(View.GONE);
-                }
                 statuslightsLayout.setVisibility(View.VISIBLE);
+                handler.extendedStatuslight(cageView, reservoirView, sageView, batteryView);
             }
         }
     }
@@ -480,6 +468,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         int screen_height = dm.heightPixels;
         boolean smallHeight = screen_height <= Constants.SMALL_HEIGHT;
 
+        // Special settings for small displays like atom
         if( smallHeight ) {
             if( bgView != null ) bgView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 40);
             if( arrowView != null ) arrowView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 24);

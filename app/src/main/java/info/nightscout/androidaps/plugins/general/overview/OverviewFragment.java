@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -246,6 +247,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         bgGraph.getGridLabelRenderer().setGridColor(MainApp.gc(R.color.graphgrid));
         bgGraph.getGridLabelRenderer().reloadStyles();
         bgGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
+        bgGraph.getGridLabelRenderer().setHorizontalLabelsColor(ContextCompat.getColor(getContext(), R.color.graphHorizontalLabelText));
+        bgGraph.getGridLabelRenderer().setVerticalLabelsColor(ContextCompat.getColor(getContext(), R.color.graphVerticalLabelText));
 
         basalGraph.getGridLabelRenderer().reloadStyles();
         basalGraph.getGridLabelRenderer().reloadStyles();
@@ -254,6 +257,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         basalGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         basalGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         basalGraph.getGridLabelRenderer().setNumVerticalLabels(3);
+        basalGraph.getGridLabelRenderer().setHorizontalLabelsColor(ContextCompat.getColor(getContext(), R.color.graphHorizontalLabelText));
+        basalGraph.getGridLabelRenderer().setVerticalLabelsColor(ContextCompat.getColor(getContext(), R.color.graphVerticalLabelText));
 
         iobGraph.getGridLabelRenderer().reloadStyles();
         iobGraph.getGridLabelRenderer().reloadStyles();
@@ -262,6 +267,8 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         iobGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         iobGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         iobGraph.getGridLabelRenderer().setNumVerticalLabels(3);
+        iobGraph.getGridLabelRenderer().setHorizontalLabelsColor(ContextCompat.getColor(getContext(), R.color.graphHorizontalLabelText));
+        iobGraph.getGridLabelRenderer().setVerticalLabelsColor(ContextCompat.getColor(getContext(), R.color.graphVerticalLabelText));
 
 
         cobGraph.getGridLabelRenderer().reloadStyles();
@@ -271,6 +278,9 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
         cobGraph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         cobGraph.getGridLabelRenderer().setLabelVerticalWidth(axisWidth);
         cobGraph.getGridLabelRenderer().setNumVerticalLabels(3);
+        cobGraph.getGridLabelRenderer().setHorizontalLabelsColor(ContextCompat.getColor(getContext(), R.color.graphHorizontalLabelText));
+        cobGraph.getGridLabelRenderer().setVerticalLabelsColor(ContextCompat.getColor(getContext(), R.color.graphVerticalLabelText));
+
 
         rangeToDisplay = SP.getInt(R.string.key_rangetodisplay, 3);
 

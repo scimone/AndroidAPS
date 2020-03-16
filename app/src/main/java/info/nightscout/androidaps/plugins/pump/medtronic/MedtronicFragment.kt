@@ -1,6 +1,7 @@
 package info.nightscout.androidaps.plugins.pump.medtronic
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -56,6 +57,8 @@ class MedtronicFragment : Fragment() {
     private val loopHandler = Handler()
     private lateinit var refreshLoop: Runnable
 
+    private var oldColors: ColorStateList? = null
+
     init {
         refreshLoop = Runnable {
             activity?.runOnUiThread { updateGUI() }
@@ -94,7 +97,6 @@ class MedtronicFragment : Fragment() {
 
         medtronic_rl_status.text = MainApp.gs(RileyLinkServiceState.NotStarted.getResourceId(RileyLinkTargetDevice.MedtronicPump))
 
-        medtronic_pump_status.setTextColor(Color.WHITE)
         medtronic_pump_status.text = "{fa-bed}"
 
         medtronic_refresh.setOnClickListener(clickListener)
@@ -300,13 +302,17 @@ class MedtronicFragment : Fragment() {
 
         setDeviceStatus()
 
+        if (this.oldColors == null) {
+            this.oldColors = medtronic_lastconnection.getTextColors()
+        }
+        medtronic_lastconnection.setTextColor(this.oldColors)
+
         // last connection
         if (pumpStatus.lastConnection != 0L) {
             val minAgo = DateUtil.minAgo(pumpStatus.lastConnection)
             val min = (System.currentTimeMillis() - pumpStatus.lastConnection) / 1000 / 60
             if (pumpStatus.lastConnection + 60 * 1000 > System.currentTimeMillis()) {
                 medtronic_lastconnection.setText(R.string.combo_pump_connected_now)
-                medtronic_lastconnection.setTextColor(Color.WHITE)
             } else if (pumpStatus.lastConnection + 30 * 60 * 1000 < System.currentTimeMillis()) {
 
                 if (min < 60) {
@@ -325,7 +331,7 @@ class MedtronicFragment : Fragment() {
                 medtronic_lastconnection.setTextColor(Color.RED)
             } else {
                 medtronic_lastconnection.text = minAgo
-                medtronic_lastconnection.setTextColor(Color.WHITE)
+                medtronic_lastconnection.setTextColor(this.oldColors)
             }
         }
 

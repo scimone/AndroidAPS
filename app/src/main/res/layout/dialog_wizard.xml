@@ -39,7 +39,7 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/boluswizard"
                 android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                style="@style/Text.Headline" />
 
         </RelativeLayout>
 
@@ -213,7 +213,8 @@
                 android:layout_marginStart="10dp"
                 android:padding="5dp"
                 android:checked="false"
-                android:text="@string/superbolus" />
+                android:text="@string/superbolus"
+                app:useMaterialThemeColors="true"/>
 
         </LinearLayout>
 
@@ -290,7 +291,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:checked="false" />
+                android:checked="false"
+                app:useMaterialThemeColors="true"/>
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -436,7 +438,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:width="32dp"
-                    android:checked="false" />
+                    android:checked="false"
+                    app:useMaterialThemeColors="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -507,7 +510,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:width="32dp"
-                    android:checked="true" />
+                    android:checked="true"
+                    app:useMaterialThemeColors="true"/>
 
                 <TextView
                     android:layout_width="wrap_content"

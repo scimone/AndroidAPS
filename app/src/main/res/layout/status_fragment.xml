@@ -80,7 +80,7 @@
                     android:layout_height="36dp"
                     android:src="?attr/iconSensor"
                     android:layout_gravity="center_horizontal"
-                    app:tint="?attr/iconColorbottomAppbar"
+                    app:tint="?attr/iconColorToolbar"
                     android:onClick="onClick"
                     android:gravity="top"
                     />
@@ -109,7 +109,7 @@
                     android:layout_height="36dp"
                     android:src="?attr/iconReservoir"
                     android:layout_gravity="center_horizontal"
-                    app:tint="?attr/iconColorbottomAppbar"
+                    app:tint="?attr/iconColorToolbar"
                     android:onClick="onClick"
                     android:gravity="top"/>
 
@@ -136,7 +136,7 @@
                     android:layout_height="36dp"
                     android:src="?attr/iconCanula"
                     android:layout_gravity="center_horizontal"
-                    app:tint="?attr/iconColorbottomAppbar"
+                    app:tint="?attr/iconColorToolbar"
                     android:onClick="onClick"
                     android:gravity="top"/>
 
@@ -164,7 +164,7 @@
                     android:layout_height="36dp"
                     android:src="?attr/iconBattery"
                     android:layout_gravity="center_horizontal"
-                    app:tint="?attr/iconColorbottomAppbar"
+                    app:tint="?attr/iconColorToolbar"
                     android:onClick="onClick"
                     android:gravity="top"/>
 

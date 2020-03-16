@@ -38,7 +38,7 @@
                 android:layout_marginRight="10dp"
                 android:text="@string/careportal_temporarytarget"
                 android:textAlignment="center"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                style="@style/Text.Headline" />
 
         </RelativeLayout>
 

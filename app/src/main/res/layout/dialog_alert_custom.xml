@@ -28,7 +28,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textAlignment="center"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            style="@style/Text.Headline" />
     </RelativeLayout>
 
     <LinearLayout

@@ -1,7 +1,5 @@
 package info.nightscout.androidaps.plugins.general.overview.graphData;
 
-import android.content.Context;
-import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.graphics.Paint;
 
@@ -433,14 +431,12 @@ public class GraphData {
             }
         }
 
-
         // color for iob
         ScaledDataPoint[] iobData = new ScaledDataPoint[iobArray.size()];
         iobData = iobArray.toArray(iobData);
         iobSeries = new FixedLineGraphSeries<>(iobData);
         iobSeries.setDrawBackground(true);
-        iobSeries.setBackgroundColor( MainApp.gc(R.color.iobSurface));
-        Context ctx = MainApp.instance().getBaseContext();
+        iobSeries.setBackgroundColor( ContextCompat.getColor(MainApp.instance(), R.color.iobSurface));
         iobSeries.setColor(ContextCompat.getColor(MainApp.instance(), R.color.iobBorder));
         iobSeries.setThickness(8);
 
@@ -523,7 +519,7 @@ public class GraphData {
         cobData = cobArray.toArray(cobData);
         cobSeries = new FixedLineGraphSeries<>(cobData);
         cobSeries.setDrawBackground(true);
-        cobSeries.setBackgroundColor( MainApp.gc(R.color.cobSurface));
+        cobSeries.setBackgroundColor( ContextCompat.getColor(MainApp.instance(), R.color.cobSurface));
         cobSeries.setColor(ContextCompat.getColor(MainApp.instance(), R.color.cobBorder));
         cobSeries.setThickness(8);
 
@@ -560,18 +556,18 @@ public class GraphData {
         for (long time = fromTime; time <= toTime; time += 5 * 60 * 1000L) {
             AutosensData autosensData = iobCobCalculatorPlugin.getAutosensData(time);
             if (autosensData != null) {
-                int color = MainApp.gc(R.color.deviationblack); // "="
+                int color = ContextCompat.getColor(MainApp.instance(), R.color.deviationblack); // "="
                 if (autosensData.type.equals("") || autosensData.type.equals("non-meal")) {
                     if (autosensData.pastSensitivity.equals("C"))
-                        color = MainApp.gc(R.color.deviationgrey);
+                        color = ContextCompat.getColor(MainApp.instance(), R.color.deviationgrey);
                     if (autosensData.pastSensitivity.equals("+"))
-                        color = MainApp.gc(R.color.deviationgreen);
+                        color = ContextCompat.getColor(MainApp.instance(), R.color.deviationgreen);
                     if (autosensData.pastSensitivity.equals("-"))
-                        color = MainApp.gc(R.color.deviationred);
+                        color = ContextCompat.getColor(MainApp.instance(), R.color.deviationred);
                 } else if (autosensData.type.equals("uam")) {
-                    color = MainApp.gc(R.color.uam);
+                    color = ContextCompat.getColor(MainApp.instance(), R.color.uam);
                 } else if (autosensData.type.equals("csf")) {
-                    color = MainApp.gc(R.color.deviationgrey);
+                    color = ContextCompat.getColor(MainApp.instance(), R.color.deviationgrey);
                 }
                 devArray.add(new DeviationDataPoint(time, autosensData.deviation, color, devScale));
                 maxDevValueFound = Math.max(maxDevValueFound, Math.abs(autosensData.deviation));
@@ -694,7 +690,7 @@ public class GraphData {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2);
         paint.setPathEffect(new DashPathEffect(new float[]{10, 20}, 0));
-        paint.setColor(Color.WHITE);
+        paint.setColor(ContextCompat.getColor(MainApp.instance(), R.color.white));
         seriesNow.setCustomPaint(paint);
 
         addSeries(seriesNow);
