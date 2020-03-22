@@ -62,10 +62,15 @@ public class StatuslightHandler {
                         pump.model() == PumpType.DanaR ||
                         pump.model() == PumpType.AccuChekInsightBluetooth ||
                         pump.model() == PumpType.AccuChekInsight) {
-                    applyStatuslight( "bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE)).age(true) + " ") : "", 240, 504);
+
+                    if( MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE) != null) {
+                        applyStatuslight( "bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE)).age(true) + " ") : "", 240, 504);
+                    }
                 } else if(pump.model() == PumpType.DanaRv2 ||
                         pump.model() == PumpType.AccuChekCombo) {
-                    applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE)).age(true) + " ") : "", 240, 504);
+                    if (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE) != null) {
+                        applyStatuslight("bage", CareportalEvent.PUMPBATTERYCHANGE, batteryView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.PUMPBATTERYCHANGE)).age(true) + " ") : "", 240, 504);
+                    }
                 } else if ( pump.model() == PumpType.AccuChekInsight ||
                         pump.model() == PumpType.AccuChekInsightBluetooth ) {
                     handleLevel(R.string.key_statuslights_bat_critical, 26.0,
