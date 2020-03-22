@@ -52,7 +52,9 @@ public class StatuslightHandler {
             }
             // Sensor age
             if( sageView != null) {
-                applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE)).age(true) + " ") : "", 164, 166);
+                if(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE) != null) {
+                    applyStatuslight("sage", CareportalEvent.SENSORCHANGE, sageView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SENSORCHANGE)).age(true) + " ") : "", 164, 166);
+                }
             }
 
             if(batteryView != null) {
