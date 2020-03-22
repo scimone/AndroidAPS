@@ -33,7 +33,10 @@ public class StatuslightHandler {
 
         // Canula age
         if( cageView != null ) {
-            applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE)).age(true) + " ") : "", 24, 36);
+            if (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE) != null) {
+                applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE)).age(true) + " ") : "", 24, 36);
+            }
+
             handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
                     24, 60);
         }
