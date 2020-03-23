@@ -35,10 +35,9 @@ public class StatuslightHandler {
         if( cageView != null ) {
             if (MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE) != null) {
                 applyStatuslight( "cage", CareportalEvent.SITECHANGE, cageView, extended ? (Objects.requireNonNull(MainApp.getDbHelper().getLastCareportalEvent(CareportalEvent.SITECHANGE)).age(true) + " ") : "", 24, 36);
+                handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
+                        24, 60);
             }
-
-            handleAge("cage", CareportalEvent.SITECHANGE, cageView, "CAN ",
-                    24, 60);
         }
 
        assert pump != null;
@@ -57,7 +56,7 @@ public class StatuslightHandler {
                 }
             }
 
-            if(batteryView != null) {
+            if(batteryView != null && pump.model() != null) {
                 if (    pump.model() == PumpType.DanaRS ||
                         pump.model() == PumpType.DanaR ||
                         pump.model() == PumpType.AccuChekInsightBluetooth ||
