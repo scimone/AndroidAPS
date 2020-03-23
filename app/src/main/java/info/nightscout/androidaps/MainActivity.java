@@ -987,6 +987,10 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         TabPageAdapter pageAdapter = new TabPageAdapter(getSupportFragmentManager(), this);
         NavigationView navigationView = findViewById(R.id.navigation_view);
+        // try to fix a problem with Android 7.1.1
+        if (navigationView == null){
+            return;
+        }
         navigationView.getHeaderView(0);
         navigationView.setNavigationItemSelectedListener(menuItem -> true);
         Menu menu = navigationView.getMenu();
