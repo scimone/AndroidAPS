@@ -402,27 +402,6 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 });
     }
 
-    @SuppressLint("RestrictedApi")
-    private void disableShiftMode(BottomNavigationView view) {
-        BottomNavigationMenuView menuView = (BottomNavigationMenuView) view.getChildAt(0);
-        try {
-            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
-            shiftingMode.setAccessible(true);
-            shiftingMode.setBoolean(menuView, false);
-            shiftingMode.setAccessible(false);
-            for (int i = 0; i < menuView.getChildCount(); i++) {
-                BottomNavigationItemView item = (BottomNavigationItemView) menuView.getChildAt(i);
-                item.setShifting(false);
-                // set once again checked value, so view will be updated
-                item.setChecked(item.getItemData().isChecked());
-            }
-        } catch (NoSuchFieldException e) {
-            Log.d("TAG", "Unable to get shift mode field", e);
-        } catch (IllegalAccessException e) {
-            Log.d("TAG", "Unable to change value of shift mode", e);
-        }
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // sets the main theme and color
