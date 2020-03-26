@@ -253,15 +253,10 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         boolean dexcom = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
         switch (id) {
             case R.id.sensorage:
-                // newDialog.setOptions(SENSORCHANGE, R.string.careportal_cgmsensorinsert);
-                newCareDialog.setOptions(CareDialog.EventType.SENSOR_INSERT , R.string.careportal_cgmsensorinsert).show( manager, "Actions");
-                return;
             case R.id.careportal_cgmsensorstart:
                 newCareDialog.setOptions(CareDialog.EventType.SENSOR_INSERT , R.string.careportal_cgmsensorinsert).show( manager, "Actions");
                 return;
             case R.id.reservoirView:
-                fillDialog.show(manager ,"FillDialog") ;
-                return;
             case R.id.canulaage:
                 fillDialog.show(manager ,"FillDialog") ;
                 return;
