@@ -255,7 +255,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             case R.id.sensorage:
                 // newDialog.setOptions(SENSORCHANGE, R.string.careportal_cgmsensorinsert);
                 newCareDialog.setOptions(CareDialog.EventType.SENSOR_INSERT , R.string.careportal_cgmsensorinsert).show( manager, "Actions");
-                break;
+                return;
             case R.id.careportal_cgmsensorstart:
                 newCareDialog.setOptions(CareDialog.EventType.SENSOR_INSERT , R.string.careportal_cgmsensorinsert).show( manager, "Actions");
                 return;
