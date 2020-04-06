@@ -43,8 +43,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -58,7 +56,6 @@ import com.utility.ViewAnimation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -134,7 +131,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
 import static androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode;
-import static info.nightscout.androidaps.plugins.general.careportal.CareportalFragment.SENSORCHANGE;
 import static info.nightscout.androidaps.plugins.general.themeselector.util.ThemeUtil.THEME_PINK;
 import static info.nightscout.androidaps.utils.EspressoTestHelperKt.isRunningRealPumpTest;
 
@@ -253,13 +249,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         boolean dexcom = SourceDexcomPlugin.INSTANCE.isEnabled(PluginType.BGSOURCE);
         switch (id) {
             case R.id.sensorage:
-                newDialog.setOptions(SENSORCHANGE, R.string.careportal_cgmsensorinsert);
-                break;
             case R.id.careportal_cgmsensorstart:
                 newCareDialog.setOptions(CareDialog.EventType.SENSOR_INSERT , R.string.careportal_cgmsensorinsert).show( manager, "Actions");
                 return;
+            case R.id.reservoirView:
             case R.id.canulaage:
-                //newDialog.setOptions(SITECHANGE, R.string.careportal_pumpsitechange);
                 fillDialog.show(manager ,"FillDialog") ;
                 return;
             case R.id.batteryage:

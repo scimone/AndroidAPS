@@ -111,7 +111,7 @@ android {
         renderscriptSupportModeEnabled true
         multiDexEnabled true
         versionCode 1500
-        version "12.6.1"
+        version "12.6.1-dev"
         buildConfigField "String", "VERSION", '"' + version + '"'
         buildConfigField "String", "BUILDVERSION", '"' + generateGitBuild() + '-' + generateDate() + '"'
         buildConfigField "String", "REMOTE", '"' + generateGitRemote() + '"'
@@ -236,7 +236,7 @@ dependencies {
         transitive = true;
     }
     implementation "androidx.preference:preference:1.1.0"
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha03'
+    implementation 'androidx.appcompat:appcompat:1.2.0-beta01'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
