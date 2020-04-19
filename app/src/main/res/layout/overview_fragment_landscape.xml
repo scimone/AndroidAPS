@@ -570,7 +570,7 @@
                     android:layout_height="fill_parent"
                     android:layout_marginEnd="-4dp"
                     android:layout_weight="0.5"
-                    android:drawableTop="@drawable/icon_quickwizard"
+                    android:drawableTop="@drawable/ic_wizard_48"
                     android:text="@string/quickwizard"
                     android:textColor="@color/colorQuickWizardButton"
                     android:textSize="10sp" />

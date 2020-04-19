@@ -16,7 +16,7 @@
     </item>
     <item android:gravity="center"
         >
-        <bitmap android:src="@drawable/icon_quickwizard"
+        <bitmap android:src="@drawable/ic_wizard_48"
             android:gravity="fill_horizontal" />
 
     </item>
