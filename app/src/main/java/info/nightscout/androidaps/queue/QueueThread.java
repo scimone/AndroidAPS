@@ -88,9 +88,11 @@ public class QueueThread extends Thread {
                         pump.disconnect("watchdog");
                         SystemClock.sleep(1000);
                         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                        mBluetoothAdapter.disable();
-                        SystemClock.sleep(1000);
-                        mBluetoothAdapter.enable();
+                        if( mBluetoothAdapter != null) {
+                            mBluetoothAdapter.disable();
+                            SystemClock.sleep(1000);
+                            mBluetoothAdapter.enable();
+                        }
                         SystemClock.sleep(1000);
                         //start over again once after watchdog barked
                         //Notification notification = new Notification(Notification.OLD_NSCLIENT, "Watchdog", Notification.URGENT);
