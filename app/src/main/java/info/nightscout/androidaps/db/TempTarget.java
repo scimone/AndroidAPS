@@ -9,14 +9,18 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 import info.nightscout.androidaps.Constants;
+import info.nightscout.androidaps.MainApp;
+import info.nightscout.androidaps.R;
+import info.nightscout.androidaps.data.Profile;
 import info.nightscout.androidaps.interfaces.Interval;
 import info.nightscout.androidaps.logging.L;
+import info.nightscout.androidaps.logging.StacktraceLoggerWrapper;
 import info.nightscout.androidaps.utils.DateUtil;
 import info.nightscout.androidaps.utils.DecimalFormatter;
 
 @DatabaseTable(tableName = DatabaseHelper.DATABASE_TEMPTARGETS)
 public class TempTarget implements Interval {
-    private static Logger log = LoggerFactory.getLogger(L.DATABASE);
+    private static Logger log = StacktraceLoggerWrapper.getLogger(L.DATABASE);
 
     @DatabaseField(id = true)
     public long date;
@@ -189,6 +193,13 @@ public class TempTarget implements Interval {
                 ", low=" + low +
                 ", high=" + high +
                 '}';
+    }
+
+    public String friendlyDescription(String units) {
+        return Profile.toTargetRangeString(low, high, Constants.MGDL, units) +
+                units +
+                "@" + MainApp.gs(R.string.mins, durationInMinutes) +
+                (reason != null && !reason.equals("") ? "(" + reason + ")" : "");
     }
 
 }

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="prediction">#ff00ff</color>
-    <color name="basal">#6B85FF</color>
-    <color name="iob">#3C46FF</color>
+    <color name="basal">#00ffff</color>
+    <color name="iob">#1e88e5</color>
+    <color name="iobPred">#00d2d2</color>
     <color name="bolus">#1ea3e5</color>
+    <color name="iobPredAS">#1ea3e5</color>
     <color name="cob">#FFFB8C00</color>
     <color name="carbs">#F2A370</color>
     <color name="uam">#c9bd60</color>
     <color name="zt">#00d2d2</color>
     <color name="ratio">#FFFFFF</color>
+    <color name="activity">#d3f166</color>
     <color name="devslopepos">#FFFFFF00</color>
     <color name="devslopeneg">#FFFF00FF</color>
     <color name="inrange">#BCC6C8</color>
@@ -16,28 +19,41 @@
     <color name="high">#FFFF00</color>
     <color name="actionsConfirm">#FFFF00</color>
     <color name="listdelimiter">#505050</color>
-    <color name="tabBgColor">#f0003f59</color>
-    <color name="tabBgColorSelected">#5F7BA6</color>
+    <color name="tabBgColorSelected">#FF33B5E5</color>
     <color name="deviations">#FF0000</color>
-    <color name="inrangebackground">#10FFFFFF</color>
-    <color name="basebasal">#3D15FF</color>
+    <color name="cobAlert">#7484E2</color>
+    <color name="inrangebackground">#2800FF00</color>
+    <color name="basebasal">#C83F51B5</color>
     <color name="tempbasal">#C803A9F4</color>
     <color name="graphgrid">#757575</color>
     <color name="colorLightGray">#d8d8d8</color>
     <color name="warning">#ff1a1a</color>
+    <color name="error_background">#66FC0000</color>
+    <color name="ok_background">#323232</color>
 
     <color name="defaultbackground">#BBBBBB</color>
     <color name="defaulttext">#BBBBBB</color>
+    <color name="defaulttextcolor">#B3FFFFFF</color>
 
     <color name="tempTargetBackground">#77dd77</color>
     <color name="tempTargetConfirmation">#77dd77</color>
-    <color name="tempTargetDisabledBackground">#303F9F</color>
+
+
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#40bbaa</color>
+    <color name="mdtp_accent_color">#40bbaa</color>
+    <color name="colorInitializingBorder">#00695c</color>
+
+    <color name="dialog_title_background">#303030</color>
+    <color name="activity_title_background">#121212</color>
+    <color name="dialog_title_color">#FFFFFF</color>
+    <color name="dialog_title_icon_tint">#FFFFFF</color>
 
     <color name="cardColorBackground">#121212</color>
     <color name="cardObjectiveText">#779ECB</color>
 
     <color name="linearBlockBackground">#3e3d3d</color>
-    <color name="configBuilderSelectedBackground">#262525</color>
 
     <color name="colorAcceptTempButton">#f4d700</color>
     <color name="colorTreatmentButton">#A6DEFF</color>
@@ -72,275 +88,22 @@
     <color name="ribbonTextWarning">#303030</color>
     <color name="ribbonTextCritical">#FFFFFF</color>
 
-    <color name="inrange_bg">#A4ECEA</color>
-    <color name="textcolor_bright">#FFFFFF</color>
-    <color name="textcolor_dark">#000000</color>
+    <color name="splashBackground">#2E2E2E</color>
 
-    <color name="chart_background">#00000000</color>
+    <color name="warningAlertBackground">#FFFB8C00</color>
+    <color name="warningAlertHeaderText">#FF000000</color>
 
-    <!-- Black and White -->
-    <color name="white">#FFF</color>
-    <color name="black_alpha_40">#66000000</color>
-    <color name="black_alpha_60">#99000000</color>
+    <color name="errorAlertBackground">#FFFF5555</color>
+    <color name="errorAlertHeaderText">#FF000000</color>
 
+    <color name="toastBorder">#666666</color>
+    <color name="toastBase">#ffffff</color>
+    <color name="toastOk">#77dd77</color>
+    <color name="toastError">#ff0400</color>
+    <color name="toastWarn">#FF8C00</color>
+    <color name="toastInfo">#03A9F4</color>
 
-    <!---Theme based colors-->
-    <color name="colorPrimary">#707991</color>
-    <color name="colorPrimaryDark">#5a6275</color>
-    <color name="colorAccent">#FFFFFF</color>
-    <color name="mdtp_accent_color">#3A7EFF</color>
-    <color name="iconColor">#FFFFFF</color>
-
-
-    <color name="colorInitializingBorder">#A6DEFF</color>
-    <color name="colorInitializingBorderText">#000000</color>
-    <color name="dialogbackground">#374764</color>
-    <color name="common_background">#707991</color>
-
-    <!---The 3 pills in overview page-->
-    <color name="overviewPillColor">#5a6275</color>
-
-    <!---Background Gradient Blue-->
-    <color name="background_start_color_blue">#FF1E05AD</color>
-    <color name="background_end_color_blue">#FF000000</color>
-
-    <color name="colorPrimary_blue">#170482</color>
-    <color name="colorPrimaryDark_blue">#170482</color>
-    <color name="colorAccent_blue">#3A7EFF</color>
-
-
-    <!---Background Gradient Grey-->
-    <color name="background_start_color_grey">#FF828DA8</color>
-    <color name="background_middle_color_grey">#FF707991</color>
-    <color name="background_end_color_grey">#FF000000</color>
-
-    <color name="colorPrimary_grey">#707991</color>
-    <color name="colorPrimaryDark_grey">#5a6275</color>
-    <color name="colorAccent_grey">#FFFFFF</color>
-    <color name="common_background_grey">#707991</color>
-    <color name="labelsColor">#FFFFFF</color>
-
-
-    <color name="colorPrimary1">#AF216D</color>
-    <color name="colorPrimaryDark1">#8E1A59</color>
-
-
-    <color name="themeDeselected">#d69b9b9b</color>
-    <color name="themeSelected">#e300aaff</color>
-    <color name="seperator">#7ca6a6a6</color>
-
-
-    <!-- RED Theme -->
-    <color name="primaryColorRed">#F44336</color>
-    <color name="primaryLightColorRed">#FFCDD2</color>
-    <color name="primaryDarkColorRed">#D32F2F</color>
-    <color name="secondaryColorRed">#FFC107</color>
-    <color name="secondaryLightColorRed">#fccf4a</color>
-    <color name="secondaryDarkColorRed">#e1a902</color>
-    <color name="primaryTextColorRed">#ffffff</color>
-    <color name="secondaryTextColorRed">#000000</color>
-    <color name="overviewPillColorRed">#3A7EFF</color>
-
-    <!-- PINK Theme -->
-    <color name="primaryColorPink">#E91E63</color>
-    <color name="primaryLightColorPink">#F8BBD0</color>
-    <color name="primaryDarkColorPink">#C2185B</color>
-    <color name="secondaryColorPink">#448AFF</color>
-    <color name="secondaryLightColorPink">#89b3f8</color>
-    <color name="secondaryDarkColorPink">#1a62da</color>
-    <color name="primaryTextColorPink">#000000</color>
-    <color name="secondaryTextColorPink">#000000</color>
-    <color name="overviewPillColorPink">#E91E63</color>
-
-    <!-- PURPLE Theme -->
-    <color name="primaryColorPurple">#9C27B0</color>
-    <color name="primaryLightColorPurple">#E1BEE7</color>
-    <color name="primaryDarkColorPurple">#7B1FA2</color>
-    <color name="secondaryColorPurple">#CDDC39</color>
-    <color name="secondaryLightColorPurple">#e1ea86</color>
-    <color name="secondaryDarkColorPurple">#b4c320</color>
-    <color name="primaryTextColorPurple">#ffffff</color>
-    <color name="secondaryTextColorPurple">#000000</color>
-    <color name="overviewPillColorPurple">#9C27B0</color>
-
-
-    <!-- DEEPPURPLE Theme -->
-    <color name="primaryColorDeepPurple">#673AB7</color>
-    <color name="primaryLightColorDeepPurple">#D1C4E9</color>
-    <color name="primaryDarkColorDeepPurple">#512DA8</color>
-    <color name="secondaryColorDeepPurple">#FFEB3B</color>
-    <color name="secondaryLightColorDeepPurple">#fff599</color>
-    <color name="secondaryDarkColorDeepPurple">#e0cd24</color>
-    <color name="primaryTextColorDeepPurple">#ffffff</color>
-    <color name="secondaryTextColorDeepPurple">#000000</color>
-    <color name="overviewPillColorDeepPurple">#673AB7</color>
-
-    <!-- INDIGO Theme -->
-    <color name="primaryColorIndigo">#3F51B5</color>
-    <color name="primaryLightColorIndigo">#C5CAE9</color>
-    <color name="primaryDarkColorIndigo">#303F9F</color>
-    <color name="secondaryColorIndigo">#FF9800</color>
-    <color name="secondaryLightColorIndigo">#feba56</color>
-    <color name="secondaryDarkColorIndigo">#cf7b00</color>
-    <color name="primaryTextColorIndigo">#ffffff</color>
-    <color name="secondaryTextColorIndigo">#000000</color>
-    <color name="overviewPillColorIndigo">#3F51B5</color>
-
-    <!-- BLUE Theme -->
-    <color name="primaryColorBlue">#1e88e5</color>
-    <color name="primaryLightColorBlue">#6ab7ff</color>
-    <color name="primaryDarkColorBlue">#005cb2</color>
-    <color name="secondaryColorBlue">#607D8B</color>
-    <color name="secondaryLightColorBlue">#CFD8DC</color>
-    <color name="secondaryDarkColorBlue">#455A64</color>
-    <color name="primaryTextColorBlue">#000000</color>
-    <color name="secondaryTextColorBlue">#000000</color>
-    <color name="overviewPillColorBlue">#3A7EFF</color>
-
-    <!-- LIGHTBLUE Theme -->
-    <color name="primaryColorLightBlue">#039be5</color>
-    <color name="primaryLightColorLightBlue">#63ccff</color>
-    <color name="primaryDarkColorLightBlue">#006db3</color>
-    <color name="secondaryColorLightBlue">#CDDC39</color>
-    <color name="secondaryLightColorLightBlue">#F0F4C3</color>
-    <color name="secondaryDarkColorLightBlue">#AFB42B</color>
-    <color name="primaryTextColorLightBlue">#000000</color>
-    <color name="secondaryTextColorLightBlue">#000000</color>
-    <color name="overviewPillColorLightBlue">#039be5</color>
-
-    <!-- CYAN Theme -->
-    <color name="primaryColorCyan">#00acc1</color>
-    <color name="primaryLightColorCyan">#5ddef4</color>
-    <color name="primaryDarkColorCyan">#007c91</color>
-    <color name="secondaryColorCyan">#f50057</color>
-    <color name="secondaryLightColorCyan">#ff5983</color>
-    <color name="secondaryDarkColorCyan">#bb002f</color>
-    <color name="primaryTextColorCyan">#000000</color>
-    <color name="secondaryTextColorCyan">#000000</color>
-    <color name="overviewPillColorCyan">#00acc1</color>
-
-    <!-- TEAL Theme -->
-    <color name="primaryColorTeal">#00796b</color>
-    <color name="primaryLightColorTeal">#48a999</color>
-    <color name="primaryDarkColorTeal">#004c40</color>
-    <color name="secondaryColorTeal">#ffd180</color>
-    <color name="secondaryLightColorTeal">#ffffb1</color>
-    <color name="secondaryDarkColorTeal">#caa052</color>
-    <color name="primaryTextColorTeal">#ffffff</color>
-    <color name="secondaryTextColorTeal">#000000</color>
-    <color name="overviewPillColorTeal">#00796b</color>
-
-
-
-    <!--  GREEN Theme -->
-    <color name="primaryColorGreen">#4CAF50</color>
-    <color name="primaryLightColorGreen">#C8E6C9</color>
-    <color name="primaryDarkColorGreen">#388E3C</color>
-    <color name="secondaryColorGreen">#00BCD4</color>
-    <color name="secondaryLightColorGreen">#6cd1de</color>
-    <color name="secondaryDarkColorGreen">#0197ab</color>
-    <color name="primaryTextColorGreen">#ffffff</color>
-    <color name="secondaryTextColorGreen">#000000</color>
-    <color name="overviewPillColorGreen">#4CAF50</color>
-
-    <!-- LIGHTGREEN Theme -->
-    <color name="primaryColorLightGreen">#8BC34A</color>
-    <color name="primaryLightColorLightGreen">#DCEDC8</color>
-    <color name="primaryDarkColorLightGreen">#689F38</color>
-    <color name="secondaryColorLightGreen">#448AFF</color>
-    <color name="secondaryLightColorLightGreen">#83affa</color>
-    <color name="secondaryDarkColorLightGreen">#1e58b8</color>
-    <color name="primaryTextColorLightGreen">#ffffff</color>
-    <color name="secondaryTextColorLightGreen">#000000</color>
-    <color name="overviewPillColorLightGreen">#8BC34A</color>
-
-    <!-- Lime Theme -->
-    <color name="primaryColorLime">#CDDC39</color>
-    <color name="primaryLightColorLime">#F0F4C3</color>
-    <color name="primaryDarkColorLime">#AFB42B</color>
-    <color name="secondaryColorLime">#7C4DFF</color>
-    <color name="secondaryLightColorLime">#ae94f5</color>
-    <color name="secondaryDarkColorLime">#4f2cb3</color>
-    <color name="primaryTextColorLime">#ffffff</color>
-    <color name="secondaryTextColorLime">#000000</color>
-    <color name="overviewPillColorLime">#CDDC39</color>
-
-    <!-- YELLOW Theme -->
-    <color name="primaryColorYellow">#FFEB3B</color>
-    <color name="primaryLightColorYellow">#FFF9C4</color>
-    <color name="primaryDarkColorYellow">#FBC02D</color>
-    <color name="secondaryColorYellow">#536DFE</color>
-    <color name="secondaryLightColorYellow">#8799fd</color>
-    <color name="secondaryDarkColorYellow">#3751e1</color>
-    <color name="primaryTextColorYellow">#ffffff</color>
-    <color name="secondaryTextColorYellow">#000000</color>
-    <color name="overviewPillColorYellow">#FFEB3B</color>
-
-    <!-- AMBER Theme -->
-    <color name="primaryColorAmber">#FFC107</color>
-    <color name="primaryLightColorAmber">#FFECB3</color>
-    <color name="primaryDarkColorAmber">#FFA000</color>
-    <color name="secondaryColorAmber">#03A9F4</color>
-    <color name="secondaryLightColorAmber">#65c4ef</color>
-    <color name="secondaryDarkColorAmber">#1e87b6</color>
-    <color name="primaryTextColorAmber">#ffffff</color>
-    <color name="secondaryTextColorAmber">#000000</color>
-    <color name="overviewPillColorAmber">#FFC107</color>
-
-    <!-- ORANGE Theme -->
-    <color name="primaryColorOrange">#FF9800</color>
-    <color name="primaryLightColorOrange">#FFE0B2</color>
-    <color name="primaryDarkColorOrange">#F57C00</color>
-    <color name="secondaryColorOrange">#8BC34A</color>
-    <color name="secondaryLightColorOrange">#b4e67a</color>
-    <color name="secondaryDarkColorOrange">#649131</color>
-    <color name="primaryTextColorOrange">#ffffff</color>
-    <color name="secondaryTextColorOrange">#000000</color>
-    <color name="overviewPillColorOrange">#FF9800</color>
-
-    <!-- DEEPORANGE Theme -->
-    <color name="primaryColorDeepOrange">#FF5722</color>
-    <color name="primaryLightColorDeepOrange">#FFCCBC</color>
-    <color name="primaryDarkColorDeepOrange">#E64A19</color>
-    <color name="secondaryColorDeepOrange">#00BCD4</color>
-    <color name="secondaryLightColorDeepOrange">#75e8f6</color>
-    <color name="secondaryDarkColorDeepOrange">#2a9cab</color>
-    <color name="primaryTextColorDeepOrange">#ffffff</color>
-    <color name="secondaryTextColorDeepOrange">#000000</color>
-    <color name="overviewPillColorDeepOrange">#FF5722</color>
-
-    <!-- BROWN Theme -->
-    <color name="primaryColorBrown">#795548</color>
-    <color name="primaryLightColorBrown">#D7CCC8</color>
-    <color name="primaryDarkColorBrown">#5D4037</color>
-    <color name="secondaryColorBrown">#FFC107</color>
-    <color name="secondaryLightColorBrown">#f6c83f</color>
-    <color name="secondaryDarkColorBrown">#cf9c02</color>
-    <color name="primaryTextColorBrown">#ffffff</color>
-    <color name="secondaryTextColorBrown">#000000</color>
-    <color name="overviewPillColorBrown">#795548</color>
-
-    <!-- GRAY Theme -->
-    <color name="primaryColorGray">#9E9E9E</color>
-    <color name="primaryLightColorGray">#F5F5F5</color>
-    <color name="primaryDarkColorGray">#616161</color>
-    <color name="secondaryColorGray">#536DFE</color>
-    <color name="secondaryLightColorGray">#94a5ff</color>
-    <color name="secondaryDarkColorGray">#2c44c9</color>
-    <color name="primaryTextColorGray">#ffffff</color>
-    <color name="secondaryTextColorGray">#000000</color>
-    <color name="overviewPillColorGray">#9E9E9E</color>
-
-    <!-- BLUEGRAY Theme -->
-    <color name="primaryColorBlueGray">#607D8B</color>
-    <color name="primaryLightColorBlueGray">#CFD8DC</color>
-    <color name="primaryDarkColorBlueGray">#455A64</color>
-    <color name="secondaryColorBlueGray">#CDDC39</color>
-    <color name="secondaryLightColorBlueGray">#e3f15c</color>
-    <color name="secondaryDarkColorBlueGray">#a6b320</color>
-    <color name="primaryTextColorBlueGray">#ffffff</color>
-    <color name="secondaryTextColorBlueGray">#000000</color>
-    <color name="overviewPillColorBlueGray">#607D8B</color>
-
+    <color name="metadataTextWarning">#FF8C00</color>
+    <color name="metadataTextError">#FF5555</color>
 
 </resources>

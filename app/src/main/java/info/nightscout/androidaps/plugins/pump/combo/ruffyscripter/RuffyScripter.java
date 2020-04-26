@@ -7,8 +7,8 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.common.base.Joiner;
 
@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import info.nightscout.androidaps.logging.StacktraceLoggerWrapper;
 import info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.commands.ReadQuickInfoCommand;
 import info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.history.PumpHistoryRequest;
 import info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.commands.BolusCommand;
@@ -45,7 +46,7 @@ import info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.commands.SetT
  * operations and are cleanly separated from the thread management, connection management etc
  */
 public class RuffyScripter implements RuffyCommands {
-    private static final Logger log = LoggerFactory.getLogger(RuffyScripter.class);
+    private static final Logger log = StacktraceLoggerWrapper.getLogger(RuffyScripter.class);
 
     private IRuffyService ruffyService;
 
@@ -159,7 +160,7 @@ public class RuffyScripter implements RuffyCommands {
         }
 
         if (!boundSucceeded) {
-            log.error("No connection to ruffy. Pump control unavailable.");
+            log.info("No connection to ruffy. Pump control unavailable.");
         }
     }
 
@@ -242,6 +243,7 @@ public class RuffyScripter implements RuffyCommands {
             Thread cmdThread = null;
             try {
                 activeCmd = cmd;
+                unparsableMenuEncountered = false;
                 long connectStart = System.currentTimeMillis();
                 ensureConnected();
                 log.debug("Connection ready to execute cmd " + cmd);
@@ -260,7 +262,7 @@ public class RuffyScripter implements RuffyCommands {
                         long cmdEndTime = System.currentTimeMillis();
                         log.debug("Executing " + cmd + " took " + (cmdEndTime - cmdStartTime) + "ms");
                     } catch (CommandException e) {
-                        log.error("CommandException running command", e);
+                        log.info("CommandException running command", e);
                         cmd.getResult().success = false;
                     } catch (Exception e) {
                         log.error("Unexpected exception running cmd", e);

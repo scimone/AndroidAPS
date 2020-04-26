@@ -1,15 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <attr name="overviewPillColor" format="reference|color" />
-    <attr name="iconColor" format="reference|color" />
+    <!-- The launcher theme. It sets the main window background to the launch_screen drawable -->
+    <style name="AppTheme.Launcher"  parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <!-- Optional, on Android 5+ you can modify the colorPrimaryDark color to match the windowBackground color for further branding-->
+        <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
+    </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/primaryColorGray</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorGray</item>
-        <item name="colorAccent">@color/secondaryColorGray</item>
-        <item name="overviewPillColor">@color/overviewPillColorGray</item>
-        <item name="iconColor">@color/iconColor</item>
-        <item name="android:windowTranslucentStatus">true</item>
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="dialogTitleBackground">@color/dialog_title_background</item>
+        <item name="dialogTitleColor">@color/dialog_title_color</item>
+        <item name="dialogTitleIconTint">@color/dialog_title_icon_tint</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -106,104 +110,6 @@
         <item name="overviewPillColor">@color/overviewPillColorLightGreen</item>
     </style>
 
-    <style name="AppTheme.LIME" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColorLime</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorLime</item>
-        <item name="colorAccent">@color/secondaryColorLime</item>
-        <item name="overviewPillColor">@color/overviewPillColorLime</item>
-    </style>
-
-    <style name="AppTheme.YELLOW" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColorYellow</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorYellow</item>
-        <item name="colorAccent">@color/secondaryColorYellow</item>
-        <item name="overviewPillColor">@color/overviewPillColorYellow</item>
-    </style>
-
-    <style name="AppTheme.AMBER" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColorAmber</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorAmber</item>
-        <item name="colorAccent">@color/secondaryColorAmber</item>
-        <item name="overviewPillColor">@color/overviewPillColorAmber</item>
-    </style>
-
-    <style name="AppTheme.ORANGE" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColorOrange</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorOrange</item>
-        <item name="colorAccent">@color/secondaryColorOrange</item>
-        <item name="overviewPillColor">@color/overviewPillColorOrange</item>
-    </style>
-
-    <style name="AppTheme.DEEPORANGE" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColorDeepOrange</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorDeepOrange</item>
-        <item name="colorAccent">@color/secondaryColorDeepOrange</item>
-        <item name="overviewPillColor">@color/overviewPillColorDeepOrange</item>
-    </style>
-
-    <style name="AppTheme.BROWN" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColorBrown</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorBrown</item>
-        <item name="colorAccent">@color/secondaryColorBrown</item>
-        <item name="overviewPillColor">@color/overviewPillColorBrown</item>
-    </style>
-
-    <style name="AppTheme.GRAY" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColorGray</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorGray</item>
-        <item name="colorAccent">@color/secondaryColorGray</item>
-        <item name="overviewPillColor">@color/overviewPillColorGray</item>
-    </style>
-
-    <style name="AppTheme.BLUEGRAY" parent="AppTheme.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/primaryColorBlueGray</item>
-        <item name="colorPrimaryDark">@color/primaryDarkColorBlueGray</item>
-        <item name="colorAccent">@color/secondaryColorBlueGray</item>
-        <item name="overviewPillColor">@color/overviewPillColorBlueGray</item>
-
-    </style>
-
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-
-    <!-- Text styles -->
-    <style name="Text" parent="TextAppearance.AppCompat"></style>
-    <style name="Text.Caption" parent="TextAppearance.AppCompat.Caption"></style>
-    <style name="Text.Small" parent="TextAppearance.AppCompat.Small"></style>
-    <style name="Text.Body1" parent="TextAppearance.AppCompat.Body1"></style>
-    <style name="Text.Body2" parent="TextAppearance.AppCompat.Body2"></style>
-    <style name="Text.Medium" parent="TextAppearance.AppCompat.Medium"></style>
-    <style name="Text.Large" parent="TextAppearance.AppCompat.Large"></style>
-    <style name="Text.Headline" parent="TextAppearance.AppCompat.Headline"></style>
-    <style name="Text.Title" parent="TextAppearance.AppCompat.Title"></style>
-    <style name="Text.Display1" parent="TextAppearance.AppCompat.Display1"></style>
-    <style name="Text.Subhead" parent="TextAppearance.AppCompat.Subhead"></style>
-    <style name="Text.Button" parent="TextAppearance.AppCompat.Button"></style>
-
-    <!-- Button Styles-->
-    <style name="Buton" parent="Widget.AppCompat.Button"></style>
-    <style name="Buton.Small" parent="Widget.AppCompat.Button.Small"></style>
-    <style name="Buton.Colored" parent="Widget.AppCompat.Button.Colored"></style>
-    <style name="Buton.Borderless" parent="Widget.AppCompat.Button.Borderless"></style>
-    <style name="Buton.Borderless.Colored" parent="Widget.AppCompat.Button.Borderless.Colored"></style>
-
-
-
-    <style name="AppTheme.base" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:textColorSecondary">@color/mdtp_white</item>
-    </style>
-
     <style name="Theme.AppCompat.Translucent" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primaryColorGray</item>
         <item name="colorPrimaryDark">@color/primaryDarkColorGray</item>
@@ -215,24 +121,69 @@
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
-    <style name="InsightAlertDialog" parent="Theme.AppCompat.Dialog">
+    <style name="InsightAlertDialog" parent="Theme.AppCompat.Dialog.MinWidth">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowMinWidthMajor">96%</item>
-        <item name="android:windowMinWidthMinor">96%</item>
+    </style>
+
+    <style name="Theme.AppCompat.NoTitle" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
     <style name="ButtonSmallFontStyle">
         <item name="android:textSize">10sp</item>
     </style>
 
-    <style name="TextViewStyleDark" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/textcolor_dark</item>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="section_header_label">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
-    <style name="TextViewStyleBright" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/textcolor_bright</item>
+    <style name="warning_label">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:paddingStart">15dp</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">#ff0000</item>
     </style>
+
+    <style name="AppThemeWarningDialog" parent="AppTheme">
+        <item name="alertDialogTheme">@style/AppThemeWarningDialogTheme</item>
+        <item name="dialogTitleBackground">@color/warningAlertBackground</item>
+        <item name="dialogTitleColor">@color/warningAlertHeaderText</item>
+        <item name="dialogTitleIconTint">@color/warningAlertHeaderText</item>
+    </style>
+
+    <style name="AppThemeWarningDialogTheme" parent="Theme.AppCompat.Dialog.MinWidth">
+        <item name="android:windowBackground">@drawable/alert_border_warning</item>
+        <item name="colorAccent">@color/warningAlertBackground</item>
+    </style>
+
+    <style name="AppThemeErrorDialog" parent="AppTheme">
+        <item name="alertDialogTheme">@style/AppThemeErrorDialogTheme</item>
+        <item name="dialogTitleBackground">@color/errorAlertBackground</item>
+        <item name="dialogTitleColor">@color/errorAlertHeaderText</item>
+        <item name="dialogTitleIconTint">@color/errorAlertHeaderText</item>
+    </style>
+
+    <style name="AppThemeErrorDialogTheme" parent="Theme.AppCompat.Dialog.MinWidth">
+        <item name="android:windowBackground">@drawable/alert_border_error</item>
+        <item name="colorAccent">@color/errorAlertBackground</item>
+    </style>
+
 </resources>
 

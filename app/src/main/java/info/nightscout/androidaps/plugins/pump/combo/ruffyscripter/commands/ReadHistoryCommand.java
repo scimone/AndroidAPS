@@ -1,6 +1,6 @@
 package info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.commands;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.monkey.d.ruffy.ruffy.driver.display.MenuAttribute;
 import org.monkey.d.ruffy.ruffy.driver.display.MenuType;
@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Calendar;
 import java.util.Date;
 
+import info.nightscout.androidaps.logging.StacktraceLoggerWrapper;
 import info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.history.Bolus;
 import info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.history.PumpAlert;
 import info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.history.PumpHistory;
@@ -20,7 +21,7 @@ import info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.history.Tbr;
 import info.nightscout.androidaps.plugins.pump.combo.ruffyscripter.history.Tdd;
 
 public class ReadHistoryCommand extends BaseCommand {
-    private static Logger log = LoggerFactory.getLogger(ReadHistoryCommand.class);
+    private static Logger log = StacktraceLoggerWrapper.getLogger(ReadHistoryCommand.class);
 
     private final PumpHistoryRequest request;
     private final PumpHistory history = new PumpHistory();

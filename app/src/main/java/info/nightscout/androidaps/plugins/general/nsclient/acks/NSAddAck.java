@@ -5,9 +5,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import info.nightscout.androidaps.MainApp;
 import info.nightscout.androidaps.events.Event;
 import info.nightscout.androidaps.logging.L;
+import info.nightscout.androidaps.logging.StacktraceLoggerWrapper;
+import info.nightscout.androidaps.plugins.bus.RxBus;
 import info.nightscout.androidaps.plugins.general.nsclient.events.EventNSClientRestart;
 import io.socket.client.Ack;
 
@@ -15,7 +16,7 @@ import io.socket.client.Ack;
  * Created by mike on 29.12.2015.
  */
 public class NSAddAck extends Event implements Ack {
-    private static Logger log = LoggerFactory.getLogger(L.NSCLIENT);
+    private static Logger log = StacktraceLoggerWrapper.getLogger(L.NSCLIENT);
     public String _id = null;
     public String nsClientID = null;
     public JSONObject json = null;
@@ -33,7 +34,7 @@ public class NSAddAck extends Event implements Ack {
                     nsClientID = response.getString("NSCLIENT_ID");
                 }
             }
-            MainApp.bus().post(this);
+            RxBus.Companion.getINSTANCE().send(this);
             return;
         } catch (Exception e) {
             log.error("Unhandled exception", e);
@@ -44,7 +45,7 @@ public class NSAddAck extends Event implements Ack {
             if (response.has("result")) {
                 _id = null;
                 if (response.getString("result").contains("Not")) {
-                    MainApp.bus().post(new EventNSClientRestart());
+                    RxBus.Companion.getINSTANCE().send(new EventNSClientRestart());
                     return;
                 }
                 if (L.isEnabled(L.NSCLIENT))
