@@ -111,7 +111,7 @@ android {
         renderscriptSupportModeEnabled true
         multiDexEnabled true
         versionCode 1500
-        version "12.6.1.2"
+        version "12.6.1.4"
         buildConfigField "String", "VERSION", '"' + version + '"'
         buildConfigField "String", "BUILDVERSION", '"' + generateGitBuild() + '-' + generateDate() + '"'
         buildConfigField "String", "REMOTE", '"' + generateGitRemote() + '"'
