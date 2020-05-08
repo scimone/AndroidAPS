@@ -387,6 +387,7 @@
     <color name="PillColorEndLime">#00544f</color>
     <color name="colorOnPrimaryLime">#F0F4C3</color>
     <color name="bottomBarBackgroundLime">#CDDC39</color>
+    <color name="bgInRangeColorLime">#2A18FF</color>
 
     <!-- YELLOW Theme -->
     <color name="primaryColorYellow">#FFEB3B</color>

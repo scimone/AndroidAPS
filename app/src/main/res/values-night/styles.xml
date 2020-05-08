@@ -271,6 +271,7 @@
         <item name="PillColorStart">@color/PillColorStartLime</item>
         <item name="PillColorEnd">@color/PillColorEndLime</item>
         <item name="android:windowBackground">@drawable/auroraborealis02</item>
+        <item name="bgInRange">@color/bgInRangeColorLime</item>
     </style>
 
     <style name="AppTheme.YELLOW" parent="AppTheme.NoActionBar">
