@@ -279,7 +279,7 @@ public class HistoryBrowseActivity extends NoSplashAppCompatActivity {
         final GraphData graphData = new GraphData(bgGraph, iobCobCalculatorPlugin);
 
         // **** In range Area ****
-//        graphData.addInRangeArea(fromTime, toTime, lowLine, highLine);
+        graphData.addInRangeArea(fromTime, toTime, lowLine, highLine);
 
         // **** BG ****
         if (showPrediction)

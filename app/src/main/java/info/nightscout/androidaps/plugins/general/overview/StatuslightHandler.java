@@ -146,7 +146,7 @@ public class StatuslightHandler {
         if (value != invalid) {
             view.setText(text);
             if (check.apply(urgentThreshold)) {
-                view.setTextColor(MainApp.gc(R.color.notificationUrgent));
+                view.setTextColor(MainApp.gc(R.color.ribbonCritical));
                 //Log.d("TAG", "urgentThreshold: " + urgentThreshold + " value: " + value + " text: " + text);
             } else if (check.apply(warnThreshold)) {
                 view.setTextColor(MainApp.gc(R.color.ribbonWarning));
