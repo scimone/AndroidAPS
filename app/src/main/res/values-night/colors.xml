@@ -163,8 +163,8 @@
     <color name="iconColorToolbar">#FFFFFF</color>
     <color name="actionBarColor">#000000</color>
 
-    <color name="colorInitializingBorder">#A6DEFF</color>
-    <color name="colorInitializingBorderText">#000000</color>
+    <color name="colorInitializingBorder">#000000</color>
+    <color name="colorInitializingBorderText">#707991</color>
     <color name="dialogbackground">#000000</color>
     <color name="common_background">#000000</color>
 
