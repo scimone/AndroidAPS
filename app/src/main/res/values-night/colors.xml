@@ -3,21 +3,21 @@
     <color name="prediction">#ff00ff</color>
     <color name="basal">#5982CB</color>
     <!-- IOB  -->
-    <color name="iob">#478FD1</color>
+    <color name="iob">#C2478FD1</color>
     <color name="iobBorder">#2C72B2</color>
-    <color name="iobSurface">#478FD1</color>
+    <color name="iobSurface">#C2478FD1</color>
     <!-- COB  -->
-    <color name="cob">#F2A36E</color>
+    <color name="cob">#C2F2A36E</color>
     <color name="cobBorder">#ED7D31</color>
-    <color name="cobSurface">#F2A36E</color>
+    <color name="cobSurface">#C2F2A36E</color>
 
-    <color name="bolus">#478FD1</color>
-    <color name="iobPredAS">#478FD1</color>
+    <color name="bolus">#C2478FD1</color>
+    <color name="iobPredAS">#C2478FD1</color>
     <color name="carbs">#F2A36E</color>
     <color name="uam">#c9bd60</color>
     <color name="zt">#00d2d2</color>
     <color name="ratio">#FFFFFF</color>
-    <color name="devslopepos">#FFFFFF00</color>
+    <color name="devslopepos">#FFFFFF</color>
     <color name="devslopeneg">#FFFF00FF</color>
 
     <!-- BG colors  -->
@@ -37,8 +37,8 @@
     <color name="inrangebackgroundBorder">#000000</color>
 
     <!-- Basal   -->
-    <color name="basebasal">#478FD1</color>
-    <color name="tempbasal">#8EBAE2</color>
+    <color name="basebasal">#C2478FD1</color>
+    <color name="tempbasal">#C28EBAE2</color>
 
     <!-- Treatment Text   -->
     <color name="treatment">#B2B2B2</color>
