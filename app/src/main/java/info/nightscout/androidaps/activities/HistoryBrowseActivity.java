@@ -283,7 +283,7 @@ public class HistoryBrowseActivity extends NoSplashAppCompatActivity {
 
         // **** BG ****
         if (showPrediction)
-        graphData.addBgReadings(fromTime, toTime, lowLine, highLine, (DetermineBasalResultAMA) finalLastRun.constraintsProcessed);
+        // graphData.addBgReadings(fromTime, toTime, lowLine, highLine, (DetermineBasalResultAMA) finalLastRun.constraintsProcessed);
             ;
         else
             graphData.addBgReadings(fromTime, toTime, lowLine, highLine, null);
