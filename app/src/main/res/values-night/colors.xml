@@ -33,8 +33,8 @@
     <color name="deviations">#FF8989</color>
 
     <!-- in range Area  -->
-    <color name="inrangebackground">#10FFFFFF</color>
-    <color name="inrangebackgroundBorder">#4dB1B1B1</color>
+    <color name="inrangebackground">#000000</color>
+    <color name="inrangebackgroundBorder">#000000</color>
 
     <!-- Basal   -->
     <color name="basebasal">#478FD1</color>
@@ -49,30 +49,30 @@
     <!-- Profil switch Text   -->
     <color name="profilswitch">#5F7BA6</color>
 
-    <color name="graphgrid">#000000</color>
+    <color name="graphgrid">#262626</color>
     <color name="colorLightGray">#d8d8d8</color>
     <color name="warning">#FF8989</color>
 
-    <color name="defaultbackground">#BBBBBB</color>
+    <color name="defaultbackground">#000000</color>
     <color name="defaulttext">#BBBBBB</color>
 
     <color name="fabmenubackground">#000000</color>
 
     <!-- Target line  -->
-    <color name="tempTargetBackground">#FAFAE1</color>
+    <color name="tempTargetBackground">#7F7F7F</color>
 
     <color name="tempTargetConfirmation">#77dd77</color>
     <color name="tempTargetDisabledBackground">#303F9F</color>
 
-    <color name="dialog_title_background">#303030</color>
+    <color name="dialog_title_background">#000000</color>
     <color name="activity_title_background">#121212</color>
 
-    <color name="toolbar_background">#303030</color>
+    <color name="toolbar_background">#000000</color>
 
     <color name="cardColorBackground">#000000</color>
     <color name="cardObjectiveText">#779ECB</color>
 
-    <color name="linearBlockBackground">#3e3d3d</color>
+    <color name="linearBlockBackground">#000000</color>
     <color name="configBuilderSelectedBackground">#000000</color>
 
     <!-- Buttons   -->
@@ -91,7 +91,7 @@
     <color name="colorScheduled">#de7550</color>
     <color name="colorActive">#25912e</color>
 
-    <color name="notificationAnnouncement">#FF8C00</color>
+    <color name="notificationAnnouncement">#FF8989</color>
     <color name="notificationUrgent">#FF8989</color>
     <color name="notificationNormal">#FF8989</color>
     <color name="notificationLow">#FF8989</color>
@@ -110,11 +110,11 @@
     <color name="graphHorizontalLabelText">#c8666666</color>
     <color name="graphVerticalLabelText">#c8666666</color>
 
-    <color name="ribbonDefault">#3A7EFF</color>
-    <color name="ribbonWarning">#FFFF00</color>
+    <color name="ribbonDefault">#000000</color>
+    <color name="ribbonWarning">#000000</color>
     <color name="ribbonCritical">#FF8989</color>
     <color name="ribbonTextDefault">#FFFFFF</color>
-    <color name="ribbonTextWarning">#303030</color>
+    <color name="ribbonTextWarning">#FFFFFF</color>
     <color name="ribbonTextCritical">#FFFFFF</color>
 
     <color name="textcolor_bright">#FFFFFF</color>
@@ -165,8 +165,8 @@
 
     <color name="colorInitializingBorder">#A6DEFF</color>
     <color name="colorInitializingBorderText">#000000</color>
-    <color name="dialogbackground">#374764</color>
-    <color name="common_background">#707991</color>
+    <color name="dialogbackground">#000000</color>
+    <color name="common_background">#000000</color>
 
     <!---The 3 pills in overview page-->
     <color name="overviewPillColor">#000000</color>
@@ -200,7 +200,7 @@
     <color name="colorPrimary_grey">#707991</color>
     <color name="colorPrimaryDark_grey">#5a6275</color>
     <color name="colorAccent_grey">#FFFFFF</color>
-    <color name="common_background_grey">#707991</color>
+    <color name="common_background_grey">#000000</color>
     <color name="labelsColor">#FFFFFF</color>
 
 
