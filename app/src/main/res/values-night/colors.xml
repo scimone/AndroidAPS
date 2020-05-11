@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="prediction">#ff00ff</color>
-    <color name="basal">#6B85FF</color>
+    <color name="basal">#5982CB</color>
     <!-- IOB  -->
-    <color name="iob">#1ba1e2</color>
-    <color name="iobBorder">#FFFFFF</color>
-    <color name="iobSurface">#1ba1e2</color>
+    <color name="iob">#478FD1</color>
+    <color name="iobBorder">#2C72B2</color>
+    <color name="iobSurface">#478FD1</color>
     <!-- COB  -->
-    <color name="cob">#f0a30a</color>
-    <color name="cobBorder">#F0F0F0</color>
-    <color name="cobSurface">#f0a30a</color>
+    <color name="cob">#F2A36E</color>
+    <color name="cobBorder">#ED7D31</color>
+    <color name="cobSurface">#F2A36E</color>
 
-    <color name="bolus">#1ea3e5</color>
-    <color name="iobPredAS">#1ea3e5</color>
-    <color name="carbs">#F2A370</color>
+    <color name="bolus">#478FD1</color>
+    <color name="iobPredAS">#478FD1</color>
+    <color name="carbs">#F2A36E</color>
     <color name="uam">#c9bd60</color>
     <color name="zt">#00d2d2</color>
     <color name="ratio">#FFFFFF</color>
@@ -21,24 +21,24 @@
     <color name="devslopeneg">#FFFF00FF</color>
 
     <!-- BG colors  -->
-    <color name="inrange">#1ba1e2</color>
-    <color name="inrange_bg">#1ba1e2</color>
-    <color name="low">#FF0000</color>
-    <color name="high">#FFEC0B</color>
+    <color name="inrange">#73A9DB</color>
+    <color name="inrange_bg">#73A9DB</color>
+    <color name="low">#E09288</color>
+    <color name="high">#FFE699</color>
 
-    <color name="actionsConfirm">#FFFF00</color>
+    <color name="actionsConfirm">#FFE699</color>
     <color name="listdelimiter">#505050</color>
     <color name="tabBgColor">#f0003f59</color>
     <color name="tabBgColorSelected">#5F7BA6</color>
-    <color name="deviations">#FF0000</color>
+    <color name="deviations">#FF8989</color>
 
     <!-- in range Area  -->
     <color name="inrangebackground">#10FFFFFF</color>
     <color name="inrangebackgroundBorder">#4dB1B1B1</color>
 
     <!-- Basal   -->
-    <color name="basebasal">#3D15FF</color>
-    <color name="tempbasal">#1ba1e2</color>
+    <color name="basebasal">#478FD1</color>
+    <color name="tempbasal">#8EBAE2</color>
 
     <!-- Treatment Text   -->
     <color name="treatment">#B2B2B2</color>
@@ -49,14 +49,14 @@
     <!-- Profil switch Text   -->
     <color name="profilswitch">#5F7BA6</color>
 
-    <color name="graphgrid">#757575</color>
+    <color name="graphgrid">#000000</color>
     <color name="colorLightGray">#d8d8d8</color>
-    <color name="warning">#ff1a1a</color>
+    <color name="warning">#FF8989</color>
 
     <color name="defaultbackground">#BBBBBB</color>
     <color name="defaulttext">#BBBBBB</color>
 
-    <color name="fabmenubackground">#73141428</color>
+    <color name="fabmenubackground">#000000</color>
 
     <!-- Target line  -->
     <color name="tempTargetBackground">#FAFAE1</color>
@@ -69,11 +69,11 @@
 
     <color name="toolbar_background">#303030</color>
 
-    <color name="cardColorBackground">#121212</color>
+    <color name="cardColorBackground">#000000</color>
     <color name="cardObjectiveText">#779ECB</color>
 
     <color name="linearBlockBackground">#3e3d3d</color>
-    <color name="configBuilderSelectedBackground">#262525</color>
+    <color name="configBuilderSelectedBackground">#000000</color>
 
     <!-- Buttons   -->
     <color name="colorAcceptTempButton">#f4d700</color>
@@ -92,23 +92,23 @@
     <color name="colorActive">#25912e</color>
 
     <color name="notificationAnnouncement">#FF8C00</color>
-    <color name="notificationUrgent">#ff0400</color>
-    <color name="notificationNormal">#ff5e55</color>
-    <color name="notificationLow">#ff827c</color>
-    <color name="notificationInfo">#009705</color>
+    <color name="notificationUrgent">#FF8989</color>
+    <color name="notificationNormal">#FF8989</color>
+    <color name="notificationLow">#FF8989</color>
+    <color name="notificationInfo">#A9D18E</color>
 
     <!---Setup Wizzard-->
     <color name="black_overlay">#66000000</color>
 
     <!---Graph Color for deviation-->
     <color name="deviationgrey">#c8666666</color>
-    <color name="deviationgreen">#7200FF00</color>
-    <color name="deviationred">#72FF0000</color>
+    <color name="deviationgreen">#A9D18E</color>
+    <color name="deviationred">#FF8989</color>
     <color name="deviationblack">#72000000</color>
 
     <!---Graph Color for horizontal and vertical label text-->
-    <color name="graphHorizontalLabelText">#FFFFFF</color>
-    <color name="graphVerticalLabelText">#FFFFFF</color>
+    <color name="graphHorizontalLabelText">#c8666666</color>
+    <color name="graphVerticalLabelText">#c8666666</color>
 
     <color name="ribbonDefault">#3A7EFF</color>
     <color name="ribbonWarning">#FFFF00</color>
@@ -120,7 +120,7 @@
     <color name="textcolor_bright">#FFFFFF</color>
     <color name="textcolor_dark">#000000</color>
 
-    <color name="chart_background">#00000000</color>
+    <color name="chart_background">#000000</color>
     <color name="transparent">#00000000</color>
 
     <!-- Black and White transparent - glass effect-->
@@ -169,10 +169,10 @@
     <color name="common_background">#707991</color>
 
     <!---The 3 pills in overview page-->
-    <color name="overviewPillColor">#5a6275</color>
+    <color name="overviewPillColor">#000000</color>
     <!---The 3 pills in overview page with gradient color-->
-    <color name="PillColorStart">#FF91908D</color>
-    <color name="PillColorEnd">#FF393938</color>
+    <color name="PillColorStart">#000000</color>
+    <color name="PillColorEnd">#000000</color>
 
     <!---Background Gradient Blue-->
     <color name="background_start_color_blue">#FF1E05AD</color>
@@ -467,17 +467,17 @@
     <color name="bottomBarBackgroundGray">#9E9E9E</color>
 
     <!-- BLUEGRAY Theme -->
-    <color name="primaryColorBlueGray">#607D8B</color>
+    <color name="primaryColorBlueGray">#000000</color>
     <color name="primaryLightColorBlueGray">#CFD8DC</color>
-    <color name="primaryDarkColorBlueGray">#455A64</color>
-    <color name="secondaryColorBlueGray">#CDDC39</color>
-    <color name="secondaryLightColorBlueGray">#e3f15c</color>
-    <color name="secondaryDarkColorBlueGray">#a6b320</color>
+    <color name="primaryDarkColorBlueGray">#000000</color>
+    <color name="secondaryColorBlueGray">#487EA2</color>
+    <color name="secondaryLightColorBlueGray">#558DB3</color>
+    <color name="secondaryDarkColorBlueGray">#355C77</color>
     <color name="primaryTextColorBlueGray">#ffffff</color>
     <color name="secondaryTextColorBlueGray">#000000</color>
-    <color name="overviewPillColorBlueGray">#607D8B</color>
+    <color name="overviewPillColorBlueGray">#000000</color>
     <color name="colorOnPrimaryBlueGray">#CFD8DC</color>
-    <color name="bottomBarBackgroundBlueGray">#607D8B</color>
+    <color name="bottomBarBackgroundBlueGray">#000000</color>
 
 
     <!-- Darkside Theme -->
