@@ -59,7 +59,7 @@
     <color name="fabmenubackground">#000000</color>
 
     <!-- Target line  -->
-    <color name="tempTargetBackground">#7F7F7F</color>
+    <color name="tempTargetBackground">#000000</color>
 
     <color name="tempTargetConfirmation">#77dd77</color>
     <color name="tempTargetDisabledBackground">#303F9F</color>
