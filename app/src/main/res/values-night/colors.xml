@@ -112,7 +112,7 @@
 
     <color name="ribbonDefault">#3A7EFF</color>
     <color name="ribbonWarning">#FFFF00</color>
-    <color name="ribbonCritical">#ff0400</color>
+    <color name="ribbonCritical">#FF8989</color>
     <color name="ribbonTextDefault">#FFFFFF</color>
     <color name="ribbonTextWarning">#303030</color>
     <color name="ribbonTextCritical">#FFFFFF</color>
