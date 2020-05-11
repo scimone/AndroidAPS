@@ -112,10 +112,10 @@
 
     <color name="ribbonDefault">#000000</color>
     <color name="ribbonWarning">#000000</color>
-    <color name="ribbonCritical">#FF8989</color>
-    <color name="ribbonTextDefault">#FFFFFF</color>
-    <color name="ribbonTextWarning">#FFFFFF</color>
-    <color name="ribbonTextCritical">#FFFFFF</color>
+    <color name="ribbonCritical">#000000</color>
+    <color name="ribbonTextDefault">#c8666666</color>
+    <color name="ribbonTextWarning">#c8666666</color>
+    <color name="ribbonTextCritical">#c8666666</color>
 
     <color name="textcolor_bright">#FFFFFF</color>
     <color name="textcolor_dark">#000000</color>
