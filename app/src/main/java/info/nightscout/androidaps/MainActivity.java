@@ -263,7 +263,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             case R.id.batteryage:
                 newCareDialog.setOptions(CareDialog.EventType.BATTERY_CHANGE, R.string.careportal_pumpbatterychange).show( manager, "Actions");
                 return;
-            case R.id.fab:
+            /*case R.id.fab:
                 isRotate = ViewAnimation.rotateFab(view, !isRotate);
                 mainBottomFabMenu = findViewById(R.id.main_bottom_fab_menu);
                 if(isRotate){
@@ -279,7 +279,7 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
                 }
                 bottom_app_bar.performHide();
                 bottom_app_bar.performShow();
-                return;
+                return;*/
             case R.id.calibrationButton:
                 if (xdrip) {
                     CalibrationDialog calibrationDialog = new CalibrationDialog();
@@ -476,14 +476,14 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
         calibrationButton.setOnClickListener(this::onClick);
         overviewQuickwizardbutton.setOnClickListener(this::onClick);
         overview_Treatmentbutton.setOnClickListener(this::onClick);
-        //fab menu
+        /*//fab menu
         mainBottomFabMenu = findViewById(R.id.main_bottom_fab_menu);
         //hide the fab menu icons and label
         ViewAnimation.init(findViewById(R.id.calibrationButton));
         ViewAnimation.init(findViewById(R.id.overview_quickwizardbutton));
         if (mainBottomFabMenu != null ){
             mainBottomFabMenu.setVisibility(View.GONE);
-        }
+        }*/
         // Sets a Bottom App bar
         bottom_app_bar = (BottomAppBar) findViewById(R.id.bottom_app_bar);
         setupBottomNavigationView(findViewById(R.id.drawer_layout));
