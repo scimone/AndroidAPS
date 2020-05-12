@@ -50,11 +50,11 @@
     <color name="profilswitch">#5F7BA6</color>
 
     <color name="graphgrid">#262626</color>
-    <color name="colorLightGray">#d8d8d8</color>
+    <color name="colorLightGray">#c8666666</color>
     <color name="warning">#FF8989</color>
 
     <color name="defaultbackground">#000000</color>
-    <color name="defaulttext">#BBBBBB</color>
+    <color name="defaulttext">#B0ACAC</color>
 
     <color name="fabmenubackground">#000000</color>
 
@@ -154,8 +154,8 @@
     <color name="swipe_background">#121212</color>
 
     <!---Theme based colors-->
-    <color name="colorPrimary">#707991</color>
-    <color name="colorPrimaryDark">#5a6275</color>
+    <color name="colorPrimary">#c8666666</color>
+    <color name="colorPrimaryDark">#c8666666</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="mdtp_accent_color">#3A7EFF</color>
     <color name="iconColor">#FFFFFF</color>
@@ -164,7 +164,7 @@
     <color name="actionBarColor">#000000</color>
 
     <color name="colorInitializingBorder">#000000</color>
-    <color name="colorInitializingBorderText">#707991</color>
+    <color name="colorInitializingBorderText">#c8666666</color>
     <color name="dialogbackground">#000000</color>
     <color name="common_background">#000000</color>
 
@@ -197,8 +197,8 @@
     <color name="color_on_background">#FFFFFF</color>
     <color name="surface_color">#363640</color>
 
-    <color name="colorPrimary_grey">#707991</color>
-    <color name="colorPrimaryDark_grey">#5a6275</color>
+    <color name="colorPrimary_grey">#c8666666</color>
+    <color name="colorPrimaryDark_grey">#c8666666</color>
     <color name="colorAccent_grey">#FFFFFF</color>
     <color name="common_background_grey">#000000</color>
     <color name="labelsColor">#FFFFFF</color>
@@ -208,9 +208,9 @@
     <color name="colorPrimaryDark1">#8E1A59</color>
 
 
-    <color name="themeDeselected">#d69b9b9b</color>
+    <color name="themeDeselected">#c8666666</color>
     <color name="themeSelected">#e300aaff</color>
-    <color name="seperator">#7ca6a6a6</color>
+    <color name="seperator">#c8666666</color>
 
 
 
