@@ -184,8 +184,8 @@
 
 
     <!---Background Gradient Grey-->
-    <color name="background_start_color_grey">#FF828DA8</color>
-    <color name="background_middle_color_grey">#FF707991</color>
+    <color name="background_start_color_grey">#000000</color>
+    <color name="background_middle_color_grey">#000000</color>
     <color name="background_end_color_grey">#FF000000</color>
 
 

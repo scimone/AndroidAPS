@@ -18,8 +18,8 @@
     <color name="uam">#c9bd60</color>
     <color name="zt">#00d2d2</color>
     <color name="ratio">#FFFFFF</color>
-    <color name="activity">#d3f166</color>
-    <color name="devslopepos">#FFFFFF00</color>
+    <color name="activity">#2F536B</color>
+    <color name="devslopepos">#2F536B</color>
     <color name="devslopeneg">#FFFF00FF</color>
 
     <!-- BG colors  -->
@@ -34,8 +34,8 @@
     <color name="tabBgColorSelected">#5F7BA6</color>
     <color name="deviations">#FF0000</color>
     <!-- in range Area  -->
-    <color name="inrangebackground">#10FFFFFF</color>
-    <color name="inrangebackgroundBorder">#10FFFFFF</color>
+    <color name="inrangebackground">#000000</color>
+    <color name="inrangebackgroundBorder">#000000</color>
 
     <!-- Basal   -->
     <color name="basebasal">#3D15FF</color>
@@ -57,7 +57,7 @@
     <color name="error_background">#66FC0000</color>
     <color name="ok_background">#323232</color>
 
-    <color name="defaultbackground">#BBBBBB</color>
+    <color name="defaultbackground">#000000</color>
     <color name="defaulttext">#BBBBBB</color>
     <color name="defaulttextcolor">#B3FFFFFF</color>
 
@@ -168,10 +168,10 @@
     <color name="iconColorToolbar">#FFFFFF</color>
     <color name="actionBarColor">#FFFFFF</color>
 
-    <color name="colorInitializingBorder">#A6DEFF</color>
-    <color name="colorInitializingBorderText">#000000</color>
-    <color name="dialogbackground">#374764</color>
-    <color name="common_background">#707991</color>
+    <color name="colorInitializingBorder">#000000</color>
+    <color name="colorInitializingBorderText">#FF91908D</color>
+    <color name="dialogbackground">#000000</color>
+    <color name="common_background">#000000</color>
 
     <!---The 3 pills in overview page-->
     <color name="overviewPillColor">#5a6275</color>
