@@ -21,8 +21,8 @@
     <color name="devslopeneg">#FFFF00FF</color>
 
     <!-- BG colors  -->
-    <color name="inrange">#87A4B7</color>
-    <color name="inrange_bg">#87A4B7</color>
+    <color name="inrange">#A9998D</color>
+    <color name="inrange_bg">#A9998D</color>
     <color name="low">#D55F4F</color>
     <color name="high">#EBAE6B</color>
 
