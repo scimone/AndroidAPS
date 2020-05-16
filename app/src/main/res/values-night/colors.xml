@@ -16,7 +16,7 @@
     <color name="carbs">#955637</color>
     <color name="uam">#c9bd60</color>
     <color name="zt">#00d2d2</color>
-    <color name="ratio">#FFFFFF</color>
+    <color name="ratio">#69655F</color>
     <color name="devslopepos">#FFFFFF</color>
     <color name="devslopeneg">#FFFF00FF</color>
 
@@ -44,7 +44,7 @@
     <color name="treatment">#B2B2B2</color>
 
     <!-- Value Text  -->
-    <color name="color_val">#FFFFFF</color>
+    <color name="color_val">#69655F</color>
 
     <!-- Profil switch Text   -->
     <color name="profilswitch">#5F7BA6</color>
@@ -117,7 +117,7 @@
     <color name="ribbonTextWarning">#c869655F</color>
     <color name="ribbonTextCritical">#c869655F</color>
 
-    <color name="textcolor_bright">#FFFFFF</color>
+    <color name="textcolor_bright">#69655F</color>
     <color name="textcolor_dark">#000000</color>
 
     <color name="chart_background">#000000</color>

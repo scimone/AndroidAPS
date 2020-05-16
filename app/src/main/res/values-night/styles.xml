@@ -118,7 +118,7 @@
     </style>
 
     <style name="AppTheme.base" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:textColorSecondary">@color/mdtp_white</item>
+        <item name="android:textColorSecondary">#69655F</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -195,8 +195,8 @@
         <item name="colorAccent">@color/secondaryColorIndigo</item>
         <item name="overviewPillColor">@color/overviewPillColorIndigo</item>
         <item name="android:windowBackground">@drawable/blue_gradient_background</item>
-        <item name="android:textColorPrimary">@color/mdtp_white</item>
-        <item name="android:textColor">@color/mdtp_white</item>
+        <item name="android:textColorPrimary">#69655F</item>
+        <item name="android:textColor">#69655F</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
     </style>
 
