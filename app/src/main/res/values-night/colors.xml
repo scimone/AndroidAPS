@@ -481,9 +481,9 @@
 
 
     <!-- Darkside Theme -->
-    <color name="primaryColorDarkside">#222222</color>
+    <color name="primaryColorDarkside">#000000</color>
     <color name="primaryLightColorDarkside">#bbb9bb</color>
-    <color name="primaryDarkColorDarkside">#222222</color>
+    <color name="primaryDarkColorDarkside">#000000</color>
     <color name="secondaryColorDarkside">#a0a0a0</color>
     <color name="secondaryLightColorDarkside">#e3e3e3</color>
     <color name="secondaryDarkColorDarkside">#848484</color>
