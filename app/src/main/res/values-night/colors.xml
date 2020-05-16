@@ -3,17 +3,17 @@
     <color name="prediction">#ff00ff</color>
     <color name="basal">#5982CB</color>
     <!-- IOB  -->
-    <color name="iob">#C2478FD1</color>
-    <color name="iobBorder">#2C72B2</color>
-    <color name="iobSurface">#C2478FD1</color>
+    <color name="iob">#436F7D</color>
+    <color name="iobBorder">#436F7D</color>
+    <color name="iobSurface">#99436F7D</color>
     <!-- COB  -->
-    <color name="cob">#C2F2A36E</color>
-    <color name="cobBorder">#ED7D31</color>
-    <color name="cobSurface">#C2F2A36E</color>
+    <color name="cob">#CC7C40</color>
+    <color name="cobBorder">#CC7C40</color>
+    <color name="cobSurface">#99CC7C40</color>
 
-    <color name="bolus">#C2478FD1</color>
-    <color name="iobPredAS">#C2478FD1</color>
-    <color name="carbs">#F2A36E</color>
+    <color name="bolus">#436F7D</color>
+    <color name="iobPredAS">#436F7D</color>
+    <color name="carbs">#CC7C40</color>
     <color name="uam">#c9bd60</color>
     <color name="zt">#00d2d2</color>
     <color name="ratio">#FFFFFF</color>
@@ -21,24 +21,24 @@
     <color name="devslopeneg">#FFFF00FF</color>
 
     <!-- BG colors  -->
-    <color name="inrange">#73A9DB</color>
-    <color name="inrange_bg">#73A9DB</color>
-    <color name="low">#E09288</color>
-    <color name="high">#FFE699</color>
+    <color name="inrange">#87A4B7</color>
+    <color name="inrange_bg">#87A4B7</color>
+    <color name="low">#D55F4F</color>
+    <color name="high">#EBAE6B</color>
 
     <color name="actionsConfirm">#FFE699</color>
     <color name="listdelimiter">#505050</color>
     <color name="tabBgColor">#f0003f59</color>
     <color name="tabBgColorSelected">#5F7BA6</color>
-    <color name="deviations">#FF8989</color>
+    <color name="deviations">#D55F4F</color>
 
     <!-- in range Area  -->
     <color name="inrangebackground">#000000</color>
     <color name="inrangebackgroundBorder">#000000</color>
 
     <!-- Basal   -->
-    <color name="basebasal">#C2478FD1</color>
-    <color name="tempbasal">#C28EBAE2</color>
+    <color name="basebasal">#436F7D</color>
+    <color name="tempbasal">#99436F7D</color>
 
     <!-- Treatment Text   -->
     <color name="treatment">#B2B2B2</color>
@@ -51,7 +51,7 @@
 
     <color name="graphgrid">#262626</color>
     <color name="colorLightGray">#c8666666</color>
-    <color name="warning">#FF8989</color>
+    <color name="warning">#D55F4F</color>
 
     <color name="defaultbackground">#000000</color>
     <color name="defaulttext">#B0ACAC</color>
@@ -91,19 +91,19 @@
     <color name="colorScheduled">#de7550</color>
     <color name="colorActive">#25912e</color>
 
-    <color name="notificationAnnouncement">#FF8989</color>
-    <color name="notificationUrgent">#FF8989</color>
-    <color name="notificationNormal">#FF8989</color>
-    <color name="notificationLow">#FF8989</color>
+    <color name="notificationAnnouncement">#D55F4F</color>
+    <color name="notificationUrgent">#D55F4F</color>
+    <color name="notificationNormal">#D55F4F</color>
+    <color name="notificationLow">#D55F4F</color>
     <color name="notificationInfo">#A9D18E</color>
 
     <!---Setup Wizzard-->
     <color name="black_overlay">#66000000</color>
 
     <!---Graph Color for deviation-->
-    <color name="deviationgrey">#c8666666</color>
-    <color name="deviationgreen">#A9D18E</color>
-    <color name="deviationred">#FF8989</color>
+    <color name="deviationgrey">#59666666</color>
+    <color name="deviationgreen">#408870</color>
+    <color name="deviationred">#D55F4F</color>
     <color name="deviationblack">#72000000</color>
 
     <!---Graph Color for horizontal and vertical label text-->
@@ -154,13 +154,13 @@
     <color name="swipe_background">#121212</color>
 
     <!---Theme based colors-->
-    <color name="colorPrimary">#c8666666</color>
-    <color name="colorPrimaryDark">#c8666666</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#666666</color>
     <color name="mdtp_accent_color">#3A7EFF</color>
-    <color name="iconColor">#FFFFFF</color>
-    <color name="iconColorbottomAppbar">#FFFFFF</color>
-    <color name="iconColorToolbar">#FFFFFF</color>
+    <color name="iconColor">#666666</color>
+    <color name="iconColorbottomAppbar">#666666</color>
+    <color name="iconColorToolbar">#666666</color>
     <color name="actionBarColor">#000000</color>
 
     <color name="colorInitializingBorder">#000000</color>
@@ -195,11 +195,11 @@
     <color name="colorOnSurface">#FFFFFF</color>
     <color name="color_on_error">#000000</color>
     <color name="color_on_background">#FFFFFF</color>
-    <color name="surface_color">#363640</color>
+    <color name="surface_color">#000000</color>
 
-    <color name="colorPrimary_grey">#c8666666</color>
-    <color name="colorPrimaryDark_grey">#c8666666</color>
-    <color name="colorAccent_grey">#FFFFFF</color>
+    <color name="colorPrimary_grey">#c8000000</color>
+    <color name="colorPrimaryDark_grey">#c8000000</color>
+    <color name="colorAccent_grey">#666666</color>
     <color name="common_background_grey">#000000</color>
     <color name="labelsColor">#FFFFFF</color>
 
