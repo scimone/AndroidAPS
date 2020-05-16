@@ -1222,7 +1222,7 @@ public class OverviewFragment extends Fragment implements View.OnClickListener {
             final GraphData graphData = new GraphData(bgGraph, IobCobCalculatorPlugin.getPlugin());
 
             // **** In range Area ****
-            graphData.addInRangeArea(fromTime, endTime, lowLine, highLine);
+            // graphData.addInRangeArea(fromTime, endTime, lowLine, highLine);
 
             // **** BG ****
             if (finalPredictionsAvailable && SP.getBoolean("showprediction", false))
