@@ -690,7 +690,7 @@ public class GraphData {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2);
         paint.setPathEffect(new DashPathEffect(new float[]{10, 20}, 0));
-        paint.setColor(ContextCompat.getColor(MainApp.instance(), R.color.white));
+        paint.setColor(ContextCompat.getColor(MainApp.instance(), R.color.defaulttext));
         seriesNow.setCustomPaint(paint);
 
         addSeries(seriesNow);

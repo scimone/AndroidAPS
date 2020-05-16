@@ -173,6 +173,7 @@
                     android:backgroundTint="@color/transparent"
                     android:contentDescription="overview_chartMenuButton"
                     android:paddingTop="5dp"
+                    android:tint="#69655F"
                     app:srcCompat="@drawable/ic_arrow_drop_down_white_24dp" />
 
                 <TextView
