@@ -107,15 +107,15 @@
     <color name="deviationblack">#72000000</color>
 
     <!---Graph Color for horizontal and vertical label text-->
-    <color name="graphHorizontalLabelText">#c869655F</color>
-    <color name="graphVerticalLabelText">#c869655F</color>
+    <color name="graphHorizontalLabelText">#42403C</color>
+    <color name="graphVerticalLabelText">#42403C</color>
 
     <color name="ribbonDefault">#000000</color>
     <color name="ribbonWarning">#000000</color>
     <color name="ribbonCritical">#000000</color>
-    <color name="ribbonTextDefault">#c869655F</color>
-    <color name="ribbonTextWarning">#c869655F</color>
-    <color name="ribbonTextCritical">#c869655F</color>
+    <color name="ribbonTextDefault">#69655F</color>
+    <color name="ribbonTextWarning">#69655F</color>
+    <color name="ribbonTextCritical">#69655F</color>
 
     <color name="textcolor_bright">#69655F</color>
     <color name="textcolor_dark">#000000</color>
@@ -468,7 +468,7 @@
 
     <!-- BLUEGRAY Theme -->
     <color name="primaryColorBlueGray">#000000</color>
-    <color name="primaryLightColorBlueGray">#CFD8DC</color>
+    <color name="primaryLightColorBlueGray">#69655F</color>
     <color name="primaryDarkColorBlueGray">#000000</color>
     <color name="secondaryColorBlueGray">#487EA2</color>
     <color name="secondaryLightColorBlueGray">#558DB3</color>
@@ -476,7 +476,7 @@
     <color name="primaryTextColorBlueGray">#69655F</color>
     <color name="secondaryTextColorBlueGray">#000000</color>
     <color name="overviewPillColorBlueGray">#000000</color>
-    <color name="colorOnPrimaryBlueGray">#CFD8DC</color>
+    <color name="colorOnPrimaryBlueGray">#69655F</color>
     <color name="bottomBarBackgroundBlueGray">#000000</color>
 
 
