@@ -37,8 +37,8 @@
     <color name="inrangebackgroundBorder">#000000</color>
 
     <!-- Basal   -->
-    <color name="basebasal">#436F7D</color>
-    <color name="tempbasal">#99436F7D</color>
+    <color name="basebasal">#99436F7D</color>
+    <color name="tempbasal">#73436F7D</color>
 
     <!-- Treatment Text   -->
     <color name="treatment">#B2B2B2</color>
