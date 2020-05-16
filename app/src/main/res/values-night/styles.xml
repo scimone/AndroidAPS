@@ -403,7 +403,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat" />
 
     <style name="NavigationDrawer" parent="Theme.MaterialComponents.DayNight.Bridge" >
-        <item name="android:colorActivatedHighlight">@color/white</item>
+        <item name="android:colorActivatedHighlight">#666666</item>
     </style>
 
 

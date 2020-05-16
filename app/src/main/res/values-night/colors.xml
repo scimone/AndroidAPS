@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="prediction">#ff00ff</color>
-    <color name="basal">#5982CB</color>
+    <color name="basal">#436F7D</color>
     <!-- IOB  -->
     <color name="iob">#436F7D</color>
     <color name="iobBorder">#436F7D</color>
@@ -54,7 +54,7 @@
     <color name="warning">#D55F4F</color>
 
     <color name="defaultbackground">#000000</color>
-    <color name="defaulttext">#B0ACAC</color>
+    <color name="defaulttext">#666666</color>
 
     <color name="fabmenubackground">#000000</color>
 
@@ -101,9 +101,9 @@
     <color name="black_overlay">#66000000</color>
 
     <!---Graph Color for deviation-->
-    <color name="deviationgrey">#59666666</color>
-    <color name="deviationgreen">#408870</color>
-    <color name="deviationred">#D55F4F</color>
+    <color name="deviationgrey">#66666666</color>
+    <color name="deviationgreen">#66408870</color>
+    <color name="deviationred">#66D55F4F</color>
     <color name="deviationblack">#72000000</color>
 
     <!---Graph Color for horizontal and vertical label text-->
@@ -473,7 +473,7 @@
     <color name="secondaryColorBlueGray">#487EA2</color>
     <color name="secondaryLightColorBlueGray">#558DB3</color>
     <color name="secondaryDarkColorBlueGray">#355C77</color>
-    <color name="primaryTextColorBlueGray">#ffffff</color>
+    <color name="primaryTextColorBlueGray">#666666</color>
     <color name="secondaryTextColorBlueGray">#000000</color>
     <color name="overviewPillColorBlueGray">#000000</color>
     <color name="colorOnPrimaryBlueGray">#CFD8DC</color>

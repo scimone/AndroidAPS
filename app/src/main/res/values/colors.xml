@@ -159,14 +159,14 @@
     <color name="swipe_background">#121212</color>
 
     <!---Theme based colors-->
-    <color name="colorPrimary">#707991</color>
-    <color name="colorPrimaryDark">#5a6275</color>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="mdtp_accent_color">#3A7EFF</color>
-    <color name="iconColor">#FFFFFF</color>
-    <color name="iconColorbottomAppbar">#FFFFFF</color>
-    <color name="iconColorToolbar">#FFFFFF</color>
-    <color name="actionBarColor">#FFFFFF</color>
+    <color name="iconColor">#666666</color>
+    <color name="iconColorbottomAppbar">#666666</color>
+    <color name="iconColorToolbar">#666666</color>
+    <color name="actionBarColor">#000000</color>
 
     <color name="colorInitializingBorder">#000000</color>
     <color name="colorInitializingBorderText">#FF91908D</color>
