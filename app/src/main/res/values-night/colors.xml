@@ -21,8 +21,8 @@
     <color name="devslopeneg">#FFFF00FF</color>
 
     <!-- BG colors  -->
-    <color name="inrange">#A9998D</color>
-    <color name="inrange_bg">#A9998D</color>
+    <color name="inrange">#69655F</color>
+    <color name="inrange_bg">#69655F</color>
     <color name="low">#D55F4F</color>
     <color name="high">#EBAE6B</color>
 
@@ -50,11 +50,11 @@
     <color name="profilswitch">#5F7BA6</color>
 
     <color name="graphgrid">#262626</color>
-    <color name="colorLightGray">#c8666666</color>
+    <color name="colorLightGray">#c869655F</color>
     <color name="warning">#D55F4F</color>
 
     <color name="defaultbackground">#000000</color>
-    <color name="defaulttext">#666666</color>
+    <color name="defaulttext">#69655F</color>
 
     <color name="fabmenubackground">#000000</color>
 
@@ -101,21 +101,21 @@
     <color name="black_overlay">#66000000</color>
 
     <!---Graph Color for deviation-->
-    <color name="deviationgrey">#66666666</color>
+    <color name="deviationgrey">#69655F66</color>
     <color name="deviationgreen">#66408870</color>
     <color name="deviationred">#66D55F4F</color>
     <color name="deviationblack">#72000000</color>
 
     <!---Graph Color for horizontal and vertical label text-->
-    <color name="graphHorizontalLabelText">#c8666666</color>
-    <color name="graphVerticalLabelText">#c8666666</color>
+    <color name="graphHorizontalLabelText">#c869655F</color>
+    <color name="graphVerticalLabelText">#c869655F</color>
 
     <color name="ribbonDefault">#000000</color>
     <color name="ribbonWarning">#000000</color>
     <color name="ribbonCritical">#000000</color>
-    <color name="ribbonTextDefault">#c8666666</color>
-    <color name="ribbonTextWarning">#c8666666</color>
-    <color name="ribbonTextCritical">#c8666666</color>
+    <color name="ribbonTextDefault">#c869655F</color>
+    <color name="ribbonTextWarning">#c869655F</color>
+    <color name="ribbonTextCritical">#c869655F</color>
 
     <color name="textcolor_bright">#FFFFFF</color>
     <color name="textcolor_dark">#000000</color>
@@ -156,15 +156,15 @@
     <!---Theme based colors-->
     <color name="colorPrimary">#000000</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#666666</color>
-    <color name="mdtp_accent_color">#666666</color>
-    <color name="iconColor">#666666</color>
-    <color name="iconColorbottomAppbar">#666666</color>
-    <color name="iconColorToolbar">#666666</color>
+    <color name="colorAccent">#69655F</color>
+    <color name="mdtp_accent_color">#69655F</color>
+    <color name="iconColor">#69655F</color>
+    <color name="iconColorbottomAppbar">#69655F</color>
+    <color name="iconColorToolbar">#69655F</color>
     <color name="actionBarColor">#000000</color>
 
     <color name="colorInitializingBorder">#000000</color>
-    <color name="colorInitializingBorderText">#c8666666</color>
+    <color name="colorInitializingBorderText">#c869655F</color>
     <color name="dialogbackground">#000000</color>
     <color name="common_background">#000000</color>
 
@@ -194,23 +194,23 @@
     <color name="colorOnSecondary">#333333</color>
     <color name="colorOnSurface">#333333</color>
     <color name="color_on_error">#000000</color>
-    <color name="color_on_background">#666666</color>
+    <color name="color_on_background">#69655F</color>
     <color name="surface_color">#000000</color>
 
     <color name="colorPrimary_grey">#c8000000</color>
     <color name="colorPrimaryDark_grey">#c8000000</color>
     <color name="colorAccent_grey">#333333</color>
     <color name="common_background_grey">#000000</color>
-    <color name="labelsColor">#666666</color>
+    <color name="labelsColor">#69655F</color>
 
 
     <color name="colorPrimary1">#AF216D</color>
     <color name="colorPrimaryDark1">#8E1A59</color>
 
 
-    <color name="themeDeselected">#c8666666</color>
+    <color name="themeDeselected">#c869655F</color>
     <color name="themeSelected">#e300aaff</color>
-    <color name="seperator">#c8666666</color>
+    <color name="seperator">#c869655F</color>
 
 
 
@@ -473,7 +473,7 @@
     <color name="secondaryColorBlueGray">#487EA2</color>
     <color name="secondaryLightColorBlueGray">#558DB3</color>
     <color name="secondaryDarkColorBlueGray">#355C77</color>
-    <color name="primaryTextColorBlueGray">#666666</color>
+    <color name="primaryTextColorBlueGray">#69655F</color>
     <color name="secondaryTextColorBlueGray">#000000</color>
     <color name="overviewPillColorBlueGray">#000000</color>
     <color name="colorOnPrimaryBlueGray">#CFD8DC</color>
@@ -509,7 +509,7 @@
     <color name="plastic">#EBEBEA</color>
     <color name="sienna3">#cd6839</color>
     <color name="crimson">#911d10</color>
-    <color name="plastic_grey">#666666</color>
+    <color name="plastic_grey">#69655F</color>
     <color name="sphere_plastic_grey">#8c8c8c</color>
     <color name="loopgreen">#40b94f</color>
     <color name="lila">#fa8a4b</color>
