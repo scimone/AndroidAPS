@@ -165,10 +165,11 @@
                     android:id="@+id/overview_chartMenuButton"
                     android:layout_width="36dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="22dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="22dp"
+                    android:backgroundTint="@color/transparent"
                     android:contentDescription="overview_chartMenuButton"
                     android:paddingTop="5dp"
                     app:srcCompat="@drawable/ic_arrow_drop_down_white_24dp" />
