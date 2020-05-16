@@ -159,8 +159,8 @@
     <color name="colorAccent">#666666</color>
     <color name="mdtp_accent_color">#3A7EFF</color>
     <color name="iconColor">#666666</color>
-    <color name="iconColorbottomAppbar">#000000</color>
-    <color name="iconColorToolbar">#000000</color>
+    <color name="iconColorbottomAppbar">#666666</color>
+    <color name="iconColorToolbar">#666666</color>
     <color name="actionBarColor">#000000</color>
 
     <color name="colorInitializingBorder">#000000</color>
