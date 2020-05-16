@@ -194,14 +194,14 @@
     <color name="colorOnSecondary">#333333</color>
     <color name="colorOnSurface">#333333</color>
     <color name="color_on_error">#000000</color>
-    <color name="color_on_background">#FFFFFF</color>
+    <color name="color_on_background">#666666</color>
     <color name="surface_color">#000000</color>
 
     <color name="colorPrimary_grey">#c8000000</color>
     <color name="colorPrimaryDark_grey">#c8000000</color>
     <color name="colorAccent_grey">#333333</color>
     <color name="common_background_grey">#000000</color>
-    <color name="labelsColor">#FFFFFF</color>
+    <color name="labelsColor">#666666</color>
 
 
     <color name="colorPrimary1">#AF216D</color>
