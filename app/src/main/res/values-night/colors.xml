@@ -29,7 +29,7 @@
     <color name="actionsConfirm">#FFE699</color>
     <color name="listdelimiter">#505050</color>
     <color name="tabBgColor">#f0003f59</color>
-    <color name="tabBgColorSelected">#5F7BA6</color>
+    <color name="tabBgColorSelected">#000000</color>
     <color name="deviations">#D55F4F</color>
 
     <!-- in range Area  -->
