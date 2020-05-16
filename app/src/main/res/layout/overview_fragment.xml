@@ -130,10 +130,11 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="1dp"
+                            android:layout_weight="1"
                             android:text="AS"
+                            android:textColor="#69655F"
                             android:textSize="16sp" />
 
                         <TextView
@@ -192,10 +193,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="1dp"
+                    android:layout_weight="1"
                     android:text="@string/basal_short"
+                    android:textColor="#69655F"
                     android:textSize="16sp" />
 
                 <TextView
@@ -252,10 +254,11 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="6dp"
                         android:layout_marginEnd="1dp"
+                        android:layout_weight="1"
                         android:text="@string/iob"
+                        android:textColor="#69655F"
                         android:textSize="16sp" />
 
                     <TextView
@@ -322,10 +325,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="1dp"
+                    android:layout_weight="1"
                     android:text="@string/cob"
+                    android:textColor="#69655F"
                     android:textSize="16sp" />
 
                 <TextView
