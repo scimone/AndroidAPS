@@ -587,9 +587,11 @@ public class MainActivity extends NoSplashAppCompatActivity implements View.OnLo
             bgView.setTextColor(color);
             arrowView.setTextColor(color);
             GlucoseStatus glucoseStatus = GlucoseStatus.getGlucoseStatusData();
+            int color2 = Helper.getAttributeColor(MainActivity.this, R.attr.bgInRange);
             if (glucoseStatus != null) {
                 if (deltaView != null)
                     deltaView.setText("Δ " + Profile.toUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units) + " " + units + " " + DateUtil.minAgoShort(lastBG.date) + "min");
+                    deltaView.setTextColor(color2);
                 if (deltaShortView != null)
                     deltaShortView.setText(Profile.toSignedUnitsString(glucoseStatus.delta, glucoseStatus.delta * Constants.MGDL_TO_MMOLL, units));
                 if (avgdeltaView != null)

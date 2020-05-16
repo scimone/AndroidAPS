@@ -107,8 +107,8 @@
     <color name="deviationblack">#72000000</color>
 
     <!---Graph Color for horizontal and vertical label text-->
-    <color name="graphHorizontalLabelText">#42403C</color>
-    <color name="graphVerticalLabelText">#42403C</color>
+    <color name="graphHorizontalLabelText">#2A2926</color>
+    <color name="graphVerticalLabelText">#2A2926</color>
 
     <color name="ribbonDefault">#000000</color>
     <color name="ribbonWarning">#000000</color>
