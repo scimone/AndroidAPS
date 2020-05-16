@@ -7,13 +7,13 @@
     <color name="iobBorder">#436F7D</color>
     <color name="iobSurface">#99436F7D</color>
     <!-- COB  -->
-    <color name="cob">#A15E2B</color>
-    <color name="cobBorder">#A15E2B</color>
-    <color name="cobSurface">#99A15E2B</color>
+    <color name="cob">#955637</color>
+    <color name="cobBorder">#955637</color>
+    <color name="cobSurface">#99955637</color>
 
     <color name="bolus">#436F7D</color>
     <color name="iobPredAS">#436F7D</color>
-    <color name="carbs">#A15E2B</color>
+    <color name="carbs">#955637</color>
     <color name="uam">#c9bd60</color>
     <color name="zt">#00d2d2</color>
     <color name="ratio">#FFFFFF</color>
