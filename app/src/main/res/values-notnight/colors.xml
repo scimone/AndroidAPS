@@ -478,7 +478,7 @@
     <!-- Darkside Theme -->
     <color name="primaryColorDarkside">#8c8c8c</color>
     <color name="primaryLightColorDarkside">#bbb9bb</color>
-    <color name="primaryDarkColorDarkside">#69655F</color>
+    <color name="primaryDarkColorDarkside">#B4B1AC</color>
     <color name="secondaryColorDarkside">#a0a0a0</color>
     <color name="secondaryLightColorDarkside">#e3e3e3</color>
     <color name="secondaryDarkColorDarkside">#848484</color>
@@ -488,7 +488,7 @@
     <color name="colorOnPrimaryDarkside">#FFFFFF</color>
     <color name="bottomBarBackgroundDarkside">#8c8c8c</color>
     <color name="PillColorStartDarkside">#bbb9bb</color>
-    <color name="PillColorEndDarkside">#69655F</color>
+    <color name="PillColorEndDarkside">#B4B1AC</color>
     <color name="fabmenubackgroundDarkside">#43141428</color>
 
 
@@ -507,7 +507,7 @@
     <color name="plastic">#EBEBEA</color>
     <color name="sienna3">#cd6839</color>
     <color name="crimson">#911d10</color>
-    <color name="plastic_grey">#69655F</color>
+    <color name="plastic_grey">#B4B1AC</color>
     <color name="sphere_plastic_grey">#8c8c8c</color>
     <color name="loopgreen">#40b94f</color>
     <color name="lila">#fa8a4b</color>

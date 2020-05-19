@@ -104,7 +104,7 @@
     <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="Theme.MaterialComponents.DayNight.Bridge"/>
 
     <style name="AppTheme.preference" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <item name="iconColor">#69655F</item>
+        <item name="iconColor">#B4B1AC</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
     </style>
@@ -118,7 +118,7 @@
     </style>
 
     <style name="AppTheme.base" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:textColorSecondary">#69655F</item>
+        <item name="android:textColorSecondary">#B4B1AC</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -195,8 +195,8 @@
         <item name="colorAccent">@color/secondaryColorIndigo</item>
         <item name="overviewPillColor">@color/overviewPillColorIndigo</item>
         <item name="android:windowBackground">@drawable/blue_gradient_background</item>
-        <item name="android:textColorPrimary">#69655F</item>
-        <item name="android:textColor">#69655F</item>
+        <item name="android:textColorPrimary">#B4B1AC</item>
+        <item name="android:textColor">#B4B1AC</item>
         <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
     </style>
 
@@ -377,14 +377,14 @@
         <item name="colorSecondaryVariant">@color/secondaryLightColorDarkside</item>
         <item name="colorSecondary">@color/secondaryColorDarkside</item>
         <item name="colorOnPrimary">@color/primaryTextColorDarkside</item>
-        <item name="colorControlNormal">#69655F</item>
-        <item name="colorControlActivated">#69655F</item>
-        <item name="colorControlHighlight">#69655F</item>
-        <item name="colorOnSecondary">#69655F</item>
-        <item name="colorPrimarySurface">#69655F</item>
-        <item name="android:textColor">#69655F</item>
-        <item name="matButtonBackground">#69655F</item>
-        <item name="android:textColorSecondary">#69655F</item>
+        <item name="colorControlNormal">#B4B1AC</item>
+        <item name="colorControlActivated">#B4B1AC</item>
+        <item name="colorControlHighlight">#B4B1AC</item>
+        <item name="colorOnSecondary">#B4B1AC</item>
+        <item name="colorPrimarySurface">#B4B1AC</item>
+        <item name="android:textColor">#B4B1AC</item>
+        <item name="matButtonBackground">#B4B1AC</item>
+        <item name="android:textColorSecondary">#B4B1AC</item>
         <item name="android:textColorPrimary">@color/ios_blue_default</item>
         <item name="android:background">@color/transparent</item>
         <item name="android:backgroundTint">@color/black_alpha_65</item>
@@ -403,7 +403,7 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat" />
 
     <style name="NavigationDrawer" parent="Theme.MaterialComponents.DayNight.Bridge" >
-        <item name="android:colorActivatedHighlight">#69655F</item>
+        <item name="android:colorActivatedHighlight">#B4B1AC</item>
     </style>
 
 
@@ -457,6 +457,6 @@
     </style>
 
     <style name="TextViewStyleBright" parent="android:Widget.TextView">
-        <item name="android:textColor">#69655F</item>
+        <item name="android:textColor">#B4B1AC</item>
     </style>
 </resources>
